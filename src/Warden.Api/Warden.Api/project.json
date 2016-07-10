@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0-rc2-3002702",
@@ -14,7 +14,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-final",
     "Warden.Api.Core": "1.0.0-*",
-    "Warden.Api.Infrastructure": "1.0.0-*"
+    "Warden.Api.Infrastructure": "1.0.0-*",
+    "Newtonsoft.Json": "9.0.1"
   },
 
   "tools": {
