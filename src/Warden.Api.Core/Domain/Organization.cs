@@ -5,7 +5,7 @@ using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain
 {
-    public class Organization : Entity, ITimestampable
+    public class Organization : IdentifiableEntity, ITimestampable
     {
         private HashSet<UserInOrganization> _users = new HashSet<UserInOrganization>();
         private HashSet<Warden> _wardens = new HashSet<Warden>();

@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using Warden.Api.Core.Events;
 
 namespace Warden.Api.Core.Domain
 {
-    public abstract class Entity : IIdentifiable
+    public abstract class Entity : IEntity
     {
-        public Guid Id { get; protected set; }
+        private readonly Dictionary<Type, IEvent> _events = new Dictionary<Type, IEvent>();
 
-        protected Entity()
+        public IEnumerable<IEvent> Events => _events.Values;
+
+        protected void AddEvent(IEvent @event)
         {
-            Id = Guid.NewGuid();
+            _events[@event.GetType()] = @event;
+        }
+
+        public void ClearEvents()
+        {
+            _events.Clear();
         }
     }
 }
