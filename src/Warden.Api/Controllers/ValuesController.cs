@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Warden.Api.Controllers
@@ -17,6 +18,14 @@ namespace Warden.Api.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        // GET api/values/secured
+        [Authorize]
+        [HttpGet("secured")]
+        public string GetAuthorized()
+        {
+            return "You are authorized";
         }
 
         // POST api/values
