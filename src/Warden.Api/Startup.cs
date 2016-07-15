@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +17,7 @@ namespace Warden.Api
     public class Startup
     {
         public IConfigurationRoot Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -25,12 +29,17 @@ namespace Warden.Api
             Configuration = builder.Build();
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        // ConfigureServices is where you register dependencies. This gets
+        // called by the runtime before the Configure method, below.
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());
             });
+            ApplicationContainer = Warden.Api.Infrastructure.IoC.Container.Resolve(services);
+
+            return new AutofacServiceProvider(ApplicationContainer);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

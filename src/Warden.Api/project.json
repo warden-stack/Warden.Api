@@ -16,7 +16,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Warden.Api.Infrastructure": "1.0.0-*",
     "Warden.Api.Core": "1.0.0-*",
-    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0"
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309"
   },
 
   "tools": {
