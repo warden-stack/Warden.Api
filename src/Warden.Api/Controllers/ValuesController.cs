@@ -1,11 +1,19 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Warden.Api.Infrastructure.Commands;
 
 namespace Warden.Api.Controllers
 {
     public class ValuesController : ControllerBase
     {
+        private readonly ICommandDispatcher _commandDispatcher;
+
+        public ValuesController(ICommandDispatcher commandDispatcher)
+        {
+            _commandDispatcher = commandDispatcher;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()

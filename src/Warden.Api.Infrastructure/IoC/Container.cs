@@ -2,6 +2,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Warden.Api.Infrastructure.Commands;
+using Warden.Api.Infrastructure.Events;
+using Warden.Api.Infrastructure.IoC.Modules;
 
 namespace Warden.Api.Infrastructure.IoC
 {
@@ -11,6 +14,7 @@ namespace Warden.Api.Infrastructure.IoC
         {
             var builder = new ContainerBuilder();
             builder.Populate(services);
+            builder.RegisterModule<DispatcherModule>();
 
             return builder.Build();
         }
