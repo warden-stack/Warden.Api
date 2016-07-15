@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain
@@ -31,6 +32,8 @@ namespace Warden.Api.Core.Domain
             UpdatedAt = DateTime.UtcNow;
             if (enabled)
                 Enable();
+
+            AddEvent(new WardenCreated(name));
         }
 
         public void SetName(string name)

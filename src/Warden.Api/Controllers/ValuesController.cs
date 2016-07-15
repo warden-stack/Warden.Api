@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
@@ -7,11 +8,9 @@ namespace Warden.Api.Controllers
 {
     public class ValuesController : ControllerBase
     {
-        private readonly ICommandDispatcher _commandDispatcher;
-
-        public ValuesController(ICommandDispatcher commandDispatcher)
+        public ValuesController(ICommandDispatcher commandDispatcher, IMapper mapper) 
+            : base(commandDispatcher, mapper)
         {
-            _commandDispatcher = commandDispatcher;
         }
 
         // GET api/values

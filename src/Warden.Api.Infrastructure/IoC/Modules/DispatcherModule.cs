@@ -1,7 +1,8 @@
-﻿using Autofac;
-using Autofac.Core.Registration;
+﻿using System.Reflection;
+using Autofac;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Events;
+using Module = Autofac.Module;
 
 namespace Warden.Api.Infrastructure.IoC.Modules
 {
@@ -16,6 +17,12 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<EventDispatcher>()
                 .As<IEventDispatcher>()
                 .InstancePerLifetimeScope();
+
+            var coreAssembly = Assembly.Load(new AssemblyName("Warden.Api.Core"));
+            var infrastructureAssembly = Assembly.Load(new AssemblyName("Warden.Api.Infrastructure"));
+            builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(typeof(IEventHandler<>));
+            builder.RegisterAssemblyTypes(infrastructureAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
+            builder.RegisterAssemblyTypes(infrastructureAssembly).AsClosedTypesOf(typeof(IEventHandler<>));
         }
     }
 }

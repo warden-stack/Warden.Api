@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Warden.Api.Core.Domain;
@@ -31,7 +32,9 @@ namespace Warden.Api.Infrastructure.Events
                 if (handler == null)
                     return;
 
-                var method = handler.GetType().GetRuntimeMethod("HandleAsync", null);
+                var method = handler.GetType()
+                    .GetRuntimeMethods()
+                    .First(x => x.Name.Equals("HandleAsync"));
                 await (Task)method.Invoke(handler, new object[] { @event });
             }
         }

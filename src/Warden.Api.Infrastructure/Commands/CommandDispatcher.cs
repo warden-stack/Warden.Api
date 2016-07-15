@@ -18,11 +18,14 @@ namespace Warden.Api.Infrastructure.Commands
             if (command == null)
                 throw new ServiceException("Command can not be null.");
 
-            var handler = _context.Resolve<ICommandHandler<T>>();
-            if (handler == null)
-                throw new ServiceException("ICommandHandler has not been found for request: {0}.", command.GetType().Name);
+            ICommandHandler<T> commandHandler;
+            if (!_context.TryResolve(out commandHandler))
+            {
+                throw new ServiceException("ICommandHandler has not been found " +
+                                           "for request: {0}.", command.GetType().Name);
+            }
 
-            await handler.HandleAsync(command);
+            await commandHandler.HandleAsync(command);
         }
     }
 }
