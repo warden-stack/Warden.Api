@@ -6,7 +6,8 @@
     "Newtonsoft.Json": "9.0.1",
     "Warden.Api.Core": "1.0.0-*",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
-    "AutoMapper": "5.0.2"
+    "AutoMapper": "5.0.2",
+    "MongoDB.Driver": "2.2.4"
   },
 
   "frameworks": {
