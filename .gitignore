@@ -112,3 +112,4 @@ packages/
 /src/.vs/config/applicationhost.config
 *.lock.json
 /src/.vs
+src/.idea.Warden.Api/
