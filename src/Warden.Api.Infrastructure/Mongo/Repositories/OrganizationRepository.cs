@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain;
-using Warden.Api.Core.Queries;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Mongo.Queries;
+using Warden.Api.Infrastructure.Queries.Organizations;
 
 namespace Warden.Api.Infrastructure.Mongo.Repositories
 {
@@ -33,17 +31,23 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             return organization;
         }
 
-        public async Task<PagedResult<Organization>> BrowseAsync(BrowseOrganizations query)
+        public async Task<PagedResult<Organization>> BrowseAsync(Guid userId, Guid ownerId,
+            int page = 1, int results = 10)
         {
-            if (query == null)
-                return PagedResult<Organization>.Empty;
+            var query = new BrowseOrganizations
+            {
+                OwnerId = ownerId,
+                UserId = userId,
+                Page = page,
+                Results = results
+            };
 
             return await _database.Organizations()
                 .Query(query)
                 .PaginateAsync(query);
         }
 
-        public Task AddAsync(Organization organization)
+        public async Task AddAsync(Organization organization)
         {
             throw new NotImplementedException();
         }

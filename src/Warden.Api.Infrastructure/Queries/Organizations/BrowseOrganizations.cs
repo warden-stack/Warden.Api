@@ -1,7 +1,6 @@
 using System;
-using Warden.Api.Core.Domain;
 
-namespace Warden.Api.Core.Queries
+namespace Warden.Api.Infrastructure.Queries.Organizations
 {
     public class BrowseOrganizations : PagedQueryBase
     {

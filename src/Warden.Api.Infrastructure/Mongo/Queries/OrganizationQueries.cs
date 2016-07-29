@@ -4,8 +4,8 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Api.Core.Domain;
 using Warden.Api.Core.Extensions;
-using Warden.Api.Core.Queries;
 using System.Linq;
+using Warden.Api.Infrastructure.Queries.Organizations;
 
 namespace Warden.Api.Infrastructure.Mongo.Queries
 {
@@ -30,7 +30,11 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
                 return null;
 
             var fixedName = name.TrimToLower();
-            return await organizations.AsQueryable().FirstOrDefaultAsync(x => x.Name.ToLower() == fixedName && x.OwnerId == ownerId);
+
+            return await organizations
+                .AsQueryable()
+                .FirstOrDefaultAsync(x => x.Name.ToLower() == fixedName
+                                          && x.OwnerId == ownerId);
         }
 
         public static IMongoQueryable<Organization> Query(this IMongoCollection<Organization> organizations,

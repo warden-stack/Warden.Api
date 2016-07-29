@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain;
-using Warden.Api.Core.Queries;
 
 namespace Warden.Api.Core.Repositories
 {
@@ -10,6 +9,8 @@ namespace Warden.Api.Core.Repositories
         Task<Organization> GetAsync(Guid organizationId);
         Task<Organization> GetAsync(string name, Guid ownerId);
         Task AddAsync(Organization organization);
-        Task<PagedResult<Organization>> BrowseAsync(BrowseOrganizations query);
+
+        Task<PagedResult<Organization>> BrowseAsync(Guid userId, Guid ownerId,
+            int page = 1, int results = 10);
     }
 }

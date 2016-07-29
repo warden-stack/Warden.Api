@@ -4,14 +4,33 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Humanizer;
 
 namespace Warden.Api.Infrastructure.Mongo
 {
     public static class Extensions
     {
+        public static string GetCollectionName<T>(this IMongoCollection<T> collection) => Pluralize<T>();
+
+        public static IMongoCollection<T> GetCollection<T>(this IMongoDatabase database)
+        {
+            var collectionName = Pluralize<T>();
+            var collection = database.GetCollection<T>(collectionName);
+
+            return collection;
+        }
+
+        private static string Pluralize<T>() => Pluralize(typeof(T));
+
+        private static string Pluralize(Type type)
+        {
+            var pluralizedName = type.Name.Pluralize();
+
+            return pluralizedName;
+        }
+
         public static async Task<IList<T>> GetAllAsync<T>(this IMongoCollection<T> collection)
             => await GetAllAsync(collection, _ => true);
-
 
         public static async Task<IList<T>> GetAllAsync<T>(this IMongoCollection<T> collection,
             Expression<Func<T, bool>> filter)
@@ -31,5 +50,11 @@ namespace Warden.Api.Infrastructure.Mongo
 
             return entity;
         }
+
+        public static async Task CreateCollectionAsync<T>(this IMongoDatabase database)
+            => await database.CreateCollectionAsync(Pluralize<T>());
+
+        public static async Task DropCollectionAsync<T>(this IMongoDatabase database)
+            => await database.DropCollectionAsync(Pluralize<T>());
     }
 }
