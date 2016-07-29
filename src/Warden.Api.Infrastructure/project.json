@@ -7,7 +7,8 @@
     "Warden.Api.Core": "1.0.0-*",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
     "AutoMapper": "5.0.2",
-    "MongoDB.Driver": "2.2.4"
+    "MongoDB.Driver": "2.2.4",
+    "System.Linq": "4.1.0"
   },
 
   "frameworks": {

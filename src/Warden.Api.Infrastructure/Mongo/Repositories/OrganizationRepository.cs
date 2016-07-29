@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -32,16 +33,14 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             return organization;
         }
 
-        public IQueryable<Organization> Browse(BrowseOrganizations query)
+        public async Task<PagedResult<Organization>> BrowseAsync(BrowseOrganizations query)
         {
             if (query == null)
-                return Enumerable.Empty<Organization>().AsQueryable();
+                return PagedResult<Organization>.Empty;
 
-            var organizations = _database.Organizations()
+            return await _database.Organizations()
                 .Query(query)
-                .OrderBy(x => x.Name);
-
-            return organizations;
+                .PaginateAsync(query);
         }
 
         public Task AddAsync(Organization organization)

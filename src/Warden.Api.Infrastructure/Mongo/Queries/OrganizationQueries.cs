@@ -42,7 +42,7 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
             if (query.OwnerId != Guid.Empty)
                 values = values.Where(x => x.OwnerId == query.OwnerId);
 
-            return values;
+            return values.OrderBy(x => x.Name);
         }
     }
 }
