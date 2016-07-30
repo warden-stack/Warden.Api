@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain;
+using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Infrastructure.Mongo
@@ -26,8 +27,10 @@ namespace Warden.Api.Infrastructure.Mongo
             RegisterConventions();
             var collections = await _database.ListCollectionsAsync();
             var exists = await collections.AnyAsync();
-            if (!exists)
-                await CreateDatabaseAsync();
+            if(exists)
+                return;
+
+            await CreateDatabaseAsync();
         }
 
         private void RegisterConventions()
@@ -48,7 +51,7 @@ namespace Warden.Api.Infrastructure.Mongo
         private async Task CreateDatabaseAsync()
         {
             await _database.CreateCollectionAsync<Organization>();
-            await _database.CreateCollectionAsync<Core.Domain.Warden>();
+            await _database.CreateCollectionAsync<Core.Domain.Wardens.Warden>();
         }
     }
 }

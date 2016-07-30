@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain;
+using Warden.Api.Core.Domain.Common;
+using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Mongo.Queries;
 using Warden.Api.Infrastructure.Queries.Organizations;
@@ -49,7 +51,7 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
 
         public async Task AddAsync(Organization organization)
         {
-            throw new NotImplementedException();
+            await _database.Organizations().InsertOneAsync(organization);
         }
     }
 }

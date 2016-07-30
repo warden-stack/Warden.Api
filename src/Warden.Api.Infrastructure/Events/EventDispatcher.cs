@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Warden.Api.Core.Domain;
+using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Events;
 
 namespace Warden.Api.Infrastructure.Events

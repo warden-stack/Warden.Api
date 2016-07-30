@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Infrastructure.Events;
-using Warden = Warden.Api.Core.Domain.Warden;
+using Warden = Warden.Api.Core.Domain.Wardens.Warden;
 
 namespace Warden.Api.Infrastructure.Services
 {
@@ -17,7 +17,7 @@ namespace Warden.Api.Infrastructure.Services
 
         public async Task CreateWardenAsync(string name)
         {
-            var warden = new Core.Domain.Warden(name);
+            var warden = new Core.Domain.Wardens.Warden(name);
             await _eventDispatcher.DispatchAsync(warden.Events.ToArray());
         }
     }

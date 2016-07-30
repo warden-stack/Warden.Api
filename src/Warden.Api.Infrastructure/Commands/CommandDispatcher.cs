@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Autofac;
 using Warden.Api.Core.Domain;
+using Warden.Api.Core.Domain.Exceptions;
 
 namespace Warden.Api.Infrastructure.Commands
 {

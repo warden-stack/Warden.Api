@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain;
+using Warden.Api.Core.Domain.Common;
+using Warden.Api.Core.Domain.Organizations;
 
 namespace Warden.Api.Core.Repositories
 {

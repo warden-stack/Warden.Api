@@ -30,6 +30,8 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<MongoDatabaseInitializer>()
                 .As<IDatabaseInitializer>()
                 .SingleInstance();
+
+            builder.RegisterModule<MongoRepositoryModule>();
         }
     }
 }

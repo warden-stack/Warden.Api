@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Input;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Warden.Api.Framework;
 using Warden.Api.Framework.Handlers;
 using Warden.Api.Infrastructure.Commands;
 

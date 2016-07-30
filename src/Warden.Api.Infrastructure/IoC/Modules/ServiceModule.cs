@@ -7,6 +7,12 @@ namespace Warden.Api.Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<OrganizationService>()
+                .As<IOrganizationService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<UserService>()
+                .As<IUserService>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<WardenService>()
                 .As<IWardenService>()
                 .InstancePerLifetimeScope();

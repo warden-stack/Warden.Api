@@ -5,6 +5,7 @@ using MongoDB.Driver.Linq;
 using Warden.Api.Core.Domain;
 using Warden.Api.Core.Extensions;
 using System.Linq;
+using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Infrastructure.Queries.Organizations;
 
 namespace Warden.Api.Infrastructure.Mongo.Queries

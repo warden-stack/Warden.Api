@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Wardens;
 using Warden.Api.Infrastructure.DTO;
+using Warden.Api.Infrastructure.DTO.Wardens;
 
 namespace Warden.Api.Infrastructure.Mappers
 {
