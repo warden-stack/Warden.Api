@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NLog;
 using Warden.Api.Framework;
 using Warden.Api.Framework.Filters;
 using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
+using NLog.Extensions.Logging;
 
 namespace Warden.Api
 {
     public class Startup
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public IConfigurationRoot Configuration { get; }
         public IContainer ApplicationContainer { get; private set; }
 
@@ -64,6 +67,8 @@ namespace Warden.Api
         {
             loggerFactory.AddConsole(Configuration.GetSection("logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("nlog.config");
             var options = new JwtBearerOptions
             {
                 Audience = Configuration["auth0:clientId"],
@@ -72,6 +77,7 @@ namespace Warden.Api
             app.UseJwtBearerAuthentication(options);
             app.UseMvc();
             Task.WaitAll(InitializeDatabaseAsync(app));
+            Logger.Info("Warden API has started.");
         }
 
         private async Task InitializeDatabaseAsync(IApplicationBuilder app)

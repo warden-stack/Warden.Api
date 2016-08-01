@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System;
 using System.Threading.Tasks;
 using Autofac;
-using Warden.Api.Core.Domain;
-using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Events;
 
 namespace Warden.Api.Infrastructure.Events
@@ -17,13 +14,12 @@ namespace Warden.Api.Infrastructure.Events
             _context = context;
         }
 
-        //TODO: Find out how to get generic handler in Autofac
         public async Task DispatchAsync<T>(params T[] events) where T : IEvent
         {
             foreach (var @event in events)
             {
                 if (@event == null)
-                    throw new ServiceException("Event can not be null.");
+                    throw new ArgumentNullException(nameof(@event), "Event can not be null.");
 
                 var eventType = @event.GetType();
                 var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
@@ -33,10 +29,7 @@ namespace Warden.Api.Infrastructure.Events
                 if (handler == null)
                     return;
 
-                var method = handler.GetType()
-                    .GetRuntimeMethods()
-                    .First(x => x.Name.Equals("HandleAsync"));
-                await (Task)method.Invoke(handler, new object[] { @event });
+                await (Task)((dynamic)handler).HandleAsync(@event);
             }
         }
     }
