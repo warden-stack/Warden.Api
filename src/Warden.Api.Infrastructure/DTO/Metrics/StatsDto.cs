@@ -1,4 +1,4 @@
-﻿namespace Warden.Api.Infrastructure.DTO
+﻿namespace Warden.Api.Infrastructure.DTO.Metrics
 {
     public class StatsDto
     {

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Warden.Api.Core.Domain;
 using Warden.Api.Core.Extensions;
 using System.Linq;
 using Warden.Api.Core.Domain.Organizations;
@@ -13,7 +12,7 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
     public static class OrganizationQueries
     {
         public static IMongoCollection<Organization> Organizations(this IMongoDatabase database)
-            => database.GetCollection<Organization>("Organizations");
+            => database.GetCollection<Organization>();
 
         public static async Task<Organization> GetByIdAsync(this IMongoCollection<Organization> organizations,
             Guid id)

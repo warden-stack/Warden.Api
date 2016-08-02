@@ -1,6 +1,6 @@
 ﻿namespace Warden.Api.Infrastructure.Services
 {
-    public interface IUserService
+    public interface IFeatureService
     {
     }
 }
