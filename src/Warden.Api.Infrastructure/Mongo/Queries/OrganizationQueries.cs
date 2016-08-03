@@ -24,9 +24,9 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
         }
 
         public static async Task<Organization> GetByNameForOwnerAsync(this IMongoCollection<Organization> organizations,
-            string name, string ownerId)
+            string name, Guid ownerId)
         {
-            if (name.Empty() || ownerId.Empty())
+            if (name.Empty() || ownerId.IsEmpty())
                 return null;
 
             var fixedName = name.TrimToLower();
@@ -41,9 +41,9 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
             BrowseOrganizations query)
         {
             var values = organizations.AsQueryable();
-            if (query.UserId.Empty() == false)
+            if (query.UserId.IsEmpty() == false)
                 values = values.Where(x => x.Users.Any(u => u.Id == query.UserId));
-            if (query.OwnerId.Empty() == false)
+            if (query.OwnerId.IsEmpty() == false)
                 values = values.Where(x => x.OwnerId == query.OwnerId);
 
             return values.OrderBy(x => x.Name);

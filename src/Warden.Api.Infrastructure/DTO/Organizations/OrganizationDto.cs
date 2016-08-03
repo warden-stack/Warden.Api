@@ -11,7 +11,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
     public class OrganizationDto
     {
         public Guid Id { get; set; }
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public bool AutoRegisterNewWarden { get; set; }
         public IEnumerable<UserInOrganizationDto> Users { get; set; }

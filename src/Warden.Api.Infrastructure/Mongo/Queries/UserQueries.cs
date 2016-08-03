@@ -16,9 +16,9 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
             => database.GetCollection<User>();
 
         public static async Task<User> GetByIdAsync(this IMongoCollection<User> users,
-            string id)
+            Guid id)
         {
-            if (id.Empty())
+            if (id.IsEmpty())
                 return null;
 
             return await users.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);

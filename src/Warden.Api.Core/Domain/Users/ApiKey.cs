@@ -7,7 +7,7 @@ namespace Warden.Api.Core.Domain.Users
     public class ApiKey : Entity, ITimestampable
     {
         public string Key { get; protected set; }
-        public string UserId { get; protected set; }
+        public Guid UserId { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
         protected ApiKey()

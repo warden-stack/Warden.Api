@@ -6,7 +6,7 @@ namespace Warden.Api.Core.Domain.Users
 {
     public class UserInOrganization : ITimestampable
     {
-        public string Id { get; protected set; }
+        public Guid Id { get; protected set; }
         public string Email { get; protected set; }
         public OrganizationRole Role { get; protected set; }
         public DateTime CreatedAt { get; protected set; }

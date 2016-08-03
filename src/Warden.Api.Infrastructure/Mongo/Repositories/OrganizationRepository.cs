@@ -22,10 +22,10 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
         public async Task<Maybe<Organization>> GetAsync(Guid organizationId)
             => await _database.Organizations().GetByIdAsync(organizationId);
 
-        public async Task<Maybe<Organization>> GetAsync(string name, string ownerId) =>
+        public async Task<Maybe<Organization>> GetAsync(string name, Guid ownerId) =>
             await _database.Organizations().GetByNameForOwnerAsync(name, ownerId);
 
-        public async Task<PagedResult<Organization>> BrowseAsync(string userId, string ownerId,
+        public async Task<PagedResult<Organization>> BrowseAsync(Guid userId, Guid ownerId,
             int page = 1, int results = 10)
         {
             var query = new BrowseOrganizations
