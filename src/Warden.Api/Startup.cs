@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using Warden.Api.Framework;
 using Warden.Api.Framework.Filters;
@@ -72,7 +73,11 @@ namespace Warden.Api
             var options = new JwtBearerOptions
             {
                 Audience = Configuration["auth0:clientId"],
-                Authority = $"https://{Configuration["auth0:domain"]}/"
+                Authority = $"https://{Configuration["auth0:domain"]}/",
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+                }
             };
             app.UseJwtBearerAuthentication(options);
             app.UseMvc();

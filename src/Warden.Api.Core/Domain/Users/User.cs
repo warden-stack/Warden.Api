@@ -7,8 +7,9 @@ using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Users
 {
-    public class User : IdentifiableEntity, ITimestampable
+    public class User : Entity, ITimestampable
     {
+        public string Id { get; set; }
         public string Email { get; protected set; }
         public Role Role { get; protected set; }
         public State State { get; protected set; }

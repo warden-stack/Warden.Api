@@ -24,7 +24,7 @@ namespace Warden.Api.Infrastructure.Services
             _eventDispatcher = eventDispatcher;
         }
 
-        public async Task CreateAsync(Guid userId, string name)
+        public async Task CreateAsync(string userId, string name)
         {
             if (name.Empty())
                 throw new ServiceException("Organization name can not be empty.");

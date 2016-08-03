@@ -6,7 +6,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
 {
     public class CreateOrganization : IAuthenticatedCommand
     {
-        public Guid AuthenticatedUserId { get; set; }
+        public string AuthenticatedUserId { get; set; }
         public string Name { get; set; }
     }
 

@@ -5,7 +5,7 @@ namespace Warden.Api.Core.Domain.Users
 {
     public class UserSession : Entity, ITimestampable
     {
-        public Guid UserId { get; protected set; }
+        public string UserId { get; protected set; }
         public string UserAgent { get; protected set; }
         public string IpAddress { get; protected set; }
         public string Referrer { get; protected set; }

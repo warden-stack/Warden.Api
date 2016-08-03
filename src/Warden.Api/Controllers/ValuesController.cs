@@ -32,7 +32,8 @@ namespace Warden.Api.Controllers
         [HttpGet("secured")]
         public string GetAuthorized()
         {
-            return "You are authorized";
+            var userId = GetUserId();
+            return $"You are authorized, userId: {userId}";
         }
 
         // POST api/values

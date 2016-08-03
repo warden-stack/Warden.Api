@@ -24,6 +24,11 @@ namespace Warden.Api.Controllers
         protected TModel MapTo<TModel>(object source)
             => (TModel) Mapper.Map(source, source.GetType(), typeof(TModel));
 
+        protected string GetUserId()
+        {
+            return HttpContext.User?.Identity?.Name;
+        }
+
         //TODO: Log exception etc.
         public void HandleException(Exception exception)
         {

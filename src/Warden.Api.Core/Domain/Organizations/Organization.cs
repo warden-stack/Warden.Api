@@ -13,7 +13,7 @@ namespace Warden.Api.Core.Domain.Organizations
         private HashSet<Wardens.Warden> _wardens = new HashSet<Wardens.Warden>();
 
         public string Name { get; protected set; }
-        public Guid OwnerId { get; protected set; }
+        public string OwnerId { get; protected set; }
         public bool AutoRegisterNewWarden { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
@@ -75,7 +75,7 @@ namespace Warden.Api.Core.Domain.Organizations
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void RemoveUser(Guid id)
+        public void RemoveUser(string id)
         {
             var userInOrganization = Users.FirstOrDefault(x => x.Id == id);
             if (userInOrganization == null)
