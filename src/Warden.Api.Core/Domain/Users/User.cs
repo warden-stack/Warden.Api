@@ -9,6 +9,7 @@ namespace Warden.Api.Core.Domain.Users
 {
     public class User : IdentifiableEntity, ITimestampable
     {
+        public string ExternalId { get; set; }
         public string Email { get; protected set; }
         public Role Role { get; protected set; }
         public State State { get; protected set; }

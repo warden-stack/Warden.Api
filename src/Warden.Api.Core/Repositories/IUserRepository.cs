@@ -8,5 +8,6 @@ namespace Warden.Api.Core.Repositories
     public interface IUserRepository
     {
         Task<Maybe<User>> GetAsync(Guid id);
+        Task<Maybe<User>> GetAsync(string externalId);
     }
 }

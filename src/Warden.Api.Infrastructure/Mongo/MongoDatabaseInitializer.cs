@@ -5,6 +5,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain;
 using Warden.Api.Core.Domain.Organizations;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Infrastructure.Mongo
@@ -52,6 +53,7 @@ namespace Warden.Api.Infrastructure.Mongo
         {
             await _database.CreateCollectionAsync<Organization>();
             await _database.CreateCollectionAsync<Core.Domain.Wardens.Warden>();
+            await _database.CreateCollectionAsync<User>();
         }
     }
 }

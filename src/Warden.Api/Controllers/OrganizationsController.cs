@@ -5,13 +5,16 @@ using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Organizations;
 using Warden.Api.Infrastructure.Commands.Wardens;
 using Warden.Api.Infrastructure.DTO;
+using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
     public class OrganizationsController : ControllerBase
     {
         public OrganizationsController(ICommandDispatcher commandDispatcher,
-            IMapper mapper) : base(commandDispatcher, mapper)
+            IMapper mapper,
+            IUserService userService) 
+            : base(commandDispatcher, mapper, userService)
         {
         }
 

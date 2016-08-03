@@ -3,13 +3,16 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
+using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
     public class ValuesController : ControllerBase
     {
-        public ValuesController(ICommandDispatcher commandDispatcher, IMapper mapper) 
-            : base(commandDispatcher, mapper)
+        public ValuesController(ICommandDispatcher commandDispatcher, 
+            IMapper mapper,
+            IUserService userService) 
+            : base(commandDispatcher, mapper, userService)
         {
         }
 
@@ -32,7 +35,7 @@ namespace Warden.Api.Controllers
         [HttpGet("secured")]
         public string GetAuthorized()
         {
-            var userId = GetUserId();
+            var userId = GetCurrentUser();
             return $"You are authorized, userId: {userId}";
         }
 

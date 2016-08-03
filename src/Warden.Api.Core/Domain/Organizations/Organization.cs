@@ -75,7 +75,7 @@ namespace Warden.Api.Core.Domain.Organizations
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void RemoveUser(string id)
+        public void RemoveUser(Guid id)
         {
             var userInOrganization = Users.FirstOrDefault(x => x.Id == id);
             if (userInOrganization == null)
