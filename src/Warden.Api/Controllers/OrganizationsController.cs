@@ -49,6 +49,7 @@ namespace Warden.Api.Controllers
         }
 
         // POST api/organizations
+        [Authorize]
         [HttpPost]
         public async Task Post([FromBody] CreateOrganization request) =>
             await For(request)
@@ -56,5 +57,16 @@ namespace Warden.Api.Controllers
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(200))
                 .HandleAsync();
+
+        // PUT api/organizations/{guid}/edit
+        [Authorize]
+        [HttpPut("{id}/edit")]
+        public async Task Put(EditOrganization request) =>
+            await For(request)
+                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
+                .OnFailure(ex => StatusCode(400))
+                .OnSuccess(c => StatusCode(200))
+                .HandleAsync();
+
     }
 }

@@ -41,6 +41,9 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
                 .PaginateAsync(query);
         }
 
+        public async Task UpdateAsync(Organization organization)
+            => await _database.Organizations().ReplaceOneAsync(x => x.Id == organization.Id, organization);
+
         public async Task AddAsync(Organization organization)
             => await _database.Organizations().InsertOneAsync(organization);
     }

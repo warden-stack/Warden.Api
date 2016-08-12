@@ -42,15 +42,26 @@ namespace Warden.Api.Infrastructure.Services
             return organizations;
         }
 
-        public async Task<OrganizationDto> GetAsync(Guid organizationId)
+        public async Task<OrganizationDto> GetAsync(Guid id)
         {
-            var organizationValue = await _organizationRepository.GetAsync(organizationId);
+            var organizationValue = await _organizationRepository.GetAsync(id);
             if (organizationValue.HasNoValue)
-                throw new ServiceException($"Organization with id: {organizationId} does not exist.");
+                throw new ServiceException($"Organization with id: {id} does not exist.");
 
             var organization = _mapper.Map<OrganizationDto>(organizationValue.Value);
 
             return organization;
+        }
+
+        public async Task UpdateAsync(Guid id, string name)
+        {
+            var organizationValue = await _organizationRepository.GetAsync(id);
+            if (organizationValue.HasNoValue)
+                throw new ServiceException($"Desired organization does not exist, id: {id}");
+            var organization = organizationValue.Value;
+            organization.SetName(name);
+            await _organizationRepository.UpdateAsync(organization);
+            await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
         public async Task CreateAsync(Guid userId, string name)
@@ -72,18 +83,6 @@ namespace Warden.Api.Infrastructure.Services
             var organization = new Organization(name, userValue.Value);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
-        }
-
-        private async Task<User> GetUser(Guid userId)
-        {
-            if (userId.IsEmpty())
-                throw new ServiceException("UserId cannot be empty");
-
-            var userValue = await _userRepository.GetAsync(userId);
-            if (userValue.HasNoValue)
-                throw new ServiceException($"User has not been found for given id: '{userId}'.");
-
-            return userValue.Value;
         }
     }
 }

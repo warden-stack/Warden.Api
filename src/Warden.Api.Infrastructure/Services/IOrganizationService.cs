@@ -10,6 +10,7 @@ namespace Warden.Api.Infrastructure.Services
     {
         Task CreateAsync(Guid userId, string name);
         Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId);
-        Task<OrganizationDto> GetAsync(Guid organizationId);
+        Task<OrganizationDto> GetAsync(Guid id);
+        Task UpdateAsync(Guid id, string name);
     }
 }
