@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Common;
@@ -35,7 +36,8 @@ namespace Warden.Api.Infrastructure.Services
         public async Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId)
         {
             var organizationValues = await _organizationRepository.BrowseAsync(userId, Guid.Empty);
-            var organizations = _mapper.Map<PagedResult<OrganizationDto>>(organizationValues);
+            var organizationDtos = _mapper.Map<IEnumerable<OrganizationDto>>(organizationValues.Items);
+            var organizations = PagedResult<OrganizationDto>.From(organizationValues, organizationDtos);
 
             return organizations;
         }

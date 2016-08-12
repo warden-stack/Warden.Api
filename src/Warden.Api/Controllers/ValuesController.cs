@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,11 @@ namespace Warden.Api.Controllers
         // GET api/values/secured
         [Authorize]
         [HttpGet("secured")]
-        public string GetAuthorized()
+        public async Task<string> GetAuthorized()
         {
-            var userId = GetCurrentUser();
-            return $"You are authorized, userId: {userId}";
+            var externalUserId = User?.Identity?.Name;
+            var userId = await GetCurrentUser();
+            return $"You are authorized, userId: {userId.Id}, externalId: {externalUserId}";
         }
 
         // POST api/values
