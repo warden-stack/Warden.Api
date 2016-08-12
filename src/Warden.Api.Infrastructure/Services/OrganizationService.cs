@@ -1,27 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Events.Organizations;
 using Warden.Api.Core.Repositories;
+using Warden.Api.Infrastructure.DTO.Organizations;
 using Warden.Api.Infrastructure.Events;
 
 namespace Warden.Api.Infrastructure.Services
 {
     public class OrganizationService : IOrganizationService
     {
+        private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEventDispatcher _eventDispatcher;
 
-        public OrganizationService(IOrganizationRepository organizationRepository, 
+        public OrganizationService(IMapper mapper,
+            IOrganizationRepository organizationRepository, 
             IUserRepository userRepository,
             IEventDispatcher eventDispatcher)
         {
+            _mapper = mapper;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
             _eventDispatcher = eventDispatcher;
+        }
+
+        public async Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId)
+        {
+            var organizationValues = await _organizationRepository.BrowseAsync(userId, Guid.Empty);
+            var organizations = _mapper.Map<PagedResult<OrganizationDto>>(organizationValues);
+
+            return organizations;
+        }
+
+        public async Task<OrganizationDto> GetAsync(Guid organizationId)
+        {
+            var organizationValue = await _organizationRepository.GetAsync(organizationId);
+            if (organizationValue.HasNoValue)
+                throw new ServiceException($"Organization with id: {organizationId} does not exist.");
+
+            var organization = _mapper.Map<OrganizationDto>(organizationValue.Value);
+
+            return organization;
         }
 
         public async Task CreateAsync(Guid userId, string name)
@@ -43,6 +70,18 @@ namespace Warden.Api.Infrastructure.Services
             var organization = new Organization(name, userValue.Value);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
+        }
+
+        private async Task<User> GetUser(Guid userId)
+        {
+            if (userId.IsEmpty())
+                throw new ServiceException("UserId cannot be empty");
+
+            var userValue = await _userRepository.GetAsync(userId);
+            if (userValue.HasNoValue)
+                throw new ServiceException($"User has not been found for given id: '{userId}'.");
+
+            return userValue.Value;
         }
     }
 }
