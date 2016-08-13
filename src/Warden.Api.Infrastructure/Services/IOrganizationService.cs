@@ -12,5 +12,7 @@ namespace Warden.Api.Infrastructure.Services
         Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId);
         Task<OrganizationDto> GetAsync(Guid id);
         Task UpdateAsync(Guid id, string name);
+
+        Task AddUserAsync(Guid id, string email);
     }
 }

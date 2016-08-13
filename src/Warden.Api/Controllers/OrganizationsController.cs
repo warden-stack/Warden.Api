@@ -68,5 +68,15 @@ namespace Warden.Api.Controllers
                 .OnSuccess(c => StatusCode(200))
                 .HandleAsync();
 
+        // POST api/organizations/{guid}/users
+        [Authorize]
+        [HttpPost("{id}/users")]
+        public async Task AddUser(AddUserToOrganization request) =>
+            await For(request)
+                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
+                .OnFailure(ex => StatusCode(400))
+                .OnSuccess(c => StatusCode(200))
+                .HandleAsync();
+
     }
 }
