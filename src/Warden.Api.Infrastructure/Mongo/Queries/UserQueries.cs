@@ -31,5 +31,13 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
 
             return await users.AsQueryable().FirstOrDefaultAsync(x => x.ExternalId == externalId);
         }
+
+        public static async Task<User> GetByEmailAsync(this IMongoCollection<User> users, string email)
+        {
+            if (email.Empty())
+                return null;
+
+            return await users.AsQueryable().FirstOrDefaultAsync(x => x.Email == email);
+        }
     }
 }
