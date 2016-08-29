@@ -1,28 +1,27 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Infrastructure.Commands.Wardens
 {
     public class SpawnWarden : ICommand
     {
-        public string Configuration { get; set; }
+        public object Configuration { get; set; }
     }
 
     public class SpawnWardenHandler : ICommandHandler<SpawnWarden>
     {
         private readonly IWardenService _wardenService;
-        private readonly IWardenSpawnService _wardenSpawnService;
+        private readonly IWardenConfigurationService _wardenConfigurationService;
 
-        public SpawnWardenHandler(IWardenService wardenService, IWardenSpawnService wardenSpawnService)
+        public SpawnWardenHandler(IWardenService wardenService, IWardenConfigurationService wardenConfigurationService)
         {
             _wardenService = wardenService;
-            _wardenSpawnService = wardenSpawnService;
+            _wardenConfigurationService = wardenConfigurationService;
         }
 
         public async Task HandleAsync(SpawnWarden command)
         {
-            await _wardenSpawnService.CreateWardenAsync(command.Configuration);
+            await _wardenConfigurationService.CreateWardenAsync(command.Configuration);
         }
     }
 }

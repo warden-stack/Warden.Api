@@ -14,6 +14,10 @@ using Warden.Api.Framework.Filters;
 using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
 using NLog.Extensions.Logging;
+using Rebus.Activation;
+using Warden.Shared.Messages;
+using LogLevel = Rebus.Logging.LogLevel;
+using Rebus.Transport.Msmq;
 
 namespace Warden.Api
 {
@@ -35,6 +39,12 @@ namespace Warden.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            var activator = new BuiltinHandlerActivator();
+            Rebus.Config.Configure.With(activator)
+                .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+                .Transport(t => t.UseMsmq("warden-api"))
+                .Start();
+
             services.Configure<AccountSettings>(Configuration.GetSection("account"));
             services.Configure<DatabaseSettings>(Configuration.GetSection("database"));
             services.Configure<EmailSettings>(Configuration.GetSection("email"));
@@ -47,6 +57,7 @@ namespace Warden.Api
             services.AddSingleton(GetConfigurationValue<EmailSettings>("email"));
             services.AddSingleton(GetConfigurationValue<FeatureSettings>("feature"));
             services.AddSingleton(GetConfigurationValue<GeneralSettings>("general"));
+            services.AddSingleton(activator.Bus);
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());

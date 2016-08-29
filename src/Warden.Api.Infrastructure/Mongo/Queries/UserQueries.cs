@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Api.Core.Extensions;
-using System.Linq;
-using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Infrastructure.Queries.Organizations;
 
 namespace Warden.Api.Infrastructure.Mongo.Queries
 {

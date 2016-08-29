@@ -18,8 +18,8 @@ namespace Warden.Api.Infrastructure.IoC.Modules
                 .InstancePerLifetimeScope();
 
             //TODO: Register Rebus IBus
-            builder.RegisterType<WardenSpawnService>()
-                .As<IWardenSpawnService>()
+            builder.RegisterType<WardenConfigurationService>()
+                .As<IWardenConfigurationService>()
                 .InstancePerLifetimeScope();
         }
     }

@@ -2,6 +2,6 @@
 {
     public class WardenConfigurationDto
     {
-        public string Configuration { get; set; }
+        public object Configuration { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
-        public async Task Post([FromBody] SpawnWarden request) =>
+        public async Task Post([FromBody] object request) =>
             await For(MapTo<SpawnWarden>(request))
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))
