@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Rebus.Bus;
+using Warden.Shared.Messages;
 
 namespace Warden.Api.Infrastructure.Services
 {
@@ -19,8 +21,10 @@ namespace Warden.Api.Infrastructure.Services
 
         public async Task CreateWardenAsync(string configuration)
         {
-            //TODO: Create project with service bus messages
-            //await _bus.Publish(new CreateWardenMessage(configurationId, token));
+            var configurationId = Guid.NewGuid().ToString();
+            var token = Guid.NewGuid().ToString();
+            var region = "EU";
+            await _bus.Publish(new CreateWardenMessage(configurationId, token, region));
         }
     }
 }
