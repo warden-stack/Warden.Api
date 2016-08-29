@@ -1,10 +1,15 @@
 {
-  "version": "1.0.0-*",
-
+  "version": "1.0.0",
+  "description": "Warden shared components.",
+  "authors": [ "Piotr Gankiewicz" ],
+  "packOptions": {
+    "tags": [ "Warden" ],
+    "projectUrl": "https://getwarden.net",
+    "licenseUrl": "https://github.com/warden-stack/Warden/blob/master/LICENSE"
+  },
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
-
   "frameworks": {
     "netstandard1.5": {
       "imports": [
@@ -14,7 +19,6 @@
       ]
     },
     "net461": {
-
-    } 
+    }
   }
 }
