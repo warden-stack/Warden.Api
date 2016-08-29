@@ -1,6 +1,5 @@
 {
   "version": "1.0.0-*",
-
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.1",
@@ -10,7 +9,8 @@
     "MongoDB.Driver": "2.2.4",
     "System.Linq": "4.1.0",
     "Humanizer.Core": "2.1.0",
-    "NLog.Extensions.Logging": "1.0.0-*"
+    "NLog.Extensions.Logging": "1.0.0-*",
+    "Rebus": "0.99.73"
   },
 
   "frameworks": {
@@ -22,7 +22,6 @@
     //  ]
     //}
     "net461": {
-
     } 
   }
 }
