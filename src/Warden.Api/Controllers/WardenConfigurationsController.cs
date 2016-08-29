@@ -2,7 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Commands.Wardens;
+using Warden.Api.Infrastructure.DTO.WardenConfigurations;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
@@ -16,12 +16,11 @@ namespace Warden.Api.Controllers
         {
         }
 
-        [HttpPost]
-        public async Task Post([FromBody] SpawnWarden request) =>
-            await For(MapTo<SpawnWarden>(request))
-                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
-                .OnFailure(ex => StatusCode(400))
-                .OnSuccess(c => StatusCode(200))
-                .HandleAsync();
+        [HttpGet]
+        public async Task<WardenConfigurationDto> Get(string id, string token) =>
+            await Task.FromResult(new WardenConfigurationDto
+            {
+                Configuration = "test"
+            });
     }
 }
