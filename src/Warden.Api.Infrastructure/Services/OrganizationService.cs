@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
-using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Events.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.DTO.Organizations;
@@ -53,12 +51,17 @@ namespace Warden.Api.Infrastructure.Services
             return organization;
         }
 
-        public async Task UpdateAsync(Guid id, string name)
+        public async Task UpdateAsync(Guid id, string name, Guid authenticatedUserId)
         {
             var organizationValue = await _organizationRepository.GetAsync(id);
             if (organizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {id}");
             var organization = organizationValue.Value;
+
+            if (IsOwner(organization, authenticatedUserId) == false)
+                throw new ServiceException($"User: {authenticatedUserId} is not allowed" + 
+                    $"to update organization: {organization.Id}");
+
             organization.SetName(name);
             await _organizationRepository.UpdateAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
@@ -75,22 +78,24 @@ namespace Warden.Api.Infrastructure.Services
 
             var organizationValue = await _organizationRepository.GetAsync(name, userId);
             if (organizationValue.HasValue)
-            {
                 throw new ServiceException($"There's already an organization with name: '{name}' " +
                                            $"for user with id: '{userId}'.");
-            }
 
             var organization = new Organization(name, userValue.Value);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, Guid authenticatedUserId)
         {
             var ogranizationValue = await _organizationRepository.GetAsync(id);
             if (ogranizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {id}");
             var organization = ogranizationValue.Value;
+
+            if (IsOwner(organization, authenticatedUserId) == false)
+                throw new ServiceException($"User: {authenticatedUserId} is not allowed" +
+                    $"to delete organization: {organization.Id}");
 
             await _organizationRepository.DeleteAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationDeleted(organization.Id));
@@ -110,5 +115,10 @@ namespace Warden.Api.Infrastructure.Services
             await _organizationRepository.UpdateAsync(organizationValue.Value);
             await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(id, userValue.Value.Id));
         }
+
+        private bool IsOwner(Organization organization, Guid authenticatedUserId)
+        {
+            return organization.OwnerId == authenticatedUserId;
+        } 
     }
 }

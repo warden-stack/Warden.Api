@@ -9,9 +9,9 @@ namespace Warden.Api.Infrastructure.Services
     {
         Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId);
         Task<OrganizationDto> GetAsync(Guid id);
-        Task UpdateAsync(Guid id, string name);
+        Task UpdateAsync(Guid id, string name, Guid authenticatedUserId);
         Task CreateAsync(Guid userId, string name);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(Guid id, Guid authenticatedUserId);
         
         Task AddUserAsync(Guid id, string email);
     }

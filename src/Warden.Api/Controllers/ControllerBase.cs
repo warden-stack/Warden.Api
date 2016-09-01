@@ -32,7 +32,7 @@ namespace Warden.Api.Controllers
         protected TModel MapTo<TModel>(object source)
             => (TModel) Mapper.Map(source, source.GetType(), typeof(TModel));
 
-        protected async Task<UserDto> GetCurrentUser()
+        public async Task<UserDto> GetCurrentUser()
         {
             var externalUserId = User?.Identity?.Name;
             if (externalUserId.Empty())

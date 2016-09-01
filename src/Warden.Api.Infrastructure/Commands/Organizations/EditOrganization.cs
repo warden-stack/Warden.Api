@@ -22,7 +22,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
 
         public async Task HandleAsync(EditOrganization command)
         {
-            await _organizationService.UpdateAsync(command.Id, command.Name);
+            await _organizationService.UpdateAsync(command.Id, command.Name, command.AuthenticatedUserId);
         }
     }
 }

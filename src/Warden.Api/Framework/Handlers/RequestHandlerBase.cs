@@ -17,6 +17,7 @@ namespace Warden.Api.Framework.Handlers
         protected Func<T, IActionResult> OnFailureFunc;
         protected Func<T, IActionResult> OnSuccessFunc;
         protected Func<T, Task<IActionResult>> OnSuccessFuncAsync;
+        protected bool ShouldAuthorize;
 
         protected RequestHandlerBase(ControllerBase controller, T model)
         {

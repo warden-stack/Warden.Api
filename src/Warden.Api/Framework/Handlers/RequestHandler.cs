@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ControllerBase = Warden.Api.Controllers.ControllerBase;
 using System.Linq;
 using Warden.Api.Core.Extensions;
+using Warden.Api.Infrastructure.Commands;
 
 namespace Warden.Api.Framework.Handlers
 {
@@ -71,6 +72,12 @@ namespace Warden.Api.Framework.Handlers
             return this;
         }
 
+        public RequestHandler<T> Authorize()
+        {
+            ShouldAuthorize = true;
+            return this;
+        }
+
         public IActionResult Handle()
         {
             var isValid = Controller.ModelState.IsValid;
@@ -85,6 +92,9 @@ namespace Warden.Api.Framework.Handlers
         public async Task<IActionResult> HandleAsync()
         {
             AlwaysAction?.Invoke(Model);
+
+            if (ShouldAuthorize)
+                await AuthorizeAsync();
 
             var isValid = Controller.ModelState.IsValid;
             if (!isValid)
@@ -181,6 +191,15 @@ namespace Warden.Api.Framework.Handlers
             }
 
             return isSuccessful;
+        }
+
+        private async Task AuthorizeAsync()
+        {
+            if (Model is IAuthenticatedCommand)
+            {
+                var currentUser = await Controller.GetCurrentUser();
+                ((IAuthenticatedCommand)Model).AuthenticatedUserId = currentUser.Id;
+            }
         }
     }
 }

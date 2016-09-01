@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Organizations;
-using Warden.Api.Infrastructure.Commands.Wardens;
-using Warden.Api.Infrastructure.DTO;
 using Warden.Api.Infrastructure.DTO.Organizations;
 using Warden.Api.Infrastructure.Services;
 
@@ -62,27 +59,8 @@ namespace Warden.Api.Controllers
         [Authorize]
         [HttpPut("{id}/edit")]
         public async Task Put(OrganizationDto request) =>
-            await For(new EditOrganization
-                {
-                    AuthenticatedUserId = (await GetCurrentUser()).Id,
-                    Id = request.Id,
-                    Name = request.Name
-                })
-                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
-                .OnFailure(ex => StatusCode(400))
-                .OnSuccess(c => StatusCode(200))
-                .HandleAsync();
-
-        // POST api/organizations/{guid}/users
-        [Authorize]
-        [HttpPost("{id}/users")]
-        public async Task AddUser(Guid id, string email) =>
-            await For(new AddUserToOrganization
-                {
-                    AuthenticatedUserId = (await GetCurrentUser()).Id,
-                    OrganizationId = id,
-                    Email = email
-                })
+            await For(Mapper.Map<EditOrganization>(request))
+                .Authorize()
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(200))
@@ -93,6 +71,7 @@ namespace Warden.Api.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(Guid id) =>
             await For(new AddUserToOrganization())
+                .Authorize()
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(200))
