@@ -19,12 +19,6 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             _database = database;
         }
 
-        public async Task<Maybe<Organization>> GetAsync(Guid organizationId)
-            => await _database.Organizations().GetByIdAsync(organizationId);
-
-        public async Task<Maybe<Organization>> GetAsync(string name, Guid ownerId) =>
-            await _database.Organizations().GetByNameForOwnerAsync(name, ownerId);
-
         public async Task<PagedResult<Organization>> BrowseAsync(Guid userId, Guid ownerId,
             int page = 1, int results = 10)
         {
@@ -41,10 +35,19 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
                 .PaginateAsync(query);
         }
 
+        public async Task<Maybe<Organization>> GetAsync(Guid organizationId)
+            => await _database.Organizations().GetByIdAsync(organizationId);
+
+        public async Task<Maybe<Organization>> GetAsync(string name, Guid ownerId) =>
+            await _database.Organizations().GetByNameForOwnerAsync(name, ownerId);
+        
         public async Task UpdateAsync(Organization organization)
             => await _database.Organizations().ReplaceOneAsync(x => x.Id == organization.Id, organization);
 
         public async Task AddAsync(Organization organization)
             => await _database.Organizations().InsertOneAsync(organization);
+
+        public async Task DeleteAsync(Organization organization)
+            => await _database.Organizations().DeleteOneAsync(x => x.Id == organization.Id && x.Name == organization.Name);
     }
 }

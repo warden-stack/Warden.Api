@@ -64,21 +64,6 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
-        public async Task AddUserAsync(Guid id, string email)
-        {
-            var userValue = await _userRepository.GetByEmailAsync(email);
-            if (userValue.HasNoValue)
-                throw new ServiceException($"User with email: {email} does not exist.");
-
-            var organizationValue = await _organizationRepository.GetAsync(id);
-            if (organizationValue.HasNoValue)
-                throw new ServiceException($"Desired organization does not exist, id: {id}");
-
-            organizationValue.Value.AddUser(userValue.Value);
-            await _organizationRepository.UpdateAsync(organizationValue.Value);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(id, userValue.Value.Id));
-        }
-
         public async Task CreateAsync(Guid userId, string name)
         {
             if (name.Empty())
@@ -98,6 +83,32 @@ namespace Warden.Api.Infrastructure.Services
             var organization = new Organization(name, userValue.Value);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var ogranizationValue = await _organizationRepository.GetAsync(id);
+            if (ogranizationValue.HasNoValue)
+                throw new ServiceException($"Desired organization does not exist, id: {id}");
+            var organization = ogranizationValue.Value;
+
+            await _organizationRepository.DeleteAsync(organization);
+            await _eventDispatcher.DispatchAsync(new OrganizationDeleted(organization.Id));
+        }
+
+        public async Task AddUserAsync(Guid id, string email)
+        {
+            var userValue = await _userRepository.GetByEmailAsync(email);
+            if (userValue.HasNoValue)
+                throw new ServiceException($"User with email: {email} does not exist.");
+
+            var organizationValue = await _organizationRepository.GetAsync(id);
+            if (organizationValue.HasNoValue)
+                throw new ServiceException($"Desired organization does not exist, id: {id}");
+
+            organizationValue.Value.AddUser(userValue.Value);
+            await _organizationRepository.UpdateAsync(organizationValue.Value);
+            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(id, userValue.Value.Id));
         }
     }
 }

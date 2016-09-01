@@ -88,5 +88,15 @@ namespace Warden.Api.Controllers
                 .OnSuccess(c => StatusCode(200))
                 .HandleAsync();
 
+        // DELETE api/organizations/{guid}
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id) =>
+            await For(new AddUserToOrganization())
+                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
+                .OnFailure(ex => StatusCode(400))
+                .OnSuccess(c => StatusCode(200))
+                .HandleAsync();
+        
     }
 }
