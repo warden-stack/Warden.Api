@@ -46,6 +46,15 @@ namespace Warden.Api.Core.Domain.Users
             UpdatedAt = DateTime.UtcNow;
         }
 
+        public void SetExternalId(string externalId)
+        {
+            if (externalId.Empty())
+                throw new DomainException("ExternalId cannot be empty");
+
+            ExternalId = externalId;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
         public void SetRole(Role role)
         {
             if (Role == role)

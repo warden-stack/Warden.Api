@@ -101,19 +101,27 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationDeleted(organization.Id));
         }
 
-        public async Task AddUserAsync(Guid id, string email)
+        public async Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId)
         {
+            var organizationValue = await _organizationRepository.GetAsync(organizationId);
+            if (organizationValue.HasNoValue)
+                throw new ServiceException($"Desired organization does not exist, id: {organizationId}");
+
+            var organization = organizationValue.Value;
+            if (IsOwner(organization, authenticatedUserId) == false)
+                throw new ServiceException($"User: {authenticatedUserId} is not allowed" +
+                    $"to assign users into organization: {organization.Id}");
+
             var userValue = await _userRepository.GetByEmailAsync(email);
             if (userValue.HasNoValue)
+            {
+                //TODO: implement user creation + call to auth0 for externalId
                 throw new ServiceException($"User with email: {email} does not exist.");
+            }
 
-            var organizationValue = await _organizationRepository.GetAsync(id);
-            if (organizationValue.HasNoValue)
-                throw new ServiceException($"Desired organization does not exist, id: {id}");
-
-            organizationValue.Value.AddUser(userValue.Value);
-            await _organizationRepository.UpdateAsync(organizationValue.Value);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(id, userValue.Value.Id));
+            organization.AddUser(userValue.Value);
+            await _organizationRepository.UpdateAsync(organization);
+            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, userValue.Value.Id));
         }
 
         private bool IsOwner(Organization organization, Guid authenticatedUserId)

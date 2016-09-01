@@ -22,5 +22,7 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
         public async Task<Maybe<User>> GetAsync(string externalId) => await _database.Users().GetByExternalIdAsync(externalId);
 
         public async Task<Maybe<User>> GetByEmailAsync(string email) => await _database.Users().GetByEmailAsync(email);
+
+        public async Task Create(string email) => await _database.Users().InsertOneAsync(new User(email));
     }
 }

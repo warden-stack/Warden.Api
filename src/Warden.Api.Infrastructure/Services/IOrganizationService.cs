@@ -13,6 +13,6 @@ namespace Warden.Api.Infrastructure.Services
         Task CreateAsync(Guid userId, string name);
         Task DeleteAsync(Guid id, Guid authenticatedUserId);
         
-        Task AddUserAsync(Guid id, string email);
+        Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);
     }
 }

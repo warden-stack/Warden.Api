@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Organizations;
+using Warden.Api.Infrastructure.Commands.Users;
 using Warden.Api.Infrastructure.DTO.Organizations;
 using Warden.Api.Infrastructure.Services;
 
@@ -70,7 +71,7 @@ namespace Warden.Api.Controllers
         [Authorize]
         [HttpDelete("{id}")]
         public async Task Delete(Guid id) =>
-            await For(new AddUserToOrganization())
+            await For(new AssignIntoOrganization())
                 .Authorize()
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))

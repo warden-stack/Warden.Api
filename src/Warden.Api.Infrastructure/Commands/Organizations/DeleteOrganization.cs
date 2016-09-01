@@ -21,7 +21,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
 
         public async Task HandleAsync(DeleteOrganization command)
         {
-            await _organizationService.DeleteAsync(command.Id);
+            await _organizationService.DeleteAsync(command.Id, command.AuthenticatedUserId);
         }
     }
 }

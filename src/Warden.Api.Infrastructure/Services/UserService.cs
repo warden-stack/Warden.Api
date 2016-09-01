@@ -28,5 +28,14 @@ namespace Warden.Api.Infrastructure.Services
 
             return result;
         }
+
+        public async Task CreateAsync(string email)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user.HasValue)
+                throw new ServiceException($"User with e-mail: {email} already exists");
+
+            await _userRepository.Create(email);
+        }
     }
 }
