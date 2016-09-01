@@ -7,7 +7,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
     public class AddUserToOrganization : IAuthenticatedCommand
     {
         public Guid AuthenticatedUserId { get; set; }
-        public Guid Id { get; set; }
+        public Guid OrganizationId { get; set; }
         public string Email { get; set; }
     }
 
@@ -22,7 +22,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
 
         public async Task HandleAsync(AddUserToOrganization command)
         {
-            await _organizationServixce.AddUserAsync(command.Id, command.Email);
+            await _organizationServixce.AddUserAsync(command.OrganizationId, command.Email);
         }
     }
 }
