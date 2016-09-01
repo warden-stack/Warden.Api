@@ -15,7 +15,6 @@ using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
 using NLog.Extensions.Logging;
 using Rebus.Activation;
-using Warden.Shared.Messages;
 using LogLevel = Rebus.Logging.LogLevel;
 using Rebus.Transport.Msmq;
 

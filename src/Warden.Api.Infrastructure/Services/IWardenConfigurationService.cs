@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MongoDB.Bson.IO;
-using Newtonsoft.Json;
 using Rebus.Bus;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Core.Types;
 using Warden.Api.Infrastructure.DTO.WardenConfigurations;
-using Warden.Shared.Messages;
+using Warden.Bus.Commands;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace Warden.Api.Infrastructure.Services
@@ -30,6 +28,7 @@ namespace Warden.Api.Infrastructure.Services
             _bus = bus;
         }
 
+        //TODO: Implement this properly.
         public async Task CreateWardenAsync(object configuration)
         {
             if (configuration == null)
@@ -38,9 +37,10 @@ namespace Warden.Api.Infrastructure.Services
             var serializedConfiguration = JsonConvert.SerializeObject(configuration);
             var wardenConfiguration = new WardenConfiguration(serializedConfiguration);
             await _wardenConfigurationRepository.AddAsync(wardenConfiguration);
+            var userId = Guid.NewGuid().ToString();
             var token = Guid.NewGuid().ToString();
             var region = "EU";
-            await _bus.Publish(new CreateWardenMessage(wardenConfiguration.Id.ToString(), token, region));
+            await _bus.Publish(new CreateWarden(userId, wardenConfiguration.Id.ToString(), token, region));
         }
 
         public async Task<Maybe<WardenConfigurationDto>> GetConfigurationAsync(Guid id, string token)
