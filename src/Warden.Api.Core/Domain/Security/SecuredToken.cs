@@ -5,6 +5,8 @@ namespace Warden.Api.Core.Domain.Security
 {
     public class SecuredToken : ValueObject<SecuredToken>
     {
+        private static readonly string[] ReplaceableCharacters = {"+", "?", "&"};
+
         public string Token { get; protected set; }
 
         protected SecuredToken()
@@ -18,6 +20,10 @@ namespace Warden.Api.Core.Domain.Security
                 var tokenData = new byte[32];
                 rng.GetBytes(tokenData);
                 var token = Convert.ToBase64String(tokenData);
+                foreach (var replaceableCharacter in ReplaceableCharacters)
+                {
+                    token = token.Replace(replaceableCharacter, string.Empty);
+                }
 
                 return new SecuredToken
                 {

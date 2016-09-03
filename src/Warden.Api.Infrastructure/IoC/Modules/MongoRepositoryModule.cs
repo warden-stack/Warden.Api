@@ -19,6 +19,10 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<WardenConfigurationRepository>()
                 .As<IWardenConfigurationRepository>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<SecuredRequestRepository>()
+                .As<ISecuredRequestRepository>()
+                .InstancePerLifetimeScope();
         }
     }
 }
