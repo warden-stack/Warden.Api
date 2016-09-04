@@ -12,14 +12,16 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
         public static IMongoCollection<SecuredRequest> SecuredRequests(this IMongoDatabase database)
             => database.GetCollection<SecuredRequest>();
 
-        public static async Task<SecuredRequest> GetByResourceIdAsync(
+        public static async Task<SecuredRequest> GetByResourceTypeAndIdAsync(
             this IMongoCollection<SecuredRequest> securedRequests,
+            SecuredResourceType resourceType,
             Guid resourceId)
         {
             if (resourceId.IsEmpty())
                 return null;
 
-            return await securedRequests.AsQueryable().FirstOrDefaultAsync(x => x.ResourceId == resourceId);
+            return await securedRequests.AsQueryable().FirstOrDefaultAsync(x => x.ResourceType == resourceType &&
+                                                                                x.ResourceId == resourceId);
         }
     }
 }

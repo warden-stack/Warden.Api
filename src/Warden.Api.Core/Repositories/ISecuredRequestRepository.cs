@@ -7,7 +7,7 @@ namespace Warden.Api.Core.Repositories
 {
     public interface ISecuredRequestRepository
     {
-        Task<Maybe<SecuredRequest>> GetByResourceIdAsync(Guid resourceId);
+        Task<Maybe<SecuredRequest>> GetByResourceTypeAndIdAsync(ResourceType resourceType, Guid resourceId);
         Task AddAsync(SecuredRequest securedRequest);
         Task UpdateAsync(SecuredRequest securedRequest);
     }

@@ -1,4 +1,6 @@
-﻿namespace Warden.Api.Core.Domain.Wardens
+﻿using System;
+
+namespace Warden.Api.Core.Domain.Wardens
 {
     public class WardenConfiguration : IdentifiableEntity
     {
@@ -8,8 +10,9 @@
         {
         }
 
-        public WardenConfiguration(string configuration)
+        public WardenConfiguration(Guid id, string configuration)
         {
+            Id = id;
             Configuration = configuration;
         }
     }

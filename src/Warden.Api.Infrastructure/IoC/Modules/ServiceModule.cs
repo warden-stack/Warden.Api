@@ -16,6 +16,9 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<WardenService>()
                 .As<IWardenService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<SecuredRequestService>()
+                .As<ISecuredRequestService>()
+                .InstancePerLifetimeScope();
 
             //TODO: Register Rebus IBus
             builder.RegisterType<WardenConfigurationService>()
