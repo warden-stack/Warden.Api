@@ -17,7 +17,7 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             _database = database;
         }
 
-        public async Task<Maybe<SecuredRequest>> GetByResourceTypeAndIdAsync(SecuredResourceType resourceType, Guid resourceId)
+        public async Task<Maybe<SecuredRequest>> GetByResourceTypeAndIdAsync(ResourceType resourceType, Guid resourceId)
             => await _database.SecuredRequests().GetByResourceTypeAndIdAsync(resourceType, resourceId);
 
         public async Task AddAsync(SecuredRequest securedRequest)

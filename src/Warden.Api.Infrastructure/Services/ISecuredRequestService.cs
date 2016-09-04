@@ -8,8 +8,8 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface ISecuredRequestService
     {
-        Task<Maybe<SecuredRequestDto>> GetAsync(SecuredResourceType resourceType, Guid resourceId);
-        Task CreateAsync(SecuredResourceType resourceType, Guid resourceId);
-        Task ConsumeAsync(SecuredResourceType resourceType, Guid resourceId, string token);
+        Task<Maybe<SecuredRequestDto>> GetAsync(ResourceType resourceType, Guid resourceId);
+        Task CreateAsync(ResourceType resourceType, Guid resourceId);
+        Task ConsumeAsync(ResourceType resourceType, Guid resourceId, string token);
     }
 }

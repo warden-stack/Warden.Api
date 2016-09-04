@@ -34,9 +34,9 @@ namespace Warden.Api.Infrastructure.Commands.Wardens
         public async Task HandleAsync(SpawnWarden command)
         {
             var configurationId = Guid.NewGuid();
-            var resourceType = SecuredResourceType.WardenConfiguration;
+            var resourceType = ResourceType.WardenConfiguration;
             await _wardenConfigurationService.CreateAsync(configurationId, command.Configuration);
-            await _securedRequestService.CreateAsync(SecuredResourceType.WardenConfiguration, configurationId);
+            await _securedRequestService.CreateAsync(ResourceType.WardenConfiguration, configurationId);
             var securedToken = await _securedRequestService.GetAsync(resourceType, configurationId);
             await _bus.Publish(new Bus.Commands.CreateWarden(command.AuthenticatedUserId.ToString(),
                 configurationId.ToString(), securedToken.Value.Token, command.Region));

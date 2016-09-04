@@ -16,20 +16,20 @@ namespace Warden.Api.Infrastructure.Services
             _securedRequestRepository = securedRequestRepository;
         }
 
-        public async Task<Maybe<SecuredRequestDto>> GetAsync(SecuredResourceType resourceType, Guid resourceId)
+        public async Task<Maybe<SecuredRequestDto>> GetAsync(ResourceType resourceType, Guid resourceId)
         {
             var securedRequest = await _securedRequestRepository.GetByResourceTypeAndIdAsync(resourceType, resourceId);
 
             return securedRequest.HasNoValue ? new Maybe<SecuredRequestDto>() : new SecuredRequestDto(securedRequest.Value);
         }
 
-        public async Task CreateAsync(SecuredResourceType resourceType, Guid resourceId)
+        public async Task CreateAsync(ResourceType resourceType, Guid resourceId)
         {
             var securedRequest = new SecuredRequest(resourceType, resourceId);
             await _securedRequestRepository.AddAsync(securedRequest);
         }
 
-        public async Task ConsumeAsync(SecuredResourceType resourceType, Guid resourceId, string token)
+        public async Task ConsumeAsync(ResourceType resourceType, Guid resourceId, string token)
         {
             var securedRequest = await _securedRequestRepository.GetByResourceTypeAndIdAsync(resourceType, resourceId);
             if (securedRequest.HasNoValue)

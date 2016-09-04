@@ -29,7 +29,7 @@ namespace Warden.Api.Controllers
         public async Task<object> Get(string id, string token)
         {
             var resourceId = Guid.Parse(id);
-            await _securedRequestService.ConsumeAsync(SecuredResourceType.WardenConfiguration,
+            await _securedRequestService.ConsumeAsync(ResourceType.WardenConfiguration,
                 resourceId, token);
             var configuration = await _wardenConfigurationService.GetAsync(resourceId);
             if (configuration.HasValue)

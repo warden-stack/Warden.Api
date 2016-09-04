@@ -5,7 +5,7 @@ namespace Warden.Api.Infrastructure.DTO.Security
 {
     public class SecuredRequestDto
     {
-        public SecuredResourceType ResourceType { get; set; }
+        public ResourceType ResourceType { get; set; }
         public Guid ResourceId { get; set; }
         public string Token { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -14,7 +14,7 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
 
         public static async Task<SecuredRequest> GetByResourceTypeAndIdAsync(
             this IMongoCollection<SecuredRequest> securedRequests,
-            SecuredResourceType resourceType,
+            ResourceType resourceType,
             Guid resourceId)
         {
             if (resourceId.IsEmpty())
