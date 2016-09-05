@@ -8,6 +8,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
+    [Route("values")]
     public class ValuesController : ControllerBase
     {
         public ValuesController(ICommandDispatcher commandDispatcher, 

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Commands.Organizations;
 using Warden.Api.Infrastructure.Commands.Users;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
+    [Route("users")]
     public class UsersController : ControllerBase
     {
         public UsersController(ICommandDispatcher commandDispatcher, 

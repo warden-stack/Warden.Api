@@ -8,6 +8,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
+    [Route("warden/configurations")]
     public class WardenConfigurationsController : ControllerBase
     {
         private readonly IWardenConfigurationService _wardenConfigurationService;

@@ -12,6 +12,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
+    [Route("organizations")]
     public class OrganizationsController : ControllerBase
     {
         private readonly IOrganizationService _organizationService;

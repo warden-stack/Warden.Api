@@ -7,6 +7,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
+    [Route("warden/spawn")]
     public class WardenSpawnController : ControllerBase
     {
         public WardenSpawnController(ICommandDispatcher commandDispatcher,

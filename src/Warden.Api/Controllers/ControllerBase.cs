@@ -4,7 +4,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Extensions;
-using Warden.Api.Core.Repositories;
 using Warden.Api.Framework.Handlers;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.DTO.Users;
@@ -12,7 +11,6 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
-    [Route("api/[controller]")]
     public abstract class ControllerBase : Controller
     {
         protected readonly string NotificationsKey = "Notifications";
