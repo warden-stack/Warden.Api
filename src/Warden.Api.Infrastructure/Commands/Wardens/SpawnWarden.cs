@@ -33,13 +33,13 @@ namespace Warden.Api.Infrastructure.Commands.Wardens
 
         public async Task HandleAsync(SpawnWarden command)
         {
+            var securedRequestId = Guid.NewGuid();
             var configurationId = Guid.NewGuid();
-            var resourceType = ResourceType.WardenConfiguration;
             await _wardenConfigurationService.CreateAsync(configurationId, command.Configuration);
-            await _securedRequestService.CreateAsync(ResourceType.WardenConfiguration, configurationId);
-            var securedToken = await _securedRequestService.GetAsync(resourceType, configurationId);
+            await _securedRequestService.CreateAsync(securedRequestId, ResourceType.WardenConfiguration, configurationId);
+            var securedRequest = await _securedRequestService.GetAsync(securedRequestId);
             await _bus.Publish(new Bus.Commands.CreateWarden(command.AuthenticatedUserId.ToString(),
-                configurationId.ToString(), securedToken.Value.Token, command.Region));
+                configurationId.ToString(), securedRequest.Value.Token, command.Region));
         }
     }
 }

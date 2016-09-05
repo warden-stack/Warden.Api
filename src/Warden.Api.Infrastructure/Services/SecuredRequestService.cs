@@ -16,22 +16,35 @@ namespace Warden.Api.Infrastructure.Services
             _securedRequestRepository = securedRequestRepository;
         }
 
-        public async Task<Maybe<SecuredRequestDto>> GetAsync(ResourceType resourceType, Guid resourceId)
+        public async Task<Maybe<SecuredRequestDto>> GetAsync(Guid id)
         {
-            var securedRequest = await _securedRequestRepository.GetByResourceTypeAndIdAsync(resourceType, resourceId);
+            var securedRequest = await _securedRequestRepository.GetAsync(id);
 
-            return securedRequest.HasNoValue ? new Maybe<SecuredRequestDto>() : new SecuredRequestDto(securedRequest.Value);
+            return securedRequest.HasNoValue
+                ? new Maybe<SecuredRequestDto>()
+                : new SecuredRequestDto(securedRequest.Value);
         }
 
-        public async Task CreateAsync(ResourceType resourceType, Guid resourceId)
+        public async Task<Maybe<SecuredRequestDto>> GetAsync(ResourceType resourceType, Guid resourceId, string token)
         {
-            var securedRequest = new SecuredRequest(resourceType, resourceId);
+            var securedRequest = await _securedRequestRepository
+                .GetByResourceTypeAndIdAndTokenAsync(resourceType, resourceId, token);
+
+            return securedRequest.HasNoValue
+                ? new Maybe<SecuredRequestDto>()
+                : new SecuredRequestDto(securedRequest.Value);
+        }
+
+        public async Task CreateAsync(Guid id, ResourceType resourceType, Guid resourceId)
+        {
+            var securedRequest = new SecuredRequest(id, resourceType, resourceId);
             await _securedRequestRepository.AddAsync(securedRequest);
         }
 
         public async Task ConsumeAsync(ResourceType resourceType, Guid resourceId, string token)
         {
-            var securedRequest = await _securedRequestRepository.GetByResourceTypeAndIdAsync(resourceType, resourceId);
+            var securedRequest =
+                await _securedRequestRepository.GetByResourceTypeAndIdAndTokenAsync(resourceType, resourceId, token);
             if (securedRequest.HasNoValue)
                 throw new ArgumentException("Resource has not been found for given id.");
 

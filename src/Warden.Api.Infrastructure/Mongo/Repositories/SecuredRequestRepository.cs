@@ -17,8 +17,12 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             _database = database;
         }
 
-        public async Task<Maybe<SecuredRequest>> GetByResourceTypeAndIdAsync(ResourceType resourceType, Guid resourceId)
-            => await _database.SecuredRequests().GetByResourceTypeAndIdAsync(resourceType, resourceId);
+        public async Task<Maybe<SecuredRequest>> GetAsync(Guid id)
+            => await _database.SecuredRequests().GetByIdAsync(id);
+
+        public async Task<Maybe<SecuredRequest>> GetByResourceTypeAndIdAndTokenAsync(ResourceType resourceType,
+                Guid resourceId, string token)
+            => await _database.SecuredRequests().GetByResourceTypeAndIdAndTokenAsync(resourceType, resourceId, token);
 
         public async Task AddAsync(SecuredRequest securedRequest)
             => await _database.SecuredRequests().InsertOneAsync(securedRequest);

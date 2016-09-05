@@ -16,8 +16,9 @@ namespace Warden.Api.Core.Domain.Security
         {
         }
 
-        public SecuredRequest(ResourceType resourceType, Guid resourceId)
+        public SecuredRequest(Guid id, ResourceType resourceType, Guid resourceId)
         {
+            Id = id;
             ResourceType = resourceType;
             ResourceId = resourceId;
             CreatedAt = DateTime.UtcNow;
