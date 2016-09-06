@@ -13,7 +13,7 @@ namespace Warden.Api.Infrastructure.Rethink
             _dbManager = dbManager;
         }
 
-        public async Task SaveAsync(WardenCheckResultDto check)
+        public async Task SaveAsync(WardenCheckResultStorageDto check)
         {
             await _dbManager.SaveWardenCheckResultAsync(check);
         }

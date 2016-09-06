@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Warden.Api.Infrastructure.DTO.Wardens;
 
 namespace Warden.Api.Infrastructure.Services
 {
     public interface IWardenCheckService
     {
-        Task SaveAsync(WardenCheckResultDto check);
+        Task SaveAsync(Guid wardenId, WardenCheckResultDto check);
     }
 
     public class WardenCheckService : IWardenCheckService
@@ -17,9 +18,16 @@ namespace Warden.Api.Infrastructure.Services
             _realTimeDataStorage = realTimeDataStorage;
         }
 
-        public async Task SaveAsync(WardenCheckResultDto check)
+        public async Task SaveAsync(Guid wardenId, WardenCheckResultDto check)
         {
-            await _realTimeDataStorage.SaveAsync(check);
+            var storage = new WardenCheckResultStorageDto
+            {
+                WardenId = wardenId,
+                Check = check,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _realTimeDataStorage.SaveAsync(storage);
         }
     }
 }

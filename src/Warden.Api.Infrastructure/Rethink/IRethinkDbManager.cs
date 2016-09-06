@@ -7,7 +7,7 @@ namespace Warden.Api.Infrastructure.Rethink
 {
     public interface IRethinkDbManager
     {
-        Task SaveWardenCheckResultAsync(WardenCheckResultDto check);
-        Task<Cursor<Change<WardenCheckResultDto>>> StreamWardenCheckResultChangesAsync();
+        Task SaveWardenCheckResultAsync(WardenCheckResultStorageDto check);
+        Task<Cursor<Change<WardenCheckResultStorageDto>>> StreamWardenCheckResultChangesAsync();
     }
 }
