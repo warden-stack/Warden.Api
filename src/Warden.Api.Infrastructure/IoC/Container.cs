@@ -15,6 +15,7 @@ namespace Warden.Api.Infrastructure.IoC
             builder.Populate(services);
             builder.RegisterModule<DispatcherModule>();
             builder.RegisterModule<MapperModule>();
+            builder.RegisterModule<RethinkModule>();
             builder.RegisterModule<ServiceModule>();
             switch (database.ToLowerInvariant())
             {

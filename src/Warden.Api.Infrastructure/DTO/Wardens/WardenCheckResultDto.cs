@@ -1,5 +1,4 @@
 ﻿using System;
-using Warden.Api.Core.Domain;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Infrastructure.DTO.Common;
 using Warden.Api.Infrastructure.DTO.Watchers;
@@ -8,7 +7,6 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
 {
     public class WardenCheckResultDto
     {
-        public Guid IterationId { get; set; }
         public bool IsValid { get; set; }
         public WatcherCheckResultDto WatcherCheckResult { get; set; }
         public DateTime StartedAt { get; set; }

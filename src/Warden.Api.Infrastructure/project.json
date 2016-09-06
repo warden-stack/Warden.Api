@@ -11,7 +11,8 @@
     "Humanizer.Core": "2.1.0",
     "NLog.Extensions.Logging": "1.0.0-*",
     "Rebus": "0.99.73",
-    "Warden.Bus": "1.0.0"
+    "Warden.Bus": "1.0.0",
+    "RethinkDb.Driver": "2.3.15"
   },
 
   "frameworks": {

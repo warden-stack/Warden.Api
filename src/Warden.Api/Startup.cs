@@ -49,13 +49,14 @@ namespace Warden.Api
             services.Configure<EmailSettings>(Configuration.GetSection("email"));
             services.Configure<FeatureSettings>(Configuration.GetSection("feature"));
             services.Configure<GeneralSettings>(Configuration.GetSection("general"));
-
+            services.Configure<RethinkDbSettings>(Configuration.GetSection("rethinkDb"));
             var databaseSettings = GetConfigurationValue<DatabaseSettings>("database");
             services.AddSingleton(GetConfigurationValue<FeatureSettings>("account"));
             services.AddSingleton(databaseSettings);
             services.AddSingleton(GetConfigurationValue<EmailSettings>("email"));
             services.AddSingleton(GetConfigurationValue<FeatureSettings>("feature"));
             services.AddSingleton(GetConfigurationValue<GeneralSettings>("general"));
+            services.AddSingleton(GetConfigurationValue<RethinkDbSettings>("rethinkDb"));
             services.AddSingleton(activator.Bus);
             services.AddMvc(options =>
             {
@@ -92,6 +93,7 @@ namespace Warden.Api
             app.UseJwtBearerAuthentication(options);
             app.UseMvc();
             Task.WaitAll(InitializeDatabaseAsync(app));
+            Task.WaitAll(HandleRealTimeUpdates(app));
             Logger.Info("Warden API has started.");
         }
 
@@ -99,6 +101,12 @@ namespace Warden.Api
         {
             var databaseInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
             await databaseInitializer.InitializeAsync();
+        }
+
+        private async Task HandleRealTimeUpdates(IApplicationBuilder app)
+        {
+            var realTimeDataPusher = app.ApplicationServices.GetService<IRealTimeDataPusher>();
+            await Task.Factory.StartNew(realTimeDataPusher.StartPushingAsync, TaskCreationOptions.LongRunning);
         }
     }
 }
