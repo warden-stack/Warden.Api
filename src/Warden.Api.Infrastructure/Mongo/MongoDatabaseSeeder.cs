@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Warden.Api.Core.Domain.PaymentPlans;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Infrastructure.Mongo.Queries;
 
 namespace Warden.Api.Infrastructure.Mongo
@@ -18,6 +22,8 @@ namespace Warden.Api.Infrastructure.Mongo
         public async Task SeedAsync()
         {
             await CreatePaymentPlans();
+            await CreateUsers();
+            await CreateUserPaymentPlans();
         }
 
         private async Task CreatePaymentPlans()
@@ -45,6 +51,49 @@ namespace Warden.Api.Infrastructure.Mongo
             paymentPlans.Add(premiumPlan);
             paymentPlans.Add(enterprisePlan);
             await _database.PaymentPlans().InsertManyAsync(paymentPlans);
+        }
+
+        //TODO: Create accounts via auth0
+        private async Task CreateUsers()
+        {
+            var users = new List<User>();
+            for (int i = 1; i < 10; i++)
+            {
+                var user = new User($"warden-user{i}@mailinator.com");
+                users.Add(user);
+            }
+            for (int i = 1; i < 3; i++)
+            {
+                var moderator = new User($"warden-moderator{i}@mailinator.com", Role.Moderator);
+                users.Add(moderator);
+            }
+            for (int i = 1; i < 3; i++)
+            {
+                var admin = new User($"warden-admin{i}@mailinator.com", Role.Admin);
+                users.Add(admin);
+            }
+            await _database.Users().InsertManyAsync(users);
+        }
+
+        private async Task CreateUserPaymentPlans()
+        {
+            var users = await _database.Users()
+                .AsQueryable()
+                .Where(x => x.Role == Role.User)
+                .ToListAsync();
+
+            var paymentPlans = await _database.PaymentPlans().GetAllAsync();
+            var freePaymentPlan = paymentPlans.First(x => x.IsFree);
+
+            var userPaymentPlans = new List<UserPaymentPlan>();
+            foreach (var user in users)
+            {
+                var userPaymentPlan = new UserPaymentPlan(user, freePaymentPlan);
+                userPaymentPlan.AddMonthlySubscription(DateTime.UtcNow, userPaymentPlan.Features);
+                userPaymentPlans.Add(userPaymentPlan);
+            }
+
+            await _database.UserPaymentPlans().InsertManyAsync(userPaymentPlans);
         }
     }
 }

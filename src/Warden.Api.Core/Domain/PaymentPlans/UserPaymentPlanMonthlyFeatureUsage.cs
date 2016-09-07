@@ -2,5 +2,8 @@
 {
     public class UserPaymentPlanMonthlyFeatureUsage : UserPaymentPlanFeatureUsage
     {
+        public UserPaymentPlanMonthlyFeatureUsage(Feature feature) : base(feature)
+        {
+        }
     }
 }

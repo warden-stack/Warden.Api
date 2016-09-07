@@ -47,5 +47,11 @@ namespace Warden.Api.Core.Domain.PaymentPlans
             UpdatedAt = DateTime.UtcNow;
             Features = paymentPlan.Features;
         }
+
+        public void AddMonthlySubscription(DateTime from, IEnumerable<Feature> features)
+        {
+            var monthlySubscription = new UserPaymentPlanMonthlySubscription(from, features);
+            _monthlySubscriptions.Add(monthlySubscription);
+        }
     }
 }
