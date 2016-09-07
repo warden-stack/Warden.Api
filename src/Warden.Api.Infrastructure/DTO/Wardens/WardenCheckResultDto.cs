@@ -7,6 +7,7 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
 {
     public class WardenCheckResultDto
     {
+        public string Id { get; set; }
         public bool IsValid { get; set; }
         public WatcherCheckResultDto WatcherCheckResult { get; set; }
         public DateTime StartedAt { get; set; }

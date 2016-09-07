@@ -29,7 +29,7 @@ namespace Warden.Api.Infrastructure.Services
 
             var user = await _userRepository.GetAsync(userId);
             if (user.HasNoValue)
-                throw new ArgumentException($"User has not been found for id {userId}");
+                throw new ArgumentException($"User {userId} has not been found.");
 
             if (!user.Value.PaymentPlanId.HasValue)
                 throw new InvalidOperationException($"User {userId} has no payment plan assigned.");

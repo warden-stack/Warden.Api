@@ -22,7 +22,7 @@ namespace Warden.Api.Controllers
             await For(request)
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))
-                .OnSuccess(c => StatusCode(200))
+                .OnSuccess(c => StatusCode(201))
                 .HandleAsync();
     }
 }

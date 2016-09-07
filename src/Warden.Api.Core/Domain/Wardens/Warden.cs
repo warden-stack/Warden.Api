@@ -14,6 +14,7 @@ namespace Warden.Api.Core.Domain.Wardens
 
         public string Name { get; protected set; }
         public bool Enabled { get; protected set; }
+        public string InternalId { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
@@ -98,6 +99,12 @@ namespace Warden.Api.Core.Domain.Wardens
                 throw new DomainException($"Watcher with name: '{name}' has not been found.");
 
             return watcher;
+        }
+
+        public void SetInternalId(string internalId)
+        {
+            InternalId = internalId;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public Watcher GetWatcherByName(string name) => Watchers.FirstOrDefault(x => x.Name.EqualsCaseInvariant(name));

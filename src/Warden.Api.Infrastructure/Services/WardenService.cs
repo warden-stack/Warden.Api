@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Infrastructure.Events;
-using Warden = Warden.Api.Core.Domain.Wardens.Warden;
 
 namespace Warden.Api.Infrastructure.Services
 {
