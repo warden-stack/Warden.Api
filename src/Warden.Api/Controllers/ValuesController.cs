@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +41,19 @@ namespace Warden.Api.Controllers
             var externalUserId = User?.Identity?.Name;
             var userId = await GetCurrentUser();
             return $"You are authorized, userId: {userId.Id}, externalId: {externalUserId}";
+        }
+
+        // GET api/values/claims
+        [Authorize]
+        [HttpGet("claims")]
+        public object Claims()
+        {
+            return User.Claims.Select(c =>
+            new
+            {
+                Type = c.Type,
+                Value = c.Value
+            });
         }
 
         // POST api/values

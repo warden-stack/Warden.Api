@@ -17,6 +17,7 @@ namespace Warden.Api.Infrastructure.IoC
             builder.RegisterModule<MapperModule>();
             builder.RegisterModule<RethinkModule>();
             builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<Auth0Module>();
             switch (database.ToLowerInvariant())
             {
                 case "mongo":
