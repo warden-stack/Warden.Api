@@ -3,6 +3,7 @@ using System.Linq;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
+using Warden.Api.Core.Domain.PaymentPlans;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Users
@@ -101,6 +102,15 @@ namespace Warden.Api.Core.Domain.Users
 
             RecentlyViewedOrganizationId = organizationId;
             RecentlyViewedWardenId = foundWardenId;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetPaymentPlan(UserPaymentPlan paymentPlan)
+        {
+            if(PaymentPlanId == paymentPlan.Id)
+                return;
+
+            PaymentPlanId = paymentPlan.Id;
             UpdatedAt = DateTime.UtcNow;
         }
     }

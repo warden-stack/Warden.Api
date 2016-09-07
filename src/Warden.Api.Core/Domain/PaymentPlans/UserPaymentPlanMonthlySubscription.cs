@@ -6,6 +6,9 @@ namespace Warden.Api.Core.Domain.PaymentPlans
 {
     public class UserPaymentPlanMonthlySubscription
     {
+        private HashSet<UserPaymentPlanFeatureUsage> _featureUsages =
+            new HashSet<UserPaymentPlanFeatureUsage>();
+
         public DateTime From { get; protected set; }
         public DateTime To { get; protected set; }
         public decimal Price { get; protected set; }
@@ -13,40 +16,17 @@ namespace Warden.Api.Core.Domain.PaymentPlans
         public DateTime? PaidAt { get; protected set; }
         public bool IsPaid => PaidAt.HasValue;
 
-        private HashSet<UserPaymentPlanMonthlyFeatureUsage> _monthlyFeatureUsages =
-            new HashSet<UserPaymentPlanMonthlyFeatureUsage>();
-
-        private HashSet<UserPaymentPlanDailyFeatureUsage> _dailyFeatureUsages =
-            new HashSet<UserPaymentPlanDailyFeatureUsage>();
-
-        public IEnumerable<UserPaymentPlanMonthlyFeatureUsage> MonthlyFeatureUsages
+        public IEnumerable<UserPaymentPlanFeatureUsage> FeatureUsages
         {
-            get { return _monthlyFeatureUsages; }
-            protected set { _monthlyFeatureUsages = new HashSet<UserPaymentPlanMonthlyFeatureUsage>(value); }
-        }
-
-        public IEnumerable<UserPaymentPlanDailyFeatureUsage> DailyFeatureUsages
-        {
-            get { return _dailyFeatureUsages; }
-            protected set { _dailyFeatureUsages = new HashSet<UserPaymentPlanDailyFeatureUsage>(value); }
+            get { return _featureUsages; }
+            protected set { _featureUsages = new HashSet<UserPaymentPlanFeatureUsage>(value); }
         }
 
         public UserPaymentPlanMonthlySubscription(DateTime from, IEnumerable<Feature> features)
         {
             From = from;
             To = from.AddMonths(1);
-
-            var monthlyFeatures = features.Where(x => !x.IsDailyLimit);
-            var dailyFeatures = features.Where(x => x.IsDailyLimit).ToList();
-            MonthlyFeatureUsages = monthlyFeatures.Select(x => new UserPaymentPlanMonthlyFeatureUsage(x));
-
-            for (var day = From.Date; day.Date <= To.Date; day = day.AddDays(1))
-            {
-                foreach (var dailyFeature in dailyFeatures)
-                {
-                    _dailyFeatureUsages.Add(new UserPaymentPlanDailyFeatureUsage(dailyFeature, day));
-                }
-            }
+            FeatureUsages = features.Select(x => new UserPaymentPlanFeatureUsage(x));
         }
 
         public bool CanUseFeature(FeatureType feature)
@@ -66,12 +46,7 @@ namespace Warden.Api.Core.Domain.PaymentPlans
         }
 
         private UserPaymentPlanFeatureUsage GetFeatureUsage(FeatureType feature)
-        {
-            if (feature == FeatureType.WardenChecksPerDay)
-                return DailyFeatureUsages.First(x => x.Feature == feature);
-
-            return MonthlyFeatureUsages.First(x => x.Feature == feature);
-        }
+            => FeatureUsages.First(x => x.Feature == feature);
 
         public void MarkAsPaid()
         {

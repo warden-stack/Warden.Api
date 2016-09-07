@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Warden.Api.Core.Domain.Users;
 
 namespace Warden.Api.Core.Domain.PaymentPlans
@@ -53,5 +54,8 @@ namespace Warden.Api.Core.Domain.PaymentPlans
             var monthlySubscription = new UserPaymentPlanMonthlySubscription(from, features);
             _monthlySubscriptions.Add(monthlySubscription);
         }
+
+        public UserPaymentPlanMonthlySubscription GetMonthlySubscription(DateTime date)
+            => MonthlySubscriptions.FirstOrDefault(x => x.From.Date >= date.Date && x.To.Date <= date.Date);
     }
 }

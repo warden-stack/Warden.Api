@@ -4,13 +4,11 @@
     {
         public FeatureType Type { get; protected set; }
         public int Limit { get; protected set; }
-        public bool IsDailyLimit { get; protected set; }
 
-        protected Feature(FeatureType type, int limit, bool isDailyLimit = false)
+        protected Feature(FeatureType type, int limit)
         {
             Type = type;
             Limit = limit;
-            IsDailyLimit = isDailyLimit;
         }
 
         protected override bool EqualsCore(Feature other) => Type == other.Type;
@@ -23,8 +21,8 @@
         public static Feature WardenSpawns(int limit) => new Feature(FeatureType.WardenSpawns, limit);
         public static Feature Watchers(int limit) => new Feature(FeatureType.Watchers, limit);
 
-        public static Feature WardenChecksPerDay(int limit)
-            => new Feature(FeatureType.WardenChecksPerDay, limit, isDailyLimit: true);
+        public static Feature WardenChecks(int limit)
+            => new Feature(FeatureType.WardenChecks, limit);
 
         public static Feature WardenChecksRetentionDays(int limit)
             => new Feature(FeatureType.WardenChecksRetentionDays, limit);

@@ -28,7 +28,7 @@ namespace Warden.Api.Infrastructure.Commands.WardenChecks
         public async Task HandleAsync(SaveWardenCheck command)
         {
             await _userFeaturesManager.UseFeatureIfAvailableAsync(command.AuthenticatedUserId,
-                FeatureType.WardenChecksPerDay);
+                FeatureType.WardenChecks);
             await _wardenCheckService.SaveAsync(command.WardenId, command.Check);
         }
     }
