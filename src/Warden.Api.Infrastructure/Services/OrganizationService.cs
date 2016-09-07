@@ -18,16 +18,19 @@ namespace Warden.Api.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUniqueIdGenerator _uniqueIdGenerator;
         private readonly IEventDispatcher _eventDispatcher;
 
         public OrganizationService(IMapper mapper,
             IOrganizationRepository organizationRepository, 
             IUserRepository userRepository,
+            IUniqueIdGenerator uniqueIdGenerator,
             IEventDispatcher eventDispatcher)
         {
             _mapper = mapper;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
+            _uniqueIdGenerator = uniqueIdGenerator;
             _eventDispatcher = eventDispatcher;
         }
 
@@ -81,7 +84,8 @@ namespace Warden.Api.Infrastructure.Services
                 throw new ServiceException($"There's already an organization with name: '{name}' " +
                                            $"for user with id: '{userId}'.");
 
-            var organization = new Organization(name, userValue.Value);
+            var internalId = _uniqueIdGenerator.Create();
+            var organization = new Organization(name, userValue.Value, internalId);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
         }

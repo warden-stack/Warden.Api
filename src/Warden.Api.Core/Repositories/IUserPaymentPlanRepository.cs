@@ -8,5 +8,6 @@ namespace Warden.Api.Core.Repositories
     public interface IUserPaymentPlanRepository
     {
         Task<Maybe<UserPaymentPlan>> GetAsync(Guid id);
+        Task UpdateAsync(UserPaymentPlan paymentPlan);
     }
 }

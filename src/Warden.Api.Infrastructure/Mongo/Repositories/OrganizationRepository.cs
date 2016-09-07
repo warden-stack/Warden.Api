@@ -38,6 +38,9 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
         public async Task<Maybe<Organization>> GetAsync(Guid organizationId)
             => await _database.Organizations().GetByIdAsync(organizationId);
 
+        public async Task<Maybe<Organization>> GetAsync(string internalId)
+            => await _database.Organizations().GetByInternalIdAsync(internalId);
+
         public async Task<Maybe<Organization>> GetAsync(string name, Guid ownerId) =>
             await _database.Organizations().GetByNameForOwnerAsync(name, ownerId);
         

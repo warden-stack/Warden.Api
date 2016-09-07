@@ -33,7 +33,7 @@ namespace Warden.Api.Infrastructure.Mongo
                 return;
 
             await CreateDatabaseAsync();
-            var seeder = new MongoDatabaseSeeder(_database);
+            var seeder = new MongoDatabaseSeeder(_database, new UniqueIdGenerator());
             await seeder.SeedAsync();
         }
 

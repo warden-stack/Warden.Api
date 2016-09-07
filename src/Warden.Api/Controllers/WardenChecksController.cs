@@ -7,7 +7,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
-    [Route("wardens/{id}/checks")]
+    [Route("organizations/{organizationId}/wardens/{wardenId}/checks")]
     public class WardenChecksController : ControllerBase
     {
         public WardenChecksController(ICommandDispatcher commandDispatcher,
@@ -18,9 +18,15 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
-        public async Task Post([FromBody] SaveWardenCheck request) =>
+        public async Task Post(string organizationId, string wardenId, [FromBody] SaveWardenCheck request) =>
             await For(request)
-                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
+                .ExecuteAsync(c =>
+                {
+                    c.OrganizationId = organizationId;
+                    c.WardenId = wardenId;
+
+                    return CommandDispatcher.DispatchAsync(c);
+                })
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(201))
                 .HandleAsync();

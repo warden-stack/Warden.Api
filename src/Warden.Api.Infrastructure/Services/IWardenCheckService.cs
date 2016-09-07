@@ -8,51 +8,66 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IWardenCheckService
     {
-        Task SaveAsync(string internalId, WardenCheckResultDto check);
+        Task SaveAsync(string organizationInternalId, string wardenInternalId, WardenCheckResultDto check);
     }
 
     public class WardenCheckService : IWardenCheckService
     {
         private readonly IRealTimeDataStorage _realTimeDataStorage;
-        private readonly IWardenRepository _wardenRepository;
+        private readonly IOrganizationRepository _organizationRepository;
         private readonly IUniqueIdGenerator _uniqueIdGenerator;
 
         public WardenCheckService(IRealTimeDataStorage realTimeDataStorage,
-            IWardenRepository wardenRepository,
+            IOrganizationRepository organizationRepository,
             IUniqueIdGenerator uniqueIdGenerator)
         {
             _realTimeDataStorage = realTimeDataStorage;
-            _wardenRepository = wardenRepository;
+            _organizationRepository = organizationRepository;
             _uniqueIdGenerator = uniqueIdGenerator;
         }
 
-        public async Task SaveAsync(string internalId, WardenCheckResultDto check)
+        public async Task SaveAsync(string organizationInternalId, string wardenInternalId, WardenCheckResultDto check)
         {
-            if (check == null)
-                throw new ArgumentNullException(nameof(check), "Warden check can not be null.");
-            if (check.WatcherCheckResult == null)
-            {
-                throw new ArgumentNullException(nameof(check.WatcherCheckResult),
-                    "Watcher check can not be null.");
-            }
-            if (check.WatcherCheckResult.WatcherName.Empty())
-                throw new ArgumentException("Watcher name can not be empty.");
-            if (check.WatcherCheckResult.WatcherType.Empty())
-                throw new ArgumentException("Watcher type can not be empty.");
-
-            var wardenExists = await _wardenRepository.ExistsAsync(internalId);
-            if (!wardenExists)
-                throw new InvalidOperationException($"Warden has not been found for id: {internalId}.");
-
-            check.Id = _uniqueIdGenerator.GenerateId();
+            await ValidateCheckResultAsync(organizationInternalId, wardenInternalId, check);
+            check.Id = _uniqueIdGenerator.Create();
             var storage = new WardenCheckResultStorageDto
             {
-                WardenId = internalId,
+                OrganizationId = organizationInternalId,
+                WardenId = wardenInternalId,
                 Check = check,
                 CreatedAt = DateTime.UtcNow
             };
-
             await _realTimeDataStorage.SaveAsync(storage);
+        }
+
+        private async Task ValidateCheckResultAsync(string organizationInternalId,
+            string wardenInternalId, WardenCheckResultDto check)
+        {
+            if (check == null)
+                throw new ArgumentNullException(nameof(check), "Warden check can not be null.");
+            if (check.Result == null)
+            {
+                throw new ArgumentNullException(nameof(check.Result),
+                    "Watcher check can not be null.");
+            }
+            if (check.Result.WatcherName.Empty())
+                throw new ArgumentException("Watcher name can not be empty.");
+            if (check.Result.WatcherType.Empty())
+                throw new ArgumentException("Watcher type can not be empty.");
+
+            var organization = await _organizationRepository.GetAsync(organizationInternalId);
+            if (organization.HasNoValue)
+            {
+                throw new InvalidOperationException("Organization has not been found " +
+                                                    $"for id: {organizationInternalId}.");
+            }
+
+            var warden = organization.Value.GetWardenByInternalId(wardenInternalId);
+            if (warden == null)
+            {
+                throw new InvalidOperationException("Warden has not been found " +
+                                                    $"for id: {wardenInternalId}.");
+            }
         }
     }
 }

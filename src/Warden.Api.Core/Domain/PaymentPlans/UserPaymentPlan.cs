@@ -56,6 +56,6 @@ namespace Warden.Api.Core.Domain.PaymentPlans
         }
 
         public UserPaymentPlanMonthlySubscription GetMonthlySubscription(DateTime date)
-            => MonthlySubscriptions.FirstOrDefault(x => x.From.Date >= date.Date && x.To.Date <= date.Date);
+            => MonthlySubscriptions.FirstOrDefault(x => date.Date >= x.From.Date && date.Date <= x.From.Date);
     }
 }

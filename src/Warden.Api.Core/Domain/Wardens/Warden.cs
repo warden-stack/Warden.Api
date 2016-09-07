@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Domain.Watchers;
 using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Wardens
 {
-    public class Warden : IdentifiableEntity, ITimestampable
+    public class Warden : ITimestampable
     {
         private HashSet<Watcher> _watchers = new HashSet<Watcher>();
-
-        public string Name { get; protected set; }
-        public bool Enabled { get; protected set; }
         public string InternalId { get; protected set; }
+        public string Name { get; protected set; }
+        public Guid OwnerId { get; protected set; }
+        public bool Enabled { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
@@ -28,15 +29,16 @@ namespace Warden.Api.Core.Domain.Wardens
         {
         }
 
-        public Warden(string name, bool enabled = true)
+        public Warden(User owner, string name, string internalId, bool enabled = true)
         {
+            OwnerId = owner.Id;
             SetName(name);
+            SetInternalId(internalId);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             if (enabled)
                 Enable();
 
-            AddEvent(new WardenCreated(name));
         }
 
         public void SetName(string name)
@@ -45,6 +47,15 @@ namespace Warden.Api.Core.Domain.Wardens
                 throw new DomainException("Warden name can not be empty.");
 
             Name = name;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetInternalId(string internalId)
+        {
+            if (internalId.Empty())
+                throw new ArgumentException($"Warden {Name} internal id can not be empty.");
+
+            InternalId = internalId;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -99,12 +110,6 @@ namespace Warden.Api.Core.Domain.Wardens
                 throw new DomainException($"Watcher with name: '{name}' has not been found.");
 
             return watcher;
-        }
-
-        public void SetInternalId(string internalId)
-        {
-            InternalId = internalId;
-            UpdatedAt = DateTime.UtcNow;
         }
 
         public Watcher GetWatcherByName(string name) => Watchers.FirstOrDefault(x => x.Name.EqualsCaseInvariant(name));

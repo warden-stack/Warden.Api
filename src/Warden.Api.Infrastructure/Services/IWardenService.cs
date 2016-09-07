@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Warden.Api.Infrastructure.Services
 {
     public interface IWardenService
     {
-        Task CreateWardenAsync(string name);
+        Task CreateWardenAsync(string organizationInternalId, Guid userId, string name);
     }
 }

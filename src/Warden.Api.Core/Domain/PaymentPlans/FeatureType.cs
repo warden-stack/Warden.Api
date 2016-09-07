@@ -2,13 +2,13 @@
 {
     public enum FeatureType
     {
-        Organizations = 1,
-        UsersInOrganizations = 2,
-        Wardens = 3,
-        WardenSpawns = 4,
-        Watchers = 5,
-        WardenChecks = 6,
+        AddOrganization = 1,
+        AddUserToOrganization = 2,
+        AddWarden = 3,
+        AddWardenSpawn = 4,
+        AddWatcher = 5,
+        AddWardenCheck = 6,
         WardenChecksRetentionDays = 7,
-        Metrics = 8
+        AddMetrics = 8
     }
 }

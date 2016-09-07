@@ -11,6 +11,7 @@ namespace Warden.Api.Core.Repositories
         Task<PagedResult<Organization>> BrowseAsync(Guid userId, Guid ownerId,
             int page = 1, int results = 10);
         Task<Maybe<Organization>> GetAsync(Guid organizationId);
+        Task<Maybe<Organization>> GetAsync(string internalId);
         Task<Maybe<Organization>> GetAsync(string name, Guid ownerId);
         Task UpdateAsync(Organization organization);
         Task AddAsync(Organization organization);
