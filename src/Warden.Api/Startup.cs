@@ -95,6 +95,13 @@ namespace Warden.Api
                 }
             };
             app.UseJwtBearerAuthentication(options);
+            if (env.IsDevelopment())
+            {
+                app.UseCors(builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials());
+            }
             app.UseMvc();
             Task.WaitAll(InitializeDatabaseAsync(app));
             Task.WaitAll(HandleRealTimeUpdates(app));
