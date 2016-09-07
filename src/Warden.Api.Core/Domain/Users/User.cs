@@ -93,18 +93,6 @@ namespace Warden.Api.Core.Domain.Users
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetRecentlyViewedWardenInOrganization(Organization organization, Guid wardenId)
-        {
-            var organizationId = organization?.Id ?? Guid.Empty;
-            var foundWardenId = organization?.Wardens.Any(x => x.Id == wardenId) == true ? wardenId : Guid.Empty;
-            if (RecentlyViewedOrganizationId == organizationId && RecentlyViewedWardenId == foundWardenId)
-                return;
-
-            RecentlyViewedOrganizationId = organizationId;
-            RecentlyViewedWardenId = foundWardenId;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
         public void SetPaymentPlan(UserPaymentPlan paymentPlan)
         {
             if(PaymentPlanId == paymentPlan.Id)

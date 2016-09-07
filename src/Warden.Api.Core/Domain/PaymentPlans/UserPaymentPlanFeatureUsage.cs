@@ -7,7 +7,7 @@ namespace Warden.Api.Core.Domain.PaymentPlans
         public FeatureType Feature { get; protected set; }
         public int Limit { get; protected set; }
         public int Usage { get; protected set; }
-        public bool CanUse => Limit < Usage;
+        public bool CanUse => Limit > Usage;
 
         public UserPaymentPlanFeatureUsage(Feature feature)
         {
@@ -17,7 +17,7 @@ namespace Warden.Api.Core.Domain.PaymentPlans
 
         public void IncreaseUsage()
         {
-            if(Usage == Limit)
+            if(!CanUse)
                 throw new InvalidOperationException($"Feature {Feature} has reached its limit.");
 
             Usage++;

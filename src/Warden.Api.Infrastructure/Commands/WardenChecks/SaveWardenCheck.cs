@@ -9,6 +9,7 @@ namespace Warden.Api.Infrastructure.Commands.WardenChecks
     public class SaveWardenCheck : ICommand
     {
         public Guid AuthenticatedUserId { get; set; }
+        public string OrganizationId { get; set; }
         public string WardenId { get; set; }
         public WardenCheckResultDto Check { get; set; }
     }
@@ -28,8 +29,8 @@ namespace Warden.Api.Infrastructure.Commands.WardenChecks
         public async Task HandleAsync(SaveWardenCheck command)
         {
             await _userFeaturesManager.UseFeatureIfAvailableAsync(command.AuthenticatedUserId,
-                FeatureType.WardenChecks);
-            await _wardenCheckService.SaveAsync(command.WardenId, command.Check);
+                FeatureType.AddWardenCheck, async () => await _wardenCheckService.SaveAsync(command.OrganizationId,
+                    command.WardenId, command.Check));
         }
     }
 }

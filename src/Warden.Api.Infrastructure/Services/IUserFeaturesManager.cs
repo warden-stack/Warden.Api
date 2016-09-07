@@ -6,6 +6,6 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IUserFeaturesManager
     {
-        Task UseFeatureIfAvailableAsync(Guid userId, FeatureType feature);
+        Task UseFeatureIfAvailableAsync(Guid userId, FeatureType feature, Func<Task> action);
     }
 }

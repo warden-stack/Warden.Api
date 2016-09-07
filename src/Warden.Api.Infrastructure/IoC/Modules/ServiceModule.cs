@@ -37,7 +37,7 @@ namespace Warden.Api.Infrastructure.IoC.Modules
                 .As<IWardenConfigurationService>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<IUniqueIdGenerator>()
+            builder.RegisterType<UniqueIdGenerator>()
                 .As<IUniqueIdGenerator>()
                 .SingleInstance();
         }

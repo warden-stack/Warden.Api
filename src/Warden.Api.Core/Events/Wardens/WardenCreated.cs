@@ -2,11 +2,13 @@
 {
     public class WardenCreated : IEvent
     {
-        public string Name { get; }
+        public string OrganizationInternalId { get; }
+        public string WardenInternalId { get; }
 
-        public WardenCreated(string name)
+        public WardenCreated(string organizationInternalId, string wardenInternalId)
         {
-            Name = name;
+            OrganizationInternalId = organizationInternalId;
+            WardenInternalId = wardenInternalId;
         }
     }
 }

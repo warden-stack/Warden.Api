@@ -29,7 +29,8 @@ namespace Warden.Api.Infrastructure.Events
                 if (handler == null)
                     return;
 
-                await (Task)((dynamic)handler).HandleAsync(@event);
+                var method = handler.GetType().GetMethod("HandleAsync");
+                await (Task)method.Invoke(handler, new object[] { @event });
             }
         }
     }

@@ -4,12 +4,12 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IUniqueIdGenerator
     {
-        string GenerateId();
+        string Create();
     }
 
     public class UniqueIdGenerator : IUniqueIdGenerator
     {
-        public string GenerateId()
+        public string Create()
         {
             var guid = Guid.NewGuid();
             var guidString = Convert.ToBase64String(guid.ToByteArray());
