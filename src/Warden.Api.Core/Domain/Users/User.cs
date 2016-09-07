@@ -17,6 +17,7 @@ namespace Warden.Api.Core.Domain.Users
         public DateTime UpdatedAt { get; protected set; }
         public Guid RecentlyViewedOrganizationId { get; protected set; }
         public Guid RecentlyViewedWardenId { get; protected set; }
+        public Guid? PaymentPlanId { get; protected set; }
 
         protected User()
         {

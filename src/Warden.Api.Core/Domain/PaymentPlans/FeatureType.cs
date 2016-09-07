@@ -7,8 +7,8 @@
         Wardens = 3,
         WardenSpawns = 4,
         Watchers = 5,
-        WatcherChecksPerDay = 6,
-        WatcherChecksDataRetentionDays = 7,
+        WardenChecksPerDay = 6,
+        WardenChecksRetentionDays = 7,
         Metrics = 8
     }
 }

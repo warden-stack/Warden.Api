@@ -50,6 +50,7 @@ namespace Warden.Api
             services.Configure<FeatureSettings>(Configuration.GetSection("feature"));
             services.Configure<GeneralSettings>(Configuration.GetSection("general"));
             services.Configure<RethinkDbSettings>(Configuration.GetSection("rethinkDb"));
+            services.Configure<PaymentPlanSettings>(Configuration.GetSection("paymentPlan"));
             var databaseSettings = GetConfigurationValue<DatabaseSettings>("database");
             services.AddSingleton(GetConfigurationValue<FeatureSettings>("account"));
             services.AddSingleton(databaseSettings);
@@ -57,6 +58,7 @@ namespace Warden.Api
             services.AddSingleton(GetConfigurationValue<FeatureSettings>("feature"));
             services.AddSingleton(GetConfigurationValue<GeneralSettings>("general"));
             services.AddSingleton(GetConfigurationValue<RethinkDbSettings>("rethinkDb"));
+            services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>("paymentPlan"));
             services.AddSingleton(activator.Bus);
             services.AddMvc(options =>
             {

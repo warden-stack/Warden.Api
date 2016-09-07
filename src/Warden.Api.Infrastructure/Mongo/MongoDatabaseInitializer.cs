@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain.Organizations;
+using Warden.Api.Core.Domain.PaymentPlans;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Infrastructure.Services;
@@ -32,6 +33,8 @@ namespace Warden.Api.Infrastructure.Mongo
                 return;
 
             await CreateDatabaseAsync();
+            var seeder = new MongoDatabaseSeeder(_database);
+            await seeder.SeedAsync();
         }
 
         private void RegisterConventions()
@@ -54,6 +57,8 @@ namespace Warden.Api.Infrastructure.Mongo
             await _database.CreateCollectionAsync<Organization>();
             await _database.CreateCollectionAsync<Core.Domain.Wardens.Warden>();
             await _database.CreateCollectionAsync<WardenConfiguration>();
+            await _database.CreateCollectionAsync<PaymentPlan>();
+            await _database.CreateCollectionAsync<UserPaymentPlan>();
             await _database.CreateCollectionAsync<User>();
         }
     }
