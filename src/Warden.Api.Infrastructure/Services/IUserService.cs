@@ -6,7 +6,7 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IUserService
     {
-        Task<UserDto> GetAsync(string externalUserId);
-        Task CreateAsync(string email);
+        Task<UserDto> GetAsync(string externalId);
+        Task CreateAsync(string email, string externalId);
     }
 }

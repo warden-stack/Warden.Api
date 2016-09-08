@@ -24,13 +24,14 @@ namespace Warden.Api.Core.Domain.Users
         {
         }
 
-        public User(string email, Role role = Role.User)
+        public User(string email, Role role = Role.User, string externalId = null)
         {
             SetEmail(email);
             Role = role;
             State = State.Inactive;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            ExternalId = externalId;
         }
 
         public void SetEmail(string email)

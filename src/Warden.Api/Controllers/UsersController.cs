@@ -18,7 +18,17 @@ namespace Warden.Api.Controllers
         {
         }
 
-        // POST api/users/assign
+        // POST users/register
+        [Authorize]
+        [HttpPost("register")]
+        public async Task Register([FromBody] RegisterUser request) =>
+            await For(request)
+                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
+                .OnFailure(ex => StatusCode(400))
+                .OnSuccess(c => StatusCode(200))
+                .HandleAsync();
+
+        // POST users/assign
         [Authorize]
         [HttpPost("assign")]
         public async Task AssignIntoOrganization([FromBody] AssignIntoOrganization request) =>
