@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
+using Warden.Api.Core.Events.Users;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Core.Types;
 using Warden.Api.Infrastructure.DTO.Users;
+using Warden.Api.Infrastructure.Events;
 
 namespace Warden.Api.Infrastructure.Services
 {
@@ -11,11 +13,13 @@ namespace Warden.Api.Infrastructure.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IEventDispatcher _eventDispatcher;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IEventDispatcher eventDispatcher)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _eventDispatcher = eventDispatcher;
         }
 
         public async Task<UserDto> GetAsync(string externalId)
@@ -36,6 +40,7 @@ namespace Warden.Api.Infrastructure.Services
                 throw new ServiceException($"User with e-mail: {email} already exists");
 
             await _userRepository.CreateAsync(email, externalId);
+            await _eventDispatcher.DispatchAsync(new UserCreated(email, externalId));
         }
     }
 }

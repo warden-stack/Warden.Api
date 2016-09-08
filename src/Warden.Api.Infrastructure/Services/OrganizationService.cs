@@ -15,6 +15,8 @@ namespace Warden.Api.Infrastructure.Services
 {
     public class OrganizationService : IOrganizationService
     {
+        private const string DefaultName = "My organization";
+
         private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
@@ -88,6 +90,11 @@ namespace Warden.Api.Infrastructure.Services
             var organization = new Organization(name, userValue.Value, internalId);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
+        }
+
+        public async Task CreateDefaultAsync(Guid userId)
+        {
+            await CreateAsync(userId, DefaultName);
         }
 
         public async Task DeleteAsync(Guid id, Guid authenticatedUserId)

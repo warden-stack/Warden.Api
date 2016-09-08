@@ -11,6 +11,7 @@ namespace Warden.Api.Infrastructure.Services
         Task<OrganizationDto> GetAsync(Guid id);
         Task UpdateAsync(Guid id, string name, Guid authenticatedUserId);
         Task CreateAsync(Guid userId, string name);
+        Task CreateDefaultAsync(Guid userId);
         Task DeleteAsync(Guid id, Guid authenticatedUserId);
         
         Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);

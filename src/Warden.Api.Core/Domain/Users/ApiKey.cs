@@ -14,15 +14,15 @@ namespace Warden.Api.Core.Domain.Users
         {
         }
 
-        public ApiKey(string key, User user)
+        public ApiKey(string key, Guid userId)
         {
             if (key.Empty())
                 throw new DomainException("API key can not be empty.");
-            if (user == null)
+            if (userId.IsEmpty())
                 throw new DomainException("Can not create an API key without user.");
 
             Key = key;
-            UserId = user.Id;
+            UserId = userId;
             CreatedAt = DateTime.UtcNow;
         }
     }

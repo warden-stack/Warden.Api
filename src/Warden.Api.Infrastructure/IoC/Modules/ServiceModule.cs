@@ -31,6 +31,12 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<UserFeaturesManager>()
                 .As<IUserFeaturesManager>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<Encrypter>()
+                .As<IEncrypter>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ApiKeyService>()
+                .As<IApiKeyService>()
+                .InstancePerLifetimeScope();
 
             //TODO: Register Rebus IBus
             builder.RegisterType<WardenConfigurationService>()
