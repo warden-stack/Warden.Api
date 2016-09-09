@@ -7,9 +7,8 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
 {
     public class WardenCheckResultDto
     {
-        public string Id { get; set; }
         public bool IsValid { get; set; }
-        public WatcherCheckResultDto Result { get; set; }
+        public WatcherCheckResultDto WatcherCheckResult { get; set; }
         public DateTime StartedAt { get; set; }
         public DateTime CompletedAt { get; set; }
         public TimeSpan ExecutionTime { get; set; }
@@ -22,7 +21,7 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
         public WardenCheckResultDto(WardenCheckResult result)
         {
             IsValid = result.IsValid;
-            Result = new WatcherCheckResultDto(result.WatcherCheckResult);
+            WatcherCheckResult = new WatcherCheckResultDto(result.WatcherCheckResult);
             StartedAt = result.StartedAt;
             CompletedAt = result.CompletedAt;
             ExecutionTime = result.ExecutionTime;

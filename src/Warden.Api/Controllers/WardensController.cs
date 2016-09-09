@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Wardens;
@@ -18,13 +19,16 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task Post(string organizationId, [FromBody] CreateWarden request) =>
             await For(request)
-                .ExecuteAsync(c =>
+                .ExecuteAsync(async c =>
                 {
+                    var user = await GetCurrentUser();
+                    c.AuthenticatedUserId = user.Id;
                     c.OrganizationId = organizationId;
 
-                    return CommandDispatcher.DispatchAsync(c);
+                    await CommandDispatcher.DispatchAsync(c);
                 })
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(201))

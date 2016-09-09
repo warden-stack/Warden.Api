@@ -15,21 +15,17 @@ namespace Warden.Api.Infrastructure.Services
     {
         private readonly IRealTimeDataStorage _realTimeDataStorage;
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUniqueIdGenerator _uniqueIdGenerator;
 
         public WardenCheckService(IRealTimeDataStorage realTimeDataStorage,
-            IOrganizationRepository organizationRepository,
-            IUniqueIdGenerator uniqueIdGenerator)
+            IOrganizationRepository organizationRepository)
         {
             _realTimeDataStorage = realTimeDataStorage;
             _organizationRepository = organizationRepository;
-            _uniqueIdGenerator = uniqueIdGenerator;
         }
 
         public async Task SaveAsync(string organizationInternalId, string wardenInternalId, WardenCheckResultDto check)
         {
             await ValidateCheckResultAsync(organizationInternalId, wardenInternalId, check);
-            check.Id = _uniqueIdGenerator.Create();
             var storage = new WardenCheckResultStorageDto
             {
                 OrganizationId = organizationInternalId,
@@ -45,14 +41,14 @@ namespace Warden.Api.Infrastructure.Services
         {
             if (check == null)
                 throw new ArgumentNullException(nameof(check), "Warden check can not be null.");
-            if (check.Result == null)
+            if (check.WatcherCheckResult == null)
             {
-                throw new ArgumentNullException(nameof(check.Result),
-                    "Watcher check can not be null.");
+                throw new ArgumentNullException(nameof(check.WatcherCheckResult),
+                    "Watcher check result can not be null.");
             }
-            if (check.Result.WatcherName.Empty())
+            if (check.WatcherCheckResult.WatcherName.Empty())
                 throw new ArgumentException("Watcher name can not be empty.");
-            if (check.Result.WatcherType.Empty())
+            if (check.WatcherCheckResult.WatcherType.Empty())
                 throw new ArgumentException("Watcher type can not be empty.");
 
             var organization = await _organizationRepository.GetAsync(organizationInternalId);

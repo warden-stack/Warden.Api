@@ -15,10 +15,12 @@ namespace Warden.Api.Infrastructure.Mongo
     {
         private bool _initialized;
         private readonly IMongoDatabase _database;
+        private readonly IDatabaseSeeder _seeder;
 
-        public MongoDatabaseInitializer(IMongoDatabase database)
+        public MongoDatabaseInitializer(IMongoDatabase database, IDatabaseSeeder seeder)
         {
             _database = database;
+            _seeder = seeder;
         }
 
         public async Task InitializeAsync()
@@ -33,8 +35,7 @@ namespace Warden.Api.Infrastructure.Mongo
                 return;
 
             await CreateDatabaseAsync();
-            var seeder = new MongoDatabaseSeeder(_database, new UniqueIdGenerator());
-            await seeder.SeedAsync();
+            await _seeder.SeedAsync();
         }
 
         private void RegisterConventions()
@@ -54,6 +55,7 @@ namespace Warden.Api.Infrastructure.Mongo
 
         private async Task CreateDatabaseAsync()
         {
+            await _database.CreateCollectionAsync<ApiKey>();
             await _database.CreateCollectionAsync<Organization>();
             await _database.CreateCollectionAsync<Core.Domain.Wardens.Warden>();
             await _database.CreateCollectionAsync<WardenConfiguration>();
