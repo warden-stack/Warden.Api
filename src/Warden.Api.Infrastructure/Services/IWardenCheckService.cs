@@ -15,21 +15,17 @@ namespace Warden.Api.Infrastructure.Services
     {
         private readonly IRealTimeDataStorage _realTimeDataStorage;
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUniqueIdGenerator _uniqueIdGenerator;
 
         public WardenCheckService(IRealTimeDataStorage realTimeDataStorage,
-            IOrganizationRepository organizationRepository,
-            IUniqueIdGenerator uniqueIdGenerator)
+            IOrganizationRepository organizationRepository)
         {
             _realTimeDataStorage = realTimeDataStorage;
             _organizationRepository = organizationRepository;
-            _uniqueIdGenerator = uniqueIdGenerator;
         }
 
         public async Task SaveAsync(string organizationInternalId, string wardenInternalId, WardenCheckResultDto check)
         {
             await ValidateCheckResultAsync(organizationInternalId, wardenInternalId, check);
-            check.Id = _uniqueIdGenerator.Create();
             var storage = new WardenCheckResultStorageDto
             {
                 OrganizationId = organizationInternalId,

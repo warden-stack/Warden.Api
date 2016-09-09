@@ -27,6 +27,10 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             }).As<IMongoDatabase>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<MongoDatabaseSeeder>()
+                .As<IDatabaseSeeder>()
+                .SingleInstance();
+
             builder.RegisterType<MongoDatabaseInitializer>()
                 .As<IDatabaseInitializer>()
                 .SingleInstance();

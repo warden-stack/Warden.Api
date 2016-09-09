@@ -18,7 +18,6 @@ namespace Warden.Api.Infrastructure.Services
     public class ApiKeyService : IApiKeyService
     {
         private readonly int RetryTimes = 5;
-
         private readonly IApiKeyRepository _repository;
         private readonly IEncrypter _encrypter;
         private readonly FeatureSettings _featureSettings;
@@ -36,7 +35,7 @@ namespace Warden.Api.Infrastructure.Services
         {
             var apiKeyValue = await _repository.GetAsync(key);
             if (apiKeyValue.HasNoValue)
-                throw new ServiceException($"Desired ApiKey does not exist! key: {key}");
+                throw new ServiceException($"Desired API key does not exist! Key: {key}.");
 
             return apiKeyValue.Value;
         }
