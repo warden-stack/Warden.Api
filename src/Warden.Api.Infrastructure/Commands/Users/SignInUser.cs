@@ -6,7 +6,7 @@ namespace Warden.Api.Infrastructure.Commands.Users
 {
     public class SignInUser : ICommand
     {
-        public string ExternalId { get; set; }
+        public string AccessToken { get; set; }
     }
 
     public class RegisterUserHandler : ICommandHandler<SignInUser>
@@ -23,7 +23,7 @@ namespace Warden.Api.Infrastructure.Commands.Users
 
         public async Task HandleAsync(SignInUser command)
         {
-            var user = await _auth0RestClient.GetUserAsync(command.ExternalId);
+            var user = await _auth0RestClient.GetUserByAccessTokenAsync(command.AccessToken);
             await _userService.SignInUserAsync(user.Email, user.UserId, user.Picture);
         }
     }
