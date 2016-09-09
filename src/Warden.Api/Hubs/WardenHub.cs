@@ -2,84 +2,81 @@
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using Warden.Api.Core.Domain.Common;
+using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Hubs
 {
     public class WardenHub : Hub
     {
+        private readonly IUserService _userService;
+        private readonly IWardenService _wardenService;
         private readonly ConcurrentDictionary<string, string> _clients = new ConcurrentDictionary<string, string>();
+
+        public WardenHub(IUserService userService, IWardenService wardenService)
+        {
+            _userService = userService;
+            _wardenService = wardenService;
+        }
 
         public override async Task OnConnected()
         {
-            await ValidateClientAsync();
-            var groupName = await ParseRequestAndGetWardenGroupNameOrFailAsync();
+            var groupName = await ValidateClientAndGetGroupNameAsync();
             await Groups.Add(Context.ConnectionId, groupName);
             await base.OnConnected();
         }
 
         public override async Task OnReconnected()
         {
-            await ValidateClientAsync();
-            var groupName = await ParseRequestAndGetWardenGroupNameOrFailAsync();
+            var groupName = await ValidateClientAndGetGroupNameAsync();
             await Groups.Add(Context.ConnectionId, groupName);
             await base.OnReconnected();
         }
 
         public override async Task OnDisconnected(bool stopCalled)
         {
-            RemoveClient();
-            var groupName = await ParseRequestAndGetWardenGroupNameOrFailAsync();
+            var groupName = RemoveClientAndGetGroupName();
             await Groups.Remove(Context.ConnectionId, groupName);
             await base.OnDisconnected(stopCalled);
         }
 
-        private async Task<string> ParseRequestAndGetWardenGroupNameOrFailAsync()
+        private async Task<string> ValidateClientAndGetGroupNameAsync()
         {
+            var accessToken = Context.QueryString["accessToken"];
             var organizationId = Context.QueryString["organizationId"];
             var wardenId = Context.QueryString["wardenId"];
-            if (string.IsNullOrWhiteSpace(organizationId) || string.IsNullOrWhiteSpace(wardenId))
-                throw new InvalidOperationException("Empty organization id and/or warden id.");
-
-            //Guid organizationId;
-            //if (!Guid.TryParse(organizationIdValue, out organizationId))
-            //    throw new InvalidOperationException("Invalid organization id.");
-
-            //var hasAccess = await _organizationService.IsUserInOrganizationAsync(organizationId,
-            //    Guid.Parse(Context.User.Identity.Name));
-            //if (!hasAccess)
-            //    throw new InvalidOperationException("No access to the selected organization and warden.");
-
-            return GetWardenGroupName(organizationId, wardenId);
-        }
-
-        private async Task ValidateClientAsync()
-        {
-            var token = Context.QueryString["token"];
-            var organizationId = Context.QueryString["organizationId"];
-            var wardenId = Context.QueryString["wardenId"];
-            if (string.IsNullOrWhiteSpace(token))
-                throw new InvalidOperationException("Empty token.");
+            if (string.IsNullOrWhiteSpace(accessToken))
+                throw new ArgumentException("Empty access token.");
             if (string.IsNullOrWhiteSpace(organizationId))
-                throw new InvalidOperationException("Empty organization id.");
+                throw new ArgumentException("Empty organization id.");
             if (string.IsNullOrWhiteSpace(wardenId))
-                throw new InvalidOperationException("Empty warden id.");
+                throw new ArgumentException("Empty warden id.");
 
-            RemoveClient();
-            var clientId = GetClientId(token, organizationId, wardenId);
-            _clients[Context.ConnectionId] = clientId;
+            var user = await _userService.GetByAccessTokenAsync(accessToken);
+            if (user == null || user.State != State.Active)
+                throw new UnauthorizedAccessException();
+
+            var hasAccess = await _wardenService.HasAccessAsync(user.Id, organizationId, wardenId);
+            if (!hasAccess)
+                throw new UnauthorizedAccessException();
+
+            RemoveClientAndGetGroupName();
+            var groupName = GetWardenGroupName(organizationId, wardenId);
+            _clients.TryAdd(Context.ConnectionId, groupName);
+
+            return groupName;
         }
 
-        private void RemoveClient()
+        private string RemoveClientAndGetGroupName()
         {
-            var value = "";
+            var groupName = "";
             if (_clients.ContainsKey(Context.ConnectionId))
-                _clients.TryRemove(Context.ConnectionId, out value);
-        }
+                _clients.TryRemove(Context.ConnectionId, out groupName);
 
-        private static string GetClientId(string token, string organizationId, string wardenId)
-            => $"{token}::{GetWardenGroupName(organizationId, wardenId)}".ToLowerInvariant();
+            return groupName;
+        }
 
         private static string GetWardenGroupName(string organizationId, string wardenId)
-            => $"{organizationId}::{wardenId}".ToLowerInvariant();
+            => $"{organizationId}:{wardenId}".ToLowerInvariant();
     }
 }

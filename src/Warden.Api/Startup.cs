@@ -21,6 +21,7 @@ using LogLevel = Rebus.Logging.LogLevel;
 using Rebus.Transport.Msmq;
 using Owin;
 using Warden.Api.Hubs;
+using Warden.Api.Infrastructure.Auth0;
 
 namespace Warden.Api
 {
@@ -84,8 +85,7 @@ namespace Warden.Api
             return configurationValue;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
-            IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("logging"));
             loggerFactory.AddDebug();
@@ -110,7 +110,7 @@ namespace Warden.Api
             }
             app.UseMvc();
             app.UseDeveloperExceptionPage();
-            MapSignalR(app, serviceProvider);
+            MapSignalR(app);
             Task.WaitAll(InitializeDatabaseAsync(app));
             Task.WaitAll(HandleRealTimeUpdates(app));
             Logger.Info("Warden API has started.");
@@ -128,7 +128,7 @@ namespace Warden.Api
             await Task.Factory.StartNew(realTimeDataPusher.StartPushingAsync, TaskCreationOptions.LongRunning);
         }
 
-        private void MapSignalR(IApplicationBuilder app, IServiceProvider serviceProvider)
+        private void MapSignalR(IApplicationBuilder app)
         {
             app.UseOwin(addToPipeline =>
             {
@@ -143,7 +143,9 @@ namespace Warden.Api
                 });
             });
 
-            GlobalHost.DependencyResolver.Register(typeof(WardenHub), () => new WardenHub());
+            GlobalHost.DependencyResolver.Register(typeof(WardenHub),
+                () => new WardenHub(app.ApplicationServices.GetService<IUserService>(),
+                    app.ApplicationServices.GetService<IWardenService>()));
         }
     }
 }

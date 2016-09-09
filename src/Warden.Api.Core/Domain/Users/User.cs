@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.PaymentPlans;
 using Warden.Api.Core.Extensions;
 

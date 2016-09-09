@@ -5,6 +5,7 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IWardenService
     {
-        Task CreateWardenAsync(string organizationInternalId, Guid userId, string name);
+        Task CreateWardenAsync(string internalOrganizationId, Guid userId, string name);
+        Task<bool> HasAccessAsync(Guid userId, string internalOrganizationId, string internalWardenId);
     }
 }

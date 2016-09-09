@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Users;
 
 namespace Warden.Api.Infrastructure.DTO.Users
@@ -10,6 +11,7 @@ namespace Warden.Api.Infrastructure.DTO.Users
         public Guid Id { get; set; }
         public string Email { get; set; }
         public Role Role { get; set; }
+        public State State { get; protected set; }
         public Guid RecentlyViewedOrganizationId { get; set; }
         public Guid RecentlyViewedWardenId { get; set; }
         public IEnumerable<string> ApiKeys { get; set; }
@@ -23,6 +25,7 @@ namespace Warden.Api.Infrastructure.DTO.Users
             Id = user.Id;
             Email = user.Email;
             Role = user.Role;
+            State = user.State;
             RecentlyViewedOrganizationId = user.RecentlyViewedOrganizationId;
             RecentlyViewedWardenId = user.RecentlyViewedWardenId;
             ApiKeys = Enumerable.Empty<string>();
