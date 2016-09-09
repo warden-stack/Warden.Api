@@ -20,8 +20,8 @@ namespace Warden.Api.Controllers
 
         // POST users/register
         [Authorize]
-        [HttpPost("register")]
-        public async Task Register([FromBody] RegisterUser request) =>
+        [HttpPost]
+        public async Task SignIn([FromBody] SignInUser request) =>
             await For(request)
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))

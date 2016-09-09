@@ -6,5 +6,6 @@
         public string ClientId { get; set; }
         public string Connection { get; set; }
         public string CreateUsersToken { get; set; }
+        public string ReadUsersToken { get; set; }
     }
 }

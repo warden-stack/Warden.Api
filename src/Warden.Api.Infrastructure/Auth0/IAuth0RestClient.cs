@@ -3,13 +3,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Warden.Api.Infrastructure.DTO.Users;
 using Warden.Api.Infrastructure.Settings;
 
 namespace Warden.Api.Infrastructure.Auth0
 {
     public interface IAuth0RestClient
     {
-        Task<HttpResponseMessage> CreateUserAsync(string email, string password);
+        Task<Auth0User> GetUserAsync(string externalId);
     }
 
     public class Auth0RestClient : IAuth0RestClient
@@ -22,20 +23,15 @@ namespace Warden.Api.Infrastructure.Auth0
             _settings = settings;
         }
 
-        public async Task<HttpResponseMessage> CreateUserAsync(string email, string password)
+        public async Task<Auth0User> GetUserAsync(string externalId)
         {
             var client = new HttpClient { BaseAddress = new Uri(BaseAddress) };
-            var data = new
-            {
-                Connection = _settings.Connection,
-                Email = email,
-                Password = password
-            };
-            var json = JsonConvert.SerializeObject(data);
-            client.DefaultRequestHeaders.Add("Authorization", _settings.CreateUsersToken);
-            var response = await client.PostAsync("users", new StringContent(json, Encoding.UTF8, "application/json") );
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_settings.ReadUsersToken}");
+            var response = await client.GetAsync($"users/{externalId}");
+            var content = await response.Content.ReadAsStringAsync();
+            var user = JsonConvert.DeserializeObject<Auth0User>(content);
 
-            return response;
+            return user;
         }
     }
 }
