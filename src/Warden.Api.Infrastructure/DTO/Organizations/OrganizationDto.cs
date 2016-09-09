@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Warden.Api.Core.Domain;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Infrastructure.DTO.Users;
 using Warden.Api.Infrastructure.DTO.Wardens;
@@ -10,7 +9,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
 {
     public class OrganizationDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public bool AutoRegisterNewWarden { get; set; }
@@ -23,7 +22,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
 
         public OrganizationDto(Organization organization)
         {
-            Id = organization.Id;
+            Id = organization.InternalId;
             OwnerId = organization.OwnerId;
             Name = organization.Name;
             AutoRegisterNewWarden = organization.AutoRegisterNewWarden;

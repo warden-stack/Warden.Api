@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -29,12 +30,12 @@ namespace Warden.Api.Controllers
         // GET api/organizations
         [Authorize]
         [HttpGet]
-        public async Task<PagedResult<OrganizationDto>> Get()
+        public async Task<IEnumerable<OrganizationDto>> Get()
         {
             var user = await GetCurrentUser();
             var organizations = await _organizationService.BrowseAsync(user.Id);
 
-            return organizations;
+            return organizations.Items;
         }
 
         // GET api/organizations/{guid}

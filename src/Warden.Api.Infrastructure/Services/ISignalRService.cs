@@ -24,6 +24,6 @@ namespace Warden.Api.Infrastructure.Services
         }
 
         private static string GetWardenGroupName(string organizationId, string wardenId)
-            => $"{organizationId}::{wardenId}".ToLowerInvariant();
+            => $"{organizationId}:{wardenId}";
     }
 }
