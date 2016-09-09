@@ -1,21 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Warden.Api.Core.Events.Users;
 using Warden.Api.Infrastructure.Services;
 
-namespace Warden.Api.Infrastructure.Commands.Users
+namespace Warden.Api.Infrastructure.Events.Handlers.Users
 {
-    public class RegisterUser : ICommand
-    {
-        public string ExternalId { get; set; }
-        public string Email { get; set; }
-    }
-
-    public class RegisterUserHandler : ICommandHandler<RegisterUser>
+    public class NewUserSignedInHandler : IEventHandler<NewUserSignedIn>
     {
         private readonly IUserService _userService;
         private readonly IOrganizationService _organizationService;
         private readonly IApiKeyService _apiKeyService;
 
-        public RegisterUserHandler(IUserService userService, 
+        public NewUserSignedInHandler(IUserService userService,
             IOrganizationService organizationService,
             IApiKeyService apiKeyService)
         {
@@ -24,10 +19,10 @@ namespace Warden.Api.Infrastructure.Commands.Users
             _apiKeyService = apiKeyService;
         }
 
-        public async Task HandleAsync(RegisterUser command)
+        public async Task HandleAsync(NewUserSignedIn @event)
         {
-            await _userService.CreateAsync(command.Email, command.ExternalId);
-            var user = await _userService.GetAsync(command.ExternalId);
+            await _userService.CreateAsync(@event.Email, @event.ExternalId);
+            var user = await _userService.GetByEmailAsync(@event.Email);
             await _organizationService.CreateDefaultAsync(user.Id);
             await _apiKeyService.CreateAsync(user.Id);
         }
