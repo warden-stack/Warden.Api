@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNet.SignalR;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Infrastructure.IoC.Modules
@@ -37,6 +38,9 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<ApiKeyService>()
                 .As<IApiKeyService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<SignalRService>()
+                .As<ISignalRService>()
+                .InstancePerLifetimeScope();
 
             //TODO: Register Rebus IBus
             builder.RegisterType<WardenConfigurationService>()
@@ -46,6 +50,7 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<UniqueIdGenerator>()
                 .As<IUniqueIdGenerator>()
                 .SingleInstance();
+
         }
     }
 }
