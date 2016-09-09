@@ -41,14 +41,14 @@ namespace Warden.Api.Infrastructure.Services
         {
             if (check == null)
                 throw new ArgumentNullException(nameof(check), "Warden check can not be null.");
-            if (check.Result == null)
+            if (check.WatcherCheckResult == null)
             {
-                throw new ArgumentNullException(nameof(check.Result),
-                    "Watcher check can not be null.");
+                throw new ArgumentNullException(nameof(check.WatcherCheckResult),
+                    "Watcher check result can not be null.");
             }
-            if (check.Result.WatcherName.Empty())
+            if (check.WatcherCheckResult.WatcherName.Empty())
                 throw new ArgumentException("Watcher name can not be empty.");
-            if (check.Result.WatcherType.Empty())
+            if (check.WatcherCheckResult.WatcherType.Empty())
                 throw new ArgumentException("Watcher type can not be empty.");
 
             var organization = await _organizationRepository.GetAsync(organizationInternalId);

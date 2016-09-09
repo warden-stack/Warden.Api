@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Builder;
 using NLog;
 using Warden.Api.Framework;
 using Warden.Api.Framework.Filters;
@@ -17,6 +19,8 @@ using NLog.Extensions.Logging;
 using Rebus.Activation;
 using LogLevel = Rebus.Logging.LogLevel;
 using Rebus.Transport.Msmq;
+using Owin;
+using Warden.Api.Hubs;
 
 namespace Warden.Api
 {
@@ -79,7 +83,8 @@ namespace Warden.Api
             return configurationValue;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole(Configuration.GetSection("logging"));
             loggerFactory.AddDebug();
@@ -103,6 +108,8 @@ namespace Warden.Api
                     .AllowCredentials());
             }
             app.UseMvc();
+            app.UseDeveloperExceptionPage();
+            MapSignalR(app, serviceProvider);
             Task.WaitAll(InitializeDatabaseAsync(app));
             Task.WaitAll(HandleRealTimeUpdates(app));
             Logger.Info("Warden API has started.");
@@ -118,6 +125,24 @@ namespace Warden.Api
         {
             var realTimeDataPusher = app.ApplicationServices.GetService<IRealTimeDataPusher>();
             await Task.Factory.StartNew(realTimeDataPusher.StartPushingAsync, TaskCreationOptions.LongRunning);
+        }
+
+        private void MapSignalR(IApplicationBuilder app, IServiceProvider serviceProvider)
+        {
+            app.UseOwin(addToPipeline =>
+            {
+                addToPipeline(next =>
+                {
+                    var appBuilder = new AppBuilder();
+                    appBuilder.Properties["builder.DefaultApp"] = next;
+
+                    appBuilder.MapSignalR();
+
+                    return appBuilder.Build();
+                });
+            });
+
+            GlobalHost.DependencyResolver.Register(typeof(WardenHub), () => new WardenHub());
         }
     }
 }
