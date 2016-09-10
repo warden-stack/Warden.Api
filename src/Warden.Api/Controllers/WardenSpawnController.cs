@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Wardens;
@@ -18,6 +19,7 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task Post([FromBody] object request) =>
             await For(MapTo<SpawnWarden>(request))
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
