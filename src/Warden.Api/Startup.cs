@@ -65,7 +65,7 @@ namespace Warden.Api
             services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>("paymentPlan"));
             services.AddSingleton(GetConfigurationValue<Auth0Settings>("auth0"));
             services.AddSingleton(activator.Bus);
-            services.AddSingleton(provider => GlobalHost.ConnectionManager.GetHubContext<WardenHub>());
+            services.AddScoped(provider => GlobalHost.ConnectionManager.GetHubContext<WardenHub>());
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());

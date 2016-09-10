@@ -8,15 +8,15 @@ namespace Warden.Api.Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<RethinkDbManager>()
-                .As<IRethinkDbManager>()
+            builder.RegisterType<RethinkDbWardenCheckStorage>()
+                .As<IWardenCheckStorage>()
                 .SingleInstance();
 
-            builder.RegisterType<RealTimeDataStorage>()
+            builder.RegisterType<RethinkDbRealTimeDataStorage>()
                 .As<IRealTimeDataStorage>()
                 .SingleInstance();
 
-            builder.RegisterType<RealTimeDataPusher>()
+            builder.RegisterType<RethinkDbRealTimeDataPusher>()
                 .As<IRealTimeDataPusher>()
                 .SingleInstance();
         }

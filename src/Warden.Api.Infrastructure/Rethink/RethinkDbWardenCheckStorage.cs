@@ -7,20 +7,21 @@ using RethinkDb.Driver.Net;
 using Warden.Api.Infrastructure.DTO.Common;
 using Warden.Api.Infrastructure.DTO.Wardens;
 using Warden.Api.Infrastructure.DTO.Watchers;
+using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
 
 namespace Warden.Api.Infrastructure.Rethink
 {
-    public class RethinkDbManager : IRethinkDbManager
+    public class RethinkDbWardenCheckStorage : IWardenCheckStorage
     {
         private readonly RethinkDB _rethinkDb = RethinkDB.R;
         private readonly RethinkDbSettings _dbSettings;
         private readonly IConnection _connection;
-
+        private bool _streamEnabled = false;
         private readonly ConcurrentDictionary<object, Action<WardenCheckResultStorageDto>> _subscribers =
             new ConcurrentDictionary<object, Action<WardenCheckResultStorageDto>>();
 
-        public RethinkDbManager(RethinkDbSettings dbSettings)
+        public RethinkDbWardenCheckStorage(RethinkDbSettings dbSettings)
         {
             _dbSettings = dbSettings;
             _connection = Connect();
@@ -31,10 +32,11 @@ namespace Warden.Api.Infrastructure.Rethink
                 .Insert(new StorageData(storage))
                 .RunAsync(_connection);
 
-        public async Task StreamAsync()
+        public async Task EnableStreamAsync()
         {
+            _streamEnabled = true;
             var stream = await WardenChecks.Changes().RunChangesAsync<StorageData>(_connection);
-            while (stream.IsOpen)
+            while (stream.IsOpen && _streamEnabled)
             {
                 foreach (var value in stream)
                 {
@@ -49,9 +51,29 @@ namespace Warden.Api.Infrastructure.Rethink
             }
         }
 
+        public void DisableStream()
+        {
+            _streamEnabled = false;
+        }
+
         public void SubscribeToStream(object subscriber, Action<WardenCheckResultStorageDto> action)
         {
+            UnsubscribeFromStream(subscriber);
             _subscribers.TryAdd(subscriber, action);
+        }
+
+        public void UnsubscribeFromStream(object subscriber)
+        {
+            if(!_subscribers.ContainsKey(subscriber))
+                return;
+
+            Action<WardenCheckResultStorageDto> action;
+            _subscribers.TryRemove(subscriber, out action);
+        }
+
+        public void RemoveAllStreamSubscribers()
+        {
+            _subscribers.Clear();
         }
 
         private Table WardenChecks => _rethinkDb.Db(_dbSettings.Database)

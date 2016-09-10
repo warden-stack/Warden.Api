@@ -5,6 +5,6 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IRealTimeDataStorage
     {
-        Task StoreAsync(WardenCheckResultStorageDto storage);
+        Task StoreAsync(WardenCheckResultStorageDto checkResult);
     }
 }
