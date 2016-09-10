@@ -15,19 +15,11 @@ namespace Warden.Api.Infrastructure.Rethink
             _signalRService = signalRService;
         }
 
-        public async Task StartPushingAsync()
+        public async Task PushAsync()
         {
-            var feed = await _dbManager.StreamWardenCheckResultChangesAsync();
-            while (feed.IsOpen)
-            {
-                foreach (var value in feed)
-                {
-                    var storage = value.NewValue;
-                    _signalRService.SendCheckResultSaved(storage.OrganizationId,
-                        storage.WardenId, storage.Check);
-                }
-                await feed.MoveNextAsync();
-            }
+            _dbManager.SubscribeToStream(this, x => _signalRService.SendCheckResultSaved(x.OrganizationId,
+                x.WardenId, x.Check));
+            await _dbManager.StreamAsync();
         }
     }
 }

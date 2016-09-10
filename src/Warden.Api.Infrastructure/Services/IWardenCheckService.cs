@@ -33,7 +33,7 @@ namespace Warden.Api.Infrastructure.Services
                 Check = check,
                 CreatedAt = DateTime.UtcNow
             };
-            await _realTimeDataStorage.SaveAsync(storage);
+            await _realTimeDataStorage.StoreAsync(storage);
         }
 
         private async Task ValidateCheckResultAsync(string organizationInternalId,

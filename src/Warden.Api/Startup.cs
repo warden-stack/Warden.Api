@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin.Builder;
 using NLog;
-using Warden.Api.Framework;
 using Warden.Api.Framework.Filters;
 using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
@@ -21,7 +20,6 @@ using LogLevel = Rebus.Logging.LogLevel;
 using Rebus.Transport.Msmq;
 using Owin;
 using Warden.Api.Hubs;
-using Warden.Api.Infrastructure.Auth0;
 
 namespace Warden.Api
 {
@@ -125,7 +123,7 @@ namespace Warden.Api
         private async Task HandleRealTimeUpdates(IApplicationBuilder app)
         {
             var realTimeDataPusher = app.ApplicationServices.GetService<IRealTimeDataPusher>();
-            await Task.Factory.StartNew(realTimeDataPusher.StartPushingAsync, TaskCreationOptions.LongRunning);
+            await Task.Factory.StartNew(realTimeDataPusher.PushAsync, TaskCreationOptions.LongRunning);
         }
 
         private void MapSignalR(IApplicationBuilder app)
