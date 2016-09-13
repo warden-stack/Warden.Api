@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Events.Users;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
@@ -76,13 +77,17 @@ namespace Warden.Api.Infrastructure.Services
             return result;
         }
 
-        public async Task CreateAsync(string email, string externalId)
+        public async Task CreateAsync(string email, string externalId, bool activate = true)
         {
             var user = await _userRepository.GetByEmailAsync(email);
             if (user.HasValue)
                 throw new ServiceException($"User with e-mail: {email} already exists");
 
-            await _userRepository.CreateAsync(email, externalId);
+            user = new User(email, externalId: externalId);
+            if (activate)
+                user.Value.Activate();
+
+            await _userRepository.AddAsync(user.Value);
             await _eventDispatcher.DispatchAsync(new UserCreated(email, externalId));
         }
     }

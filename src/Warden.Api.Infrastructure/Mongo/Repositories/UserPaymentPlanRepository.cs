@@ -22,5 +22,8 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
 
         public async Task UpdateAsync(UserPaymentPlan paymentPlan)
             => await _database.UserPaymentPlans().ReplaceOneAsync(x => x.Id == paymentPlan.Id, paymentPlan);
+
+        public async Task AddAsync(UserPaymentPlan paymentPlan)
+            => await _database.UserPaymentPlans().InsertOneAsync(paymentPlan);
     }
 }

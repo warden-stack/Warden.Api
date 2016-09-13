@@ -1,6 +1,10 @@
-﻿namespace Warden.Api.Infrastructure.Services
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Warden.Api.Infrastructure.Services
 {
     public interface IUserPaymentPlanService
     {
+        Task CreateDefaultAsync(Guid userId);
     }
 }

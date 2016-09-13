@@ -12,6 +12,9 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
         public static IMongoCollection<PaymentPlan> PaymentPlans(this IMongoDatabase database)
             => database.GetCollection<PaymentPlan>();
 
+        public static async Task<PaymentPlan> GetDefaultAsync(this IMongoCollection<PaymentPlan> paymentPlans)
+            => await paymentPlans.AsQueryable().FirstOrDefaultAsync(x => x.MonthlyPrice == 0);
+
         public static async Task<PaymentPlan> GetByIdAsync(this IMongoCollection<PaymentPlan> paymentPlans,
             Guid id)
         {
