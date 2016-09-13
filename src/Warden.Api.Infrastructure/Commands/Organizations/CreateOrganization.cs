@@ -8,6 +8,7 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
     {
         public Guid AuthenticatedUserId { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
     }
 
     public class CreateOrganizationHandler : ICommandHandler<CreateOrganization>
@@ -21,7 +22,8 @@ namespace Warden.Api.Infrastructure.Commands.Organizations
 
         public async Task HandleAsync(CreateOrganization command)
         {
-            await _organizationService.CreateAsync(command.AuthenticatedUserId, command.Name);
+            await _organizationService.CreateAsync(command.AuthenticatedUserId, 
+                command.Name, command.Description);
         }
     }
 }

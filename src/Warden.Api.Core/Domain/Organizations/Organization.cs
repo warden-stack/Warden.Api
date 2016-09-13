@@ -15,6 +15,7 @@ namespace Warden.Api.Core.Domain.Organizations
 
         public string InternalId { get; protected set; }
         public string Name { get; protected set; }
+        public string Description { get; set; }
         public Guid OwnerId { get; protected set; }
         public bool AutoRegisterNewWarden { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -36,15 +37,15 @@ namespace Warden.Api.Core.Domain.Organizations
         {
         }
 
-        public Organization(string name, User owner, string internalId, bool autoRegisterNewWarden = true)
+        public Organization(string name, User owner, string internalId,
+            string description = "")
         {
             SetName(name);
             SetInternalId(internalId);
             SetOwner(owner);
+            SetDescription(description);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
-            if(autoRegisterNewWarden)
-                EnableAutoRegisterNewWarden();
         }
 
         public void SetName(string name)
@@ -53,6 +54,12 @@ namespace Warden.Api.Core.Domain.Organizations
                 throw new DomainException("Organization name can not be empty.");
 
             Name = name.Trim();
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetDescription(string description)
+        {
+            Description = description?.Trim() ?? string.Empty;
             UpdatedAt = DateTime.UtcNow;
         }
 

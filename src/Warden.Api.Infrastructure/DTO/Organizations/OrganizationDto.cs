@@ -12,6 +12,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
         public string Id { get; set; }
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public bool AutoRegisterNewWarden { get; set; }
         public IEnumerable<UserInOrganizationDto> Users { get; set; }
         public IEnumerable<WardenDto> Wardens { get; set; }
@@ -25,6 +26,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
             Id = organization.InternalId;
             OwnerId = organization.OwnerId;
             Name = organization.Name;
+            Description = organization.Description;
             AutoRegisterNewWarden = organization.AutoRegisterNewWarden;
             Users = organization.Users.Select(x => new UserInOrganizationDto(x));
             Wardens = organization.Wardens.Select(x => new WardenDto(x));

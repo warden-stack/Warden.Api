@@ -73,7 +73,7 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
-        public async Task CreateAsync(Guid userId, string name)
+        public async Task CreateAsync(Guid userId, string name, string description = "")
         {
             if (name.Empty())
                 throw new ServiceException("Organization name can not be empty.");
@@ -88,14 +88,14 @@ namespace Warden.Api.Infrastructure.Services
                                            $"for user with id: '{userId}'.");
 
             var internalId = _uniqueIdGenerator.Create();
-            var organization = new Organization(name, userValue.Value, internalId);
+            var organization = new Organization(name, userValue.Value, internalId, description);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
         }
 
         public async Task CreateDefaultAsync(Guid userId)
         {
-            await CreateAsync(userId, DefaultName);
+            await CreateAsync(userId, DefaultName, $"{DefaultName} description.");
         }
 
         public async Task DeleteAsync(Guid id, Guid authenticatedUserId)
