@@ -21,19 +21,16 @@ namespace Warden.Api.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IUniqueIdGenerator _uniqueIdGenerator;
         private readonly IEventDispatcher _eventDispatcher;
 
         public OrganizationService(IMapper mapper,
             IOrganizationRepository organizationRepository, 
             IUserRepository userRepository,
-            IUniqueIdGenerator uniqueIdGenerator,
             IEventDispatcher eventDispatcher)
         {
             _mapper = mapper;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
-            _uniqueIdGenerator = uniqueIdGenerator;
             _eventDispatcher = eventDispatcher;
         }
 
@@ -73,7 +70,7 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
-        public async Task CreateAsync(Guid userId, string name)
+        public async Task CreateAsync(Guid userId, string name, string description = "")
         {
             if (name.Empty())
                 throw new ServiceException("Organization name can not be empty.");
@@ -87,15 +84,14 @@ namespace Warden.Api.Infrastructure.Services
                 throw new ServiceException($"There's already an organization with name: '{name}' " +
                                            $"for user with id: '{userId}'.");
 
-            var internalId = _uniqueIdGenerator.Create();
-            var organization = new Organization(name, userValue.Value, internalId);
+            var organization = new Organization(name, userValue.Value, description);
             await _organizationRepository.AddAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
         }
 
         public async Task CreateDefaultAsync(Guid userId)
         {
-            await CreateAsync(userId, DefaultName);
+            await CreateAsync(userId, DefaultName, $"{DefaultName} description.");
         }
 
         public async Task DeleteAsync(Guid id, Guid authenticatedUserId)

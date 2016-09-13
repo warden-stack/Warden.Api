@@ -7,7 +7,7 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
 {
     public class WardenDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public bool Enabled { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -19,7 +19,7 @@ namespace Warden.Api.Infrastructure.DTO.Wardens
 
         public WardenDto(Core.Domain.Wardens.Warden warden)
         {
-            Id = warden.InternalId;
+            Id = warden.Id;
             Name = warden.Name;
             Enabled = warden.Enabled;
             CreatedAt = warden.CreatedAt;

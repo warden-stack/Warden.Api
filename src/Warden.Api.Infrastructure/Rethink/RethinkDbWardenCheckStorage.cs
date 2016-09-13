@@ -90,8 +90,8 @@ namespace Warden.Api.Infrastructure.Rethink
         private WardenCheckResultStorageDto MapToDto(StorageData data)
             => new WardenCheckResultStorageDto
             {
-                OrganizationId = data.o,
-                WardenId = data.w,
+                OrganizationId = Guid.Parse(data.o),
+                WardenId = Guid.Parse(data.w),
                 CreatedAt = new DateTime(data.c),
                 Check = new WardenCheckResultDto
                 {
@@ -133,8 +133,8 @@ namespace Warden.Api.Infrastructure.Rethink
 
             public StorageData(WardenCheckResultStorageDto storage)
             {
-                o = storage.OrganizationId;
-                w = storage.WardenId;
+                o = storage.OrganizationId.ToString("N");
+                w = storage.WardenId.ToString("N");
                 c = storage.CreatedAt.Ticks;
                 r = new WardenCheckResultData(storage.Check);
             }

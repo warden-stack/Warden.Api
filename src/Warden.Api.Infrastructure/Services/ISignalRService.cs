@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System;
+using Microsoft.AspNet.SignalR;
 using Warden.Api.Infrastructure.DTO.Wardens;
 
 namespace Warden.Api.Infrastructure.Services
 {
     public interface ISignalRService
     {
-        void SendCheckResultSaved(string organizationId, string wardenId, WardenCheckResultDto checkResult);
+        void SendCheckResultSaved(Guid organizationId, Guid wardenId, WardenCheckResultDto checkResult);
     }
 
     public class SignalRService : ISignalRService
@@ -17,13 +18,13 @@ namespace Warden.Api.Infrastructure.Services
             _hub = hub;
         }
 
-        public void SendCheckResultSaved(string organizationId, string wardenId, WardenCheckResultDto checkResult)
+        public void SendCheckResultSaved(Guid organizationId, Guid wardenId, WardenCheckResultDto checkResult)
         {
             var groupName = GetWardenGroupName(organizationId, wardenId);
             _hub.Clients.Group(groupName).checkSaved(checkResult);
         }
 
-        private static string GetWardenGroupName(string organizationId, string wardenId)
-            => $"{organizationId}:{wardenId}";
+        private static string GetWardenGroupName(Guid organizationId, Guid wardenId)
+            => $"{organizationId.ToString("N")}:{wardenId.ToString("N")}";
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -24,7 +25,7 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
-        public async Task Post(string organizationId, string wardenId, [FromBody] SaveWardenCheck request) =>
+        public async Task Post(Guid organizationId, Guid wardenId, [FromBody] SaveWardenCheck request) =>
             await For(request)
                 .ExecuteAsync(c =>
                 {

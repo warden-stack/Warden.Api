@@ -66,19 +66,22 @@ namespace Warden.Api.Infrastructure.Mongo
         private async Task CreateUsersAsync()
         {
             var users = new List<User>();
-            for (int i = 1; i <= 10; i++)
+            for (var i = 1; i <= 10; i++)
             {
                 var user = new User($"warden-user{i}@mailinator.com");
                 user.Activate();
+                if (i == 1)
+                    user.SetExternalId("auth0|57d068eaf78ad35973d0a747");
+
                 users.Add(user);
             }
-            for (int i = 1; i < -3; i++)
+            for (var i = 1; i < -3; i++)
             {
                 var moderator = new User($"warden-moderator{i}@mailinator.com", Role.Moderator);
                 moderator.Activate();
                 users.Add(moderator);
             }
-            for (int i = 1; i < -3; i++)
+            for (var i = 1; i < -3; i++)
             {
                 var admin = new User($"warden-admin{i}@mailinator.com", Role.Admin);
                 admin.Activate();
@@ -121,6 +124,8 @@ namespace Warden.Api.Infrastructure.Mongo
 
         private async Task CreateOrganizationsAsync()
         {
+            var name = "My organization";
+            var description = $"{name} description.";
             var users = await _database.Users()
                 .AsQueryable()
                 .Where(x => x.Role == Role.User)
@@ -129,8 +134,7 @@ namespace Warden.Api.Infrastructure.Mongo
             var organizations = new List<Organization>();
             foreach (var user in users)
             {
-                var internalId = _uniqueIdGenerator.Create();
-                var organization = new Organization("My organization", user, internalId);
+                var organization = new Organization("My organization", user, description);
                 organizations.Add(organization);
             }
             await _database.Organizations().InsertManyAsync(organizations);

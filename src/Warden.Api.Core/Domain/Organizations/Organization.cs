@@ -13,8 +13,8 @@ namespace Warden.Api.Core.Domain.Organizations
         private HashSet<UserInOrganization> _users = new HashSet<UserInOrganization>();
         private HashSet<Wardens.Warden> _wardens = new HashSet<Wardens.Warden>();
 
-        public string InternalId { get; protected set; }
         public string Name { get; protected set; }
+        public string Description { get; set; }
         public Guid OwnerId { get; protected set; }
         public bool AutoRegisterNewWarden { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -36,15 +36,13 @@ namespace Warden.Api.Core.Domain.Organizations
         {
         }
 
-        public Organization(string name, User owner, string internalId, bool autoRegisterNewWarden = true)
+        public Organization(string name, User owner, string description = "")
         {
             SetName(name);
-            SetInternalId(internalId);
             SetOwner(owner);
+            SetDescription(description);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
-            if(autoRegisterNewWarden)
-                EnableAutoRegisterNewWarden();
         }
 
         public void SetName(string name)
@@ -56,12 +54,9 @@ namespace Warden.Api.Core.Domain.Organizations
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetInternalId(string internalId)
+        public void SetDescription(string description)
         {
-            if (internalId.Empty())
-                throw new ArgumentException($"Warden {Name} internal id can not be empty.");
-
-            InternalId = internalId;
+            Description = description?.Trim() ?? string.Empty;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -99,7 +94,7 @@ namespace Warden.Api.Core.Domain.Organizations
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddWarden(User owner, string name, string internalId, bool enabled = true)
+        public void AddWarden(Guid id, User owner, string name, bool enabled = true)
         {
             if (name.Empty())
                 throw new DomainException("Can not add a warden without a name to the organization.");
@@ -108,18 +103,18 @@ namespace Warden.Api.Core.Domain.Organizations
             if (warden != null)
                 throw new DomainException($"Warden with name: '{name}' has been already added.");
 
-            warden = new Wardens.Warden(owner, name, internalId, enabled);
+            warden = new Wardens.Warden(id, owner, name,  enabled);
             _wardens.Add(warden);
             UpdatedAt = DateTime.UtcNow;
 
-            AddEvent(new WardenCreated(InternalId, warden.InternalId));
+            AddEvent(new WardenCreated(Id, warden.Id));
         }
 
         public void EditWarden(string name, string newName)
         {
             var warden = GetWardenByNameOrFail(name);
             var existingWarden = GetWardenByName(newName);
-            if(existingWarden != null && existingWarden.InternalId != warden.InternalId)
+            if(existingWarden != null && existingWarden.Id != warden.Id)
                 throw new DomainException($"Warden with name: '{newName}' already exists.");
 
             warden.SetName(newName);
@@ -165,8 +160,8 @@ namespace Warden.Api.Core.Domain.Organizations
         public Wardens.Warden GetWardenByName(string name) 
             => Wardens.FirstOrDefault(x => x.Name.EqualsCaseInvariant(name));
 
-        public Wardens.Warden GetWardenByInternalId(string internalId)
-            => Wardens.FirstOrDefault(x => x.InternalId.Equals(internalId));
+        public Wardens.Warden GetWardenById(Guid id)
+            => Wardens.FirstOrDefault(x => x.Id.Equals(id));
 
         public void EnableAutoRegisterNewWarden()
         {

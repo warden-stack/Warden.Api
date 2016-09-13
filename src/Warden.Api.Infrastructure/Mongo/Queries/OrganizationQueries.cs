@@ -23,15 +23,6 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
             return await organizations.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public static async Task<Organization> GetByInternalIdAsync(this IMongoCollection<Organization> organizations,
-            string internalId)
-        {
-            if (internalId.Empty())
-                return null;
-
-            return await organizations.AsQueryable().FirstOrDefaultAsync(x => x.InternalId == internalId);
-        }
-
         public static async Task<Organization> GetByNameForOwnerAsync(this IMongoCollection<Organization> organizations,
             string name, Guid ownerId)
         {
@@ -59,12 +50,12 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
         }
 
         public static async Task<bool> ExistsAsync(this IMongoCollection<Organization> organizations,
-            string internalId)
+            Guid id)
         {
-            if (internalId.Empty())
+            if (id == Guid.Empty)
                 return false;
 
-            return await organizations.AsQueryable().AnyAsync(x => x.InternalId == internalId);
+            return await organizations.AsQueryable().AnyAsync(x => x.Id == id);
         }
     }
 }
