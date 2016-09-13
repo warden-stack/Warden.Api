@@ -9,7 +9,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
 {
     public class OrganizationDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -23,7 +23,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
 
         public OrganizationDto(Organization organization)
         {
-            Id = organization.Id.ToString("N");
+            Id = organization.Id;
             OwnerId = organization.OwnerId;
             Name = organization.Name;
             Description = organization.Description;

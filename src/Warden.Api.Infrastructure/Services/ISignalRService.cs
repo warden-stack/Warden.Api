@@ -25,6 +25,6 @@ namespace Warden.Api.Infrastructure.Services
         }
 
         private static string GetWardenGroupName(Guid organizationId, Guid wardenId)
-            => $"{organizationId.ToString("N")}:{wardenId.ToString("N")}";
+            => $"{organizationId:N}:{wardenId:N}";
     }
 }

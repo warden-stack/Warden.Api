@@ -51,7 +51,7 @@ namespace Warden.Api.Infrastructure.Services
 
             return organization.HasValue &&
                    organization.Value.OwnerId == userId &&
-                   organization.Value.Wardens.Any(x => x.OwnerId == wardenId);
+                   organization.Value.Wardens.Any(x => x.OwnerId == userId);
         }
     }
 }
