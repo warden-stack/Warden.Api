@@ -1,14 +1,16 @@
-﻿namespace Warden.Api.Core.Events.Wardens
+﻿using System;
+
+namespace Warden.Api.Core.Events.Wardens
 {
     public class WardenCreated : IEvent
     {
-        public string OrganizationInternalId { get; }
-        public string WardenInternalId { get; }
+        public Guid OrganizationId { get; }
+        public Guid WardenId { get; }
 
-        public WardenCreated(string organizationInternalId, string wardenInternalId)
+        public WardenCreated(Guid organizationId, Guid wardenId)
         {
-            OrganizationInternalId = organizationInternalId;
-            WardenInternalId = wardenInternalId;
+            OrganizationId = organizationId;
+            WardenId = wardenId;
         }
     }
 }

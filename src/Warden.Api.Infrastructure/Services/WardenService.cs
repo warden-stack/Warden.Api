@@ -24,15 +24,15 @@ namespace Warden.Api.Infrastructure.Services
             _eventDispatcher = eventDispatcher;
         }
 
-        public async Task CreateWardenAsync(string internalOrganizationId, Guid userId, string name)
+        public async Task CreateWardenAsync(Guid id, Guid organizationId, Guid userId, string name)
         {
             var user = await _userRepository.GetAsync(userId);
             if (user.HasNoValue)
                 throw new ArgumentException($"User {userId} has not been found.");
 
-            var organization = await _organizationRepository.GetAsync(internalOrganizationId);
+            var organization = await _organizationRepository.GetAsync(organizationId);
             if (organization.HasNoValue)
-                throw new ArgumentException($"Organization {internalOrganizationId} has not been found.");
+                throw new ArgumentException($"Organization {organizationId} has not been found.");
 
             if (organization.Value.OwnerId != userId)
             {
@@ -40,19 +40,18 @@ namespace Warden.Api.Infrastructure.Services
                                             $"organization {organization.Value.Id}.");
             }
 
-            var internalId = _uniqueIdGenerator.Create();
-            organization.Value.AddWarden(user.Value, name, internalId);
+            organization.Value.AddWarden(id, user.Value, name);
             await _organizationRepository.UpdateAsync(organization.Value);
             await _eventDispatcher.DispatchAsync(organization.Value.Events.ToArray());
         }
 
-        public async Task<bool> HasAccessAsync(Guid userId, string internalOrganizationId, string internalWardenId)
+        public async Task<bool> HasAccessAsync(Guid userId, Guid organizationId, Guid wardenId)
         {
-            var organization = await _organizationRepository.GetAsync(internalOrganizationId);
+            var organization = await _organizationRepository.GetAsync(organizationId);
 
             return organization.HasValue &&
                    organization.Value.OwnerId == userId &&
-                   organization.Value.Wardens.Any(x => x.InternalId == internalWardenId);
+                   organization.Value.Wardens.Any(x => x.OwnerId == wardenId);
         }
     }
 }

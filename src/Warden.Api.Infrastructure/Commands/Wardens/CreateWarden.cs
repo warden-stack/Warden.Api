@@ -8,7 +8,8 @@ namespace Warden.Api.Infrastructure.Commands.Wardens
     public class CreateWarden : IAuthenticatedCommand
     {
         public Guid AuthenticatedUserId { get; set; }
-        public string OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
+        public Guid WardenId { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
     }
 
@@ -27,8 +28,8 @@ namespace Warden.Api.Infrastructure.Commands.Wardens
         public async Task HandleAsync(CreateWarden command)
         {
             await _userFeaturesManager.UseFeatureIfAvailableAsync(command.AuthenticatedUserId,
-                FeatureType.AddWarden, async () => await _wardenService.CreateWardenAsync(command.OrganizationId,
-                    command.AuthenticatedUserId, command.Name));
+                FeatureType.AddWarden, async () => await _wardenService.CreateWardenAsync(command.WardenId,
+                    command.OrganizationId, command.AuthenticatedUserId, command.Name));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Warden.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task Post(string organizationId, [FromBody] CreateWarden request) =>
+        public async Task Post(Guid organizationId, [FromBody] CreateWarden request) =>
             await For(request)
                 .ExecuteAsync(async c =>
                 {

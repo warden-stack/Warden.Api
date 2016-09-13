@@ -18,12 +18,10 @@ namespace Warden.Api.Infrastructure.Mappers
             {
                 cfg.CreateMap<WardenDto, CreateWarden>();
                 cfg.CreateMap<Organization, OrganizationDto>()
-                    .ForMember(t => t.Id, s => s.MapFrom(x => x.InternalId))
                     .ForMember(t => t.Users, s => s.MapFrom(x => x.Users.Select(u => new UserInOrganizationDto(u))));
                 cfg.CreateMap<OrganizationDto, EditOrganization>();
                 cfg.CreateMap<User, UserDto>();
-                cfg.CreateMap<Core.Domain.Wardens.Warden, WardenDto>()
-                    .ForMember(t => t.Id, s => s.MapFrom(x => x.InternalId));
+                cfg.CreateMap<Core.Domain.Wardens.Warden, WardenDto>();
                 cfg.CreateMap<object, SpawnWarden>()
                     .ForMember(t => t.Configuration, s => s.MapFrom(x => x));
             });

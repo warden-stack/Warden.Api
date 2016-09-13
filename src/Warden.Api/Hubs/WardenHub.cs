@@ -43,13 +43,13 @@ namespace Warden.Api.Hubs
         private async Task<string> ValidateClientAndGetGroupNameAsync()
         {
             var accessToken = Context.QueryString["accessToken"];
-            var organizationId = Context.QueryString["organizationId"];
-            var wardenId = Context.QueryString["wardenId"];
+            var organizationId = Guid.Parse(Context.QueryString["organizationId"]);
+            var wardenId = Guid.Parse(Context.QueryString["wardenId"]);
             if (string.IsNullOrWhiteSpace(accessToken))
                 throw new ArgumentException("Empty access token.");
-            if (string.IsNullOrWhiteSpace(organizationId))
+            if (organizationId == Guid.Empty)
                 throw new ArgumentException("Empty organization id.");
-            if (string.IsNullOrWhiteSpace(wardenId))
+            if (wardenId == Guid.Empty)
                 throw new ArgumentException("Empty warden id.");
 
             var user = await _userService.GetByAccessTokenAsync(accessToken);
@@ -76,7 +76,7 @@ namespace Warden.Api.Hubs
             return groupName;
         }
 
-        private static string GetWardenGroupName(string organizationId, string wardenId)
-            => $"{organizationId}:{wardenId}";
+        private static string GetWardenGroupName(Guid organizationId, Guid wardenId)
+            => $"{organizationId.ToString("N")}:{wardenId.ToString("N")}";
     }
 }

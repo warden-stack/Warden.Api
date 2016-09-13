@@ -23,7 +23,7 @@ namespace Warden.Api.Infrastructure.DTO.Organizations
 
         public OrganizationDto(Organization organization)
         {
-            Id = organization.InternalId;
+            Id = organization.Id.ToString("N");
             OwnerId = organization.OwnerId;
             Name = organization.Name;
             Description = organization.Description;

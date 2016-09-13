@@ -6,7 +6,7 @@ namespace Warden.Api.Core.Domain.Wardens
 {
     public class WardenInfo
     {
-        public string InternalId { get; protected set; }
+        public Guid Id { get; protected set; }
         public Guid OrganizationId { get; protected set; }
         public string Name { get; protected set; }
 
@@ -22,7 +22,7 @@ namespace Warden.Api.Core.Domain.Wardens
             if (organization == null)
                 throw new DomainException("Organization can not be null.");
 
-            InternalId = warden.InternalId;
+            Id = warden.Id;
             OrganizationId = organization.Id;
             Name = warden.Name;
         }

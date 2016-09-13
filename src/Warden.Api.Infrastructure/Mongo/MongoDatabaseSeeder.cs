@@ -134,8 +134,7 @@ namespace Warden.Api.Infrastructure.Mongo
             var organizations = new List<Organization>();
             foreach (var user in users)
             {
-                var internalId = _uniqueIdGenerator.Create();
-                var organization = new Organization("My organization", user, internalId, description);
+                var organization = new Organization("My organization", user, description);
                 organizations.Add(organization);
             }
             await _database.Organizations().InsertManyAsync(organizations);

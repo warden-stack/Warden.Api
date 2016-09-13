@@ -12,7 +12,7 @@ namespace Warden.Api.Core.Domain.Wardens
     public class Warden : ITimestampable
     {
         private HashSet<Watcher> _watchers = new HashSet<Watcher>();
-        public string InternalId { get; protected set; }
+        public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public Guid OwnerId { get; protected set; }
         public bool Enabled { get; protected set; }
@@ -29,11 +29,11 @@ namespace Warden.Api.Core.Domain.Wardens
         {
         }
 
-        public Warden(User owner, string name, string internalId, bool enabled = true)
+        public Warden(Guid id, User owner, string name, bool enabled = true)
         {
+            Id = id;
             OwnerId = owner.Id;
             SetName(name);
-            SetInternalId(internalId);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             if (enabled)
@@ -47,15 +47,6 @@ namespace Warden.Api.Core.Domain.Wardens
                 throw new DomainException("Warden name can not be empty.");
 
             Name = name;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void SetInternalId(string internalId)
-        {
-            if (internalId.Empty())
-                throw new ArgumentException($"Warden {Name} internal id can not be empty.");
-
-            InternalId = internalId;
             UpdatedAt = DateTime.UtcNow;
         }
 

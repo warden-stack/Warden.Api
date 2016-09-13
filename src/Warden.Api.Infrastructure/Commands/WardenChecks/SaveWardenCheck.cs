@@ -9,8 +9,8 @@ namespace Warden.Api.Infrastructure.Commands.WardenChecks
     public class SaveWardenCheck : ICommand
     {
         public Guid AuthenticatedUserId { get; set; }
-        public string OrganizationId { get; set; }
-        public string WardenId { get; set; }
+        public Guid OrganizationId { get; set; }
+        public Guid WardenId { get; set; }
         public WardenCheckResultDto Check { get; set; }
     }
 
