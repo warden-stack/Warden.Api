@@ -31,5 +31,13 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
 
             return await apiKeys.AsQueryable().FirstOrDefaultAsync(x => x.Key == key);
         }
+
+        public static async Task<ApiKey> GetAsync(this IMongoCollection<ApiKey> apiKeys, Guid id)
+        {
+            if (id.IsEmpty())
+                return null;
+
+            return await apiKeys.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

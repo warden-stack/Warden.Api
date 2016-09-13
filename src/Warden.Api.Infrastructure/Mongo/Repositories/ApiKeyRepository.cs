@@ -21,11 +21,14 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
         public async Task<IEnumerable<ApiKey>> BrowseByUserId(Guid userId)
             => await _database.ApiKeys().BrowseByUserIdAsync(userId);
 
-        public async Task<Maybe<ApiKey>> GetAsync(string key)
+        public async Task<Maybe<ApiKey>> GetAsync(Guid id)
+            => await _database.ApiKeys().GetAsync(id);
+
+        public async Task<Maybe<ApiKey>> GetByKeyAsync(string key)
             => await _database.ApiKeys().GetAsync(key);
 
-        public async Task CreateAsync(Guid userId, string key)
-            => await _database.ApiKeys().InsertOneAsync(new ApiKey(key, userId));
+        public async Task AddAsync(ApiKey apiKey)
+            => await _database.ApiKeys().InsertOneAsync(apiKey);
 
         public async Task DeleteAsync(ApiKey key)
             => await _database.ApiKeys().DeleteOneAsync(x => x.UserId == key.UserId && x.Key == key.Key);

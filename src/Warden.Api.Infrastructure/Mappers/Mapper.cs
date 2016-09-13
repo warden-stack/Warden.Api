@@ -4,6 +4,7 @@ using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Infrastructure.Commands.Organizations;
 using Warden.Api.Infrastructure.Commands.Wardens;
+using Warden.Api.Infrastructure.DTO.ApiKeys;
 using Warden.Api.Infrastructure.DTO.Organizations;
 using Warden.Api.Infrastructure.DTO.Users;
 using Warden.Api.Infrastructure.DTO.Wardens;
@@ -26,6 +27,7 @@ namespace Warden.Api.Infrastructure.Mappers
                     .ForMember(t => t.Id, s => s.MapFrom(x => x.InternalId));
                 cfg.CreateMap<object, SpawnWarden>()
                     .ForMember(t => t.Configuration, s => s.MapFrom(x => x));
+                cfg.CreateMap<ApiKey, ApiKeyDto>();
             });
 
             return config.CreateMapper();
