@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
 {
-    [Route("api-key")]
+    [Route("api-keys")]
     public class ApiKeyController : ControllerBase
     {
         private readonly IApiKeyService _apiKeyService;
@@ -27,21 +28,21 @@ namespace Warden.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IEnumerable<ApiKeyDto>> Browse()
+        public async Task<IEnumerable<string>> Browse()
         {
             var userId = (await GetCurrentUser()).Id;
             var apiKeys = await _apiKeyService.BrowseAsync(userId);
 
-            return apiKeys;
+            return apiKeys.Select(x => x.Key);
         }
 
         [Authorize]
         [HttpGet("/{id}")]
-        public async Task<ApiKeyDto> Get(Guid id)
+        public async Task<string> Get(Guid id)
         {
             var apiKey = await _apiKeyService.GetAsync(id);
 
-            return apiKey;
+            return apiKey?.Key;
         }
 
         [Authorize]
