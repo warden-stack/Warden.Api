@@ -1,4 +1,4 @@
-﻿namespace Warden.Common.Services.Commands
+﻿namespace Warden.Common.Commands
 {
     public class RunWardenProcess : ICommand
     {

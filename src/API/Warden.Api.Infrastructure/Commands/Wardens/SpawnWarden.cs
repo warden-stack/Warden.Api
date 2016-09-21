@@ -38,7 +38,7 @@ namespace Warden.Api.Infrastructure.Commands.Wardens
             await _wardenConfigurationService.CreateAsync(configurationId, command.Configuration);
             await _securedRequestService.CreateAsync(securedRequestId, ResourceType.WardenConfiguration, configurationId);
             var securedRequest = await _securedRequestService.GetAsync(securedRequestId);
-            await _bus.Publish(new Common.Services.Commands.SpawnWarden(command.AuthenticatedUserId,
+            await _bus.Publish(new Common.Commands.SpawnWarden(command.AuthenticatedUserId,
                 configurationId.ToString(), securedRequest.Value.Token, command.Region));
         }
     }

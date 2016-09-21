@@ -4,7 +4,7 @@ using Rebus.Config;
 using Rebus.Logging;
 using Rebus.Routing.TypeBased;
 using Rebus.Transport.Msmq;
-using Warden.Common.Services.Events;
+using Warden.Common.Events;
 using Warden.Services.Storage.Handlers.Events;
 
 namespace Warden.Services.Storage

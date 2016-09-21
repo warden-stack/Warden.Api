@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Rebus.Handlers;
+using Warden.Common.Commands;
 using Warden.Common.DTO.Wardens;
-using Warden.Common.Services.Commands;
 using Warden.Services.Storage.Rethink;
 
 namespace Warden.Services.Storage.Handlers.Commands

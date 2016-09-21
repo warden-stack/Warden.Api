@@ -4,7 +4,7 @@ using Rebus.Config;
 using Rebus.Logging;
 using Rebus.Routing.TypeBased;
 using Rebus.Transport.Msmq;
-using Warden.Common.Services.Commands;
+using Warden.Common.Commands;
 using Warden.Services.Spawn.Handlers.Commands;
 
 namespace Warden.Services.Spawn

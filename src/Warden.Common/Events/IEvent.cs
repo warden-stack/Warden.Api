@@ -1,4 +1,4 @@
-﻿namespace Warden.Common.Services
+﻿namespace Warden.Common.Events
 {
     //Marker interface
     public interface IEvent

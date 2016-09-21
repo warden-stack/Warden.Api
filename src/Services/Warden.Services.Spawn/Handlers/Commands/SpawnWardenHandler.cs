@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Rebus.Bus;
 using Rebus.Handlers;
-using Warden.Common.Services.Commands;
+using Warden.Common.Commands;
 
 namespace Warden.Services.Spawn.Handlers.Commands
 {
