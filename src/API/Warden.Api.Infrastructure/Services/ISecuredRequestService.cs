@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Security;
 using Warden.Api.Core.Types;
-using Warden.Common.Dto.Security;
+using Warden.Common.DTO.Security;
 
 namespace Warden.Api.Infrastructure.Services
 {

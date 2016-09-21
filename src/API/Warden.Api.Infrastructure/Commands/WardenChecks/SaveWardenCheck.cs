@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.PaymentPlans;
-using Warden.Common.Dto.Wardens;
+using Warden.Common.DTO.Wardens;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Infrastructure.Commands.WardenChecks

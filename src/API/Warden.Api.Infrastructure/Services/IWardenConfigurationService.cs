@@ -4,7 +4,7 @@ using Rebus.Bus;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Core.Types;
-using Warden.Common.Dto.WardenConfigurations;
+using Warden.Common.DTO.WardenConfigurations;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace Warden.Api.Infrastructure.Services

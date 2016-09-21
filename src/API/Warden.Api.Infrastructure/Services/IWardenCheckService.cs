@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.Dto.Wardens;
+using Warden.Common.DTO.Wardens;
 
 namespace Warden.Api.Infrastructure.Services
 {

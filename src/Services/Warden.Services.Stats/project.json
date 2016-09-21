@@ -1,0 +1,13 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Warden.Common": "1.0.0-*",
+    "Rebus": "0.99.73"
+  },
+  "frameworks": {
+    "net461": {}
+  }
+}

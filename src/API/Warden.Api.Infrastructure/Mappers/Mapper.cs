@@ -4,10 +4,10 @@ using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Infrastructure.Commands.Organizations;
 using Warden.Api.Infrastructure.Commands.Wardens;
-using Warden.Common.Dto.ApiKeys;
-using Warden.Common.Dto.Organizations;
-using Warden.Common.Dto.Users;
-using Warden.Common.Dto.Wardens;
+using Warden.Common.DTO.ApiKeys;
+using Warden.Common.DTO.Organizations;
+using Warden.Common.DTO.Users;
+using Warden.Common.DTO.Wardens;
 
 namespace Warden.Api.Infrastructure.Mappers
 {

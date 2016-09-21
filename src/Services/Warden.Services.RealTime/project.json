@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Warden.Common": "1.0.0-*",
+    "Microsoft.AspNet.SignalR": "2.2.1",
+    "Rebus": "0.99.73",
+    "Microsoft.AspNet.SignalR.SelfHost": "2.2.1",
+    "Microsoft.Owin.Cors": "3.0.1"
+  },
+  "frameworks": {
+    "net461": {}
+  }
+}

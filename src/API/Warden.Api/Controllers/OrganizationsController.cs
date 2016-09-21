@@ -8,7 +8,7 @@ using Warden.Api.Core.Domain.Common;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.Organizations;
 using Warden.Api.Infrastructure.Commands.Users;
-using Warden.Common.Dto.Organizations;
+using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers

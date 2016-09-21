@@ -7,7 +7,7 @@ using Warden.Api.Core.Events.Users;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Auth0;
-using Warden.Common.Dto.Users;
+using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Events;
 
 namespace Warden.Api.Infrastructure.Services

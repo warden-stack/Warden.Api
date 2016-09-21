@@ -7,7 +7,7 @@ using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Framework.Handlers;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Common.Dto.Users;
+using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers

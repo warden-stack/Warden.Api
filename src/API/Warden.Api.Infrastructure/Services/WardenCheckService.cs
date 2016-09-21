@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Rebus.Bus;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
-using Warden.Common.Dto.Wardens;
-using Warden.Services.RealTime.Commands;
+using Warden.Common.DTO.Wardens;
+using Warden.Common.Services.Commands;
 
 namespace Warden.Api.Infrastructure.Services
 {

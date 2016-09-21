@@ -6,7 +6,7 @@ using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Repositories;
-using Warden.Common.Dto.ApiKeys;
+using Warden.Common.DTO.ApiKeys;
 using Warden.Api.Infrastructure.Settings;
 
 namespace Warden.Api.Infrastructure.Services

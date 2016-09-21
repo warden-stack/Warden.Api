@@ -9,7 +9,7 @@ using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Events.Organizations;
 using Warden.Api.Core.Repositories;
-using Warden.Common.Dto.Organizations;
+using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Events;
 
 namespace Warden.Api.Infrastructure.Services

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Warden.Common.Dto.Users;
+using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Settings;
 
 namespace Warden.Api.Infrastructure.Auth0

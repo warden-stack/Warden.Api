@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Commands.ApiKeys;
-using Warden.Common.Dto.ApiKeys;
+using Warden.Common.DTO.ApiKeys;
 using Warden.Api.Infrastructure.Services;
 
 namespace Warden.Api.Controllers
