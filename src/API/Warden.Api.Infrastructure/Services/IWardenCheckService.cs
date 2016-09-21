@@ -1,0 +1,11 @@
+﻿using System;
+using System.Threading.Tasks;
+using Warden.Common.Dto.Wardens;
+
+namespace Warden.Api.Infrastructure.Services
+{
+    public interface IWardenCheckService
+    {
+        Task ProcessAsync(Guid organizationId, Guid wardenId, WardenCheckResultDto check);
+    }
+}

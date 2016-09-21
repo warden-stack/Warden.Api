@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Warden.Services": "1.0.0-*",
+    "Warden.Services.Storage": "1.0.0-*",
+    "Warden.Common.Dto": "1.0.0-*",
+    "RethinkDb.Driver": "2.3.15",
+    "Rebus": "0.99.73"
+  },
+  "frameworks": {
+    "net461": {}
+  }
+}

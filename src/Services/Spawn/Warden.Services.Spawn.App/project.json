@@ -1,0 +1,15 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Warden.Services": "1.0.0-*",
+    "Warden.Services.Spawn": "1.0.0-*",
+    "Warden.Common.Dto": "1.0.0-*",
+    "Rebus": "0.99.73"
+  },
+  "frameworks": {
+    "net461": {}
+  }
+}
