@@ -15,5 +15,6 @@ namespace Warden.Api.Infrastructure.Services
         Task DeleteAsync(Guid id, Guid authenticatedUserId);
         
         Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);
+        Task UnassignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);
     }
 }
