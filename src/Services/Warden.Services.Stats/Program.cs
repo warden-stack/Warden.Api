@@ -20,7 +20,7 @@ namespace Warden.Services.Stats
                 Configure.With(activator)
                     .Logging(l => l.ColoredConsole(minLevel: LogLevel.Debug))
                     .Transport(t => t.UseMsmq("Warden.Services.Stats"))
-                    .Routing(r => r.TypeBased().Map<WardenCheckResultProcessed>("Warden.Services.RealTime"))
+                    .Routing(r => r.TypeBased().Map<WardenCheckResultProcessed>("Warden.Services.Storage"))
                     .Start();
 
                 activator.Bus.Subscribe<WardenCheckResultProcessed>().Wait();

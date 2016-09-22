@@ -10,6 +10,10 @@ namespace Warden.Common.Commands
         public Guid WardenId { get; }
         public WardenCheckResultDto Result { get; }
 
+        protected ProcessWardenCheckResult()
+        {
+        }
+
         public ProcessWardenCheckResult(Guid userId,
             Guid organizationId,
             Guid wardenId,

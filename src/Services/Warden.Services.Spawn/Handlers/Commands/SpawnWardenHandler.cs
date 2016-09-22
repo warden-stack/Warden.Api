@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Rebus.Bus;
 using Rebus.Handlers;
 using Warden.Common.Commands;
@@ -16,6 +17,7 @@ namespace Warden.Services.Spawn.Handlers.Commands
 
         public async Task Handle(SpawnWarden message)
         {
+            Console.WriteLine("Spawning new Warden...");
             await _bus.Publish(new RunWardenProcess(message.ConfigurationId, message.Token));
         }
     }

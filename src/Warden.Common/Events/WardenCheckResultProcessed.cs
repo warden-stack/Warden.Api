@@ -11,6 +11,10 @@ namespace Warden.Common.Events
         public Guid WardenId { get; }
         public WardenCheckResultDto Result { get; }
 
+        protected WardenCheckResultProcessed()
+        {
+        }
+
         public WardenCheckResultProcessed(Guid userId,
             Guid organizationId,
             Guid wardenId,

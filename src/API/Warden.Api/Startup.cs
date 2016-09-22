@@ -39,7 +39,6 @@ namespace Warden.Api
         {
             var activator = new BuiltinHandlerActivator();
             Rebus.Config.Configure.With(activator)
-                .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
                 .Transport(t => t.UseMsmq("Warden.Api"))
                 .Start();
 

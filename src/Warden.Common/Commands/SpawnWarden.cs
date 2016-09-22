@@ -9,6 +9,10 @@ namespace Warden.Common.Commands
         public string Token { get; }
         public string Region { get; }
 
+        protected SpawnWarden()
+        {
+        }
+
         public SpawnWarden(Guid userId, string configurationId,
             string token, string region)
         {
