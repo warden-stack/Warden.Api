@@ -7,6 +7,7 @@ using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
+using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Events.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Common.DTO.Organizations;
@@ -111,6 +112,31 @@ namespace Warden.Api.Infrastructure.Services
 
         public async Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId)
         {
+            var organization = await GetAndCheckOwnershipAsync(organizationId, authenticatedUserId);
+            var user = await GetUserAsync(email);
+
+            organization.AddUser(user);
+            await _organizationRepository.UpdateAsync(organization);
+            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, user.Id));
+        }
+
+        public async Task UnassignUserAsync(Guid organizationId, string email, Guid authenticatedUserId)
+        {
+            var organization = await GetAndCheckOwnershipAsync(organizationId, authenticatedUserId);
+            var user = await GetUserAsync(email);
+
+            organization.RemoveUser(user.Id);
+            await _organizationRepository.UpdateAsync(organization);
+            await _eventDispatcher.DispatchAsync(new OrganizationUserRemoved(organizationId, user.Id));
+        }
+
+        private bool IsOwner(Organization organization, Guid authenticatedUserId)
+        {
+            return organization.OwnerId == authenticatedUserId;
+        }
+
+        private async Task<Organization> GetAndCheckOwnershipAsync(Guid organizationId, Guid authenticatedUserId)
+        {
             var organizationValue = await _organizationRepository.GetAsync(organizationId);
             if (organizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {organizationId}");
@@ -120,21 +146,16 @@ namespace Warden.Api.Infrastructure.Services
                 throw new ServiceException($"User: {authenticatedUserId} is not allowed" +
                     $"to assign users into organization: {organization.Id}");
 
-            var userValue = await _userRepository.GetByEmailAsync(email);
-            if (userValue.HasNoValue)
-            {
-                //TODO: implement user creation + call to auth0 for externalId
-                throw new ServiceException($"User with email: {email} does not exist.");
-            }
-
-            organization.AddUser(userValue.Value);
-            await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, userValue.Value.Id));
+            return organization;
         }
 
-        private bool IsOwner(Organization organization, Guid authenticatedUserId)
+        private async Task<User> GetUserAsync(string email)
         {
-            return organization.OwnerId == authenticatedUserId;
-        } 
+            var userValue = await _userRepository.GetByEmailAsync(email);
+            if (userValue.HasNoValue)
+                throw new ServiceException($"User with email: {email} does not exist.");
+
+            return userValue.Value;
+        }
     }
 }
