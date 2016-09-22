@@ -1,18 +1,27 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0"
+    },
     "Warden.Common": "1.0.0-*",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "RethinkDb.Driver": "2.3.15",
-    "Rebus": "0.99.73",
-    "Microsoft.Extensions.Configuration.Binder": "1.0.0"
+    "RawRabbit": "1.10.0",
+    "RawRabbit.vNext": "1.10.0"
   },
   "frameworks": {
-    "net461": {}
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50"
+      ]
+    }
   }
 }

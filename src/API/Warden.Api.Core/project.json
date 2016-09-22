@@ -8,20 +8,17 @@
     "licenseUrl": "https://github.com/warden-stack/Warden/blob/master/LICENSE"
   },
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
+    "NETStandard.Library": "1.6.0"
   },
   "frameworks": {
-    "netstandard1.5": {
+    "netstandard1.6": {
       "imports": [
         "dotnet5.6",
-        "dnxcore50",
-        "portable-net45+win8"
+        "dnxcore50"
       ],
       "dependencies": {
         "System.Security.Cryptography.RandomNumberGenerator": "4.0.0-beta-23225"
       }
-    },
-    "net461": {
     }
   }
 }

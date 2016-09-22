@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Rebus.Bus;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Common.Commands;
@@ -10,21 +9,18 @@ namespace Warden.Api.Infrastructure.Services
 {
     public class WardenCheckService : IWardenCheckService
     {
-        private readonly IBus _bus;
         private readonly IOrganizationRepository _organizationRepository;
 
         public WardenCheckService(
-            IBus bus,
             IOrganizationRepository organizationRepository)
         {
-            _bus = bus;
             _organizationRepository = organizationRepository;
         }
 
         public async Task ProcessAsync(Guid organizationId, Guid wardenId, WardenCheckResultDto check)
         {
             await ValidateCheckResultAsync(organizationId, wardenId, check);
-            await _bus.Publish(new ProcessWardenCheckResult(Guid.Empty, organizationId, wardenId, check));
+            //await _bus.Publish(new ProcessWardenCheckResult(Guid.Empty, organizationId, wardenId, check));
         }
 
         private async Task ValidateCheckResultAsync(Guid organizationId,

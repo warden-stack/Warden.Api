@@ -1,9 +1,10 @@
-﻿{
+{
   "dependencies": {
-    //"Microsoft.NETCore.App": {
-    //  "version": "1.0.0",
-    //  "type": "platform"
-    //},
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0",
+      "type": "platform"
+    },
+    "NETStandard.Library": "1.6.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
@@ -21,8 +22,10 @@
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
     "AutoMapper": "5.0.2",
-    "MongoDB.Driver": "2.2.4",
-    "NLog.Extensions.Logging": "1.0.0-*"
+    "MongoDB.Driver": "2.3.0-rc1",
+    "NLog.Extensions.Logging": "1.0.0-*",
+    "RawRabbit": "1.10.0",
+    "RawRabbit.vNext": "1.10.0"
   },
 
   "tools": {
@@ -30,7 +33,14 @@
   },
 
   "frameworks": {
-    "net461": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50"
+      ],
+      "dependencies": {
+        "System.Security.Cryptography.RandomNumberGenerator": "4.0.0-beta-23225"
+      }
     }
   },
 

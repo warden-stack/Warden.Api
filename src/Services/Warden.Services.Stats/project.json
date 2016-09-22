@@ -1,13 +1,23 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0"
+    },
     "Warden.Common": "1.0.0-*",
-    "Rebus": "0.99.73"
+    "RawRabbit": "1.10.0",
+    "RawRabbit.vNext": "1.10.0"
   },
   "frameworks": {
-    "net461": {}
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50"
+      ]
+    }
   }
 }

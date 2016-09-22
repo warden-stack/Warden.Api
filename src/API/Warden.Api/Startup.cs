@@ -13,9 +13,7 @@ using Warden.Api.Framework.Filters;
 using Warden.Api.Infrastructure.Services;
 using Warden.Api.Infrastructure.Settings;
 using NLog.Extensions.Logging;
-using Rebus.Activation;
-using LogLevel = Rebus.Logging.LogLevel;
-using Rebus.Transport.Msmq;
+using RawRabbit.vNext;
 
 namespace Warden.Api
 {
@@ -37,11 +35,6 @@ namespace Warden.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var activator = new BuiltinHandlerActivator();
-            Rebus.Config.Configure.With(activator)
-                .Transport(t => t.UseMsmq("Warden.Api"))
-                .Start();
-
             services.Configure<AccountSettings>(Configuration.GetSection("account"));
             services.Configure<DatabaseSettings>(Configuration.GetSection("database"));
             services.Configure<EmailSettings>(Configuration.GetSection("email"));
@@ -57,7 +50,7 @@ namespace Warden.Api
             services.AddSingleton(GetConfigurationValue<GeneralSettings>("general"));
             services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>("paymentPlan"));
             services.AddSingleton(GetConfigurationValue<Auth0Settings>("auth0"));
-            services.AddSingleton(activator.Bus);
+            services.AddRawRabbit();
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());

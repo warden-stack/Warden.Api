@@ -38,7 +38,7 @@ namespace Warden.Api.Infrastructure.IoC.Modules
                 .As<IApiKeyService>()
                 .InstancePerLifetimeScope();
 
-            //TODO: Register Rebus IBus
+            //TODO: Register RabbitMQ
             builder.RegisterType<WardenConfigurationService>()
                 .As<IWardenConfigurationService>()
                 .InstancePerLifetimeScope();

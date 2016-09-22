@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Rebus.Bus;
-using Rebus.Handlers;
 using Warden.Common.Commands;
 
 namespace Warden.Services.RealTime.Handlers.Commands
 {
-    public class ProcessWardenCheckResultHandler : IHandleMessages<ProcessWardenCheckResult>
+    public class ProcessWardenCheckResultHandler
     {
         private readonly ISignalRService _signalRService;
 

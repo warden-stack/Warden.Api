@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Rebus.Bus;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Core.Types;
