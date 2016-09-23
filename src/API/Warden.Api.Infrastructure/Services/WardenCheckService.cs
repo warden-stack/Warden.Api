@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
-using Warden.Common.Commands;
 using Warden.Common.DTO.Wardens;
+using Warden.Services.Commands;
 
 namespace Warden.Api.Infrastructure.Services
 {

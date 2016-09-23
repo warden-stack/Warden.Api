@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Warden.Common.Commands;
-using Warden.Common.Events;
+using Warden.Services.Extensions;
 using Warden.Services.Storage.Handlers.Commands;
 using Warden.Services.Storage.Rethink;
 using RawRabbit;
@@ -36,8 +35,7 @@ namespace Warden.Services.Storage
             var settings = GetConfigurationValue<RethinkDbSettings>("rethinkDb");
             var storage = new RethinkDbWardenCheckStorage(settings);
             var client = BusClientFactory.CreateDefault();
-            client.SubscribeAsync<ProcessWardenCheckResult>(async (msg, context) =>
-                    new ProcessWardenCheckResultHandler(client, storage).HandleAsync(msg));
+            client.SubscribeCommandAsync(new ProcessWardenCheckResultHandler(client, storage));
             Console.WriteLine("Press enter to quit");
             Console.ReadLine();
         }

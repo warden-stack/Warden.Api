@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RawRabbit;
-using Warden.Common.Commands;
+using Warden.Services.Commands;
 
 namespace Warden.Services.Spawn.Handlers.Commands
 {

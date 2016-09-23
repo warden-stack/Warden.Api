@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Warden.Common.Events
+namespace Warden.Services.Events
 {
     public interface IEventHandler<in T> where T : IEvent
     {

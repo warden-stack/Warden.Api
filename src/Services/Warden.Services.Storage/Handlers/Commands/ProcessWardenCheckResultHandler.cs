@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RawRabbit.vNext.Disposable;
-using Warden.Common.Commands;
 using Warden.Common.DTO.Wardens;
-using Warden.Common.Events;
+using Warden.Services.Commands;
+using Warden.Services.Events;
 using Warden.Services.Storage.Rethink;
 
 namespace Warden.Services.Storage.Handlers.Commands

@@ -9,6 +9,7 @@
       "version": "1.0.0"
     },
     "Warden.Common": "1.0.0-*",
+    "Warden.Services": "1.0.0-*",
     "RawRabbit": "1.10.0",
     "RawRabbit.vNext": "1.10.0"
   },

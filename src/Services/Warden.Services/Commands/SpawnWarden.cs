@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warden.Common.Commands
+namespace Warden.Services.Commands
 {
     public class SpawnWarden : ICommand
     {

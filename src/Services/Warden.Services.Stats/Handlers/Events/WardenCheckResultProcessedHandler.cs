@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.Events;
+using Warden.Services.Events;
 
 namespace Warden.Services.Stats.Handlers.Events
 {

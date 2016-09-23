@@ -1,6 +1,6 @@
 ﻿using System;
+using Warden.Services.Extensions;
 using RawRabbit.vNext;
-using Warden.Common.Commands;
 using Warden.Services.Spawn.Handlers.Commands;
 
 namespace Warden.Services.Spawn
@@ -11,8 +11,7 @@ namespace Warden.Services.Spawn
         {
             Console.Title = "Warden.Services.Spawn";
             var client = BusClientFactory.CreateDefault();
-            client.SubscribeAsync<SpawnWarden>(async (msg, context) =>
-                    new SpawnWardenHandler(client).HandleAsync(msg));
+            client.SubscribeCommandAsync(new SpawnWardenHandler(client));
             Console.WriteLine("Press enter to quit");
             Console.ReadLine();
         }

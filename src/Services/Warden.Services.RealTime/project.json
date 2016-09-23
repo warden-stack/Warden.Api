@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "Warden.Common": "1.0.0-*",
+    "Warden.Services": "1.0.0-*",
     "Microsoft.AspNet.SignalR": "2.2.1",
     "Microsoft.AspNet.SignalR.SelfHost": "2.2.1",
     "Microsoft.Owin.Cors": "3.0.1",

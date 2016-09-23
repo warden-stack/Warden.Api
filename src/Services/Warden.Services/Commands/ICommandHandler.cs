@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Warden.Common.Commands
+namespace Warden.Services.Commands
 {
     public interface ICommandHandler<in T> where T : ICommand
     {

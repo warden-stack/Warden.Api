@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Api.Core", "API\Warden.Api.Core\Warden.Api.Core.xproj", "{AF3C7855-8043-46C8-B12E-705E7D854D20}"
 EndProject
@@ -31,6 +31,8 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services.Storage", "Services\Warden.Services.Storage\Warden.Services.Storage.xproj", "{C29CB073-D729-4511-A347-76EFAA25D206}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Common", "Warden.Common\Warden.Common.xproj", "{2611E8E1-CA9C-423B-8FD4-DFD12E30D968}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services", "Services\Warden.Services\Warden.Services.xproj", "{C120E222-F865-4361-BA84-71ED4F7E9BD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +80,10 @@ Global
 		{2611E8E1-CA9C-423B-8FD4-DFD12E30D968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2611E8E1-CA9C-423B-8FD4-DFD12E30D968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2611E8E1-CA9C-423B-8FD4-DFD12E30D968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +98,6 @@ Global
 		{1E7E0F9D-1C94-4212-ABAA-132EF20A31F2} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 		{CDEB8355-2CBF-490C-8C44-50F8CC6C636C} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 		{C29CB073-D729-4511-A347-76EFAA25D206} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
+		{C120E222-F865-4361-BA84-71ED4F7E9BD4} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 	EndGlobalSection
 EndGlobal

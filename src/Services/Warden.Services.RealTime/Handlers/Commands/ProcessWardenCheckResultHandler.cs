@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.Commands;
+using Warden.Services.Commands;
 
 namespace Warden.Services.RealTime.Handlers.Commands
 {

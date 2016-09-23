@@ -1,21 +1,20 @@
 ﻿using System;
-using Warden.Common.Commands;
 using Warden.Common.DTO.Wardens;
 
-namespace Warden.Common.Events
+namespace Warden.Services.Commands
 {
-    public class WardenCheckResultProcessed : IEvent
+    public class ProcessWardenCheckResult : ICommand
     {
         public Guid UserId { get; }
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
         public WardenCheckResultDto Result { get; }
 
-        protected WardenCheckResultProcessed()
+        protected ProcessWardenCheckResult()
         {
         }
 
-        public WardenCheckResultProcessed(Guid userId,
+        public ProcessWardenCheckResult(Guid userId,
             Guid organizationId,
             Guid wardenId,
             WardenCheckResultDto result)
@@ -24,14 +23,6 @@ namespace Warden.Common.Events
             OrganizationId = organizationId;
             WardenId = wardenId;
             Result = result;
-        }
-
-        public WardenCheckResultProcessed(ProcessWardenCheckResult result)
-        {
-            UserId = result.UserId;
-            OrganizationId = result.OrganizationId;
-            WardenId = result.WardenId;
-            Result = result.Result;
         }
     }
 }

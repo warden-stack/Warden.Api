@@ -1,4 +1,4 @@
-﻿namespace Warden.Common.Commands
+﻿namespace Warden.Services.Commands
 {
     //Marker interface
     public interface ICommand
