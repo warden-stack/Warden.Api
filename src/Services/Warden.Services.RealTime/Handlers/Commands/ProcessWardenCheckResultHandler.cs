@@ -4,7 +4,7 @@ using Warden.Common.Commands;
 
 namespace Warden.Services.RealTime.Handlers.Commands
 {
-    public class ProcessWardenCheckResultHandler
+    public class ProcessWardenCheckResultHandler : ICommandHandler<ProcessWardenCheckResult>
     {
         private readonly ISignalRService _signalRService;
 
@@ -13,10 +13,10 @@ namespace Warden.Services.RealTime.Handlers.Commands
             _signalRService = signalRService;
         }
 
-        public async Task Handle(ProcessWardenCheckResult message)
+        public async Task HandleAsync(ProcessWardenCheckResult command)
         {
             Console.WriteLine("Pushing out check result via sockets...");
-            _signalRService.SendCheckResultSaved(message.OrganizationId, message.WardenId, message.Result);
+            _signalRService.SendCheckResultSaved(command.OrganizationId, command.WardenId, command.Result);
             await Task.CompletedTask;
         }
     }

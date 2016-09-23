@@ -4,9 +4,9 @@ using Warden.Common.Events;
 
 namespace Warden.Services.Stats.Handlers.Events
 {
-    public class WardenCheckResultProcessedHandler
+    public class WardenCheckResultProcessedHandler : IEventHandler<WardenCheckResultProcessed>
     {
-        public async Task Handle(WardenCheckResultProcessed message)
+        public async Task HandleAsync(WardenCheckResultProcessed @event)
         {
             Console.WriteLine("Updating stats...");
             await Task.CompletedTask;

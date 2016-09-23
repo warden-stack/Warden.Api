@@ -1,4 +1,5 @@
 ﻿using System;
+using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Services.Spawn.Handlers.Commands;
 
@@ -9,14 +10,9 @@ namespace Warden.Services.Spawn
         public static void Main(string[] args)
         {
             Console.Title = "Warden.Services.Spawn";
-            //activator.Register((bus, message) => new SpawnWardenHandler(bus));
-            //Configure.With(activator)
-            //    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Debug))
-            //    .Transport(t => t.UseMsmq("Warden.Services.Spawn"))
-            //    .Routing(r => r.TypeBased().Map<SpawnWarden>("Warden.Api"))
-            //    .Start();
-
-            //activator.Bus.Subscribe<SpawnWarden>().Wait();
+            var client = BusClientFactory.CreateDefault();
+            client.SubscribeAsync<SpawnWarden>(async (msg, context) =>
+                    new SpawnWardenHandler(client).HandleAsync(msg));
             Console.WriteLine("Press enter to quit");
             Console.ReadLine();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RawRabbit.vNext.Disposable;
 using Warden.Common.Commands;
 using Warden.Common.DTO.Wardens;
 using Warden.Common.Events;
@@ -7,27 +8,29 @@ using Warden.Services.Storage.Rethink;
 
 namespace Warden.Services.Storage.Handlers.Commands
 {
-    public class ProcessWardenCheckResultHandler
+    public class ProcessWardenCheckResultHandler : ICommandHandler<ProcessWardenCheckResult>
     {
+        private readonly IBusClient _bus;
         private readonly IWardenCheckStorage _wardenCheckStorage;
 
-        public ProcessWardenCheckResultHandler(IWardenCheckStorage wardenCheckStorage)
+        public ProcessWardenCheckResultHandler(IBusClient bus, IWardenCheckStorage wardenCheckStorage)
         {
+            _bus = bus;
             _wardenCheckStorage = wardenCheckStorage;
         }
 
-        public async Task Handle(ProcessWardenCheckResult message)
+        public async Task HandleAsync(ProcessWardenCheckResult command)
         {
             Console.WriteLine("Storing check result...");
             var storage = new WardenCheckResultStorageDto
             {
-                OrganizationId = message.OrganizationId,
-                WardenId = message.WardenId,
-                Result = message.Result,
+                OrganizationId = command.OrganizationId,
+                WardenId = command.WardenId,
+                Result = command.Result,
                 CreatedAt = DateTime.UtcNow
             };
             await _wardenCheckStorage.SaveAsync(storage);
-            //await _bus.Publish(new WardenCheckResultProcessed(message));
+            await _bus.PublishAsync(new WardenCheckResultProcessed(command));
         }
     }
 }

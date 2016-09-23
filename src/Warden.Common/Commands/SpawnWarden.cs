@@ -2,7 +2,7 @@
 
 namespace Warden.Common.Commands
 {
-    public class SpawnWarden
+    public class SpawnWarden : ICommand
     {
         public Guid UserId { get; }
         public string ConfigurationId { get; }

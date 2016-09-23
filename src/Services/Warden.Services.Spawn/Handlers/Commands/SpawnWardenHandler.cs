@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RawRabbit;
 using Warden.Common.Commands;
 
 namespace Warden.Services.Spawn.Handlers.Commands
 {
-    public class SpawnWardenHandler
+    public class SpawnWardenHandler : ICommandHandler<SpawnWarden>
     {
-        public async Task Handle(SpawnWarden message)
+        private readonly IBusClient _bus;
+
+        public SpawnWardenHandler(IBusClient bus)
+        {
+            _bus = bus;
+        }
+
+        public async Task HandleAsync(SpawnWarden command)
         {
             Console.WriteLine("Spawning new Warden...");
-            //await _bus.Publish(new RunWardenProcess(message.ConfigurationId, message.Token));
+            await _bus.PublishAsync(new RunWardenProcess(command.ConfigurationId, command.Token));
         }
     }
 }
