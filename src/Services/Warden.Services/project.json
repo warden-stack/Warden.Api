@@ -4,7 +4,10 @@
     "NETStandard.Library": "1.6.0",
     "Warden.Common": "1.0.0-*",
     "RawRabbit": "1.10.0",
-    "RawRabbit.vNext": "1.10.0"
+    "RawRabbit.vNext": "1.10.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0"
   },
   "frameworks": {
     "net461": { },

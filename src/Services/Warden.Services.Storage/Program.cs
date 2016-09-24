@@ -17,6 +17,7 @@ namespace Warden.Services.Storage
         public static void Main(string[] args)
         {
             Console.Title = "Warden.Services.Storage";
+
             var config = new RawRabbitConfiguration
             {
                 Username = "guest",
