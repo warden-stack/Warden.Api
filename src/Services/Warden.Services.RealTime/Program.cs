@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Owin.Hosting;
 using RawRabbit.vNext;
+using Warden.Services.Commands;
 using Warden.Services.Extensions;
 using Warden.Services.Host;
+using Warden.Services.RealTime.Framework;
 using Warden.Services.RealTime.Handlers.Commands;
 using Warden.Services.RealTime.Hubs;
 
@@ -13,28 +17,29 @@ namespace Warden.Services.RealTime
     public class Program
     {
         private static readonly string Name = "Warden.Services.RealTime";
+
         public static void Main(string[] args)
         {
             Console.Title = Name;
-            var serviceHost = ServiceHost.Create(Name)
-                .WithBus()
-                //.WithCommandHandler()
-                .WithEventHandler()
+            var webHost = new WebHostBuilder()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel()
+                .UseStartup<Startup>()
+                .UseUrls("http://*:5003")
                 .Build();
-            Task.WaitAll(serviceHost.RunAsync());
 
-            var hub = GlobalHost.ConnectionManager.GetHubContext<WardenHub>();
-            var service = new SignalRService(hub);
-            var client = BusClientFactory.CreateDefault();
-            client.SubscribeCommandAsync(new ProcessWardenCheckResultHandler(service));
-            var url = "http://*:8081";
-            using (WebApp.Start(url))
+            using (var scope = Bootstrapper.LifetimeScope.BeginLifetimeScope())
             {
-                Console.WriteLine("Server running on {0}", url);
-                Console.WriteLine("Press enter to quit");
-                Console.ReadLine();
+                var autofacResolver = new AutofacResolver(scope);
+                var serviceHost = ServiceHost
+                    .Create(Name)
+                    .WithResolver(autofacResolver)
+                    .WithWebHost(webHost)
+                    .WithBus()
+                    .SubscribeToCommand<ProcessWardenCheckResult>()
+                    .Build();
+                serviceHost.Run();
             }
-            Console.ReadLine();
         }
     }
 }

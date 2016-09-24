@@ -2,14 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Owin.Builder;
-using Microsoft.Owin.Cors;
 using Nancy.Owin;
 using NLog.Extensions.Logging;
-using Owin;
-using Warden.Services.RealTime.Framework;
+using Warden.Services.Stats.Framework;
 
-namespace Warden.Services.RealTime
+namespace Warden.Services.Stats
 {
     public class Startup
     {
@@ -31,18 +28,6 @@ namespace Warden.Services.RealTime
             loggerFactory.AddNLog();
             env.ConfigureNLog("nlog.config");
             app.UseOwin().UseNancy(x => x.Bootstrapper = new Bootstrapper(Configuration));
-            app.UseOwin(addToPipeline =>
-            {
-                addToPipeline(next =>
-                {
-                    var appBuilder = new AppBuilder();
-                    appBuilder.Properties["builder.DefaultApp"] = next;
-                    appBuilder.UseCors(CorsOptions.AllowAll);
-                    appBuilder.MapSignalR();
-
-                    return appBuilder.Build();
-                });
-            });
         }
     }
 }

@@ -1,20 +1,23 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Hosting;
+using RawRabbit.vNext.Disposable;
+using Warden.Services.Commands;
+using Warden.Services.Events;
+using Warden.Services.Extensions;
 
 namespace Warden.Services.Host
 {
-    public interface IServiceHost
-    {
-        Task RunAsync();
-    }
-
     public class ServiceHost : IServiceHost
     {
-        public async Task RunAsync()
+        private readonly IWebHost _webHost;
+
+        public ServiceHost(IWebHost webHost)
         {
-            throw new System.NotImplementedException();
+            _webHost = webHost;
+        }
+
+        public void Run()
+        {
+            _webHost.Run();
         }
 
         public static Builder Create(string name)
@@ -24,51 +27,77 @@ namespace Warden.Services.Host
             return builder;
         }
 
-        public class Builder
+        public abstract class BuilderBase
         {
-            public Builder Create()
+            public abstract ServiceHost Build();
+        }
+
+        public class Builder : BuilderBase
+        {
+            private IResolver _resolver;
+            private IBusClient _bus;
+            private IWebHost _webHost;
+
+            public Builder WithResolver(IResolver resolver)
             {
+                _resolver = resolver;
+
                 return this;
             }
 
             public BusBuilder WithBus()
             {
-                return new BusBuilder();
+                _bus = _resolver.Resolve<IBusClient>();
+
+                return new BusBuilder(_webHost, _bus, _resolver);
             }
 
-            public ServiceHost Build()
+            public Builder WithWebHost(IWebHost webHost)
             {
-                return new ServiceHost();
-            }
-        }
+                _webHost = webHost;
 
-        public class BusBuilder : Builder
-        {
-            public BusBuilder WithCommandHandler<TCommand>() where TCommand : ICommand
-            {
                 return this;
             }
 
-            public BusBuilder WithEventHandler()
+            public override ServiceHost Build()
             {
-                return this;
+                return new ServiceHost(_webHost);
             }
         }
 
-        private static T GetConfigurationValue<T>(string section) where T : new()
+        public class BusBuilder : BuilderBase
         {
-            var env = "dev";
-            var configurationRoot = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+            private readonly IWebHost _webHost;
+            private readonly IBusClient _bus;
+            private readonly IResolver _resolver;
 
-            var configurationValue = new T();
-            configurationRoot.GetSection(section).Bind(configurationValue);
+            public BusBuilder(IWebHost webHost, IBusClient bus, IResolver resolver)
+            {
+                _webHost = webHost;
+                _bus = bus;
+                _resolver = resolver;
+            }
 
-            return configurationValue;
+            public BusBuilder SubscribeToCommand<TCommand>() where TCommand : ICommand
+            {
+                var commandHandler = _resolver.Resolve<ICommandHandler<TCommand>>();
+                _bus.WithCommandHandlerAsync(commandHandler);
+
+                return this;
+            }
+
+            public BusBuilder SubscribeToEvent<TEvent>() where TEvent : IEvent
+            {
+                var eventHandler = _resolver.Resolve<IEventHandler<TEvent>>();
+                _bus.WithEventHandlerAsync(eventHandler);
+
+                return this;
+            }
+
+            public override ServiceHost Build()
+            {
+                return new ServiceHost(_webHost);
+            }
         }
     }
 }

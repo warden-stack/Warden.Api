@@ -1,52 +1,38 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
-using Warden.Services.Extensions;
-using Warden.Services.Storage.Handlers.Commands;
-using Warden.Services.Storage.Rethink;
-using RawRabbit;
-using RawRabbit.Configuration;
-using RawRabbit.vNext;
+using Microsoft.AspNetCore.Hosting;
+using Warden.Services.Commands;
+using Warden.Services.Host;
+using Warden.Services.Storage.Framework;
 
 namespace Warden.Services.Storage
 {
     public class Program
     {
-        private static IConfiguration _configuration;
+        private static readonly string Name = "Warden.Services.Storage";
 
         public static void Main(string[] args)
         {
-            Console.Title = "Warden.Services.Storage";
+            Console.Title = Name;
+            var webHost = new WebHostBuilder()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel()
+                .UseStartup<Startup>()
+                .UseUrls("http://*:5000")
+                .Build();
 
-            var config = new RawRabbitConfiguration
+            using (var scope = Bootstrapper.LifetimeScope.BeginLifetimeScope())
             {
-                Username = "guest",
-                Password = "guest",
-                Port = 5672,
-                VirtualHost = "/vhost",
-                Hostnames = {"production"}
-            };
-            var env = "dev";
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: true)
-                .AddEnvironmentVariables();
-            _configuration = builder.Build();
-            var settings = GetConfigurationValue<RethinkDbSettings>("rethinkDb");
-            var storage = new RethinkDbWardenCheckStorage(settings);
-            var client = BusClientFactory.CreateDefault();
-            client.SubscribeCommandAsync(new ProcessWardenCheckResultHandler(client, storage));
-            Console.WriteLine("Press enter to quit");
-            Console.ReadLine();
-        }
-
-        private static T GetConfigurationValue<T>(string section) where T : new()
-        {
-            var configurationValue = new T();
-            _configuration.GetSection(section).Bind(configurationValue);
-
-            return configurationValue;
+                var autofacResolver = new AutofacResolver(scope);
+                var serviceHost = ServiceHost
+                    .Create(Name)
+                    .WithResolver(autofacResolver)
+                    .WithWebHost(webHost)
+                    .WithBus()
+                    .SubscribeToCommand<ProcessWardenCheckResult>()
+                    .Build();
+                serviceHost.Run();
+            }
         }
     }
 }

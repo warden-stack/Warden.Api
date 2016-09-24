@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RawRabbit;
+using RawRabbit.vNext.Disposable;
 using Warden.Services.Commands;
 
 namespace Warden.Services.Spawn.Handlers.Commands

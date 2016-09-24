@@ -20,7 +20,7 @@
     "Warden.Api.Infrastructure": "1.0.0",
     "Warden.Api.Core": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
-    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
+    "Autofac": "4.1.0",
     "AutoMapper": "5.0.2",
     "MongoDB.Driver": "2.3.0-rc1",
     "NLog.Extensions.Logging": "1.0.0-*",
