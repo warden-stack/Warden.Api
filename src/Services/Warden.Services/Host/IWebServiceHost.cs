@@ -1,6 +1,6 @@
 ﻿namespace Warden.Services.Host
 {
-    public interface IServiceHost
+    public interface IWebServiceHost
     {
         void Run();
     }

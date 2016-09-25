@@ -42,14 +42,14 @@ namespace Warden.Api
             services.Configure<GeneralSettings>(Configuration.GetSection("general"));
             services.Configure<PaymentPlanSettings>(Configuration.GetSection("paymentPlan"));
             services.Configure<Auth0Settings>(Configuration.GetSection("auth0"));
-            var databaseSettings = GetConfigurationValue<DatabaseSettings>("database");
-            services.AddSingleton(GetConfigurationValue<FeatureSettings>("account"));
+            var databaseSettings = GetConfigurationValue<DatabaseSettings>();
             services.AddSingleton(databaseSettings);
-            services.AddSingleton(GetConfigurationValue<EmailSettings>("email"));
-            services.AddSingleton(GetConfigurationValue<FeatureSettings>("feature"));
-            services.AddSingleton(GetConfigurationValue<GeneralSettings>("general"));
-            services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>("paymentPlan"));
-            services.AddSingleton(GetConfigurationValue<Auth0Settings>("auth0"));
+            services.AddSingleton(GetConfigurationValue<AccountSettings>());
+            services.AddSingleton(GetConfigurationValue<EmailSettings>());
+            services.AddSingleton(GetConfigurationValue<FeatureSettings>());
+            services.AddSingleton(GetConfigurationValue<GeneralSettings>());
+            services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>());
+            services.AddSingleton(GetConfigurationValue<Auth0Settings>());
             services.AddRawRabbit();
             services.AddMvc(options =>
             {
@@ -60,8 +60,13 @@ namespace Warden.Api
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
-        private T GetConfigurationValue<T>(string section) where T : new()
+        private T GetConfigurationValue<T>(string section = "") where T : new()
         {
+            if (string.IsNullOrWhiteSpace(section))
+            {
+                section = typeof(T).Name.Replace("Settings", string.Empty);
+            }
+
             var configurationValue = new T();
             Configuration.GetSection(section).Bind(configurationValue);
 

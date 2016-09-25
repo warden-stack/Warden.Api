@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Autofac;
+using Microsoft.AspNetCore.Hosting;
 using RawRabbit.vNext.Disposable;
 using Warden.Services.Commands;
 using Warden.Services.Events;
@@ -6,11 +10,11 @@ using Warden.Services.Extensions;
 
 namespace Warden.Services.Host
 {
-    public class ServiceHost : IServiceHost
+    public class WebServiceHost : IWebServiceHost
     {
         private readonly IWebHost _webHost;
 
-        public ServiceHost(IWebHost webHost)
+        public WebServiceHost(IWebHost webHost)
         {
             _webHost = webHost;
         }
@@ -20,48 +24,58 @@ namespace Warden.Services.Host
             _webHost.Run();
         }
 
-        public static Builder Create(string name)
+        public static Builder Create<TStartup>(string name = "", int port = 80) where TStartup : class
         {
-            var builder = new Builder();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                name = $"Warden Service: {typeof(TStartup).Namespace.Split('.').Last()}";
+            }            
+
+            Console.Title = name;
+            var webHost = new WebHostBuilder()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel()
+                .UseStartup<TStartup>()
+                .UseUrls($"http://*:{port}")
+                .Build();
+            var builder = new Builder(webHost);
 
             return builder;
         }
 
         public abstract class BuilderBase
         {
-            public abstract ServiceHost Build();
+            public abstract WebServiceHost Build();
         }
 
         public class Builder : BuilderBase
         {
             private IResolver _resolver;
             private IBusClient _bus;
-            private IWebHost _webHost;
+            private readonly IWebHost _webHost;
 
-            public Builder WithResolver(IResolver resolver)
+            public Builder(IWebHost webHost)
             {
-                _resolver = resolver;
+                _webHost = webHost;
+            }
+
+            public Builder UseAutofac(ILifetimeScope scope)
+            {
+                _resolver = new AutofacResolver(scope);
 
                 return this;
             }
 
-            public BusBuilder WithBus()
+            public BusBuilder UseRabbitMq()
             {
                 _bus = _resolver.Resolve<IBusClient>();
 
                 return new BusBuilder(_webHost, _bus, _resolver);
             }
 
-            public Builder WithWebHost(IWebHost webHost)
+            public override WebServiceHost Build()
             {
-                _webHost = webHost;
-
-                return this;
-            }
-
-            public override ServiceHost Build()
-            {
-                return new ServiceHost(_webHost);
+                return new WebServiceHost(_webHost);
             }
         }
 
@@ -94,9 +108,9 @@ namespace Warden.Services.Host
                 return this;
             }
 
-            public override ServiceHost Build()
+            public override WebServiceHost Build()
             {
-                return new ServiceHost(_webHost);
+                return new WebServiceHost(_webHost);
             }
         }
     }

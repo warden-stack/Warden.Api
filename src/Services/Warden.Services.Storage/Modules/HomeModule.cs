@@ -1,5 +1,4 @@
 ﻿using Nancy;
-using RethinkDb.Driver.Ast;
 
 namespace Warden.Services.Storage.Modules
 {
