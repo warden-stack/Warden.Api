@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Api.Core", "API\Warden.Api.Core\Warden.Api.Core.xproj", "{AF3C7855-8043-46C8-B12E-705E7D854D20}"
 EndProject
@@ -33,6 +33,10 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Common", "Warden.Common\Warden.Common.xproj", "{2611E8E1-CA9C-423B-8FD4-DFD12E30D968}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services", "Services\Warden.Services\Warden.Services.xproj", "{C120E222-F865-4361-BA84-71ED4F7E9BD4}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services.Users", "Services\Warden.Services.Users\Warden.Services.Users.xproj", "{BEFC036D-7B0A-4517-A833-D607130F61DB}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services.Organizations", "Services\Warden.Services.Organizations\Warden.Services.Organizations.xproj", "{432AB10B-290B-4F70-8BA5-3F6C7A036B50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,14 @@ Global
 		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C120E222-F865-4361-BA84-71ED4F7E9BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEFC036D-7B0A-4517-A833-D607130F61DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFC036D-7B0A-4517-A833-D607130F61DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFC036D-7B0A-4517-A833-D607130F61DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFC036D-7B0A-4517-A833-D607130F61DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{432AB10B-290B-4F70-8BA5-3F6C7A036B50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{432AB10B-290B-4F70-8BA5-3F6C7A036B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{432AB10B-290B-4F70-8BA5-3F6C7A036B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{432AB10B-290B-4F70-8BA5-3F6C7A036B50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +111,7 @@ Global
 		{CDEB8355-2CBF-490C-8C44-50F8CC6C636C} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 		{C29CB073-D729-4511-A347-76EFAA25D206} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 		{C120E222-F865-4361-BA84-71ED4F7E9BD4} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
+		{BEFC036D-7B0A-4517-A833-D607130F61DB} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
+		{432AB10B-290B-4F70-8BA5-3F6C7A036B50} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 	EndGlobalSection
 EndGlobal
