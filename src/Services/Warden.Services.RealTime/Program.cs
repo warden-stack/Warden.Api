@@ -9,7 +9,7 @@ namespace Warden.Services.RealTime
         public static void Main(string[] args)
         {
             WebServiceHost
-                .Create<Startup>(port: 5003)
+                .Create<Startup>(port: 10004)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .SubscribeToCommand<ProcessWardenCheckResult>()

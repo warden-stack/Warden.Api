@@ -9,7 +9,7 @@ namespace Warden.Services.Spawn
         public static void Main(string[] args)
         {
             WebServiceHost
-                .Create<Startup>(port: 5002)
+                .Create<Startup>(port: 10006)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .SubscribeToCommand<SpawnWarden>()

@@ -8,7 +8,7 @@ namespace Warden.Services.Organizations
         public static void Main(string[] args)
         {
             WebServiceHost
-                .Create<Startup>(port: 5005)
+                .Create<Startup>(port: 10002)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .Build()

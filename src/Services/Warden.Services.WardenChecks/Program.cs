@@ -1,14 +1,14 @@
 ﻿using Warden.Services.Host;
-using Warden.Services.Users.Framework;
+using Warden.Services.WardenChecks.Framework;
 
-namespace Warden.Services.Users
+namespace Warden.Services.WardenChecks
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             WebServiceHost
-                .Create<Startup>(port: 10001)
+                .Create<Startup>(port: 10003)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .Build()
