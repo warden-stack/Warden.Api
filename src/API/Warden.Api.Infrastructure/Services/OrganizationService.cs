@@ -8,10 +8,10 @@ using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Events;
+using Warden.Common.Events.Organizations;
 
 namespace Warden.Api.Infrastructure.Services
 {

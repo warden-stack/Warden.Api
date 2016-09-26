@@ -1,7 +1,7 @@
 ﻿using RawRabbit;
 using RawRabbit.Common;
-using Warden.Services.Commands;
-using Warden.Services.Events;
+using Warden.Common.Commands;
+using Warden.Common.Events;
 
 namespace Warden.Services.Extensions
 {

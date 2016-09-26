@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Warden.Common.Commands;
 
 namespace Warden.Api.Infrastructure.Commands
 {

@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Users;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Auth0;
 using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Events;
+using Warden.Common.Events.Users;
 
 namespace Warden.Api.Infrastructure.Services
 {

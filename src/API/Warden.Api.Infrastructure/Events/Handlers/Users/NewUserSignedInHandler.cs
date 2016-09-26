@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Api.Core.Events.Users;
 using Warden.Api.Infrastructure.Services;
+using Warden.Common.Events;
+using Warden.Common.Events.Users;
 
 namespace Warden.Api.Infrastructure.Events.Handlers.Users
 {

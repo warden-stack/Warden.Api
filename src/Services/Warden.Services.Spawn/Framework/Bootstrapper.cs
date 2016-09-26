@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using RawRabbit.vNext;
 using RawRabbit.vNext.Disposable;
-using Warden.Services.Commands;
+using Warden.Common.Commands;
 using Warden.Services.Nancy;
 using Warden.Services.Spawn.Handlers.Commands;
 

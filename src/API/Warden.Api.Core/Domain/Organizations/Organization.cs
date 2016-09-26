@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Core.Extensions;
+using Warden.Common.Events.Wardens;
 
 namespace Warden.Api.Core.Domain.Organizations
 {

@@ -1,4 +1,4 @@
-﻿using Warden.Services.Events;
+﻿using Warden.Common.Events.Wardens;
 using Warden.Services.Host;
 using Warden.Services.Stats.Framework;
 

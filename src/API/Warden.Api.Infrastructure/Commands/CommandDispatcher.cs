@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
-using Autofac;
-using Warden.Api.Core.Domain;
+using RawRabbit.vNext.Disposable;
 using Warden.Api.Core.Domain.Exceptions;
+using Warden.Common.Commands;
 
 namespace Warden.Api.Infrastructure.Commands
 {
     public class CommandDispatcher : ICommandDispatcher
     {
-        private readonly IComponentContext _context;
+        private readonly IBusClient _bus;
 
-        public CommandDispatcher(IComponentContext context)
+        public CommandDispatcher(IBusClient bus)
         {
-            _context = context;
+            _bus = bus;
         }
 
         public async Task DispatchAsync<T>(T command) where T : ICommand
@@ -19,14 +19,7 @@ namespace Warden.Api.Infrastructure.Commands
             if (command == null)
                 throw new ServiceException("Command can not be null.");
 
-            ICommandHandler<T> commandHandler;
-            if (!_context.TryResolve(out commandHandler))
-            {
-                throw new ServiceException("ICommandHandler has not been found " +
-                                           "for request: {0}.", command.GetType().Name);
-            }
-
-            await commandHandler.HandleAsync(command);
+            await _bus.PublishAsync(command);
         }
     }
 }

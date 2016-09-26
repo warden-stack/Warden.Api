@@ -4,8 +4,8 @@ using System.Linq;
 using Autofac;
 using Microsoft.AspNetCore.Hosting;
 using RawRabbit.vNext.Disposable;
-using Warden.Services.Commands;
-using Warden.Services.Events;
+using Warden.Common.Commands;
+using Warden.Common.Events;
 using Warden.Services.Extensions;
 
 namespace Warden.Services.Host
@@ -45,7 +45,7 @@ namespace Warden.Services.Host
 
         public abstract class BuilderBase
         {
-            public abstract WebServiceHost Build();
+            public abstract IWebServiceHost Build();
         }
 
         public class Builder : BuilderBase
@@ -73,7 +73,7 @@ namespace Warden.Services.Host
                 return new BusBuilder(_webHost, _bus, _resolver);
             }
 
-            public override WebServiceHost Build()
+            public override IWebServiceHost Build()
             {
                 return new WebServiceHost(_webHost);
             }
@@ -108,7 +108,7 @@ namespace Warden.Services.Host
                 return this;
             }
 
-            public override WebServiceHost Build()
+            public override IWebServiceHost Build()
             {
                 return new WebServiceHost(_webHost);
             }

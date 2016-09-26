@@ -1,4 +1,4 @@
-﻿using Warden.Services.Commands;
+﻿using Warden.Common.Commands;
 using Warden.Services.Host;
 using Warden.Services.Storage.Framework;
 
@@ -12,7 +12,7 @@ namespace Warden.Services.Storage
                 .Create<Startup>(port: 10000)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
-                .SubscribeToCommand<ProcessWardenCheckResult>()
+                //.SubscribeToEvent<>
                 .Build()
                 .Run();
         }

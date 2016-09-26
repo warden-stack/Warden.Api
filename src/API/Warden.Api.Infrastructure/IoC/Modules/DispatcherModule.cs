@@ -2,6 +2,8 @@
 using Autofac;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Api.Infrastructure.Events;
+using Warden.Common.Commands;
+using Warden.Common.Events;
 using Module = Autofac.Module;
 
 namespace Warden.Api.Infrastructure.IoC.Modules

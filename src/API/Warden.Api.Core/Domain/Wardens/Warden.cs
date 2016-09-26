@@ -4,7 +4,6 @@ using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Domain.Watchers;
-using Warden.Api.Core.Events.Wardens;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Wardens
