@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Common;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
@@ -12,6 +11,7 @@ using Warden.Common.Events.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Events;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Infrastructure.Services
 {

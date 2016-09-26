@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Types;
 using Warden.Api.Infrastructure.Mongo.Queries;
+using Warden.Common.Types;
 
 namespace Warden.Api.Infrastructure.Mongo.Repositories
 {

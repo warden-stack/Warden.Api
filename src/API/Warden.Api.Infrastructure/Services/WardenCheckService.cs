@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RawRabbit;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.DTO.Wardens;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Infrastructure.Services
 {

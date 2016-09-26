@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warden.Api.Core.Types
+namespace Warden.Common.Types
 {
     public struct Maybe<T> : IEquatable<Maybe<T>> where T : class
     {

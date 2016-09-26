@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ControllerBase = Warden.Api.Controllers.ControllerBase;
 using System.Linq;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Common.Commands;
 

@@ -3,11 +3,11 @@ using System.Security.Authentication;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Framework.Handlers;
 using Warden.Api.Infrastructure.Commands;
 using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Services;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Controllers
 {

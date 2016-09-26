@@ -3,8 +3,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Infrastructure.Settings;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Infrastructure.Services
 {

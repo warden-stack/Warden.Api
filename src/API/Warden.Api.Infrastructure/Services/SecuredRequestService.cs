@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Security;
 using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Types;
 using Warden.Common.DTO.Security;
+using Warden.Common.Types;
 
 namespace Warden.Api.Infrastructure.Services
 {

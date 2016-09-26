@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.PaymentPlans;
-using Warden.Api.Core.Types;
+using Warden.Common.Types;
 
 namespace Warden.Api.Core.Repositories
 {

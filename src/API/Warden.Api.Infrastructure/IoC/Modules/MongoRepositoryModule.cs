@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Types;
 using Warden.Api.Infrastructure.Mongo.Repositories;
 
 namespace Warden.Api.Infrastructure.IoC.Modules

@@ -4,7 +4,7 @@ using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
 using Warden.Common.Events.Wardens;
-using Warden.Api.Core.Extensions;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Core.Domain.Organizations
 {

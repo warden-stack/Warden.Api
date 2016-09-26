@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Warden.Api.Core.Types
+namespace Warden.Common.Types
 {
     public struct Result
     {

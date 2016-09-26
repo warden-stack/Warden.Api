@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Users;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Infrastructure.Mongo.Queries
 {

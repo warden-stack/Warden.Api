@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Wardens;
 using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Types;
+using Warden.Api.Infrastructure.Mongo.Repositories;
 using Warden.Common.DTO.WardenConfigurations;
+using Warden.Common.Types;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace Warden.Api.Infrastructure.Services

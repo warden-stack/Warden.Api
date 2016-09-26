@@ -2,7 +2,7 @@
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.PaymentPlans;
-using Warden.Api.Core.Extensions;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Core.Domain.Users
 {

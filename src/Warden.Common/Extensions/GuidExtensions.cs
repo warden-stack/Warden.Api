@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warden.Api.Core.Extensions
+namespace Warden.Common.Extensions
 {
     public static class GuidExtensions
     {

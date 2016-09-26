@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Organizations;
-using Warden.Api.Core.Types;
+using Warden.Common.Types;
 
 namespace Warden.Api.Core.Repositories
 {

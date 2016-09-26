@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Wardens;
+using Warden.Common.Types;
 
-namespace Warden.Api.Core.Types
+namespace Warden.Api.Infrastructure.Mongo.Repositories
 {
     public interface IWardenConfigurationRepository
     {

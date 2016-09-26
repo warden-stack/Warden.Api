@@ -4,9 +4,9 @@ using MongoDB.Driver;
 using Warden.Api.Core.Domain.Common;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Types;
 using Warden.Api.Infrastructure.Mongo.Queries;
 using Warden.Api.Infrastructure.Queries.Organizations;
+using Warden.Common.Types;
 
 namespace Warden.Api.Infrastructure.Mongo.Repositories
 {

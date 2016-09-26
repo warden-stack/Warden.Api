@@ -1,7 +1,7 @@
 using System;
-using Warden.Api.Core.Extensions;
+using Warden.Common.Extensions;
 
-namespace Warden.Api.Core.Types
+namespace Warden.Common.Types
 {
     internal sealed class CommonResult
     {

@@ -1,5 +1,5 @@
 ﻿using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Extensions;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Core.Domain.Watchers
 {

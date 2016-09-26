@@ -4,11 +4,11 @@ using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
 using Warden.Common.Events.Users;
-using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Auth0;
 using Warden.Common.DTO.Users;
 using Warden.Api.Infrastructure.Events;
+using Warden.Common.Extensions;
 
 namespace Warden.Api.Infrastructure.Services
 {
