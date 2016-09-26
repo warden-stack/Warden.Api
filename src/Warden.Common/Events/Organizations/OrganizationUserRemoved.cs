@@ -5,9 +5,9 @@ namespace Warden.Common.Events.Organizations
     public class OrganizationUserRemoved : IEvent
     {
         public Guid OrganizationId { get; }
-        public Guid UserId { get; }
+        public string UserId { get; }
 
-        public OrganizationUserRemoved(Guid organizationId, Guid userId)
+        public OrganizationUserRemoved(Guid organizationId, string userId)
         {
             OrganizationId = organizationId;
             UserId = userId;

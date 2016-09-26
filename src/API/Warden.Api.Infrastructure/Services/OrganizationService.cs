@@ -116,7 +116,7 @@ namespace Warden.Api.Infrastructure.Services
 
             organization.AddUser(user);
             await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, user.Id));
+            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, user.ExternalId));
         }
 
         public async Task UnassignUserAsync(Guid organizationId, string email, string userId)
@@ -126,7 +126,7 @@ namespace Warden.Api.Infrastructure.Services
 
             organization.RemoveUser(user.ExternalId);
             await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserRemoved(organizationId, user.Id));
+            await _eventDispatcher.DispatchAsync(new OrganizationUserRemoved(organizationId, user.ExternalId));
         }
 
         private bool IsOwner(Organization organization, string userId)

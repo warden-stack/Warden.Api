@@ -12,7 +12,7 @@ namespace Warden.Api.Core.Domain.PaymentPlans
         private HashSet<UserPaymentPlanMonthlySubscription> _monthlySubscriptions =
             new HashSet<UserPaymentPlanMonthlySubscription>();
 
-        public Guid UserId { get; protected set; }
+        public string UserId { get; protected set; }
         public Guid PaymentPlanId { get; protected set; }
         public string Name { get; protected set; }
         public decimal MonthlyPrice { get; protected set; }
@@ -39,7 +39,7 @@ namespace Warden.Api.Core.Domain.PaymentPlans
 
         public UserPaymentPlan(User user, PaymentPlan paymentPlan)
         {
-            UserId = user.Id;
+            UserId = user.ExternalId;
             PaymentPlanId = paymentPlan.Id;
             Name = paymentPlan.Name;
             MonthlyPrice = paymentPlan.MonthlyPrice;

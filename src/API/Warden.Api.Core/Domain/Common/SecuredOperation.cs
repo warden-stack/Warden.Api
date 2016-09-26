@@ -6,7 +6,7 @@ namespace Warden.Api.Core.Domain.Common
 {
     public class SecuredOperation : Entity, ITimestampable
     {
-        public Guid? UserId { get; protected set; }
+        public string UserId { get; protected set; }
         public string Email { get; protected set; }
         public SecuredOperationType Type { get; protected set; }
         public string Token { get; protected set; }
@@ -20,10 +20,10 @@ namespace Warden.Api.Core.Domain.Common
         public DateTime Expiry { get; protected set; }
 
         public SecuredOperation(SecuredOperationType type, string token,
-            DateTime expiry, Guid? userId = null, string email = null,
+            DateTime expiry, string userId = null, string email = null,
             string ipAddress = null, string userAgent = null)
         {
-            if (!userId.HasValue)
+            if (string.IsNullOrWhiteSpace(userId))
             {
                 if (email.Empty())
                     throw new DomainException("Both user id and email can not be empty.");

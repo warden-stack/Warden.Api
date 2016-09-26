@@ -5,7 +5,7 @@ namespace Warden.Api.Core.Domain.Users
 {
     public class UserSession : Entity, ITimestampable
     {
-        public Guid UserId { get; protected set; }
+        public string UserId { get; protected set; }
         public string UserAgent { get; protected set; }
         public string IpAddress { get; protected set; }
         public string Referrer { get; protected set; }
@@ -21,7 +21,7 @@ namespace Warden.Api.Core.Domain.Users
             if (user == null)
                 throw new DomainException("Can not create an empty user session.");
 
-            UserId = user.Id;
+            UserId = user.ExternalId;
             UserAgent = userAgent;
             IpAddress = ipAddress;
             Referrer = referrer;
