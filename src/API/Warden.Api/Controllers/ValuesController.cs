@@ -14,8 +14,8 @@ namespace Warden.Api.Controllers
     {
         public ValuesController(ICommandDispatcher commandDispatcher, 
             IMapper mapper,
-            IUserService userService) 
-            : base(commandDispatcher, mapper, userService)
+            IUserProvider userProvider) 
+            : base(commandDispatcher, mapper, userProvider)
         {
         }
 

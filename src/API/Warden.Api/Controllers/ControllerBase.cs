@@ -16,13 +16,13 @@ namespace Warden.Api.Controllers
         protected readonly string NotificationsKey = "Notifications";
         protected readonly ICommandDispatcher CommandDispatcher;
         protected readonly IMapper Mapper;
-        protected readonly IUserService UserService;
+        protected readonly IUserProvider UserProvider;
 
-        protected ControllerBase(ICommandDispatcher commandDispatcher, IMapper mapper, IUserService userService)
+        protected ControllerBase(ICommandDispatcher commandDispatcher, IMapper mapper, IUserProvider userProvider)
         {
             CommandDispatcher = commandDispatcher;
             Mapper = mapper;
-            UserService = userService;
+            UserProvider = userProvider;
         }
 
         protected RequestHandler<T> For<T>(T request) => new RequestHandler<T>(this, request);
@@ -39,7 +39,7 @@ namespace Warden.Api.Controllers
             if (externalUserId.Empty())
                 throw new AuthenticationException("User is not authenticated.");
 
-            var user = await UserService.GetAsync(externalUserId);
+            var user = await UserProvider.GetAsync(externalUserId);
 
             return user;
         }

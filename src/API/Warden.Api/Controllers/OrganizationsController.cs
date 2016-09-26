@@ -19,9 +19,9 @@ namespace Warden.Api.Controllers
 
         public OrganizationsController(ICommandDispatcher commandDispatcher,
             IMapper mapper,
-            IUserService userService,
+            IUserProvider userProvider,
             IOrganizationService organizationService) 
-            : base(commandDispatcher, mapper, userService)
+            : base(commandDispatcher, mapper, userProvider)
         {
             _organizationService = organizationService;
         }

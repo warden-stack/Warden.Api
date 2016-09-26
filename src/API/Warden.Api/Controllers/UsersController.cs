@@ -12,9 +12,9 @@ namespace Warden.Api.Controllers
     public class UsersController : ControllerBase
     {
         public UsersController(ICommandDispatcher commandDispatcher, 
-            IMapper mapper, 
-            IUserService userService) : 
-            base(commandDispatcher, mapper, userService)
+            IMapper mapper,
+            IUserProvider userProvider) : 
+            base(commandDispatcher, mapper, userProvider)
         {
         }
 

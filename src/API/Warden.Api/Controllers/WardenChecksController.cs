@@ -17,9 +17,9 @@ namespace Warden.Api.Controllers
 
         public WardenChecksController(ICommandDispatcher commandDispatcher,
             IMapper mapper,
-            IUserService userService,
+            IUserProvider userProvider,
             IApiKeyService apiKeyService)
-            : base(commandDispatcher, mapper, userService)
+            : base(commandDispatcher, mapper, userProvider)
         {
             _apiKeyService = apiKeyService;
         }

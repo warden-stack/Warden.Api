@@ -18,10 +18,10 @@ namespace Warden.Api.Controllers
         private readonly IApiKeyService _apiKeyService;
 
         public ApiKeyController(ICommandDispatcher commandDispatcher, 
-            IMapper mapper, 
-            IUserService userService,
+            IMapper mapper,
+            IUserProvider userProvider,
             IApiKeyService apiKeyService) 
-            : base(commandDispatcher, mapper, userService)
+            : base(commandDispatcher, mapper, userProvider)
         {
             _apiKeyService = apiKeyService;
         }

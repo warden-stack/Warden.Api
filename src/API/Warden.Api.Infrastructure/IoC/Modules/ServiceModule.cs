@@ -37,6 +37,9 @@ namespace Warden.Api.Infrastructure.IoC.Modules
             builder.RegisterType<ApiKeyService>()
                 .As<IApiKeyService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<UserProvider>()
+                .As<IUserProvider>()
+                .InstancePerLifetimeScope();
 
             //TODO: Register RabbitMQ
             builder.RegisterType<WardenConfigurationService>()

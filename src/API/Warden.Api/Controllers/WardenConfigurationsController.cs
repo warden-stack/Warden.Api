@@ -16,10 +16,10 @@ namespace Warden.Api.Controllers
 
         public WardenConfigurationsController(ICommandDispatcher commandDispatcher,
             IMapper mapper,
-            IUserService userService,
+            IUserProvider userProvider,
             IWardenConfigurationService wardenConfigurationService,
             ISecuredRequestService securedRequestService)
-            : base(commandDispatcher, mapper, userService)
+            : base(commandDispatcher, mapper, userProvider)
         {
             _wardenConfigurationService = wardenConfigurationService;
             _securedRequestService = securedRequestService;
