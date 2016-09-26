@@ -21,7 +21,7 @@ namespace Warden.Api.Infrastructure.Services
             _paymentPlanSettings = paymentPlanSettings;
         }
 
-        public async Task UseFeatureIfAvailableAsync(Guid userId, FeatureType feature, Func<Task> action)
+        public async Task UseFeatureIfAvailableAsync(string userId, FeatureType feature, Func<Task> action)
         {
             if (!_paymentPlanSettings.Enabled)
             {

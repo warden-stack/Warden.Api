@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Warden.Api.Core.Events;
+using Warden.Common.Events;
 
 namespace Warden.Api.Infrastructure.Events
 {

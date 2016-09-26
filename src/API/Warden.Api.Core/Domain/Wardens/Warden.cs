@@ -4,7 +4,7 @@ using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
 using Warden.Api.Core.Domain.Watchers;
-using Warden.Api.Core.Events.Wardens;
+using Warden.Common.Events.Wardens;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Wardens
@@ -14,7 +14,7 @@ namespace Warden.Api.Core.Domain.Wardens
         private HashSet<Watcher> _watchers = new HashSet<Watcher>();
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
-        public Guid OwnerId { get; protected set; }
+        public string OwnerId { get; protected set; }
         public bool Enabled { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
@@ -32,7 +32,7 @@ namespace Warden.Api.Core.Domain.Wardens
         public Warden(Guid id, User owner, string name, bool enabled = true)
         {
             Id = id;
-            OwnerId = owner.Id;
+            OwnerId = owner.ExternalId;
             SetName(name);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;

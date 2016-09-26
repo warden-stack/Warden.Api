@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Users;
+using Warden.Common.Events.Users;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
 using Warden.Api.Infrastructure.Auth0;
@@ -66,7 +66,7 @@ namespace Warden.Api.Infrastructure.Services
 
             return user.HasValue ? new UserDto
             {
-                Id = user.Value.Id,
+                Id = user.Value.ExternalId,
                 Email = user.Value.Email,
                 State = user.Value.State.ToString(),
                 Role = user.Value.Role.ToString(),

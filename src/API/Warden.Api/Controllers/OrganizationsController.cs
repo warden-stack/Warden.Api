@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Warden.Api.Core.Domain.Common;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Commands.Organizations;
-using Warden.Api.Infrastructure.Commands.Users;
 using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Services;
+using Warden.Common.Commands.Organizations;
+using Warden.Common.Commands.Users;
 
 namespace Warden.Api.Controllers
 {

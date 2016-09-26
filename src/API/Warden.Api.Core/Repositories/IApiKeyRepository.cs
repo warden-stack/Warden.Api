@@ -8,7 +8,7 @@ namespace Warden.Api.Core.Repositories
 {
     public interface IApiKeyRepository
     {
-        Task<IEnumerable<ApiKey>> BrowseByUserId(Guid userId);
+        Task<IEnumerable<ApiKey>> BrowseByUserId(string userId);
         Task<Maybe<ApiKey>> GetAsync(Guid id);
         Task<Maybe<ApiKey>> GetByKeyAsync(string key);
         Task AddAsync(ApiKey apiKey);

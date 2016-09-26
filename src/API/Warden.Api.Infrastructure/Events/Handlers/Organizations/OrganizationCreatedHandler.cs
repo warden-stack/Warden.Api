@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Warden.Api.Core.Events.Organizations;
+using Warden.Common.Events;
+using Warden.Common.Events.Organizations;
 
 namespace Warden.Api.Infrastructure.Events.Handlers.Organizations
 {

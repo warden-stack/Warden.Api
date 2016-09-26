@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RawRabbit.vNext.Disposable;
+using RawRabbit;
+using Warden.Common.Commands;
+using Warden.Common.Commands.Wardens;
 using Warden.Common.DTO.Wardens;
-using Warden.Services.Commands;
-using Warden.Services.Events;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Storage.Rethink;
 
 namespace Warden.Services.Storage.Handlers.Commands
@@ -30,7 +31,7 @@ namespace Warden.Services.Storage.Handlers.Commands
                 CreatedAt = DateTime.UtcNow
             };
             await _wardenCheckStorage.SaveAsync(storage);
-            await _bus.PublishAsync(new WardenCheckResultProcessed(command));
+            await _bus.PublishAsync(new WardenCheckResultProcessed(command.AuthenticatedUserId, command.OrganizationId, command.WardenId, command.Result));
         }
     }
 }

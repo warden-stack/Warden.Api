@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Repositories;
+using Warden.Common.Commands.Wardens;
 using Warden.Common.DTO.Wardens;
-using Warden.Services.Commands;
 
 namespace Warden.Api.Infrastructure.Services
 {
@@ -23,7 +23,7 @@ namespace Warden.Api.Infrastructure.Services
         public async Task ProcessAsync(Guid organizationId, Guid wardenId, WardenCheckResultDto check)
         {
             await ValidateCheckResultAsync(organizationId, wardenId, check);
-            await _bus.PublishAsync(new ProcessWardenCheckResult(Guid.Empty, organizationId, wardenId, check));
+            await _bus.PublishAsync(new ProcessWardenCheckResult(string.Empty, organizationId, wardenId, check));
         }
 
         private async Task ValidateCheckResultAsync(Guid organizationId,

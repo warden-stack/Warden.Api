@@ -91,7 +91,7 @@ namespace Warden.Api.Infrastructure.Mongo
 
             foreach (var user in users)
             {
-                await _apiKeyService.CreateAsync(Guid.NewGuid(), user.Id);
+                await _apiKeyService.CreateAsync(Guid.NewGuid(), user.ExternalId);
             }
         }
 

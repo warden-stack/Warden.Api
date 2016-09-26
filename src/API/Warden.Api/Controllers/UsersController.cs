@@ -3,8 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Commands.Users;
 using Warden.Api.Infrastructure.Services;
+using Warden.Common.Commands.Users;
 
 namespace Warden.Api.Controllers
 {

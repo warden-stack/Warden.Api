@@ -18,7 +18,7 @@ namespace Warden.Api.Infrastructure.Mongo.Repositories
             _database = database;
         }
 
-        public async Task<IEnumerable<ApiKey>> BrowseByUserId(Guid userId)
+        public async Task<IEnumerable<ApiKey>> BrowseByUserId(string userId)
             => await _database.ApiKeys().BrowseByUserIdAsync(userId);
 
         public async Task<Maybe<ApiKey>> GetAsync(Guid id)

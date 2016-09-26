@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Wardens;
+using Warden.Common.Events.Wardens;
 using Warden.Api.Core.Extensions;
 
 namespace Warden.Api.Core.Domain.Organizations
@@ -15,7 +15,7 @@ namespace Warden.Api.Core.Domain.Organizations
 
         public string Name { get; protected set; }
         public string Description { get; set; }
-        public Guid OwnerId { get; protected set; }
+        public string OwnerId { get; protected set; }
         public bool AutoRegisterNewWarden { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
@@ -65,7 +65,7 @@ namespace Warden.Api.Core.Domain.Organizations
             if (owner == null)
                 throw new DomainException("Organization owner can not be null.");
 
-            OwnerId = owner.Id;
+            OwnerId = owner.ExternalId;
             AddUser(owner, OrganizationRole.Owner);
             UpdatedAt = DateTime.UtcNow;
         }
@@ -75,14 +75,14 @@ namespace Warden.Api.Core.Domain.Organizations
             if (user == null)
                 throw new DomainException("Can not add empty user to the organization.");
 
-            if (Users.Any(x => x.Id == user.Id))
+            if (Users.Any(x => x.Id == user.ExternalId))
                 throw new DomainException($"User '{user.Email}' is already in the organization.");
 
             _users.Add(UserInOrganization.Create(user, role));
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void RemoveUser(Guid id)
+        public void RemoveUser(string id)
         {
             var userInOrganization = Users.FirstOrDefault(x => x.Id == id);
             if (userInOrganization == null)

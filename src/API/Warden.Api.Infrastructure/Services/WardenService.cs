@@ -24,7 +24,7 @@ namespace Warden.Api.Infrastructure.Services
             _eventDispatcher = eventDispatcher;
         }
 
-        public async Task CreateWardenAsync(Guid id, Guid organizationId, Guid userId, string name)
+        public async Task CreateWardenAsync(Guid id, Guid organizationId, string userId, string name)
         {
             var user = await _userRepository.GetAsync(userId);
             if (user.HasNoValue)
@@ -45,7 +45,7 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(organization.Value.Events.ToArray());
         }
 
-        public async Task<bool> HasAccessAsync(Guid userId, Guid organizationId, Guid wardenId)
+        public async Task<bool> HasAccessAsync(string userId, Guid organizationId, Guid wardenId)
         {
             var organization = await _organizationRepository.GetAsync(organizationId);
 

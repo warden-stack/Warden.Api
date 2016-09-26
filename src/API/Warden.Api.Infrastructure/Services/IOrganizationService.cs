@@ -7,14 +7,14 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IOrganizationService
     {
-        Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId);
+        Task<PagedResult<OrganizationDto>> BrowseAsync(string userId);
         Task<OrganizationDto> GetAsync(Guid id);
-        Task UpdateAsync(Guid id, string name, Guid authenticatedUserId);
-        Task CreateAsync(Guid userId, string name, string description = "");
-        Task CreateDefaultAsync(Guid userId);
-        Task DeleteAsync(Guid id, Guid authenticatedUserId);
+        Task UpdateAsync(Guid id, string name, string userId);
+        Task CreateAsync(string userId, string name, string description = "");
+        Task CreateDefaultAsync(string userId);
+        Task DeleteAsync(Guid id, string userId);
         
-        Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);
-        Task UnassignUserAsync(Guid organizationId, string email, Guid authenticatedUserId);
+        Task AssignUserAsync(Guid organizationId, string email, string userId);
+        Task UnassignUserAsync(Guid organizationId, string email, string userId);
     }
 }

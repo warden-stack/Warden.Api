@@ -6,9 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Commands.ApiKeys;
 using Warden.Common.DTO.ApiKeys;
 using Warden.Api.Infrastructure.Services;
+using Warden.Common.Commands.ApiKeys;
 
 namespace Warden.Api.Controllers
 {

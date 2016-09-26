@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
-using Warden.Api.Core.Events;
 using System.Reflection;
+using Warden.Common.Events;
 
 namespace Warden.Api.Infrastructure.Events
 {

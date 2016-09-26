@@ -15,9 +15,9 @@ namespace Warden.Api.Infrastructure.Mongo.Queries
             => database.GetCollection<ApiKey>();
 
         public static async Task<IEnumerable<ApiKey>> BrowseByUserIdAsync(this IMongoCollection<ApiKey> apiKeys,
-            Guid userId)
+            string userId)
         {
-            if (userId.IsEmpty())
+            if (userId.Empty())
                 return Enumerable.Empty<ApiKey>();
 
             return await apiKeys.AsQueryable().Where(x => x.UserId == userId).ToListAsync();

@@ -20,7 +20,7 @@ namespace Warden.Api.Infrastructure.Services
             _userPaymentPlanRepository = userPaymentPlanRepository;
         }
 
-        public async Task CreateDefaultAsync(Guid userId)
+        public async Task CreateDefaultAsync(string userId)
         {
             var user = await _userRepository.GetAsync(userId);
             var defaultPlan = await _paymentPlanRepository.GetDefaultAsync();

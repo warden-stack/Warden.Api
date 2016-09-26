@@ -8,7 +8,7 @@ using Warden.Api.Core.Extensions;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Organizations;
 using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events.Organizations;
+using Warden.Common.Events.Organizations;
 using Warden.Api.Core.Repositories;
 using Warden.Common.DTO.Organizations;
 using Warden.Api.Infrastructure.Events;
@@ -18,7 +18,6 @@ namespace Warden.Api.Infrastructure.Services
     public class OrganizationService : IOrganizationService
     {
         private const string DefaultName = "My organization";
-
         private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
@@ -35,9 +34,9 @@ namespace Warden.Api.Infrastructure.Services
             _eventDispatcher = eventDispatcher;
         }
 
-        public async Task<PagedResult<OrganizationDto>> BrowseAsync(Guid userId)
+        public async Task<PagedResult<OrganizationDto>> BrowseAsync(string userId)
         {
-            var organizationValues = await _organizationRepository.BrowseAsync(userId, Guid.Empty);
+            var organizationValues = await _organizationRepository.BrowseAsync(userId, string.Empty);
             var organizationDtos = organizationValues.Items.Select(_mapper.Map<OrganizationDto>);
             var organizations = PagedResult<OrganizationDto>.From(organizationValues, organizationDtos);
 
@@ -55,15 +54,15 @@ namespace Warden.Api.Infrastructure.Services
             return organization;
         }
 
-        public async Task UpdateAsync(Guid id, string name, Guid authenticatedUserId)
+        public async Task UpdateAsync(Guid id, string name, string userId)
         {
             var organizationValue = await _organizationRepository.GetAsync(id);
             if (organizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {id}");
             var organization = organizationValue.Value;
 
-            if (IsOwner(organization, authenticatedUserId) == false)
-                throw new ServiceException($"User: {authenticatedUserId} is not allowed" + 
+            if (IsOwner(organization, userId) == false)
+                throw new ServiceException($"User: {userId} is not allowed" + 
                     $"to update organization: {organization.Id}");
 
             organization.SetName(name);
@@ -71,7 +70,7 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
-        public async Task CreateAsync(Guid userId, string name, string description = "")
+        public async Task CreateAsync(string userId, string name, string description = "")
         {
             if (name.Empty())
                 throw new ServiceException("Organization name can not be empty.");
@@ -90,29 +89,29 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.Id));
         }
 
-        public async Task CreateDefaultAsync(Guid userId)
+        public async Task CreateDefaultAsync(string userId)
         {
             await CreateAsync(userId, DefaultName, $"{DefaultName} description.");
         }
 
-        public async Task DeleteAsync(Guid id, Guid authenticatedUserId)
+        public async Task DeleteAsync(Guid id, string userId)
         {
             var ogranizationValue = await _organizationRepository.GetAsync(id);
             if (ogranizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {id}");
             var organization = ogranizationValue.Value;
 
-            if (IsOwner(organization, authenticatedUserId) == false)
-                throw new ServiceException($"User: {authenticatedUserId} is not allowed" +
+            if (IsOwner(organization, userId) == false)
+                throw new ServiceException($"User: {userId} is not allowed" +
                     $"to delete organization: {organization.Id}");
 
             await _organizationRepository.DeleteAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationDeleted(organization.Id));
         }
 
-        public async Task AssignUserAsync(Guid organizationId, string email, Guid authenticatedUserId)
+        public async Task AssignUserAsync(Guid organizationId, string email, string userId)
         {
-            var organization = await GetAndCheckOwnershipAsync(organizationId, authenticatedUserId);
+            var organization = await GetAndCheckOwnershipAsync(organizationId, userId);
             var user = await GetUserAsync(email);
 
             organization.AddUser(user);
@@ -120,30 +119,30 @@ namespace Warden.Api.Infrastructure.Services
             await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, user.Id));
         }
 
-        public async Task UnassignUserAsync(Guid organizationId, string email, Guid authenticatedUserId)
+        public async Task UnassignUserAsync(Guid organizationId, string email, string userId)
         {
-            var organization = await GetAndCheckOwnershipAsync(organizationId, authenticatedUserId);
+            var organization = await GetAndCheckOwnershipAsync(organizationId, userId);
             var user = await GetUserAsync(email);
 
-            organization.RemoveUser(user.Id);
+            organization.RemoveUser(user.ExternalId);
             await _organizationRepository.UpdateAsync(organization);
             await _eventDispatcher.DispatchAsync(new OrganizationUserRemoved(organizationId, user.Id));
         }
 
-        private bool IsOwner(Organization organization, Guid authenticatedUserId)
+        private bool IsOwner(Organization organization, string userId)
         {
-            return organization.OwnerId == authenticatedUserId;
+            return organization.OwnerId == userId;
         }
 
-        private async Task<Organization> GetAndCheckOwnershipAsync(Guid organizationId, Guid authenticatedUserId)
+        private async Task<Organization> GetAndCheckOwnershipAsync(Guid organizationId, string userId)
         {
             var organizationValue = await _organizationRepository.GetAsync(organizationId);
             if (organizationValue.HasNoValue)
                 throw new ServiceException($"Desired organization does not exist, id: {organizationId}");
 
             var organization = organizationValue.Value;
-            if (IsOwner(organization, authenticatedUserId) == false)
-                throw new ServiceException($"User: {authenticatedUserId} is not allowed" +
+            if (IsOwner(organization, userId) == false)
+                throw new ServiceException($"User: {userId} is not allowed" +
                     $"to assign users into organization: {organization.Id}");
 
             return organization;

@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using Autofac;
 using Microsoft.AspNetCore.Hosting;
-using RawRabbit.vNext.Disposable;
-using Warden.Services.Commands;
-using Warden.Services.Events;
+using RawRabbit;
+using Warden.Common.Commands;
+using Warden.Common.Events;
 using Warden.Services.Extensions;
 
 namespace Warden.Services.Host

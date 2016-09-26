@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
+using RawRabbit;
 using RawRabbit.vNext;
-using RawRabbit.vNext.Disposable;
-using Warden.Services.Events;
+using Warden.Common.Events;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Nancy;
 using Warden.Services.Stats.Handlers.Events;
 

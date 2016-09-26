@@ -13,10 +13,10 @@ namespace Warden.Api.Infrastructure.Services
 {
     public interface IApiKeyService
     {
-        Task<IEnumerable<ApiKeyDto>> BrowseAsync(Guid userId);
+        Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId);
         Task<ApiKeyDto> GetAsync(string key);
         Task<ApiKeyDto> GetAsync(Guid id);
-        Task CreateAsync(Guid id, Guid userId);
+        Task CreateAsync(Guid id, string userId);
         Task DeleteAsync(string key);
     }
 
@@ -39,7 +39,7 @@ namespace Warden.Api.Infrastructure.Services
             _featureSettings = featureSettings;
         }
 
-        public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(Guid userId)
+        public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId)
         {
             var apiKeys = await _repository.BrowseByUserId(userId);
             var dtos = apiKeys.Select(x => _mapper.Map<ApiKeyDto>(x)).ToList();
@@ -69,7 +69,7 @@ namespace Warden.Api.Infrastructure.Services
             return dto;
         }
 
-        public async Task CreateAsync(Guid id, Guid userId)
+        public async Task CreateAsync(Guid id, string userId)
         {
             var userApiKeys = await _repository.BrowseByUserId(userId);
             var apiKeysCount = userApiKeys.Count();

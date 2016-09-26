@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Warden.Api.Core.Events;
+using Warden.Common.Events;
 
 namespace Warden.Api.Core.Domain
 {

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
+using RawRabbit;
 using RawRabbit.vNext;
-using RawRabbit.vNext.Disposable;
 using Warden.Services.Nancy;
 
 namespace Warden.Services.Users.Framework

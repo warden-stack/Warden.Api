@@ -3,7 +3,6 @@ using System.Security.Authentication;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Extensions;
 using Warden.Api.Framework.Handlers;
 using Warden.Api.Infrastructure.Commands;
@@ -29,7 +28,7 @@ namespace Warden.Api.Controllers
         protected RequestHandler<T> For<T>(T request) => new RequestHandler<T>(this, request);
 
         //TODO: Temporary property for API key usage.
-        protected Guid CurrentUserId { get; set; }
+        protected string CurrentUserId { get; set; }
 
         protected TModel MapTo<TModel>(object source)
             => (TModel) Mapper.Map(source, source.GetType(), typeof(TModel));
