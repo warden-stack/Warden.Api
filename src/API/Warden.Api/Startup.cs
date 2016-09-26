@@ -10,10 +10,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using Warden.Api.Framework.Filters;
-using Warden.Api.Infrastructure.Services;
-using Warden.Api.Infrastructure.Settings;
 using NLog.Extensions.Logging;
 using RawRabbit.vNext;
+using Warden.Api.Core.Services;
+using Warden.Api.Core.Settings;
 
 namespace Warden.Api
 {
@@ -42,6 +42,8 @@ namespace Warden.Api
             services.Configure<GeneralSettings>(Configuration.GetSection("general"));
             services.Configure<PaymentPlanSettings>(Configuration.GetSection("paymentPlan"));
             services.Configure<Auth0Settings>(Configuration.GetSection("auth0"));
+            services.Configure<StorageSettings>(Configuration.GetSection("storage"));
+            services.Configure<StorageSettings>(Configuration.GetSection("redis"));
             var databaseSettings = GetConfigurationValue<DatabaseSettings>();
             services.AddSingleton(databaseSettings);
             services.AddSingleton(GetConfigurationValue<AccountSettings>());
@@ -50,12 +52,14 @@ namespace Warden.Api
             services.AddSingleton(GetConfigurationValue<GeneralSettings>());
             services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>());
             services.AddSingleton(GetConfigurationValue<Auth0Settings>());
+            services.AddSingleton(GetConfigurationValue<StorageSettings>());
+            services.AddSingleton(GetConfigurationValue<RedisSettings>());
             services.AddRawRabbit();
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());
             });
-            ApplicationContainer = Infrastructure.IoC.Container.Resolve(services, databaseSettings.Type);
+            ApplicationContainer = Core.IoC.Container.Resolve(services, databaseSettings.Type);
 
             return new AutofacServiceProvider(ApplicationContainer);
         }

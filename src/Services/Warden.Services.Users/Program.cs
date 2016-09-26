@@ -1,4 +1,5 @@
-﻿using Warden.Services.Host;
+﻿using Warden.Common.Commands.Users;
+using Warden.Services.Host;
 using Warden.Services.Users.Framework;
 
 namespace Warden.Services.Users
@@ -11,6 +12,7 @@ namespace Warden.Services.Users
                 .Create<Startup>(port: 10001)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
+                .SubscribeToCommand<SignInUser>()
                 .Build()
                 .Run();
         }

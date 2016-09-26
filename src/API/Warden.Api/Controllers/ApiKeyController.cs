@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Warden.Api.Infrastructure.Commands;
+using Warden.Api.Core.Commands;
+using Warden.Api.Core.Services;
 using Warden.Common.DTO.ApiKeys;
-using Warden.Api.Infrastructure.Services;
 using Warden.Common.Commands.ApiKeys;
 
 namespace Warden.Api.Controllers
@@ -30,10 +30,12 @@ namespace Warden.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<string>> Browse()
         {
-            var userId = (await GetCurrentUser()).Id;
-            var apiKeys = await _apiKeyService.BrowseAsync(userId);
+            return Enumerable.Empty<string>();
 
-            return apiKeys.Select(x => x.Key);
+            //var userId = (await GetCurrentUser()).Id;
+            //var apiKeys = await _apiKeyService.BrowseAsync(userId);
+
+            //return apiKeys.Select(x => x.Key);
         }
 
         [Authorize]

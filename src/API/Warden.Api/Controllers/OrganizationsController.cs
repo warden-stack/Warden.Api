@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Warden.Api.Infrastructure.Commands;
+using Warden.Api.Core.Commands;
+using Warden.Api.Core.Services;
 using Warden.Common.DTO.Organizations;
-using Warden.Api.Infrastructure.Services;
 using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.Users;
 

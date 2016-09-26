@@ -3,12 +3,12 @@
     public class UserCreated : IEvent
     {
         public string Email { get; }
-        public string ExternalId { get; }
+        public string Id { get; }
 
-        public UserCreated(string email, string externalId)
+        public UserCreated(string email, string id)
         {
             Email = email;
-            ExternalId = externalId;
+            Id = id;
         }
     }
 }

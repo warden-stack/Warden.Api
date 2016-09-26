@@ -1,15 +1,20 @@
 {
   "version": "1.0.0",
-  "description": "Warden shared components.",
-  "authors": [ "Piotr Gankiewicz" ],
-  "packOptions": {
-    "tags": [ "Warden" ],
-    "projectUrl": "https://getwarden.net",
-    "licenseUrl": "https://github.com/warden-stack/Warden/blob/master/LICENSE"
-  },
   "dependencies": {
     "Warden.Common": "1.0.0-*",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "Newtonsoft.Json": "9.0.1",
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
+    "AutoMapper": "5.0.2",
+    "MongoDB.Driver": "2.3.0-rc1",
+    "StackExchange.Redis": "1.1.605",
+    "System.Linq": "4.1.0",
+    "Humanizer.Core": "2.1.0",
+    "NLog.Extensions.Logging": "1.0.0-*",
+    "RawRabbit": "1.10.0",
+    "RawRabbit.vNext": "1.10.0",
+    "System.Reflection": "4.1.0",
+    "System.Reflection.TypeExtensions": "4.1.0"
   },
   "frameworks": {
     "netstandard1.6": {
@@ -23,4 +28,3 @@
     }
   }
 }
-

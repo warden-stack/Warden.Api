@@ -2,11 +2,11 @@
 {
     public class UserSignedIn : IEvent
     {
-        public string Email { get; }
+        public string Id { get; }
 
-        public UserSignedIn(string email)
+        public UserSignedIn(string id)
         {
-            Email = email;
+            Id = id;
         }
     }
 }

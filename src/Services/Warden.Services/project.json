@@ -7,6 +7,8 @@
     "Warden.Common": "1.0.0-*",
     "RawRabbit": "1.10.0",
     "RawRabbit.vNext": "1.10.0",
+    "Humanizer.Core": "2.1.0",
+    "MongoDB.Driver": "2.3.0-rc1",
     "NLog.Extensions.Logging": "1.0.0-*",
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",

@@ -1,0 +1,24 @@
+﻿using System;
+using System.Threading.Tasks;
+using MongoDB.Driver;
+using Warden.Api.Core.Domain.Wardens;
+using Warden.Common.Extensions;
+using MongoDB.Driver.Linq;
+
+namespace Warden.Api.Core.Mongo.Queries
+{
+    public static class WardenConfigurationQueries
+    {
+        public static IMongoCollection<WardenConfiguration> WardenConfigurations(this IMongoDatabase database)
+            => database.GetCollection<WardenConfiguration>();
+
+        public static async Task<WardenConfiguration> GetByIdAsync(this IMongoCollection<WardenConfiguration> configurations,
+            Guid id)
+        {
+            if (id.IsEmpty())
+                return null;
+
+            return await configurations.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
+        }
+    }
+}

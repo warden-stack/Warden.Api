@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Warden.Api.Infrastructure.Commands;
-using Warden.Api.Infrastructure.Services;
 using System.Linq;
+using Warden.Api.Core.Commands;
+using Warden.Api.Core.Services;
 using Warden.Common.Commands.WardenChecks;
 
 namespace Warden.Api.Controllers
