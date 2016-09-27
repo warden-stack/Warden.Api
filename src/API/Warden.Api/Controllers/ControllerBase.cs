@@ -17,6 +17,7 @@ namespace Warden.Api.Controllers
         protected readonly ICommandDispatcher CommandDispatcher;
         protected readonly IMapper Mapper;
         protected readonly IUserProvider UserProvider;
+        private string _currentUserId = string.Empty;
 
         protected ControllerBase(ICommandDispatcher commandDispatcher, IMapper mapper, IUserProvider userProvider)
         {
@@ -27,19 +28,31 @@ namespace Warden.Api.Controllers
 
         protected RequestHandler<T> For<T>(T request) => new RequestHandler<T>(this, request);
 
-        //TODO: Temporary property for API key usage.
-        protected string CurrentUserId { get; set; }
+        protected string CurrentUserId
+        {
+            get
+            {
+                if (_currentUserId.Empty())
+                    SetCurrentUserId(User?.Identity?.Name?.Replace("auth0|", string.Empty));
+
+                return _currentUserId;
+            }
+        }
+
+        protected void SetCurrentUserId(string id)
+        {
+            _currentUserId = id;
+        }
 
         protected TModel MapTo<TModel>(object source)
             => (TModel) Mapper.Map(source, source.GetType(), typeof(TModel));
 
-        public async Task<UserDto> GetCurrentUser()
+        public async Task<UserDto> GetCurrentUserAsync()
         {
-            var externalUserId = User?.Identity?.Name;
-            if (externalUserId.Empty())
+            if (User?.Identity?.Name.Empty() == true)
                 throw new AuthenticationException("User is not authenticated.");
 
-            var user = await UserProvider.GetAsync(externalUserId);
+            var user = await UserProvider.GetAsync(CurrentUserId);
 
             return user;
         }

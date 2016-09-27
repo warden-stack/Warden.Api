@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Warden.Api.Core.Domain.Users;
 using Warden.Common.Types;
+using Warden.Services.Users.Domain;
 
-namespace Warden.Api.Core.Repositories
+namespace Warden.Services.Users.Repositories
 {
     public interface IApiKeyRepository
     {
@@ -12,6 +12,6 @@ namespace Warden.Api.Core.Repositories
         Task<Maybe<ApiKey>> GetAsync(Guid id);
         Task<Maybe<ApiKey>> GetByKeyAsync(string key);
         Task AddAsync(ApiKey apiKey);
-        Task DeleteAsync(ApiKey key);
+        Task DeleteAsync(string key);
     }
 }

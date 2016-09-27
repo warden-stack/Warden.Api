@@ -1,6 +1,4 @@
 ﻿using Nancy;
-using Warden.Common.DTO.Users;
-using Warden.Common.Types;
 using Warden.Services.Users.Services;
 
 namespace Warden.Services.Users.Modules

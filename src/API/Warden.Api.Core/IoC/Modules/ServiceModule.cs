@@ -1,9 +1,5 @@
 ﻿using Autofac;
-using Warden.Api.Core.Auth0;
-using Warden.Api.Core.Cache;
-using Warden.Api.Core.Redis;
 using Warden.Api.Core.Services;
-using Warden.Api.Core.Storage;
 
 namespace Warden.Api.Core.IoC.Modules
 {
@@ -14,17 +10,11 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<OrganizationService>()
                 .As<IOrganizationService>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<UserService>()
-                .As<IUserService>()
-                .InstancePerLifetimeScope();
             builder.RegisterType<WardenService>()
                 .As<IWardenService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<SecuredRequestService>()
                 .As<ISecuredRequestService>()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<WardenCheckService>()
-                .As<IWardenCheckService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<PaymentPlanService>()
                 .As<IPaymentPlanService>()
@@ -37,9 +27,6 @@ namespace Warden.Api.Core.IoC.Modules
                 .InstancePerLifetimeScope();
             builder.RegisterType<Encrypter>()
                 .As<IEncrypter>()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<ApiKeyService>()
-                .As<IApiKeyService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<UserProvider>()
                 .As<IUserProvider>()

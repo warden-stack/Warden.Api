@@ -2,69 +2,70 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Repositories;
-using Warden.Api.Core.Settings;
 using Warden.Common.DTO.ApiKeys;
+using Warden.Common.Types;
+using Warden.Services.Domain;
+using Warden.Services.Encryption;
+using Warden.Services.Users.Domain;
+using Warden.Services.Users.Repositories;
+using Warden.Services.Users.Settings;
 
-namespace Warden.Api.Core.Services
+namespace Warden.Services.Users.Services
 {
-    public interface IApiKeyService
-    {
-        Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId);
-        Task<ApiKeyDto> GetAsync(string key);
-        Task<ApiKeyDto> GetAsync(Guid id);
-        Task CreateAsync(Guid id, string userId);
-        Task DeleteAsync(string key);
-    }
-
     public class ApiKeyService : IApiKeyService
     {
         private readonly int RetryTimes = 5;
         private readonly IApiKeyRepository _repository;
         private readonly IEncrypter _encrypter;
-        private readonly IMapper _mapper;
         private readonly FeatureSettings _featureSettings;
 
         public ApiKeyService(IApiKeyRepository repository,
             IEncrypter encrypter, 
-            IMapper mapper,
             FeatureSettings featureSettings)
         {
             _repository = repository;
             _encrypter = encrypter;
-            _mapper = mapper;
             _featureSettings = featureSettings;
         }
 
-        public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId)
+        public async Task<Maybe<IEnumerable<ApiKeyDto>>> BrowseAsync(string userId)
         {
             var apiKeys = await _repository.BrowseByUserId(userId);
-            var dtos = apiKeys.Select(x => _mapper.Map<ApiKeyDto>(x)).ToList();
+            var dtos = apiKeys.Select(x => new ApiKeyDto
+            {
+                UserId = x.UserId,
+                Key = x.Key
+            }).ToList();
 
             return dtos;
         }
 
-        public async Task<ApiKeyDto> GetAsync(string key)
+        public async Task<Maybe<ApiKeyDto>> GetAsync(string key)
         {
-            var apiKeyValue = await _repository.GetByKeyAsync(key);
-            if (apiKeyValue.HasNoValue)
-                throw new ServiceException($"Desired API key does not exist! Key: {key}.");
+            var apiKey = await _repository.GetByKeyAsync(key);
+            if (apiKey.HasNoValue)
+                return new Maybe<ApiKeyDto>();
 
-            var dto = _mapper.Map<ApiKeyDto>(apiKeyValue.Value);
+            var dto = new ApiKeyDto
+            {
+                Key = apiKey.Value.Key,
+                UserId = apiKey.Value.UserId
+            };
 
             return dto;
         }
 
-        public async Task<ApiKeyDto> GetAsync(Guid id)
+        public async Task<Maybe<ApiKeyDto>> GetAsync(Guid id)
         {
-            var apiKeyValue = await _repository.GetAsync(id);
-            if (apiKeyValue.HasNoValue)
-                throw new ServiceException($"Desired API key does not exist! Id: {id}.");
+            var apiKey = await _repository.GetAsync(id);
+            if (apiKey.HasNoValue)
+                return new Maybe<ApiKeyDto>();
 
-            var dto = _mapper.Map<ApiKeyDto>(apiKeyValue.Value);
+            var dto = new ApiKeyDto
+            {
+                Key = apiKey.Value.Key,
+                UserId = apiKey.Value.UserId
+            };
 
             return dto;
         }
@@ -101,11 +102,11 @@ namespace Warden.Api.Core.Services
 
         public async Task DeleteAsync(string key)
         {
-            var apiKeyValue = await _repository.GetByKeyAsync(key);
-            if (apiKeyValue.HasNoValue)
+            var apiKey = await _repository.GetByKeyAsync(key);
+            if (apiKey.HasNoValue)
                 throw new ServiceException($"Desired API key does not exist! Key: {key}.");
 
-            await _repository.DeleteAsync(apiKeyValue.Value);
+            await _repository.DeleteAsync(apiKey.Value.Key);
         }
     }
 }

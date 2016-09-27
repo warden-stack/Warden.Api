@@ -1,4 +1,5 @@
-﻿using Warden.Services.Host;
+﻿using Warden.Common.Commands.Wardens;
+using Warden.Services.Host;
 using Warden.Services.WardenChecks.Framework;
 
 namespace Warden.Services.WardenChecks
@@ -11,6 +12,7 @@ namespace Warden.Services.WardenChecks
                 .Create<Startup>(port: 10003)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
+                .SubscribeToCommand<ProcessWardenCheckResult>()
                 .Build()
                 .Run();
         }

@@ -7,27 +7,39 @@ namespace Warden.Api.Core.Services
 {
     public class UserProvider : IUserProvider
     {
-        private readonly ICache _cache;
-        private readonly ICacheKeys _cacheKeys;
+        private readonly IApiCache _apiCache;
         private readonly IUserStorage _userStorage;
+        private readonly IApiKeyStorage _apiKeyStorage;
 
-        public UserProvider(ICache cache, ICacheKeys cacheKeys, 
-            IUserStorage userStorage)
+        public UserProvider(IApiCache apiCache,
+            IUserStorage userStorage,
+            IApiKeyStorage apiKeyStorage)
         {
-            _cache = cache;
-            _cacheKeys = cacheKeys;
+            _apiCache = apiCache;
             _userStorage = userStorage;
+            _apiKeyStorage = apiKeyStorage;
         }
 
         public async Task<UserDto> GetAsync(string id)
         {
-            var user = await _cache.GetAsync<UserDto>(_cacheKeys.Users(id));
+            var user = await _apiCache.GetUserAsync(id);
             if (user.HasValue)
                 return user.Value;
 
             user = await _userStorage.GetAsync(id);
 
             return user.HasValue ? user.Value : new UserDto();
+        }
+
+        public async Task<string> GetUserIdForApiKeyAsync(string apiKey)
+        {
+            var userId = await _apiCache.GetUserIdForApiKeyAsync(apiKey);
+            if (userId.HasValue)
+                return userId.Value;
+
+            userId = await _apiKeyStorage.GetUserIdForApiKeyAsync(apiKey);
+
+            return userId.HasValue ? userId.Value : string.Empty;
         }
     }
 }

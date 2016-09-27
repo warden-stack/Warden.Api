@@ -12,10 +12,6 @@ namespace Warden.Api.Core.IoC.Modules
                 .As<IOrganizationRepository>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<UserRepository>()
-                .As<IUserRepository>()
-                .InstancePerLifetimeScope();
-
             builder.RegisterType<PaymentPlanRepository>()
                 .As<IPaymentPlanRepository>()
                 .InstancePerLifetimeScope();
@@ -30,10 +26,6 @@ namespace Warden.Api.Core.IoC.Modules
 
             builder.RegisterType<SecuredRequestRepository>()
                 .As<ISecuredRequestRepository>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<ApiKeyRepository>()
-                .As<IApiKeyRepository>()
                 .InstancePerLifetimeScope();
         }
     }

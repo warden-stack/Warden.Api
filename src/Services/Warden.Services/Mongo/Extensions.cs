@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 using Humanizer;
-using System.Linq;
+using MongoDB.Driver;
 
 namespace Warden.Services.Mongo
 {
@@ -24,7 +24,11 @@ namespace Warden.Services.Mongo
 
         private static string Pluralize(Type type)
         {
-            var pluralizedName = type.Name.Pluralize();
+            var typeName = type.Name;
+            if (typeName.EndsWith("Dto"))
+                typeName = typeName.Replace("Dto", string.Empty);
+
+            var pluralizedName = typeName.Pluralize();
 
             return pluralizedName;
         }

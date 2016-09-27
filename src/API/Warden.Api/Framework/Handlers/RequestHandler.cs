@@ -93,7 +93,7 @@ namespace Warden.Api.Framework.Handlers
             AlwaysAction?.Invoke(Model);
 
             if (ShouldAuthorize)
-                await AuthorizeAsync();
+                AuthorizeRequest();
 
             var isValid = Controller.ModelState.IsValid;
             if (!isValid)
@@ -192,12 +192,11 @@ namespace Warden.Api.Framework.Handlers
             return isSuccessful;
         }
 
-        private async Task AuthorizeAsync()
+        private void AuthorizeRequest()
         {
             if (Model is IAuthenticatedCommand)
             {
-                var currentUser = await Controller.GetCurrentUser();
-                ((IAuthenticatedCommand)Model).AuthenticatedUserId = currentUser.Id;
+                ((IAuthenticatedCommand)Model).AuthenticatedUserId = Controller.User?.Identity?.Name?.Replace("auth0|", string.Empty);
             }
         }
     }

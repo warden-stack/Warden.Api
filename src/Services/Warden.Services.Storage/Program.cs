@@ -1,4 +1,5 @@
-﻿using Warden.Common.Commands.Wardens;
+﻿using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Users;
 using Warden.Services.Host;
 using Warden.Services.Storage.Framework;
 
@@ -12,7 +13,9 @@ namespace Warden.Services.Storage
                 .Create<Startup>(port: 10000)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
-                .SubscribeToCommand<ProcessWardenCheckResult>()
+                .SubscribeToEvent<ApiKeyCreated>()
+                .SubscribeToEvent<UserCreated>()
+                .SubscribeToEvent<UserSignedIn>()
                 .Build()
                 .Run();
         }

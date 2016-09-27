@@ -26,7 +26,7 @@ namespace Warden.Services.Users.Queries
             if (externalId.Empty())
                 return null;
 
-            return await users.AsQueryable().FirstOrDefaultAsync(x => x.ExternalId == externalId);
+            return await users.AsQueryable().FirstOrDefaultAsync(x => x.UserId == externalId);
         }
 
         public static async Task<User> GetByEmailAsync(this IMongoCollection<User> users, string email)

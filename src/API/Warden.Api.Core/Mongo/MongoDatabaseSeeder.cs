@@ -15,15 +15,12 @@ namespace Warden.Api.Core.Mongo
     public class MongoDatabaseSeeder : IDatabaseSeeder
     {
         private readonly IMongoDatabase _database;
-        private readonly IApiKeyService _apiKeyService;
         private readonly IUniqueIdGenerator _uniqueIdGenerator;
 
         public MongoDatabaseSeeder(IMongoDatabase database, 
-            IApiKeyService apiKeyService,
             IUniqueIdGenerator uniqueIdGenerator)
         {
             _database = database;
-            _apiKeyService = apiKeyService;
             _uniqueIdGenerator = uniqueIdGenerator;
         }
 
@@ -88,11 +85,6 @@ namespace Warden.Api.Core.Mongo
                 users.Add(admin);
             }
             await _database.Users().InsertManyAsync(users);
-
-            foreach (var user in users)
-            {
-                await _apiKeyService.CreateAsync(Guid.NewGuid(), user.ExternalId);
-            }
         }
 
         private async Task CreateUserPaymentPlansAsync()

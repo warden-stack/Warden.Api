@@ -8,7 +8,7 @@ using Warden.Common.DTO.Common;
 using Warden.Common.DTO.Wardens;
 using Warden.Common.DTO.Watchers;
 
-namespace Warden.Services.Storage.Rethink
+namespace Warden.Services.WardenChecks.Rethink
 {
     public class RethinkDbWardenCheckStorage : IWardenCheckStorage
     {

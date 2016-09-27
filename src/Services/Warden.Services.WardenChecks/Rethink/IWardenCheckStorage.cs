@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Warden.Common.DTO.Wardens;
 
-namespace Warden.Services.Storage.Rethink
+namespace Warden.Services.WardenChecks.Rethink
 {
     public interface IWardenCheckStorage
     {

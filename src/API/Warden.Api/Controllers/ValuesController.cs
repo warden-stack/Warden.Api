@@ -38,10 +38,7 @@ namespace Warden.Api.Controllers
         [HttpGet("secured")]
         public async Task<object> GetAuthorized()
         {
-            var externalUserId = User?.Identity?.Name;
-            var userId = await GetCurrentUser();
-
-            return new {message = $"You are authorized, userId: {userId.Id}, externalId: {externalUserId}"};
+            return new {message = $"You are authorized, userId: {CurrentUserId}."};
         }
 
         // GET api/values/claims

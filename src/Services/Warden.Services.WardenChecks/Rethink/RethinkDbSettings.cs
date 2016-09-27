@@ -1,4 +1,4 @@
-﻿namespace Warden.Services.Storage.Rethink
+﻿namespace Warden.Services.WardenChecks.Rethink
 {
     public class RethinkDbSettings
     {

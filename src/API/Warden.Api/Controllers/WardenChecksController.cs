@@ -13,15 +13,11 @@ namespace Warden.Api.Controllers
     [Route("organizations/{organizationId}/wardens/{wardenId}/checks")]
     public class WardenChecksController : ControllerBase
     {
-        private readonly IApiKeyService _apiKeyService;
-
         public WardenChecksController(ICommandDispatcher commandDispatcher,
             IMapper mapper,
-            IUserProvider userProvider,
-            IApiKeyService apiKeyService)
+            IUserProvider userProvider)
             : base(commandDispatcher, mapper, userProvider)
         {
-            _apiKeyService = apiKeyService;
         }
 
         [HttpPost]
@@ -39,7 +35,6 @@ namespace Warden.Api.Controllers
                 .OnSuccess(c => StatusCode(201))
                 .HandleAsync();
 
-        //TODO: Refactor and improve performance e.g. by storing API keys in cache
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var apiKeyHeader = context.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "X-Api-Key");
@@ -48,13 +43,13 @@ namespace Warden.Api.Controllers
                 context.HttpContext.Response.StatusCode = 401;
                 return;
             }
-            var apiKey = await _apiKeyService.GetAsync(apiKeyHeader.Value);
-            if (apiKey == null)
+            var userId = await UserProvider.GetUserIdForApiKeyAsync(apiKeyHeader.Value);
+            if (userId == null)
             {
                 context.HttpContext.Response.StatusCode = 401;
                 return;
             }
-            CurrentUserId = apiKey.UserId;
+            SetCurrentUserId(userId);
 
             await next();
         }

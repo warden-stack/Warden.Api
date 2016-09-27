@@ -1,4 +1,4 @@
-﻿namespace Warden.Services.Users.Domain
+﻿namespace Warden.Common.DTO.Users
 {
     public enum Role
     {

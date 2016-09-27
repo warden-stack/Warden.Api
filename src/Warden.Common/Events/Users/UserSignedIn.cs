@@ -2,11 +2,15 @@
 {
     public class UserSignedIn : IEvent
     {
-        public string Id { get; }
+        public string UserId { get; }
 
-        public UserSignedIn(string id)
+        protected UserSignedIn()
         {
-            Id = id;
+        }
+
+        public UserSignedIn(string userId)
+        {
+            UserId = userId;
         }
     }
 }

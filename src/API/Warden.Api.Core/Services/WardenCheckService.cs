@@ -23,7 +23,7 @@ namespace Warden.Api.Core.Services
         public async Task ProcessAsync(Guid organizationId, Guid wardenId, WardenCheckResultDto check)
         {
             await ValidateCheckResultAsync(organizationId, wardenId, check);
-            await _bus.PublishAsync(new ProcessWardenCheckResult(string.Empty, organizationId, wardenId, check));
+            await _bus.PublishAsync(new ProcessWardenCheckResult(string.Empty, organizationId, wardenId, check, DateTime.UtcNow));
         }
 
         private async Task ValidateCheckResultAsync(Guid organizationId,

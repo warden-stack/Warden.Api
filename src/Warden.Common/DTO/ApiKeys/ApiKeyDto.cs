@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Warden.Common.DTO.ApiKeys
+﻿namespace Warden.Common.DTO.ApiKeys
 {
     public class ApiKeyDto
     {

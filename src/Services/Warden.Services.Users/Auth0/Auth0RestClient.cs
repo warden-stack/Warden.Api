@@ -32,6 +32,9 @@ namespace Warden.Services.Users.Auth0
 
             _httpClient.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {token}");
             var response = await _httpClient.GetAsync(endpoint);
+            if(!response.IsSuccessStatusCode)
+                return new Auth0UserDto();
+
             var content = await response.Content.ReadAsStringAsync();
             var user = JsonConvert.DeserializeObject<Auth0UserDto>(content);
 

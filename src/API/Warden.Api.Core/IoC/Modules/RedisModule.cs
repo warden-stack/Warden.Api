@@ -1,10 +1,8 @@
 ﻿using Autofac;
 using StackExchange.Redis;
-using Warden.Api.Core.Auth0;
 using Warden.Api.Core.Cache;
 using Warden.Api.Core.Redis;
 using Warden.Api.Core.Settings;
-using Warden.Api.Core.Storage;
 
 namespace Warden.Api.Core.IoC.Modules
 {
@@ -26,8 +24,8 @@ namespace Warden.Api.Core.IoC.Modules
                 }).As<IDatabase>()
                 .SingleInstance();
 
-            builder.RegisterType<CacheKeys>().As<ICacheKeys>().SingleInstance();
             builder.RegisterType<RedisCache>().As<ICache>().SingleInstance();
+            builder.RegisterType<ApiCache>().As<IApiCache>().SingleInstance();
         }
     }
 }

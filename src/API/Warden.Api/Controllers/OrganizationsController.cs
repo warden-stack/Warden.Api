@@ -31,8 +31,7 @@ namespace Warden.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<OrganizationDto>> Get()
         {
-            var user = await GetCurrentUser();
-            var organizations = await _organizationService.BrowseAsync(user.Id);
+            var organizations = await _organizationService.BrowseAsync(CurrentUserId);
 
             return organizations.Items;
         }

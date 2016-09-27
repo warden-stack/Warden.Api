@@ -1,14 +1,29 @@
-﻿namespace Warden.Common.Events.Users
+﻿using System;
+using Warden.Common.DTO.Common;
+using Warden.Common.DTO.Users;
+
+namespace Warden.Common.Events.Users
 {
     public class UserCreated : IEvent
     {
         public string Email { get; }
-        public string Id { get; }
+        public string UserId { get; }
+        public Role Role { get; }
+        public State State { get; }
+        public DateTime CreatedAt { get; }
 
-        public UserCreated(string email, string id)
+        protected UserCreated()
+        {
+        }
+
+        public UserCreated(string email, string userId, 
+            Role role, State state, DateTime createdAt)
         {
             Email = email;
-            Id = id;
+            UserId = userId;
+            Role = role;
+            State = state;
+            CreatedAt = createdAt;
         }
     }
 }

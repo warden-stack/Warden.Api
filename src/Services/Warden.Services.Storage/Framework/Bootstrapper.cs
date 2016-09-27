@@ -1,18 +1,23 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
+using Nancy.Bootstrapper;
+using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
-using Warden.Common.Commands;
-using Warden.Common.Commands.Wardens;
+using Warden.Common.Events;
+using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Users;
 using Warden.Services.Extensions;
+using Warden.Services.Mongo;
 using Warden.Services.Nancy;
-using Warden.Services.Storage.Handlers.Commands;
-using Warden.Services.Storage.Rethink;
+using Warden.Services.Storage.Handlers;
+using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Framework
 {
     public class Bootstrapper : AutofacNancyBootstrapper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IConfiguration _configuration;
         public static ILifetimeScope LifetimeScope { get; private set; }
 
@@ -26,12 +31,30 @@ namespace Warden.Services.Storage.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
-                builder.Register(x => _configuration.GetSettings<RethinkDbSettings>()).As<RethinkDbSettings>();
-                builder.RegisterType<RethinkDbWardenCheckStorage>().As<IWardenCheckStorage>();
+                builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
+                builder.RegisterModule<MongoDbModule>();
+                builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
-                builder.RegisterType<ProcessWardenCheckResultHandler>().As<ICommandHandler<ProcessWardenCheckResult>>();
+                builder.RegisterType<ApiKeyRepository>().As<IApiKeyRepository>();
+                builder.RegisterType<UserRepository>().As<IUserRepository>();
+                builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
+                builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
+                builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
             });
             LifetimeScope = container;
+        }
+
+        protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)
+        {
+            var databaseSettings = container.Resolve<MongoDbSettings>();
+            var databaseInitializer = container.Resolve<IDatabaseInitializer>();
+            databaseInitializer.InitializeAsync();
+            pipelines.AfterRequest += (ctx) =>
+            {
+                ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                ctx.Response.Headers.Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
+            };
+            Logger.Info("Warden.Services.Storage API Started");
         }
     }
 }

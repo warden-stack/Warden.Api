@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Mongo.Queries;
-using Warden.Api.Core.Repositories;
 using Warden.Common.Types;
+using Warden.Services.Users.Domain;
+using Warden.Services.Users.Queries;
 
-namespace Warden.Api.Core.Mongo.Repositories
+namespace Warden.Services.Users.Repositories
 {
     public class ApiKeyRepository : IApiKeyRepository
     {
@@ -30,7 +29,7 @@ namespace Warden.Api.Core.Mongo.Repositories
         public async Task AddAsync(ApiKey apiKey)
             => await _database.ApiKeys().InsertOneAsync(apiKey);
 
-        public async Task DeleteAsync(ApiKey key)
-            => await _database.ApiKeys().DeleteOneAsync(x => x.UserId == key.UserId && x.Key == key.Key);
+        public async Task DeleteAsync(string key)
+            => await _database.ApiKeys().DeleteOneAsync(x => x.Key == key);
     }
 }

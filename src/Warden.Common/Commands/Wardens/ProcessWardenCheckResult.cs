@@ -9,6 +9,7 @@ namespace Warden.Common.Commands.Wardens
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
         public WardenCheckResultDto Result { get; }
+        public DateTime CreatedAt { get; }
 
         protected ProcessWardenCheckResult()
         {
@@ -17,12 +18,13 @@ namespace Warden.Common.Commands.Wardens
         public ProcessWardenCheckResult(string userId,
             Guid organizationId,
             Guid wardenId,
-            WardenCheckResultDto result)
+            WardenCheckResultDto result, DateTime createdAt)
         {
             AuthenticatedUserId = userId;
             OrganizationId = organizationId;
             WardenId = wardenId;
             Result = result;
+            CreatedAt = createdAt;
         }
     }
 }
