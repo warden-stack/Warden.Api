@@ -20,9 +20,9 @@ namespace Warden.Api.Core.Commands.Handlers
 
         public async Task HandleAsync(CreateWarden command)
         {
-            await _userFeaturesManager.UseFeatureIfAvailableAsync(command.AuthenticatedUserId,
+            await _userFeaturesManager.UseFeatureIfAvailableAsync(command.UserId,
                 FeatureType.AddWarden, async () => await _wardenService.CreateWardenAsync(command.WardenId,
-                    command.OrganizationId, command.AuthenticatedUserId, command.Name));
+                    command.OrganizationId, command.UserId, command.Name));
         }
     }
 }

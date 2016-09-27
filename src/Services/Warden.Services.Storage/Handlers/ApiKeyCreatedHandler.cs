@@ -19,7 +19,7 @@ namespace Warden.Services.Storage.Handlers
         {
             await _apiKeyRepository.AddAsync(new ApiKeyDto
             {
-                UserId = @event.AuthenticatedUserId,
+                UserId = @event.UserId,
                 Key = @event.ApiKey
             });
         }

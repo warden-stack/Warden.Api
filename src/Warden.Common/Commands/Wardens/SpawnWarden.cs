@@ -4,7 +4,7 @@ namespace Warden.Common.Commands.Wardens
 {
     public class SpawnWarden : IAuthenticatedCommand
     {
-        public string AuthenticatedUserId { get; set;  }
+        public string UserId { get; set;  }
         public string ConfigurationId { get; }
         public object Configuration { get; }
         public string Token { get; }
@@ -18,7 +18,7 @@ namespace Warden.Common.Commands.Wardens
             string configurationId,
             string token, string region)
         {
-            AuthenticatedUserId = userId;
+            UserId = userId;
             Configuration = configuration;
             ConfigurationId = configurationId;
             Token = token;

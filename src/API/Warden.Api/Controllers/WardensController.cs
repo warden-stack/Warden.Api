@@ -25,7 +25,7 @@ namespace Warden.Api.Controllers
             await For(request)
                 .ExecuteAsync(async c =>
                 {
-                    c.AuthenticatedUserId = CurrentUserId;
+                    c.UserId = CurrentUserId;
                     c.OrganizationId = organizationId;
 
                     await CommandDispatcher.DispatchAsync(c);

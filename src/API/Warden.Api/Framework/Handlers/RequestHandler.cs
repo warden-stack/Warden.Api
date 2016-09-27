@@ -196,7 +196,7 @@ namespace Warden.Api.Framework.Handlers
         {
             if (Model is IAuthenticatedCommand)
             {
-                ((IAuthenticatedCommand)Model).AuthenticatedUserId = Controller.User?.Identity?.Name?.Replace("auth0|", string.Empty);
+                ((IAuthenticatedCommand)Model).UserId = Controller.User?.Identity?.Name?.Replace("auth0|", string.Empty);
             }
         }
     }

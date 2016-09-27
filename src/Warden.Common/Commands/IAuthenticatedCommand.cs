@@ -4,6 +4,6 @@ namespace Warden.Common.Commands
 {
     public interface IAuthenticatedCommand : ICommand
     {
-        string AuthenticatedUserId { get; set; }
+        string UserId { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class CreateApiKey : IAuthenticatedCommand
     {
-        public string AuthenticatedUserId { get; set; }
+        public string UserId { get; set; }
     }
 }

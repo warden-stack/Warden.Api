@@ -5,7 +5,7 @@ namespace Warden.Common.Commands.Wardens
 {
     public class ProcessWardenCheckResult : IAuthenticatedCommand
     {
-        public string AuthenticatedUserId { get; set; }
+        public string UserId { get; set; }
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
         public WardenCheckResultDto Result { get; }
@@ -20,7 +20,7 @@ namespace Warden.Common.Commands.Wardens
             Guid wardenId,
             WardenCheckResultDto result, DateTime createdAt)
         {
-            AuthenticatedUserId = userId;
+            UserId = userId;
             OrganizationId = organizationId;
             WardenId = wardenId;
             Result = result;

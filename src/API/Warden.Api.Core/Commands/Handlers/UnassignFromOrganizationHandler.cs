@@ -17,7 +17,7 @@ namespace Warden.Api.Core.Commands.Handlers
         public async Task HandleAsync(UnassignFromOrganization command)
         {
             await _organizationService.UnassignUserAsync(command.OrganizationId, 
-                command.Email, command.AuthenticatedUserId);
+                command.Email, command.UserId);
         }
     }
 }

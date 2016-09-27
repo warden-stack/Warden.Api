@@ -16,7 +16,7 @@ namespace Warden.Api.Core.Commands.Handlers
 
         public async Task HandleAsync(CreateOrganization command)
         {
-            await _organizationService.CreateAsync(command.AuthenticatedUserId, 
+            await _organizationService.CreateAsync(command.UserId, 
                 command.Name, command.Description);
         }
     }

@@ -16,7 +16,7 @@ namespace Warden.Api.Core.Commands.Handlers
 
         public async Task HandleAsync(AssignIntoOrganization command)
         {
-            await _organizationServixce.AssignUserAsync(command.OrganizationId, command.Email, command.AuthenticatedUserId);
+            await _organizationServixce.AssignUserAsync(command.OrganizationId, command.Email, command.UserId);
         }
     }
 }

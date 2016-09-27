@@ -16,7 +16,7 @@ namespace Warden.Api.Core.Commands.Handlers
 
         public async Task HandleAsync(EditOrganization command)
         {
-            await _organizationService.UpdateAsync(command.Id, command.Name, command.AuthenticatedUserId);
+            await _organizationService.UpdateAsync(command.Id, command.Name, command.UserId);
         }
     }
 }

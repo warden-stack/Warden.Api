@@ -7,6 +7,7 @@ using System.Linq;
 using Warden.Api.Core.Commands;
 using Warden.Api.Core.Services;
 using Warden.Common.Commands.WardenChecks;
+using Warden.Common.Commands.Wardens;
 
 namespace Warden.Api.Controllers
 {
@@ -23,14 +24,9 @@ namespace Warden.Api.Controllers
         [HttpPost]
         public async Task Post(Guid organizationId, Guid wardenId, [FromBody] SaveWardenCheck request) =>
             await For(request)
-                .ExecuteAsync(c =>
-                {
-                    c.AuthenticatedUserId = CurrentUserId;
-                    c.OrganizationId = organizationId;
-                    c.WardenId = wardenId;
-
-                    return CommandDispatcher.DispatchAsync(c);
-                })
+                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(
+                    new ProcessWardenCheckResult(CurrentUserId, organizationId,
+                        wardenId, request.Check, DateTime.UtcNow)))
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(201))
                 .HandleAsync();

@@ -4,7 +4,7 @@ namespace Warden.Common.Commands.Organizations
 {
     public class DeleteOrganization : IAuthenticatedCommand
     {
-        public string AuthenticatedUserId { get; set; }
+        public string UserId { get; set; }
         public Guid Id { get; set; }
     }
 }

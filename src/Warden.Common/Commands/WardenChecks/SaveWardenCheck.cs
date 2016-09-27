@@ -5,7 +5,7 @@ namespace Warden.Common.Commands.WardenChecks
 {
     public class SaveWardenCheck : IAuthenticatedCommand
     {
-        public string AuthenticatedUserId { get; set; }
+        public string UserId { get; set; }
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; }
         public WardenCheckResultDto Check { get; set; }

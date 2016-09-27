@@ -2,6 +2,6 @@
 {
     public interface IAuthenticatedEvent : IEvent
     {
-        string AuthenticatedUserId { get; set; }
+        string UserId { get; set; }
     }
 }
