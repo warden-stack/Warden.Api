@@ -17,7 +17,7 @@ namespace Warden.Api.Core.Mappers
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<WardenDto, CreateWarden>();
+                cfg.CreateMap<WardenDto, RequestCreateWarden>();
                 cfg.CreateMap<Organization, OrganizationDto>()
                     .ForMember(t => t.Users, s => s.MapFrom(x => x.Users.Select(u => new UserInOrganizationDto
                     {

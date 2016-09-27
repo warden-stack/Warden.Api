@@ -12,14 +12,6 @@ namespace Warden.Api.Core.IoC.Modules
                 .As<IOrganizationRepository>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<PaymentPlanRepository>()
-                .As<IPaymentPlanRepository>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<UserPaymentPlanRepository>()
-                .As<IUserPaymentPlanRepository>()
-                .InstancePerLifetimeScope();
-
             builder.RegisterType<WardenConfigurationRepository>()
                 .As<IWardenConfigurationRepository>()
                 .InstancePerLifetimeScope();

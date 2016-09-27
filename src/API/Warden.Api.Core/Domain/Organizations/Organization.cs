@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Warden.Api.Core.Domain.Exceptions;
 using Warden.Api.Core.Domain.Users;
-using Warden.Common.Events.Wardens;
 using Warden.Common.Extensions;
 
 namespace Warden.Api.Core.Domain.Organizations
@@ -106,8 +105,6 @@ namespace Warden.Api.Core.Domain.Organizations
             warden = new Wardens.Warden(id, owner, name,  enabled);
             _wardens.Add(warden);
             UpdatedAt = DateTime.UtcNow;
-
-            AddEvent(new WardenCreated(Id, warden.Id));
         }
 
         public void EditWarden(string name, string newName)

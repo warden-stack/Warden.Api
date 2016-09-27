@@ -21,7 +21,7 @@ namespace Warden.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task Post(Guid organizationId, [FromBody] CreateWarden request) =>
+        public async Task Post(Guid organizationId, [FromBody] RequestCreateWarden request) =>
             await For(request)
                 .ExecuteAsync(async c =>
                 {

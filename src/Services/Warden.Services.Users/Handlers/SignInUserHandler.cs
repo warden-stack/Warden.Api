@@ -40,11 +40,13 @@ namespace Warden.Services.Users.Handlers
                 user = await _userService.GetAsync(auth0User.UserId);
                 userId = user.Value.UserId;
                 await _apiKeyService.CreateAsync(Guid.NewGuid(), userId);
-                await _bus.PublishAsync(new UserCreated(user.Value.Email, userId,
+                await _bus.PublishAsync(new UserCreated(userId, user.Value.Email,
                     user.Value.Role, user.Value.State, user.Value.CreatedAt));
+
+                return;
             }
             userId = user.Value.UserId;
-            await _bus.PublishAsync(new UserSignedIn(userId));
+            await _bus.PublishAsync(new UserSignedIn(userId, user.Value.Email, user.Value.Role));
         }
     }
 }

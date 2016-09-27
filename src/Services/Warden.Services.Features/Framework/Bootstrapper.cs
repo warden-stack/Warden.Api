@@ -6,9 +6,12 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.ApiKeys;
+using Warden.Common.Commands.WardenChecks;
+using Warden.Common.Commands.Wardens;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
 using Warden.Common.Events.Users;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Extensions;
 using Warden.Services.Features.Handlers;
 using Warden.Services.Features.Repositories;
@@ -50,7 +53,13 @@ namespace Warden.Services.Features.Framework
                 builder.RegisterType<UserPaymentPlanService>().As<IUserPaymentPlanService>();
                 builder.RegisterType<RequestNewApiKeyHandler>().As<ICommandHandler<RequestNewApiKey>>();
                 builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
+                builder.RegisterType<RequestProcessWardenCheckResultHandler>()
+                    .As<ICommandHandler<RequestProcessWardenCheckResult>>();
+                builder.RegisterType<WardenCheckResultProcessedHandler>()
+                    .As<IEventHandler<WardenCheckResultProcessed>>();
                 builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
+                builder.RegisterType<RequestCreateWardenHandler>().As<ICommandHandler<RequestCreateWarden>>();
+                builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
             });
             LifetimeScope = container;
         }

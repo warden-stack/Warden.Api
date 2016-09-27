@@ -22,11 +22,17 @@ namespace Warden.Api.Controllers
         }
 
         [HttpPost]
-        public async Task Post(Guid organizationId, Guid wardenId, [FromBody] SaveWardenCheck request) =>
+        public async Task Post(Guid organizationId, Guid wardenId, [FromBody] RequestProcessWardenCheckResult request) =>
             await For(request)
-                .ExecuteAsync(c => CommandDispatcher.DispatchAsync(
-                    new ProcessWardenCheckResult(CurrentUserId, organizationId,
-                        wardenId, request.Check, DateTime.UtcNow)))
+                .ExecuteAsync(c =>
+                {
+                    c.UserId = CurrentUserId;
+                    c.OrganizationId = organizationId;
+                    c.WardenId = wardenId;
+                    c.CreatedAt = DateTime.UtcNow;
+
+                    return CommandDispatcher.DispatchAsync(request);
+                })
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(201))
                 .HandleAsync();

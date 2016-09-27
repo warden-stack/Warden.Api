@@ -17,6 +17,11 @@ namespace Warden.Services.Users.Handlers
         public async Task HandleAsync(UserPaymentPlanCreated @event)
         {
             var user = await _userRepository.GetAsync(@event.UserId);
+            if (user.HasNoValue)
+                return;
+            if (user.Value.PaymentPlanId == @event.PlanId)
+                return;
+
             user.Value.SetPaymentPlanId(@event.PlanId);
             await _userRepository.UpdateAsync(user.Value);
         }

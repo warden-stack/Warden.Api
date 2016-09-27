@@ -9,7 +9,7 @@ namespace Warden.Api.Core.IoC
 {
     public static class Container
     {
-        public static IContainer Resolve(IEnumerable<ServiceDescriptor> services, string database)
+        public static IContainer Resolve(IEnumerable<ServiceDescriptor> services)
         {
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -19,14 +19,6 @@ namespace Warden.Api.Core.IoC
             builder.RegisterModule<Auth0Module>();
             builder.RegisterModule<StorageModule>();
             builder.RegisterModule<RedisModule>();
-            switch (database.ToLowerInvariant())
-            {
-                case "mongo":
-                    builder.RegisterModule<MongoModule>();
-                    break;
-                default:
-                    throw new ArgumentException($"Invalid database: {database}", nameof(database));
-            }
 
             return builder.Build();
         }

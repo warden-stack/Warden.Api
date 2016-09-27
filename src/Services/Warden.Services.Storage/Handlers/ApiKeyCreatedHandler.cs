@@ -17,6 +17,10 @@ namespace Warden.Services.Storage.Handlers
 
         public async Task HandleAsync(ApiKeyCreated @event)
         {
+            var apiKey = await _apiKeyRepository.GetAsync(@event.ApiKey);
+            if (apiKey.HasValue)
+                return;
+
             await _apiKeyRepository.AddAsync(new ApiKeyDto
             {
                 UserId = @event.UserId,

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +11,6 @@ using NLog;
 using Warden.Api.Framework.Filters;
 using NLog.Extensions.Logging;
 using RawRabbit.vNext;
-using Warden.Api.Core.Services;
 using Warden.Api.Core.Settings;
 
 namespace Warden.Api
@@ -36,30 +34,23 @@ namespace Warden.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<AccountSettings>(Configuration.GetSection("account"));
-            services.Configure<DatabaseSettings>(Configuration.GetSection("database"));
             services.Configure<EmailSettings>(Configuration.GetSection("email"));
-            services.Configure<FeatureSettings>(Configuration.GetSection("feature"));
             services.Configure<GeneralSettings>(Configuration.GetSection("general"));
-            services.Configure<PaymentPlanSettings>(Configuration.GetSection("paymentPlan"));
             services.Configure<Auth0Settings>(Configuration.GetSection("auth0"));
+            services.Configure<RedisSettings>(Configuration.GetSection("redis"));
             services.Configure<StorageSettings>(Configuration.GetSection("storage"));
-            services.Configure<StorageSettings>(Configuration.GetSection("redis"));
-            var databaseSettings = GetConfigurationValue<DatabaseSettings>();
-            services.AddSingleton(databaseSettings);
             services.AddSingleton(GetConfigurationValue<AccountSettings>());
             services.AddSingleton(GetConfigurationValue<EmailSettings>());
-            services.AddSingleton(GetConfigurationValue<FeatureSettings>());
             services.AddSingleton(GetConfigurationValue<GeneralSettings>());
-            services.AddSingleton(GetConfigurationValue<PaymentPlanSettings>());
             services.AddSingleton(GetConfigurationValue<Auth0Settings>());
-            services.AddSingleton(GetConfigurationValue<StorageSettings>());
             services.AddSingleton(GetConfigurationValue<RedisSettings>());
+            services.AddSingleton(GetConfigurationValue<StorageSettings>());
             services.AddRawRabbit();
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ExceptionFilter());
             });
-            ApplicationContainer = Core.IoC.Container.Resolve(services, databaseSettings.Type);
+            ApplicationContainer = Core.IoC.Container.Resolve(services);
 
             return new AutofacServiceProvider(ApplicationContainer);
         }
@@ -102,14 +93,7 @@ namespace Warden.Api
             }
             app.UseMvc();
             app.UseDeveloperExceptionPage();
-            Task.WaitAll(InitializeDatabaseAsync(app));
             Logger.Info("Warden API has started.");
-        }
-
-        private async Task InitializeDatabaseAsync(IApplicationBuilder app)
-        {
-            var databaseInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
-            await databaseInitializer.InitializeAsync();
         }
     }
 }

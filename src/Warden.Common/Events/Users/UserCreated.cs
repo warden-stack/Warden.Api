@@ -6,8 +6,8 @@ namespace Warden.Common.Events.Users
 {
     public class UserCreated : IEvent
     {
-        public string Email { get; }
         public string UserId { get; }
+        public string Email { get; }
         public Role Role { get; }
         public State State { get; }
         public DateTime CreatedAt { get; }
@@ -16,11 +16,11 @@ namespace Warden.Common.Events.Users
         {
         }
 
-        public UserCreated(string email, string userId, 
+        public UserCreated(string userId, string email,
             Role role, State state, DateTime createdAt)
         {
-            Email = email;
             UserId = userId;
+            Email = email;
             Role = role;
             State = state;
             CreatedAt = createdAt;

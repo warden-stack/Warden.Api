@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Common.DTO.ApiKeys;
+using Warden.Common.Types;
 using Warden.Services.Storage.Queries;
 
 namespace Warden.Services.Storage.Repositories
@@ -15,9 +16,11 @@ namespace Warden.Services.Storage.Repositories
             _database = database;
         }
 
+        public async Task<Maybe<ApiKeyDto>> GetAsync(string key)
+            => await _database.ApiKeys().GetAsync(key);
+
         public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId)
             => await _database.ApiKeys().BrowseAsync(userId);
-
 
         public async Task AddAsync(ApiKeyDto apiKey)
             => await _database.ApiKeys().InsertOneAsync(apiKey);

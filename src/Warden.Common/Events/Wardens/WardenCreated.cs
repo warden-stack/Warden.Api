@@ -2,13 +2,21 @@
 
 namespace Warden.Common.Events.Wardens
 {
-    public class WardenCreated : IEvent
+    public class WardenCreated : IAuthenticatedEvent
     {
+        public string UserId { get; set; }
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
 
-        public WardenCreated(Guid organizationId, Guid wardenId)
+        protected WardenCreated()
         {
+        }
+        
+        public WardenCreated(string userId, 
+            Guid organizationId, 
+            Guid wardenId)
+        {
+            UserId = userId;
             OrganizationId = organizationId;
             WardenId = wardenId;
         }

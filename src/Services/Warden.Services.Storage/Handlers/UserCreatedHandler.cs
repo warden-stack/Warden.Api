@@ -17,6 +17,10 @@ namespace Warden.Services.Storage.Handlers
 
         public async Task HandleAsync(UserCreated @event)
         {
+            var user = await _userRepository.GetByIdAsync(@event.UserId);
+            if (user.HasValue)
+                return;
+
             await _userRepository.AddAsync(new UserDto
             {
                 UserId = @event.UserId,
