@@ -20,5 +20,6 @@ namespace Warden.Services.Storage.Repositories
         public async Task<Maybe<UserDto>> GetByEmailAsync(string email) => await _database.Users().GetByEmailAsync(email);
 
         public async Task AddAsync(UserDto user) => await _database.Users().InsertOneAsync(user);
+        public async Task UpdateAsync(UserDto user) => await _database.Users().ReplaceOneAsync(x => x.UserId == user.UserId, user);
     }
 }

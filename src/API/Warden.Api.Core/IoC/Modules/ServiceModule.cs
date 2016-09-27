@@ -16,9 +16,6 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<SecuredRequestService>()
                 .As<ISecuredRequestService>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<PaymentPlanService>()
-                .As<IPaymentPlanService>()
-                .InstancePerLifetimeScope();
             builder.RegisterType<UserPaymentPlanService>()
                 .As<IUserPaymentPlanService>()
                 .InstancePerLifetimeScope();

@@ -11,8 +11,8 @@ namespace Warden.Services.Users.Handlers
 {
     public class CreateApiKeyHandler : ICommandHandler<CreateApiKey>
     {
-        private readonly IApiKeyService _apiKeyService;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly IApiKeyService _apiKeyService;
         private readonly IBusClient _bus;
 
         public CreateApiKeyHandler(IApiKeyService apiKeyService,

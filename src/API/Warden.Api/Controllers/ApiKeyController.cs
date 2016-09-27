@@ -35,7 +35,7 @@ namespace Warden.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task Create(CreateApiKey request) =>
+        public async Task Create(RequestNewApiKey request) =>
             await For(request)
                 .Authorize()
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))

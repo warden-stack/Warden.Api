@@ -4,7 +4,15 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
+using Warden.Common.Commands;
+using Warden.Common.Commands.ApiKeys;
+using Warden.Common.Events;
+using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Users;
 using Warden.Services.Extensions;
+using Warden.Services.Features.Handlers;
+using Warden.Services.Features.Repositories;
+using Warden.Services.Features.Services;
 using Warden.Services.Features.Settings;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
@@ -29,9 +37,20 @@ namespace Warden.Services.Features.Framework
             {
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
                 builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>());
+                builder.RegisterInstance(_configuration.GetSettings<PaymentPlanSettings>());
                 builder.RegisterModule<MongoDbModule>();
                 builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
+                builder.RegisterType<DatabaseSeeder>().As<IDatabaseSeeder>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
+                builder.RegisterType<UserRepository>().As<IUserRepository>();
+                builder.RegisterType<PaymentPlanRepository>().As<IPaymentPlanRepository>();
+                builder.RegisterType<UserPaymentPlanRepository>().As<IUserPaymentPlanRepository>();
+                builder.RegisterType<UserFeaturesManager>().As<IUserFeaturesManager>();
+                builder.RegisterType<UserPaymentPlanService>().As<IUserPaymentPlanService>();
+                builder.RegisterType<UserPaymentPlanService>().As<IUserPaymentPlanService>();
+                builder.RegisterType<RequestNewApiKeyHandler>().As<ICommandHandler<RequestNewApiKey>>();
+                builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
+                builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
             });
             LifetimeScope = container;
         }
@@ -41,6 +60,11 @@ namespace Warden.Services.Features.Framework
             var databaseSettings = container.Resolve<MongoDbSettings>();
             var databaseInitializer = container.Resolve<IDatabaseInitializer>();
             databaseInitializer.InitializeAsync();
+            if (databaseSettings.Seed)
+            {
+                var seeder = container.Resolve<IDatabaseSeeder>();
+                seeder.SeedAsync();
+            }
             pipelines.AfterRequest += (ctx) =>
             {
                 ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");

@@ -6,6 +6,7 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Features;
 using Warden.Common.Events.Users;
 using Warden.Services.Extensions;
 using Warden.Services.Mongo;
@@ -40,6 +41,7 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
                 builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
+                builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
             });
             LifetimeScope = container;
         }

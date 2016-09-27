@@ -1,5 +1,6 @@
 ﻿using Warden.Common.Commands.ApiKeys;
 using Warden.Common.Commands.Users;
+using Warden.Common.Events.Features;
 using Warden.Services.Host;
 using Warden.Services.Users.Framework;
 
@@ -15,6 +16,7 @@ namespace Warden.Services.Users
                 .UseRabbitMq()
                 .SubscribeToCommand<CreateApiKey>()
                 .SubscribeToCommand<SignInUser>()
+                .SubscribeToEvent<UserPaymentPlanCreated>()
                 .Build()
                 .Run();
         }

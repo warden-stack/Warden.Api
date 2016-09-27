@@ -1,4 +1,5 @@
 ﻿using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Features;
 using Warden.Common.Events.Users;
 using Warden.Services.Host;
 using Warden.Services.Storage.Framework;
@@ -16,6 +17,7 @@ namespace Warden.Services.Storage
                 .SubscribeToEvent<ApiKeyCreated>()
                 .SubscribeToEvent<UserCreated>()
                 .SubscribeToEvent<UserSignedIn>()
+                .SubscribeToEvent<UserPaymentPlanCreated>()
                 .Build()
                 .Run();
         }

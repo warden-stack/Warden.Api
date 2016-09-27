@@ -10,5 +10,6 @@ namespace Warden.Common.DTO.Users
         public Role Role { get; set; }
         public State State { get; set; }
         public DateTime CreatedAt { get; set; }
+        public Guid? PaymentPlanId { get; set; }
     }
 }

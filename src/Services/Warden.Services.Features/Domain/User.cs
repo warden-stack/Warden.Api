@@ -4,7 +4,7 @@ using Warden.Common.DTO.Users;
 using Warden.Common.Extensions;
 using Warden.Services.Domain;
 
-namespace Warden.Services.Users.Domain
+namespace Warden.Services.Features.Domain
 {
     public class User : IdentifiableEntity, ITimestampable
     {
@@ -90,9 +90,16 @@ namespace Warden.Services.Users.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetPaymentPlanId(Guid? planId)
+        public void SetPaymentPlan(UserPaymentPlan userPlan)
         {
-            PaymentPlanId = planId;
+            if (userPlan == null)
+            {
+                PaymentPlanId = null;
+
+                return;
+            }
+
+            PaymentPlanId = userPlan.Id;
             UpdatedAt = DateTime.UtcNow;
         }
     }

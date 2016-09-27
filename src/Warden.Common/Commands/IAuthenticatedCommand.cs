@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Warden.Common.Commands
+﻿namespace Warden.Common.Commands
 {
     public interface IAuthenticatedCommand : ICommand
     {

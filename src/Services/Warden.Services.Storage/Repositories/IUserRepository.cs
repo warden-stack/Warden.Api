@@ -9,5 +9,6 @@ namespace Warden.Services.Storage.Repositories
         Task<Maybe<UserDto>> GetByIdAsync(string id);
         Task<Maybe<UserDto>> GetByEmailAsync(string email);
         Task AddAsync(UserDto user);
+        Task UpdateAsync(UserDto user);
     }
 }
