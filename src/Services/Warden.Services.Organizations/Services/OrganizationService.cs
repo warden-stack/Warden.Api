@@ -1,56 +1,47 @@
 ﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
-using Warden.Api.Core.Domain.Common;
-using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Domain.Organizations;
-using Warden.Api.Core.Domain.Users;
-using Warden.Api.Core.Events;
-using Warden.Api.Core.Repositories;
-using Warden.Common.DTO.Organizations;
-using Warden.Common.Events.Organizations;
-using Warden.Common.Extensions;
 using System.Linq;
+using System.Threading.Tasks;
+using Warden.Common.DTO.Organizations;
+using Warden.Common.DTO.Users;
+using Warden.Common.DTO.Wardens;
+using Warden.Common.DTO.Watchers;
+using Warden.Common.Extensions;
+using Warden.Common.Types;
+using Warden.Services.Domain;
+using Warden.Services.Organizations.Domain;
+using Warden.Services.Organizations.Repositories;
 
-namespace Warden.Api.Core.Services
+namespace Warden.Services.Organizations.Services
 {
     public class OrganizationService : IOrganizationService
     {
-        private const string DefaultName = "My organization";
-        private readonly IMapper _mapper;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEventDispatcher _eventDispatcher;
 
-        public OrganizationService(IMapper mapper,
+        public OrganizationService(
             IOrganizationRepository organizationRepository, 
-            IUserRepository userRepository,
-            IEventDispatcher eventDispatcher)
+            IUserRepository userRepository)
         {
-            _mapper = mapper;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
-            _eventDispatcher = eventDispatcher;
         }
 
         public async Task<PagedResult<OrganizationDto>> BrowseAsync(string userId)
         {
             var organizationValues = await _organizationRepository.BrowseAsync(userId, string.Empty);
-            var organizationDtos = organizationValues.Items.Select(_mapper.Map<OrganizationDto>);
+            var organizationDtos = organizationValues.Items.Select(MapToDto);
             var organizations = PagedResult<OrganizationDto>.From(organizationValues, organizationDtos);
 
             return organizations;
         }
 
-        public async Task<OrganizationDto> GetAsync(Guid id)
+        public async Task<Maybe<OrganizationDto>> GetAsync(Guid id)
         {
             var organizationValue = await _organizationRepository.GetAsync(id);
             if (organizationValue.HasNoValue)
-                throw new ServiceException($"Organization with id: {id} does not exist.");
+                return new Maybe<OrganizationDto>();
 
-            var organization = _mapper.Map<OrganizationDto>(organizationValue.Value);
-
-            return organization;
+            return MapToDto(organizationValue.Value);
         }
 
         public async Task UpdateAsync(Guid id, string name, string userId)
@@ -66,7 +57,6 @@ namespace Warden.Api.Core.Services
 
             organization.SetName(name);
             await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUpdated(organization.Id));
         }
 
         public async Task CreateAsync(string userId, string name, string description = "")
@@ -85,12 +75,11 @@ namespace Warden.Api.Core.Services
 
             var organization = new Organization(name, userValue.Value, description);
             await _organizationRepository.AddAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationCreated(organization.OwnerId, organization.Name));
         }
 
         public async Task CreateDefaultAsync(string userId)
         {
-            await CreateAsync(userId, DefaultName, $"{DefaultName} description.");
+            await CreateAsync(userId, DefaultOrganizationName, $"{DefaultOrganizationName} description.");
         }
 
         public async Task DeleteAsync(Guid id, string userId)
@@ -105,7 +94,6 @@ namespace Warden.Api.Core.Services
                     $"to delete organization: {organization.Id}");
 
             await _organizationRepository.DeleteAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationDeleted(organization.Id));
         }
 
         public async Task AssignUserAsync(Guid organizationId, string email, string userId)
@@ -115,7 +103,6 @@ namespace Warden.Api.Core.Services
 
             organization.AddUser(user);
             await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserAdded(organizationId, user.ExternalId));
         }
 
         public async Task UnassignUserAsync(Guid organizationId, string email, string userId)
@@ -123,10 +110,11 @@ namespace Warden.Api.Core.Services
             var organization = await GetAndCheckOwnershipAsync(organizationId, userId);
             var user = await GetUserAsync(email);
 
-            organization.RemoveUser(user.ExternalId);
+            organization.RemoveUser(user.UserId);
             await _organizationRepository.UpdateAsync(organization);
-            await _eventDispatcher.DispatchAsync(new OrganizationUserRemoved(organizationId, user.ExternalId));
         }
+
+        public string DefaultOrganizationName => "My organization";
 
         private bool IsOwner(Organization organization, string userId)
         {
@@ -155,5 +143,34 @@ namespace Warden.Api.Core.Services
 
             return userValue.Value;
         }
+
+        private static OrganizationDto MapToDto(Organization organization)
+            => new OrganizationDto
+            {
+                Id = organization.Id,
+                Name = organization.Name,
+                Description = organization.Description,
+                OwnerId = organization.OwnerId,
+                AutoRegisterNewWarden = organization.AutoRegisterNewWarden,
+                Users = organization.Users.Select(x => new UserInOrganizationDto
+                {
+                    UserId = x.UserId,
+                    Email = x.Email,
+                    Role = x.Role,
+                    CreatedAt = x.CreatedAt
+                }),
+                Wardens = organization.Wardens.Select(x => new WardenDto
+                {
+                    Id = x.Id,
+                    CreatedAt = x.CreatedAt,
+                    Name = x.Name,
+                    Enabled = x.Enabled,
+                    Watchers = x.Watchers.Select(w => new WatcherDto
+                    {
+                        Name = w.Name,
+                        Type = w.Type
+                    })
+                })
+            };
     }
 }

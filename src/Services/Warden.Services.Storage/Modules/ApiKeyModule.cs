@@ -1,23 +1,17 @@
-﻿using System.Linq;
-using Nancy;
-using Warden.Services.Storage.Repositories;
+﻿using Nancy;
+using Warden.Services.Storage.Providers;
 
 namespace Warden.Services.Storage.Modules
 {
     public class ApiKeyModule : NancyModule
     {
-        private readonly IApiKeyRepository _apiKeyRepository;
+        private readonly IApiKeyProvider _apiKeyProvider;
 
-        public ApiKeyModule(IApiKeyRepository apiKeyRepository)
+        public ApiKeyModule(IApiKeyProvider apiKeyProvider)
         {
-            _apiKeyRepository = apiKeyRepository;
+            _apiKeyProvider = apiKeyProvider;
 
-            Get("/users/{userId}/api-keys", async args =>
-            {
-                var apiKeys = await _apiKeyRepository.BrowseAsync((string)args.userId);
-
-                return apiKeys.Select(x => x.Key);
-            });
+            Get("/users/{userId}/api-keys", async args => await _apiKeyProvider.BrowseAsync((string)args.userId));
         }
     }
 }

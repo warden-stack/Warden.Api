@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Warden.Common.DTO.ApiKeys;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
@@ -23,6 +24,7 @@ namespace Warden.Services.Storage.Handlers
 
             await _apiKeyRepository.AddAsync(new ApiKeyDto
             {
+                Id = Guid.NewGuid(),
                 UserId = @event.UserId,
                 Key = @event.ApiKey
             });

@@ -6,10 +6,12 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.ApiKeys;
+using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.WardenChecks;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
 using Warden.Services.Extensions;
@@ -60,6 +62,8 @@ namespace Warden.Services.Features.Framework
                 builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
                 builder.RegisterType<RequestCreateWardenHandler>().As<ICommandHandler<RequestCreateWarden>>();
                 builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
+                builder.RegisterType<RequestCreateOrganizationHandler>().As<ICommandHandler<RequestCreateOrganization>>();
+                builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
             });
             LifetimeScope = container;
         }

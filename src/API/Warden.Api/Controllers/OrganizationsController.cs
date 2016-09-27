@@ -49,8 +49,9 @@ namespace Warden.Api.Controllers
         // POST api/organizations
         [Authorize]
         [HttpPost]
-        public async Task Post([FromBody] CreateOrganization request) =>
+        public async Task Post([FromBody] RequestCreateOrganization request) =>
             await For(request)
+                .Authorize()
                 .ExecuteAsync(c => CommandDispatcher.DispatchAsync(c))
                 .OnFailure(ex => StatusCode(400))
                 .OnSuccess(c => StatusCode(200))

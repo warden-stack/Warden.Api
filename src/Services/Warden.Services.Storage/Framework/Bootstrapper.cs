@@ -7,12 +7,15 @@ using RawRabbit.vNext;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
 using Warden.Common.Events.Features;
+using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Services.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.Storage.Handlers;
+using Warden.Services.Storage.Providers;
 using Warden.Services.Storage.Repositories;
+using Warden.Services.Storage.Settings;
 
 namespace Warden.Services.Storage.Framework
 {
@@ -33,15 +36,20 @@ namespace Warden.Services.Storage.Framework
             container.Update(builder =>
             {
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
+                builder.RegisterInstance(_configuration.GetSettings<ProviderSettings>());
                 builder.RegisterModule<MongoDbModule>();
                 builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
                 builder.RegisterType<ApiKeyRepository>().As<IApiKeyRepository>();
                 builder.RegisterType<UserRepository>().As<IUserRepository>();
+                builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
+                builder.RegisterType<ProviderClient>().As<IProviderClient>();
+                builder.RegisterType<ApiKeyProvider>().As<IApiKeyProvider>();
                 builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
                 builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
                 builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
+                builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
             });
             LifetimeScope = container;
         }

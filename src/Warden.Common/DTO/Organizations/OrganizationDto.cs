@@ -8,7 +8,7 @@ namespace Warden.Common.DTO.Organizations
     public class OrganizationDto
     {
         public Guid Id { get; set; }
-        public Guid OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool AutoRegisterNewWarden { get; set; }

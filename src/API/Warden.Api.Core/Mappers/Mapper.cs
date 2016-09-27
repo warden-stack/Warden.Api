@@ -23,8 +23,8 @@ namespace Warden.Api.Core.Mappers
                     {
                         CreatedAt = u.CreatedAt,
                         Email = u.Email,
-                        Id = u.Id,
-                        Role = u.Role.ToString()
+                        UserId = u.Id,
+                        Role = u.Role
                     })));
                 cfg.CreateMap<OrganizationDto, EditOrganization>();
                 cfg.CreateMap<User, UserDto>();

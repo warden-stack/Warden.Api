@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Warden.Api.Core.Domain.Exceptions;
-using Warden.Api.Core.Domain.Users;
 using Warden.Common.DTO.Organizations;
 using Warden.Common.Extensions;
+using Warden.Services.Domain;
 
-namespace Warden.Api.Core.Domain.Organizations
+namespace Warden.Services.Organizations.Domain
 {
     public class Organization : IdentifiableEntity, ITimestampable
     {
         private HashSet<UserInOrganization> _users = new HashSet<UserInOrganization>();
-        private HashSet<Wardens.Warden> _wardens = new HashSet<Wardens.Warden>();
+        private HashSet<Warden> _wardens = new HashSet<Warden>();
 
         public string Name { get; protected set; }
         public string Description { get; set; }
@@ -26,10 +25,10 @@ namespace Warden.Api.Core.Domain.Organizations
             protected set { _users = new HashSet<UserInOrganization>(value); }
         }
 
-        public IEnumerable<Wardens.Warden> Wardens
+        public IEnumerable<Warden> Wardens
         {
             get { return _wardens; }
-            protected set { _wardens = new HashSet<Wardens.Warden>(value); }
+            protected set { _wardens = new HashSet<Warden>(value); }
         }
 
         protected Organization()
@@ -65,7 +64,7 @@ namespace Warden.Api.Core.Domain.Organizations
             if (owner == null)
                 throw new DomainException("Organization owner can not be null.");
 
-            OwnerId = owner.ExternalId;
+            OwnerId = owner.UserId;
             AddUser(owner, OrganizationRole.Owner);
             UpdatedAt = DateTime.UtcNow;
         }
@@ -75,8 +74,8 @@ namespace Warden.Api.Core.Domain.Organizations
             if (user == null)
                 throw new DomainException("Can not add empty user to the organization.");
 
-            if (Users.Any(x => x.Id == user.ExternalId))
-                throw new DomainException($"User '{user.Email}' is already in the organization.");
+            if (Users.Any(x => x.UserId == user.UserId))
+                throw new DomainException($"User '{user.UserId}' is already in the organization.");
 
             _users.Add(UserInOrganization.Create(user, role));
             UpdatedAt = DateTime.UtcNow;
@@ -84,7 +83,7 @@ namespace Warden.Api.Core.Domain.Organizations
 
         public void RemoveUser(string id)
         {
-            var userInOrganization = Users.FirstOrDefault(x => x.Id == id);
+            var userInOrganization = Users.FirstOrDefault(x => x.UserId == id);
             if (userInOrganization == null)
                 throw new DomainException($"User with id '{id}' was not found in the organization.");
             if (OwnerId == id)
@@ -103,7 +102,7 @@ namespace Warden.Api.Core.Domain.Organizations
             if (warden != null)
                 throw new DomainException($"Warden with name: '{name}' has been already added.");
 
-            warden = new Wardens.Warden(id, owner, name,  enabled);
+            warden = new Warden(id, owner, name,  enabled);
             _wardens.Add(warden);
             UpdatedAt = DateTime.UtcNow;
         }
@@ -143,7 +142,7 @@ namespace Warden.Api.Core.Domain.Organizations
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public Wardens.Warden GetWardenByNameOrFail(string name)
+        public Warden GetWardenByNameOrFail(string name)
         {
             if (name.Empty())
                 throw new DomainException("Warden name can not be empty.");
@@ -155,10 +154,10 @@ namespace Warden.Api.Core.Domain.Organizations
             return warden;
         }
 
-        public Wardens.Warden GetWardenByName(string name) 
+        public Warden GetWardenByName(string name) 
             => Wardens.FirstOrDefault(x => x.Name.EqualsCaseInvariant(name));
 
-        public Wardens.Warden GetWardenById(Guid id)
+        public Warden GetWardenById(Guid id)
             => Wardens.FirstOrDefault(x => x.Id.Equals(id));
 
         public void EnableAutoRegisterNewWarden()

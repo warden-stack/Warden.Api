@@ -25,6 +25,7 @@ namespace Warden.Services.Storage.Handlers
 
             await _userRepository.AddAsync(new UserDto
             {
+                Id = Guid.NewGuid(),
                 UserId = @event.UserId,
                 Email = @event.Email,
                 Role = @event.Role,

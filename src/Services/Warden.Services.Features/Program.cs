@@ -1,7 +1,9 @@
 ﻿using Warden.Common.Commands.ApiKeys;
+using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.WardenChecks;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
 using Warden.Services.Features.Framework;
@@ -20,10 +22,12 @@ namespace Warden.Services.Features
                 .SubscribeToCommand<RequestNewApiKey>()
                 .SubscribeToCommand<RequestCreateWarden>()
                 .SubscribeToCommand<RequestProcessWardenCheckResult>()
+                .SubscribeToCommand<RequestCreateOrganization>()
                 .SubscribeToEvent<ApiKeyCreated>()
                 .SubscribeToEvent<WardenCheckResultProcessed>()
                 .SubscribeToEvent<UserCreated>()
                 .SubscribeToEvent<WardenCreated>()
+                .SubscribeToEvent<OrganizationCreated>()
                 .Build()
                 .Run();
         }

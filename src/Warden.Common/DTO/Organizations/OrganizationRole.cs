@@ -1,4 +1,4 @@
-﻿namespace Warden.Api.Core.Domain.Organizations
+﻿namespace Warden.Common.DTO.Organizations
 {
     public enum OrganizationRole
     {

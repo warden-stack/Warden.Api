@@ -1,4 +1,6 @@
-﻿using Warden.Services.Host;
+﻿using Warden.Common.Commands.Organizations;
+using Warden.Common.Events.Users;
+using Warden.Services.Host;
 using Warden.Services.Organizations.Framework;
 
 namespace Warden.Services.Organizations
@@ -11,6 +13,9 @@ namespace Warden.Services.Organizations
                 .Create<Startup>(port: 10002)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
+                .SubscribeToCommand<CreateOrganization>()
+                .SubscribeToEvent<UserCreated>()
+                .SubscribeToEvent<UserSignedIn>()
                 .Build()
                 .Run();
         }

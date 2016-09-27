@@ -1,12 +1,12 @@
 ﻿using System;
-using Warden.Api.Core.Domain.Exceptions;
 using Warden.Common.DTO.Organizations;
+using Warden.Services.Domain;
 
-namespace Warden.Api.Core.Domain.Users
+namespace Warden.Services.Organizations.Domain
 {
     public class UserInOrganization : ITimestampable
     {
-        public string Id { get; protected set; }
+        public string UserId { get; protected set; }
         public string Email { get; protected set; }
         public OrganizationRole Role { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -20,7 +20,7 @@ namespace Warden.Api.Core.Domain.Users
             if (user == null)
                 throw new DomainException("Can not create new user in organization from empty user.");
 
-            Id = user.ExternalId;
+            UserId = user.UserId;
             Email = user.Email;
             Role = role;
             CreatedAt = DateTime.UtcNow;

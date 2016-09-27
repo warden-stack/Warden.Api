@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Warden.Common.DTO.Users;
 using Warden.Common.Events;
 using Warden.Common.Events.Users;
@@ -23,6 +24,7 @@ namespace Warden.Services.Storage.Handlers
 
             await _userRepository.AddAsync(new UserDto
             {
+                Id = Guid.NewGuid(),
                 UserId = @event.UserId,
                 Email = @event.Email,
                 Role = @event.Role,

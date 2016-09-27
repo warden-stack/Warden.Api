@@ -1,14 +1,18 @@
-﻿using System;
-
-namespace Warden.Common.Events.Organizations
+﻿namespace Warden.Common.Events.Organizations
 {
-    public class OrganizationCreated : IEvent
+    public class OrganizationCreated : IAuthenticatedEvent
     {
-        public Guid Id { get; }
+        public string UserId { get; set; }
+        public string Name { get; }
 
-        public OrganizationCreated(Guid id)
+        protected OrganizationCreated()
         {
-            Id = id;
+        }
+
+        public OrganizationCreated(string userId, string name)
+        {
+            UserId = userId;
+            Name = name;
         }
     }
 }
