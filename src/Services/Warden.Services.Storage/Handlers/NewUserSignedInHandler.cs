@@ -7,16 +7,16 @@ using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Handlers
 {
-    public class UserCreatedHandler : IEventHandler<UserCreated>
+    public class NewUserSignedInHandler : IEventHandler<NewUserSignedIn>
     {
         private readonly IUserRepository _userRepository;
 
-        public UserCreatedHandler(IUserRepository userRepository)
+        public NewUserSignedInHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task HandleAsync(UserCreated @event)
+        public async Task HandleAsync(NewUserSignedIn @event)
         {
             var user = await _userRepository.GetByIdAsync(@event.UserId);
             if (user.HasValue)

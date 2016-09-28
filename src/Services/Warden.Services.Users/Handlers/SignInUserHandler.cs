@@ -14,7 +14,6 @@ namespace Warden.Services.Users.Handlers
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IUserService _userService;
-        private readonly IApiKeyService _apiKeyService;
         private readonly IAuth0RestClient _auth0RestClient;
         private readonly IBusClient _bus;
 
@@ -24,7 +23,6 @@ namespace Warden.Services.Users.Handlers
             IBusClient bus)
         {
             _userService = userService;
-            _apiKeyService = apiKeyService;
             _auth0RestClient = auth0RestClient;
             _bus = bus;
         }
@@ -39,8 +37,7 @@ namespace Warden.Services.Users.Handlers
                 await _userService.CreateAsync(auth0User.Email, auth0User.UserId);
                 user = await _userService.GetAsync(auth0User.UserId);
                 userId = user.Value.UserId;
-                await _apiKeyService.CreateAsync(Guid.NewGuid(), userId);
-                await _bus.PublishAsync(new UserCreated(userId, user.Value.Email,
+                await _bus.PublishAsync(new NewUserSignedIn(userId, user.Value.Email,
                     user.Value.Role, user.Value.State, user.Value.CreatedAt));
 
                 return;

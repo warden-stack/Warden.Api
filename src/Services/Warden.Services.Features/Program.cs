@@ -25,7 +25,7 @@ namespace Warden.Services.Features
                 .SubscribeToCommand<RequestCreateOrganization>()
                 .SubscribeToEvent<ApiKeyCreated>()
                 .SubscribeToEvent<WardenCheckResultProcessed>()
-                .SubscribeToEvent<UserCreated>()
+                .SubscribeToEvent<NewUserSignedIn>()
                 .SubscribeToEvent<WardenCreated>()
                 .SubscribeToEvent<OrganizationCreated>()
                 .Build()

@@ -22,6 +22,9 @@ namespace Warden.Services.Storage.Repositories
         public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId)
             => await _database.ApiKeys().BrowseAsync(userId);
 
+        public async Task AddManyAsync(IEnumerable<ApiKeyDto> apiKeys)
+            => await _database.ApiKeys().InsertManyAsync(apiKeys);
+
         public async Task AddAsync(ApiKeyDto apiKey)
             => await _database.ApiKeys().InsertOneAsync(apiKey);
 

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warden.Common.DTO.ApiKeys;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 
@@ -29,8 +31,17 @@ namespace Warden.Services.Storage.Providers
 
             var apiKeysResponse = await _providerClient.GetAsync<IEnumerable<string>>(
                 _providerSettings.UsersApiUrl, $"/users/{userId}/api-keys");
+            if (apiKeysResponse.HasNoValue)
+                return Enumerable.Empty<string>();
 
-            return apiKeysResponse.HasValue ? apiKeysResponse.Value : Enumerable.Empty<string>();
+            await _apiKeyRepository.AddManyAsync(apiKeysResponse.Value.Select(x => new ApiKeyDto
+            {
+                Id = Guid.NewGuid(),
+                Key = x,
+                UserId = userId
+            }));
+
+            return apiKeysResponse.Value;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Warden.Services.Storage
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .SubscribeToEvent<ApiKeyCreated>()
-                .SubscribeToEvent<UserCreated>()
+                .SubscribeToEvent<NewUserSignedIn>()
                 .SubscribeToEvent<UserSignedIn>()
                 .SubscribeToEvent<UserPaymentPlanCreated>()
                 .SubscribeToEvent<OrganizationCreated>()

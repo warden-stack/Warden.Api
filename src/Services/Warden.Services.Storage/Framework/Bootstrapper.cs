@@ -46,7 +46,7 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<ProviderClient>().As<IProviderClient>();
                 builder.RegisterType<ApiKeyProvider>().As<IApiKeyProvider>();
                 builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
-                builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
+                builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
                 builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
                 builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();

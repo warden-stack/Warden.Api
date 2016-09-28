@@ -10,13 +10,13 @@ using Warden.Services.Organizations.Services;
 
 namespace Warden.Services.Organizations.Handlers
 {
-    public class UserCreatedHandler : IEventHandler<UserCreated>
+    public class NewUserSignedInHandler : IEventHandler<NewUserSignedIn>
     {
         private readonly IBusClient _bus;
         private readonly IUserRepository _userRepository;
         private readonly IOrganizationService _organizationService;
 
-        public UserCreatedHandler(IBusClient bus,
+        public NewUserSignedInHandler(IBusClient bus,
             IUserRepository userRepository, 
             IOrganizationService organizationService)
         {
@@ -25,7 +25,7 @@ namespace Warden.Services.Organizations.Handlers
             _organizationService = organizationService;
         }
 
-        public async Task HandleAsync(UserCreated @event)
+        public async Task HandleAsync(NewUserSignedIn @event)
         {
             var user = await _userRepository.GetAsync(@event.UserId);
             if (user.HasValue)

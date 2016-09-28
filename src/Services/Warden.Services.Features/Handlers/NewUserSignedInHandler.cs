@@ -9,13 +9,13 @@ using Warden.Services.Features.Services;
 
 namespace Warden.Services.Features.Handlers
 {
-    public class UserCreatedHandler : IEventHandler<UserCreated>
+    public class NewUserSignedInHandler : IEventHandler<NewUserSignedIn>
     {
         private readonly IBusClient _bus;
         private readonly IUserRepository _userRepository;
         private readonly IUserPaymentPlanService _userPaymentPlanService;
 
-        public UserCreatedHandler(IBusClient bus,
+        public NewUserSignedInHandler(IBusClient bus,
             IUserRepository userRepository, 
             IUserPaymentPlanService userPaymentPlanService)
         {
@@ -24,7 +24,7 @@ namespace Warden.Services.Features.Handlers
             _userPaymentPlanService = userPaymentPlanService;
         }
 
-        public async Task HandleAsync(UserCreated @event)
+        public async Task HandleAsync(NewUserSignedIn @event)
         {
             await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role));
             await _userPaymentPlanService.CreateDefaultAsync(@event.UserId);

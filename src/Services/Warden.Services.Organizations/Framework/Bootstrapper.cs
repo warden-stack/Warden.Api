@@ -42,7 +42,7 @@ namespace Warden.Services.Organizations.Framework
                 builder.RegisterType<WardenService>().As<IWardenService>();
                 builder.RegisterType<OrganizationService>().As<IOrganizationService>();
                 builder.RegisterType<CreateOrganizationHandler>().As<ICommandHandler<CreateOrganization>>();
-                builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
+                builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
             });
             LifetimeScope = container;

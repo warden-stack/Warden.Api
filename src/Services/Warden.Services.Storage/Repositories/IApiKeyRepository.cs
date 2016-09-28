@@ -9,6 +9,7 @@ namespace Warden.Services.Storage.Repositories
     {
         Task<Maybe<ApiKeyDto>> GetAsync(string key);
         Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId);
+        Task AddManyAsync(IEnumerable<ApiKeyDto> apiKeys);
         Task AddAsync(ApiKeyDto apiKey);
         Task DeleteAsync(string key);
     }

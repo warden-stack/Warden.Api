@@ -14,7 +14,7 @@ namespace Warden.Services.Organizations
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
                 .SubscribeToCommand<CreateOrganization>()
-                .SubscribeToEvent<UserCreated>()
+                .SubscribeToEvent<NewUserSignedIn>()
                 .SubscribeToEvent<UserSignedIn>()
                 .Build()
                 .Run();

@@ -59,7 +59,7 @@ namespace Warden.Services.Features.Framework
                     .As<ICommandHandler<RequestProcessWardenCheckResult>>();
                 builder.RegisterType<WardenCheckResultProcessedHandler>()
                     .As<IEventHandler<WardenCheckResultProcessed>>();
-                builder.RegisterType<UserCreatedHandler>().As<IEventHandler<UserCreated>>();
+                builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
                 builder.RegisterType<RequestCreateWardenHandler>().As<ICommandHandler<RequestCreateWarden>>();
                 builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
                 builder.RegisterType<RequestCreateOrganizationHandler>().As<ICommandHandler<RequestCreateOrganization>>();
