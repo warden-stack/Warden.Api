@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Nancy.ModelBinding;
+﻿using Nancy.ModelBinding;
 using Warden.Api.Core.Commands;
 using Warden.Api.Modules.Base;
 using Warden.Common.Commands.Users;
