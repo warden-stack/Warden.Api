@@ -32,9 +32,17 @@ namespace Warden.Api.Modules.Base
             _currentUserId = id;
         }
 
-        protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand
+        protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand, new()
         {
-            var command = this.Bind<T>();
+            if (Request.Body.Length == 0)
+            {
+                return new T
+                {
+                    UserId = CurrentUserId
+                };
+            }
+
+            var command = this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
             command.UserId = CurrentUserId;
 
             return command;

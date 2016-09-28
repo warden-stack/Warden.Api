@@ -14,6 +14,6 @@ namespace Warden.Api.Core.Storage
         }
 
         public async Task<Maybe<UserDto>> GetAsync(string id)
-            => await _storageClient.GetAsync<UserDto>($"users/{id}");
+            => await _storageClient.GetUsingCacheAsync<UserDto>($"users/{id}");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Nancy;
 using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
@@ -46,13 +47,26 @@ namespace Warden.Api.Framework
 
         protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)
         {
+            pipelines.OnError.AddItemToEndOfPipeline((ctx, ex) =>
+            {
+                AddCorsHeaders(ctx.Response);
+
+                return ctx.Response;
+            });
             pipelines.AfterRequest += (ctx) =>
             {
-                ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-                ctx.Response.Headers.Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
+                AddCorsHeaders(ctx.Response);
             };
-
             Logger.Info("API Started");
+        }
+
+        private static void AddCorsHeaders(Response response)
+        {
+            response?.WithHeader("Access-Control-Allow-Origin", "*")
+                .WithHeader("Access-Control-Allow-Methods", "POST,PUT,GET,OPTIONS,DELETE")
+                .WithHeader("Access-Control-Allow-Headers",
+                    "Authorization,Accept,Origin,Content-Type,User-Agent,X-Requested-With")
+                .WithHeader("Access-Control-Expose-Headers", "X-ResourceId");
         }
 
         private T GetConfigurationValue<T>(string section = "") where T : new()

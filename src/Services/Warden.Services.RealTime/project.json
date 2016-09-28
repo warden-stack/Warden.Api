@@ -15,6 +15,7 @@
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.Owin": "1.0.0",
+    "OctoPack": "3.4.1",
     "RawRabbit": "1.10.0",
     "RawRabbit.vNext": "1.10.0"
   },

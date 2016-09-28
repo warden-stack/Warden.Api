@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -41,16 +43,11 @@ namespace Warden.Api.Core.Storage
             return data;
         }
 
-        public async Task<Maybe<T>> GetAsyncUsingCache<T>(string endpoint, string cacheKey = null, TimeSpan? expiry = null)
+        public async Task<Maybe<T>> GetUsingCacheAsync<T>(string endpoint, string cacheKey = null,
+            TimeSpan? expiry = null)
             where T : class
         {
-            if(endpoint.Empty())
-                throw new ArgumentException("Endpoint can not be empty.");
-
-            if (cacheKey.Empty())
-                cacheKey = endpoint;
-
-            var result = await _cache.GetAsync<T>(cacheKey);
+            var result = await GetFromCacheAsync<T>(endpoint, cacheKey);
             if (result.HasValue)
                 return result;
 
@@ -58,10 +55,52 @@ namespace Warden.Api.Core.Storage
             if (result.HasNoValue)
                 return new Maybe<T>();
 
-            var cacheExpiry = expiry ?? _settings.CacheExpiry;
-            await _cache.AddAsync(cacheKey, result.Value, cacheExpiry);
+            await StoreInCacheAsync(result, endpoint, cacheKey, expiry);
 
             return result;
         }
+
+        public async Task<Maybe<IEnumerable<T>>> GetCollectionUsingCacheAsync<T>(string endpoint, string cacheKey = null,
+            TimeSpan? expiry = null) where T : class
+        {
+            var result = await GetFromCacheAsync<IEnumerable<T>>(endpoint, cacheKey);
+            if (result.HasValue && result.Value.Any())
+                return result;
+
+            result = await GetAsync<IEnumerable<T>>(endpoint);
+            if (result.HasNoValue || !result.Value.Any())
+                return new Maybe<IEnumerable<T>>();
+
+            await StoreInCacheAsync(result, endpoint, cacheKey, expiry);
+
+            return result;
+        }
+
+        private async Task<Maybe<T>> GetFromCacheAsync<T>(string endpoint, string cacheKey = null) where T : class
+        {
+            if (endpoint.Empty())
+                throw new ArgumentException("Endpoint can not be empty.");
+
+            cacheKey = GetCacheKey(endpoint, cacheKey);
+            var result = await _cache.GetAsync<T>(cacheKey);
+
+            return result.HasValue ? result : new Maybe<T>();
+        }
+
+        private async Task StoreInCacheAsync<T>(Maybe<T> value, string endpoint, string cacheKey = null,
+            TimeSpan? expiry = null) where T : class
+        {
+            if (endpoint.Empty())
+                throw new ArgumentException("Endpoint can not be empty.");
+            if (value.HasNoValue)
+                return;
+
+            cacheKey = GetCacheKey(endpoint, cacheKey);
+            var cacheExpiry = expiry ?? _settings.CacheExpiry;
+            await _cache.AddAsync(cacheKey, value.Value, cacheExpiry);
+        }
+
+        private static string GetCacheKey(string endpoint, string cacheKey)
+            => cacheKey.Empty() ? endpoint.Replace("/", ":") : cacheKey;
     }
 }

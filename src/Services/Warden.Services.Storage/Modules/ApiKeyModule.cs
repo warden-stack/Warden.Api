@@ -1,4 +1,5 @@
-﻿using Nancy;
+﻿using System.Collections.Generic;
+using Nancy;
 using Warden.Services.Storage.Providers;
 
 namespace Warden.Services.Storage.Modules
@@ -11,7 +12,12 @@ namespace Warden.Services.Storage.Modules
         {
             _apiKeyProvider = apiKeyProvider;
 
-            Get("/users/{userId}/api-keys", async args => await _apiKeyProvider.BrowseAsync((string)args.userId));
+            Get("/users/{userId}/api-keys", async args =>
+            {
+                var apiKeys = await _apiKeyProvider.BrowseAsync((string) args.userId);
+
+                return apiKeys.HasValue ? apiKeys.Value : new List<string>();
+            });
         }
     }
 }

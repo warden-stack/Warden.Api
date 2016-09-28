@@ -19,7 +19,7 @@ namespace Warden.Services.Storage.Repositories
         public async Task<Maybe<ApiKeyDto>> GetAsync(string key)
             => await _database.ApiKeys().GetAsync(key);
 
-        public async Task<IEnumerable<ApiKeyDto>> BrowseAsync(string userId)
+        public async Task<Maybe<IEnumerable<ApiKeyDto>>> BrowseAsync(string userId)
             => await _database.ApiKeys().BrowseAsync(userId);
 
         public async Task AddManyAsync(IEnumerable<ApiKeyDto> apiKeys)

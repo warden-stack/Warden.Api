@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warden.Common.DTO.ApiKeys;
+using Warden.Common.Types;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 
@@ -23,25 +24,24 @@ namespace Warden.Services.Storage.Providers
             _providerSettings = providerSettings;
         }
 
-        public async Task<IEnumerable<string>> BrowseAsync(string userId)
-        {
-            var apiKeys = await _apiKeyRepository.BrowseAsync(userId);
-            if (apiKeys.Any())
-                return apiKeys.Select(x => x.Key);
+        public async Task<Maybe<IEnumerable<string>>> BrowseAsync(string userId) =>
+            await _providerClient.GetUsingStorageAsync(_providerSettings.UsersApiUrl,
+                $"/users/{userId}/api-keys", async () =>
+                {
+                    var apiKeys = await _apiKeyRepository.BrowseAsync(userId);
 
-            var apiKeysResponse = await _providerClient.GetAsync<IEnumerable<string>>(
-                _providerSettings.UsersApiUrl, $"/users/{userId}/api-keys");
-            if (apiKeysResponse.HasNoValue)
-                return Enumerable.Empty<string>();
+                    return apiKeys.HasValue && apiKeys.Value.Any()
+                        ? apiKeys.Value.Select(x => x.Key).ToList()
+                        : new Maybe<IEnumerable<string>>();
 
-            await _apiKeyRepository.AddManyAsync(apiKeysResponse.Value.Select(x => new ApiKeyDto
-            {
-                Id = Guid.NewGuid(),
-                Key = x,
-                UserId = userId
-            }));
-
-            return apiKeysResponse.Value;
-        }
+                }, async keys =>
+                {
+                    await _apiKeyRepository.AddManyAsync(keys.Select(x => new ApiKeyDto
+                    {
+                        Id = Guid.NewGuid(),
+                        Key = x,
+                        UserId = userId
+                    }));
+                });
     }
 }

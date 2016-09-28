@@ -25,11 +25,11 @@ namespace Warden.Services.Storage.Queries
             return await apiKeys.FirstOrDefaultAsync(x => x.Key == key);
         }
 
-        public static async Task<IEnumerable<ApiKeyDto>> BrowseAsync(this IMongoCollection<ApiKeyDto> apiKeys,
+        public static async Task<Maybe<IEnumerable<ApiKeyDto>>> BrowseAsync(this IMongoCollection<ApiKeyDto> apiKeys,
             string userId)
         {
             if (userId.Empty())
-                return Enumerable.Empty<ApiKeyDto>();
+                return new Maybe<IEnumerable<ApiKeyDto>>();
 
             return await apiKeys.AsQueryable().Where(x => x.UserId == userId).ToListAsync();
         }

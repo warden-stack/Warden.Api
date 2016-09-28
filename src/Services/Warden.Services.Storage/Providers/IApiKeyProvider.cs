@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Warden.Common.Types;
 
 namespace Warden.Services.Storage.Providers
 {
     public interface IApiKeyProvider
     {
-        Task<IEnumerable<string>>  BrowseAsync(string userId);
+        Task<Maybe<IEnumerable<string>>> BrowseAsync(string userId);
     }
 }

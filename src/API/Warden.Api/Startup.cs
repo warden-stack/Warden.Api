@@ -40,6 +40,7 @@ namespace Warden.Api
             services.AddWebEncoders();
             //services.AddMemoryCache();
             //services.AddOptions();
+            services.AddCors();
             Container = GetServiceContainer(services);
 
             return new AutofacServiceProvider(Container);
@@ -60,6 +61,10 @@ namespace Warden.Api
                 }
             };
             app.UseJwtBearerAuthentication(options);
+            app.UseCors(builder => builder.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowCredentials());
             app.UseOwin().UseNancy(x => x.Bootstrapper = new Bootstrapper(Configuration, Container));
         }
 
