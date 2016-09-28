@@ -1,5 +1,7 @@
-﻿using Nancy.Security;
+﻿using Nancy.ModelBinding;
+using Nancy.Security;
 using Warden.Api.Core.Commands;
+using Warden.Common.Commands;
 using Warden.Common.Extensions;
 
 namespace Warden.Api.Modules.Base
@@ -28,6 +30,14 @@ namespace Warden.Api.Modules.Base
         protected void SetCurrentUserId(string id)
         {
             _currentUserId = id;
+        }
+
+        protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand
+        {
+            var command = this.Bind<T>();
+            command.UserId = CurrentUserId;
+
+            return command;
         }
     }
 }

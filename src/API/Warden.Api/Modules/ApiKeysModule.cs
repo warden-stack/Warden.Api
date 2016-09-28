@@ -26,13 +26,13 @@ namespace Warden.Api.Modules
 
             Post("/", async args =>
             {
-                var command = this.Bind<RequestNewApiKey>();
+                var command = BindAuthenticatedCommand<RequestNewApiKey>();
                 await CommandDispatcher.DispatchAsync(command);
             });
 
             Delete("/", async args =>
             {
-                var command = this.Bind<DeleteApiKey>();
+                var command = BindAuthenticatedCommand<DeleteApiKey>();
                 await CommandDispatcher.DispatchAsync(command);
             });
         }
