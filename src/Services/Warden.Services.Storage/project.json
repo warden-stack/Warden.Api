@@ -31,5 +31,18 @@
         "dnxcore50"
       ]
     }
+  },
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
+  },
+  "publishOptions": {
+    "include": [
+      "web.config",
+      "nlog.config",
+      "appsettings.json"
+    ]
+  },
+  "scripts": {
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

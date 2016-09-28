@@ -1,4 +1,5 @@
 {
+  "title": "Warden.Api.Core",
   "version": "1.0.0",
   "dependencies": {
     "Warden.Common": "1.0.0-*",
