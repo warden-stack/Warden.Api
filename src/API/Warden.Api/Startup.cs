@@ -38,6 +38,8 @@ namespace Warden.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddWebEncoders();
+            //services.AddMemoryCache();
+            //services.AddOptions();
             Container = GetServiceContainer(services);
 
             return new AutofacServiceProvider(Container);
@@ -58,7 +60,7 @@ namespace Warden.Api
                 }
             };
             app.UseJwtBearerAuthentication(options);
-            app.UseOwin().UseNancy(x => x.Bootstrapper = new Bootstrapper(Configuration));
+            app.UseOwin().UseNancy(x => x.Bootstrapper = new Bootstrapper(Configuration, Container));
         }
 
         protected static IContainer GetServiceContainer(IEnumerable<ServiceDescriptor> services)

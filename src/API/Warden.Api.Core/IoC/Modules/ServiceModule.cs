@@ -19,9 +19,6 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<Encrypter>()
                 .As<IEncrypter>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<UserProvider>()
-                .As<IUserProvider>()
-                .InstancePerLifetimeScope();
 
             //TODO: Register RabbitMQ
             builder.RegisterType<WardenConfigurationService>()

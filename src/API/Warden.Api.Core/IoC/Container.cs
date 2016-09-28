@@ -18,7 +18,7 @@ namespace Warden.Api.Core.IoC
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<Auth0Module>();
             builder.RegisterModule<StorageModule>();
-            builder.RegisterModule<RedisModule>();
+            //builder.RegisterModule<RedisModule>();
 
             return builder.Build();
         }
