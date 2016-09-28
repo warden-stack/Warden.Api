@@ -6,6 +6,7 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
+using Warden.Api.Core.Storage;
 using Warden.Services.Nancy;
 
 namespace Warden.Api.Framework
@@ -32,6 +33,12 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(BusClientFactory.CreateDefault())
                     .As<IBusClient>();
                 builder.RegisterModule<DispatcherModule>();
+                builder.RegisterType<StorageClient>()
+                    .As<IStorageClient>()
+                    .InstancePerLifetimeScope();
+                builder.RegisterType<ApiKeyStorage>()
+                    .As<IApiKeyStorage>()
+                    .InstancePerLifetimeScope();
             });
         }
 
