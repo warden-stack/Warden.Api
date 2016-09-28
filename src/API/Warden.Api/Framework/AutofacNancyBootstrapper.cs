@@ -7,7 +7,7 @@ using Nancy.Bootstrapper;
 using Nancy.Configuration;
 using Nancy.Diagnostics;
 
-namespace Warden.Services.Nancy
+namespace Warden.Api.Framework
 {
     public abstract class AutofacNancyBootstrapper : NancyBootstrapperWithRequestContainerBase<ILifetimeScope>
     {

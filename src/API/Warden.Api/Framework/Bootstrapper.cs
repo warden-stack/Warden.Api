@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Nancy.Bootstrapper;
 using NLog;
@@ -7,7 +8,6 @@ using RawRabbit.vNext;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
 using Warden.Api.Core.Storage;
-using Warden.Services.Nancy;
 
 namespace Warden.Api.Framework
 {
@@ -15,10 +15,12 @@ namespace Warden.Api.Framework
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IConfiguration _configuration;
+        private readonly IContainer _existingContainer;
 
-        public Bootstrapper(IConfiguration configuration)
+        public Bootstrapper(IConfiguration configuration, IContainer existingContainer)
         {
             _configuration = configuration;
+            _existingContainer = existingContainer;
         }
 
         protected override void ConfigureApplicationContainer(ILifetimeScope container)
@@ -33,12 +35,12 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(BusClientFactory.CreateDefault())
                     .As<IBusClient>();
                 builder.RegisterModule<DispatcherModule>();
-                builder.RegisterType<StorageClient>()
-                    .As<IStorageClient>()
-                    .InstancePerLifetimeScope();
-                builder.RegisterType<ApiKeyStorage>()
-                    .As<IApiKeyStorage>()
-                    .InstancePerLifetimeScope();
+                builder.RegisterModule<StorageModule>();
+                builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+                foreach (var component in _existingContainer.ComponentRegistry.Registrations)
+                {
+                    builder.RegisterComponent(component);
+                }
             });
         }
 

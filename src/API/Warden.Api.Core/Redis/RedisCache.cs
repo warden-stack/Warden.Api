@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Warden.Api.Core.Cache;
 using Warden.Api.Core.Settings;
+using Warden.Api.Core.Storage;
 using Warden.Common.Types;
 using Warden.Common.Extensions;
 
