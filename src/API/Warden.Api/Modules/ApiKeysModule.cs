@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Autofac.Core;
-using Nancy.ModelBinding;
 using Warden.Api.Core.Commands;
 using Warden.Api.Core.Storage;
 using Warden.Api.Modules.Base;

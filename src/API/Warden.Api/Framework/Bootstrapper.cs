@@ -32,13 +32,14 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(GetConfigurationValue<StorageSettings>());
                 builder.RegisterInstance(BusClientFactory.CreateDefault())
                     .As<IBusClient>();
-                builder.RegisterModule<DispatcherModule>();
                 builder.RegisterType<StorageClient>()
                     .As<IStorageClient>()
                     .InstancePerLifetimeScope();
                 builder.RegisterType<ApiKeyStorage>()
                     .As<IApiKeyStorage>()
                     .InstancePerLifetimeScope();
+
+                builder.RegisterModule<DispatcherModule>();
             });
         }
 
