@@ -12,7 +12,7 @@ namespace Warden.Services.WardenChecks
                 .Create<Startup>(port: 10003)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
-                .SubscribeToCommand<ProcessWardenCheckResult>()
+                .SubscribeToCommand<RequestProcessWardenCheckResult>()
                 .Build()
                 .Run();
         }

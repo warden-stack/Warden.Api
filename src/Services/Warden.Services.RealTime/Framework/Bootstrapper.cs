@@ -3,10 +3,10 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Extensions.Configuration;
 using RawRabbit;
 using RawRabbit.vNext;
-using Warden.Common.Commands;
-using Warden.Common.Commands.Wardens;
+using Warden.Common.Events;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Nancy;
-using Warden.Services.RealTime.Handlers.Commands;
+using Warden.Services.RealTime.Handlers;
 using Warden.Services.RealTime.Hubs;
 
 namespace Warden.Services.RealTime.Framework
@@ -29,7 +29,8 @@ namespace Warden.Services.RealTime.Framework
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
                 builder.RegisterInstance(GlobalHost.ConnectionManager.GetHubContext<WardenHub>()).As<IHubContext>();
                 builder.RegisterType<SignalRService>().As<ISignalRService>();
-                builder.RegisterType<ProcessWardenCheckResultHandler>().As<ICommandHandler<ProcessWardenCheckResult>>();
+                builder.RegisterType<WardenCheckResultProcessedHandler>()
+                    .As<IEventHandler<WardenCheckResultProcessed>>();
             });
             LifetimeScope = container;
         }

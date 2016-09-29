@@ -21,7 +21,7 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.Owin": "1.0.0",
     "OctoPack": "3.4.1",
-    "RethinkDb.Driver": "2.3.15",
+    "MongoDB.Driver": "2.3.0-rc1",
     "RawRabbit": "1.10.0",
     "RawRabbit.vNext": "1.10.0"
   },

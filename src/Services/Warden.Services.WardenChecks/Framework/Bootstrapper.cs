@@ -7,10 +7,10 @@ using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Wardens;
 using Warden.Services.Extensions;
+using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.WardenChecks.Handlers;
 using Warden.Services.WardenChecks.Repositories;
-using Warden.Services.WardenChecks.Rethink;
 using Warden.Services.WardenChecks.Services;
 
 namespace Warden.Services.WardenChecks.Framework
@@ -31,18 +31,26 @@ namespace Warden.Services.WardenChecks.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
-                builder.RegisterInstance(_configuration.GetSettings<RethinkDbSettings>());
+                builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
+                builder.RegisterModule<MongoDbModule>();
+                builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
                 builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
+                builder.RegisterType<WardenCheckResultRootMinifiedRepository>()
+                    .As<IWardenCheckResultRootMinifiedRepository>();
                 builder.RegisterType<WardenCheckStorage>().As<IWardenCheckStorage>();
                 builder.RegisterType<WardenCheckService>().As<IWardenCheckService>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
-                builder.RegisterType<ProcessWardenCheckResultHandler>().As<ICommandHandler<ProcessWardenCheckResult>>();
+                builder.RegisterType<RequestProcessWardenCheckResultHandler>()
+                    .As<ICommandHandler<RequestProcessWardenCheckResult>>();
             });
             LifetimeScope = container;
         }
 
         protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)
         {
+            var databaseSettings = container.Resolve<MongoDbSettings>();
+            var databaseInitializer = container.Resolve<IDatabaseInitializer>();
+            databaseInitializer.InitializeAsync();
             pipelines.AfterRequest += (ctx) =>
             {
                 ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");

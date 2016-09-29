@@ -1,4 +1,4 @@
-﻿using Warden.Common.Commands.Wardens;
+﻿using Warden.Common.Events.Wardens;
 using Warden.Services.Host;
 using Warden.Services.RealTime.Framework;
 
@@ -12,7 +12,7 @@ namespace Warden.Services.RealTime
                 .Create<Startup>(port: 10004)
                 .UseAutofac(Bootstrapper.LifetimeScope)
                 .UseRabbitMq()
-                .SubscribeToCommand<ProcessWardenCheckResult>()
+                .SubscribeToEvent<WardenCheckResultProcessed>()
                 .Build()
                 .Run();
         }

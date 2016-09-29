@@ -8,6 +8,7 @@ using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
 using Warden.Services.Features.Framework;
 using Warden.Services.Host;
+using RequestProcessWardenCheckResult = Warden.Common.Commands.WardenChecks.RequestProcessWardenCheckResult;
 
 namespace Warden.Services.Features
 {

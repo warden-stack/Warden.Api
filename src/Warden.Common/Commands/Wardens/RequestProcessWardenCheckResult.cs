@@ -2,7 +2,7 @@
 
 namespace Warden.Common.Commands.Wardens
 {
-    public class ProcessWardenCheckResult : IAuthenticatedCommand
+    public class RequestProcessWardenCheckResult : IFeatureRequestCommand
     {
         public string UserId { get; set; }
         public Guid OrganizationId { get; }
@@ -10,11 +10,11 @@ namespace Warden.Common.Commands.Wardens
         public object Result { get; }
         public DateTime CreatedAt { get; }
 
-        protected ProcessWardenCheckResult()
+        protected RequestProcessWardenCheckResult()
         {
         }
 
-        public ProcessWardenCheckResult(string userId,
+        public RequestProcessWardenCheckResult(string userId,
             Guid organizationId,
             Guid wardenId,
             object result, DateTime createdAt)

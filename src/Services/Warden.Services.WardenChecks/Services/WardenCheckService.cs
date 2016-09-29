@@ -1,36 +1,44 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RawRabbit;
-using Warden.Common.Commands.Wardens;
+using Newtonsoft.Json;
 using Warden.Services.WardenChecks.Domain;
 using Warden.Common.Extensions;
+using Warden.Common.Types;
 using Warden.Services.WardenChecks.Repositories;
 
 namespace Warden.Services.WardenChecks.Services
 {
     public class WardenCheckService : IWardenCheckService
     {
-        private readonly IBusClient _bus;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public WardenCheckService(IBusClient bus,
-            IOrganizationRepository organizationRepository)
+        public WardenCheckService(IOrganizationRepository organizationRepository)
         {
-            _bus = bus;
             _organizationRepository = organizationRepository;
         }
 
-        public async Task ProcessAsync(Guid organizationId, Guid wardenId, WardenCheckResult check)
+        public async Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(Guid organizationId,
+            Guid wardenId, object checkResut, DateTime createdAt)
         {
-            await ValidateCheckResultAsync(organizationId, wardenId, check);
-            await _bus.PublishAsync(new ProcessWardenCheckResult(string.Empty, organizationId, wardenId, check, DateTime.UtcNow));
+            if (checkResut == null)
+                return new Maybe<WardenCheckResultRoot>();
+
+            var serializedResult = JsonConvert.SerializeObject(checkResut);
+            var result = JsonConvert.DeserializeObject<WardenCheckResult>(serializedResult);
+            await ValidateCheckResultAsync(organizationId, wardenId, result);
+
+            return new WardenCheckResultRoot
+            {
+                Result = result,
+                WardenId = wardenId,
+                OrganizationId = organizationId,
+                CreatedAt = createdAt
+            };
         }
 
         private async Task ValidateCheckResultAsync(Guid organizationId,
             Guid wardenId, WardenCheckResult check)
         {
-            if (check == null)
-                throw new ArgumentNullException(nameof(check), "Warden check can not be null.");
             if (check.WatcherCheckResult == null)
             {
                 throw new ArgumentNullException(nameof(check.WatcherCheckResult),

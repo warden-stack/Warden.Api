@@ -2,7 +2,7 @@
 
 namespace Warden.Services.WardenChecks.Domain
 {
-    public class WardenCheckResultStorage
+    public class WardenCheckResultRoot
     {
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; }

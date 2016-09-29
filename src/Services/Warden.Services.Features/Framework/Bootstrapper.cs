@@ -21,6 +21,7 @@ using Warden.Services.Features.Services;
 using Warden.Services.Features.Settings;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
+using RequestProcessWardenCheckResult = Warden.Common.Commands.WardenChecks.RequestProcessWardenCheckResult;
 
 namespace Warden.Services.Features.Framework
 {
