@@ -4,11 +4,10 @@ using System.Linq;
 using Warden.Common.Extensions;
 using Warden.Services.Domain;
 
-namespace Warden.Services.Organizations.Domain
+namespace Warden.Services.WardenChecks.Domain
 {
     public class Organization : IdentifiableEntity, ITimestampable
     {
-        private HashSet<UserInOrganization> _users = new HashSet<UserInOrganization>();
         private HashSet<Warden> _wardens = new HashSet<Warden>();
 
         public string Name { get; protected set; }
@@ -16,12 +15,6 @@ namespace Warden.Services.Organizations.Domain
         public string OwnerId { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
-
-        public IEnumerable<UserInOrganization> Users
-        {
-            get { return _users; }
-            protected set { _users = new HashSet<UserInOrganization>(value); }
-        }
 
         public IEnumerable<Warden> Wardens
         {
@@ -33,10 +26,11 @@ namespace Warden.Services.Organizations.Domain
         {
         }
 
-        public Organization(string name, User owner, string description = "")
+        public Organization(Guid id, string name, string ownerId, string description = "")
         {
+            Id = id;
             SetName(name);
-            SetOwner(owner);
+            SetOwner(ownerId);
             SetDescription(description);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
@@ -57,41 +51,16 @@ namespace Warden.Services.Organizations.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetOwner(User owner)
+        public void SetOwner(string ownerId)
         {
-            if (owner == null)
+            if (ownerId.Empty())
                 throw new DomainException("Organization owner can not be null.");
 
-            OwnerId = owner.UserId;
-            AddUser(owner, OrganizationRoles.Owner);
+            OwnerId = ownerId;
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddUser(User user, string role)
-        {
-            if (user == null)
-                throw new DomainException("Can not add empty user to the organization.");
-
-            if (Users.Any(x => x.UserId == user.UserId))
-                throw new DomainException($"User '{user.UserId}' is already in the organization.");
-
-            _users.Add(UserInOrganization.Create(user, role));
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void RemoveUser(string id)
-        {
-            var userInOrganization = Users.FirstOrDefault(x => x.UserId == id);
-            if (userInOrganization == null)
-                throw new DomainException($"User with id '{id}' was not found in the organization.");
-            if (OwnerId == id)
-                throw new DomainException("Owner can not be removed from organization.");
-
-            _users.Remove(userInOrganization);
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void AddWarden(Guid id, User owner, string name, bool enabled = true)
+        public void AddWarden(Guid id, string ownerId, string name, bool enabled = true)
         {
             if (name.Empty())
                 throw new DomainException("Can not add a warden without a name to the organization.");
@@ -100,7 +69,7 @@ namespace Warden.Services.Organizations.Domain
             if (warden != null)
                 throw new DomainException($"Warden with name: '{name}' has been already added.");
 
-            warden = new Warden(id, owner, name,  enabled);
+            warden = new Warden(id, ownerId, name,  enabled);
             _wardens.Add(warden);
             UpdatedAt = DateTime.UtcNow;
         }

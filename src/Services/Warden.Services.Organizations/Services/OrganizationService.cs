@@ -79,19 +79,18 @@ namespace Warden.Services.Organizations.Services
             await _organizationRepository.DeleteAsync(organization);
         }
 
-        public async Task AssignUserAsync(Guid organizationId, string email, string userId)
+        public async Task AssignUserAsync(Guid organizationId, string userId, string email, string role)
         {
             var organization = await GetAndCheckOwnershipAsync(organizationId, userId);
-            var user = await GetUserAsync(email);
-
-            organization.AddUser(user);
+            var user = await GetUserAsync(userId);
+            organization.AddUser(user, role);
             await _organizationRepository.UpdateAsync(organization);
         }
 
-        public async Task UnassignUserAsync(Guid organizationId, string email, string userId)
+        public async Task UnassignUserAsync(Guid organizationId, string userId)
         {
             var organization = await GetAndCheckOwnershipAsync(organizationId, userId);
-            var user = await GetUserAsync(email);
+            var user = await GetUserAsync(userId);
 
             organization.RemoveUser(user.UserId);
             await _organizationRepository.UpdateAsync(organization);
@@ -118,11 +117,11 @@ namespace Warden.Services.Organizations.Services
             return organization;
         }
 
-        private async Task<User> GetUserAsync(string email)
+        private async Task<User> GetUserAsync(string userId)
         {
-            var userValue = await _userRepository.GetByEmailAsync(email);
+            var userValue = await _userRepository.GetAsync(userId);
             if (userValue.HasNoValue)
-                throw new ServiceException($"User with email: {email} does not exist.");
+                throw new ServiceException($"User with id: {userId} does not exist.");
 
             return userValue.Value;
         }

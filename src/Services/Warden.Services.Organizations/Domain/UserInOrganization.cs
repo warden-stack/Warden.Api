@@ -7,14 +7,14 @@ namespace Warden.Services.Organizations.Domain
     {
         public string UserId { get; protected set; }
         public string Email { get; protected set; }
-        public OrganizationRole Role { get; protected set; }
+        public string Role { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
         protected UserInOrganization()
         {
         }
 
-        protected UserInOrganization(User user, OrganizationRole role)
+        protected UserInOrganization(User user, string role)
         {
             if (user == null)
                 throw new DomainException("Can not create new user in organization from empty user.");
@@ -25,7 +25,7 @@ namespace Warden.Services.Organizations.Domain
             CreatedAt = DateTime.UtcNow;
         }
 
-        public static UserInOrganization Create(User user, OrganizationRole role = OrganizationRole.User)
+        public static UserInOrganization Create(User user, string role)
             => new UserInOrganization(user, role);
     }
 }

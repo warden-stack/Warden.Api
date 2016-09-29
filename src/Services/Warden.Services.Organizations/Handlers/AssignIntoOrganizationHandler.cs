@@ -16,7 +16,8 @@ namespace Warden.Services.Organizations.Handlers
 
         public async Task HandleAsync(AssignIntoOrganization command)
         {
-            await _organizationServixce.AssignUserAsync(command.OrganizationId, command.Email, command.UserId);
+            await _organizationServixce.AssignUserAsync(command.OrganizationId,
+                command.UserId, command.Email, command.Role);
         }
     }
 }

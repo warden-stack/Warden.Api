@@ -1,7 +1,7 @@
 ﻿using System;
 using Warden.Services.Domain;
 
-namespace Warden.Services.Organizations.Domain
+namespace Warden.Services.WardenChecks.Domain
 {
     public class WardenCheckResult : IValidatable, ICompletable
     {

@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Wardens;
-using Warden.Services.WardenChecks.Rethink;
+using Warden.Services.WardenChecks.Domain;
+using Warden.Services.WardenChecks.Services;
 
 namespace Warden.Services.WardenChecks.Handlers
 {
@@ -16,9 +18,11 @@ namespace Warden.Services.WardenChecks.Handlers
 
         public async Task HandleAsync(ProcessWardenCheckResult command)
         {
-            var storage = new
+            var serializedResult = JsonConvert.SerializeObject(command.Result);
+            var result = JsonConvert.DeserializeObject<WardenCheckResult>(serializedResult);
+            var storage = new WardenCheckResultStorage
             {
-                Result = command.Result,
+                Result = result,
                 WardenId = command.WardenId,
                 OrganizationId = command.OrganizationId,
                 CreatedAt = command.CreatedAt

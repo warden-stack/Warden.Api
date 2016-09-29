@@ -14,9 +14,8 @@ namespace Warden.Services.Organizations.Services
         Task CreateAsync(string userId, string name, string description = "");
         Task CreateDefaultAsync(string userId);
         Task DeleteAsync(Guid id, string userId);
-        
-        Task AssignUserAsync(Guid organizationId, string email, string userId);
-        Task UnassignUserAsync(Guid organizationId, string email, string userId);
+        Task AssignUserAsync(Guid organizationId, string userId, string email, string role);
+        Task UnassignUserAsync(Guid organizationId, string userId);
         string DefaultOrganizationName { get; }
     }
 }

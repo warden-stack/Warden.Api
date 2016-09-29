@@ -1,6 +1,7 @@
 ﻿using Warden.Common.Extensions;
+using Warden.Services.Domain;
 
-namespace Warden.Api.Core.Domain.Exceptions
+namespace Warden.Services.WardenChecks.Domain
 {
     public class ExceptionInfo
     {
