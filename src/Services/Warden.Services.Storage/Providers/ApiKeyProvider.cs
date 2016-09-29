@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warden.Common.Types;
-using Warden.DTO.ApiKeys;
+using Warden.Services.Storage.Mappers;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 
@@ -14,14 +14,17 @@ namespace Warden.Services.Storage.Providers
         private readonly IApiKeyRepository _apiKeyRepository;
         private readonly IProviderClient _providerClient;
         private readonly ProviderSettings _providerSettings;
+        private readonly CollectionMapper<string> _mapper;
 
         public ApiKeyProvider(IApiKeyRepository apiKeyRepository,
             IProviderClient providerClient,
-            ProviderSettings providerSettings)
+            ProviderSettings providerSettings,
+            CollectionMapper<string> mapper)
         {
             _apiKeyRepository = apiKeyRepository;
             _providerClient = providerClient;
             _providerSettings = providerSettings;
+            _mapper = mapper;
         }
 
         public async Task<Maybe<IEnumerable<string>>> BrowseAsync(string userId) =>
@@ -42,6 +45,7 @@ namespace Warden.Services.Storage.Providers
                         Key = x,
                         UserId = userId
                     }));
-                });
+                },
+                _mapper);
     }
 }

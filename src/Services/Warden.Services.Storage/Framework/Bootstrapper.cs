@@ -51,6 +51,8 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
                 builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
                 builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
+                builder.RegisterType<UserProvider>().As<IUserProvider>();
+                builder.RegisterModule<MapperModule>();
             });
             LifetimeScope = container;
         }
