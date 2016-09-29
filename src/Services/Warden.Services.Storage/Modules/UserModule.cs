@@ -1,19 +1,20 @@
 ﻿using Nancy;
+using Warden.Services.Storage.Providers;
 using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Modules
 {
     public class UserModule : NancyModule
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserProvider _userProvider;
 
-        public UserModule(IUserRepository userRepository) : base("users")
+        public UserModule(IUserProvider userProvider) : base("users")
         {
-            _userRepository = userRepository;
+            _userProvider = userProvider;
 
-            Get("{id}", async args =>
+            Get("/{id}", async args =>
             {
-                var user = await _userRepository.GetByIdAsync((string) args.id);
+                var user = await _userProvider.GetAsync((string) args.id);
                 if (user.HasValue)
                     return user.Value;
 

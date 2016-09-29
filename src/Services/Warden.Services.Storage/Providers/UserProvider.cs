@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Warden.Common.DTO.Users;
 using Warden.Common.Types;
+using Warden.Services.Storage.Mappers;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 
@@ -11,14 +12,17 @@ namespace Warden.Services.Storage.Providers
         private readonly IUserRepository _userRepository;
         private readonly IProviderClient _providerClient;
         private readonly ProviderSettings _providerSettings;
+        private readonly UserMapper _mapper;
 
         public UserProvider(IUserRepository userRepository,
             IProviderClient providerClient,
-            ProviderSettings providerSettings)
+            ProviderSettings providerSettings,
+            UserMapper mapper)
         {
             _userRepository = userRepository;
             _providerClient = providerClient;
             _providerSettings = providerSettings;
+            _mapper = mapper;
         }
 
         public async Task<Maybe<UserDto>> GetAsync(string userId) =>
@@ -32,6 +36,7 @@ namespace Warden.Services.Storage.Providers
                 }, async user =>
                 {
                     await _userRepository.AddAsync(user);
-                });
+                },
+                _mapper);
     }
 }
