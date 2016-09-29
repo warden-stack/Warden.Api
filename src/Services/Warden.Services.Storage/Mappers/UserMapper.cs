@@ -1,4 +1,4 @@
-﻿using Warden.Common.DTO.Users;
+﻿using Warden.DTO.Users;
 
 namespace Warden.Services.Storage.Mappers
 {

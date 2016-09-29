@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Warden.Common.Types;
+using Warden.DTO.Users;
 using Warden.Services.Storage.Mappers;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
@@ -26,16 +27,7 @@ namespace Warden.Services.Storage.Providers
 
         public async Task<Maybe<UserDto>> GetAsync(string userId) =>
             await _providerClient.GetUsingStorageAsync(_providerSettings.UsersApiUrl,
-                $"/users/{userId}", async () =>
-                {
-                    var user = await _userRepository.GetByIdAsync(userId);
-
-                    return user.HasValue ? user : new Maybe<UserDto>();
-
-                }, async user =>
-                {
-                    await _userRepository.AddAsync(user);
-                },
-                _mapper);
+                $"/users/{userId}", async () => await _userRepository.GetByIdAsync(userId),
+                async user => await _userRepository.AddAsync(user), _mapper);
     }
 }
