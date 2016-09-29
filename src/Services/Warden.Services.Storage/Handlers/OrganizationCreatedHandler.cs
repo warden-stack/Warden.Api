@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warden.Common.Events;
 using Warden.Common.Events.Organizations;
-using Warden.Common.Events.Users;
 using Warden.DTO.Organizations;
+using Warden.DTO.Wardens;
 using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Handlers
@@ -25,9 +26,21 @@ namespace Warden.Services.Storage.Handlers
 
             await _organizationRepository.AddAsync(new OrganizationDto
             {
-                Id = Guid.NewGuid(),
+                Id = @event.OrganizationId,
                 Name = @event.Name,
-                OwnerId = @event.UserId
+                Description = @event.Description,
+                OwnerId = @event.UserId,
+                Users = new List<UserInOrganizationDto>
+                {
+                    new UserInOrganizationDto
+                    {
+                        UserId = @event.UserId,
+                        Email = @event.UserEmail,
+                        Role = @event.UserOrganizationRole,
+                        CreatedAt = @event.UserCreatedAt
+                    }
+                },
+                Wardens = new List<WardenDto>()
             });
         }
     }

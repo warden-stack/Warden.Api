@@ -6,6 +6,7 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Organizations;
+using Warden.Common.Commands.Wardens;
 using Warden.Common.Events;
 using Warden.Common.Events.Users;
 using Warden.Services.Extensions;
@@ -42,6 +43,7 @@ namespace Warden.Services.Organizations.Framework
                 builder.RegisterType<WardenService>().As<IWardenService>();
                 builder.RegisterType<OrganizationService>().As<IOrganizationService>();
                 builder.RegisterType<CreateOrganizationHandler>().As<ICommandHandler<CreateOrganization>>();
+                builder.RegisterType<CreateWardenHandler>().As<ICommandHandler<CreateWarden>>();
                 builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
             });

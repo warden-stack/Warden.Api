@@ -4,21 +4,30 @@ namespace Warden.Common.Events.Wardens
 {
     public class WardenCreated : IAuthenticatedEvent
     {
-        public string UserId { get; set; }
-        public Guid OrganizationId { get; }
         public Guid WardenId { get; }
+        public string Name { get; }
+        public Guid OrganizationId { get; }
+        public string UserId { get; set; }
+        public DateTime CreatedAt { get; }
+        public bool Enabled { get;}
 
         protected WardenCreated()
         {
         }
         
-        public WardenCreated(string userId, 
+        public WardenCreated(Guid wardenId,
+            string name,
             Guid organizationId, 
-            Guid wardenId)
+            string userId, 
+            DateTime createdAt, 
+            bool enabled)
         {
-            UserId = userId;
-            OrganizationId = organizationId;
             WardenId = wardenId;
+            Name = name;
+            OrganizationId = organizationId;
+            UserId = userId;
+            CreatedAt = createdAt;
+            Enabled = enabled;
         }
     }
 }

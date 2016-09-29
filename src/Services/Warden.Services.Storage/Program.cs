@@ -2,6 +2,7 @@
 using Warden.Common.Events.Features;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Host;
 using Warden.Services.Storage.Framework;
 
@@ -20,6 +21,8 @@ namespace Warden.Services.Storage
                 .SubscribeToEvent<UserSignedIn>()
                 .SubscribeToEvent<UserPaymentPlanCreated>()
                 .SubscribeToEvent<OrganizationCreated>()
+                .SubscribeToEvent<WardenCheckResultProcessed>()
+                .SubscribeToEvent<WardenCreated>()
                 .Build()
                 .Run();
         }

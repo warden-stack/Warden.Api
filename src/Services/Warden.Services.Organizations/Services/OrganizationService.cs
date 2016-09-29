@@ -42,7 +42,7 @@ namespace Warden.Services.Organizations.Services
             await _organizationRepository.UpdateAsync(organization);
         }
 
-        public async Task CreateAsync(string userId, string name, string description = "")
+        public async Task CreateAsync(Guid id, string userId, string name, string description = "")
         {
             if (name.Empty())
                 throw new ServiceException("Organization name can not be empty.");
@@ -56,13 +56,13 @@ namespace Warden.Services.Organizations.Services
                 throw new ServiceException($"There's already an organization with name: '{name}' " +
                                            $"for user with id: '{userId}'.");
 
-            var organization = new Organization(name, userValue.Value, description);
+            var organization = new Organization(id, name, userValue.Value, description);
             await _organizationRepository.AddAsync(organization);
         }
 
-        public async Task CreateDefaultAsync(string userId)
+        public async Task CreateDefaultAsync(Guid id, string userId)
         {
-            await CreateAsync(userId, DefaultOrganizationName, $"{DefaultOrganizationName} description.");
+            await CreateAsync(id, userId, DefaultOrganizationName, $"{DefaultOrganizationName} description.");
         }
 
         public async Task DeleteAsync(Guid id, string userId)

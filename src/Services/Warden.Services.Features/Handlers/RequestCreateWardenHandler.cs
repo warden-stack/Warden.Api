@@ -31,7 +31,8 @@ namespace Warden.Services.Features.Handlers
                 UserId = command.UserId,
                 Name = command.Name,
                 WardenId = command.WardenId,
-                OrganizationId = command.OrganizationId
+                OrganizationId = command.OrganizationId,
+                Enabled = command.Enabled
             });
         }
     }

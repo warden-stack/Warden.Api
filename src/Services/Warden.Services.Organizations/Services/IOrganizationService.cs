@@ -11,8 +11,8 @@ namespace Warden.Services.Organizations.Services
         Task<Maybe<Organization>> GetAsync(Guid id);
         Task<Maybe<PagedResult<Organization>>> BrowseAsync(string userId);
         Task UpdateAsync(Guid id, string name, string userId);
-        Task CreateAsync(string userId, string name, string description = "");
-        Task CreateDefaultAsync(string userId);
+        Task CreateAsync(Guid id, string userId, string name, string description = "");
+        Task CreateDefaultAsync(Guid id, string userId);
         Task DeleteAsync(Guid id, string userId);
         Task AssignUserAsync(Guid organizationId, string userId, string email, string role);
         Task UnassignUserAsync(Guid organizationId, string userId);

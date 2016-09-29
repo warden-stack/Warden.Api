@@ -9,12 +9,14 @@ using Warden.Common.Events.ApiKeys;
 using Warden.Common.Events.Features;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.Storage.Handlers;
 using Warden.Services.Storage.Providers;
 using Warden.Services.Storage.Repositories;
+using Warden.Services.Storage.Services;
 using Warden.Services.Storage.Settings;
 
 namespace Warden.Services.Storage.Framework
@@ -43,6 +45,9 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<ApiKeyRepository>().As<IApiKeyRepository>();
                 builder.RegisterType<UserRepository>().As<IUserRepository>();
                 builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
+                builder.RegisterType<WardenCheckResultRootRepository>().As<IWardenCheckResultRootRepository>();
+                builder.RegisterType<WardenService>().As<IWardenService>();
+                builder.RegisterType<WardenCheckResultRootService>().As<IWardenCheckResultRootService>();
                 builder.RegisterType<ServiceClient>().As<IServiceClient>();
                 builder.RegisterType<ProviderClient>().As<IProviderClient>();
                 builder.RegisterType<ApiKeyProvider>().As<IApiKeyProvider>();
@@ -51,6 +56,9 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
                 builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
                 builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
+                builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
+                builder.RegisterType<WardenCheckResultProcessedHandler>()
+                    .As<IEventHandler<WardenCheckResultProcessed>>();
                 builder.RegisterType<UserProvider>().As<IUserProvider>();
                 builder.RegisterModule<MapperModule>();
             });

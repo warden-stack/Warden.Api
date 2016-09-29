@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Warden.Services.Organizations.Services
+namespace Warden.Services.WardenChecks.Services
 {
     public interface IWardenService
     {

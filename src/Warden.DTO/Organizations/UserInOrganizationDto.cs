@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warden.DTO.Users
+namespace Warden.DTO.Organizations
 {
     public class UserInOrganizationDto
     {

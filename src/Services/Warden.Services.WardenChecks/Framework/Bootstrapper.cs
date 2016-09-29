@@ -5,7 +5,11 @@ using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Commands;
+using Warden.Common.Commands.WardenChecks;
 using Warden.Common.Commands.Wardens;
+using Warden.Common.Events;
+using Warden.Common.Events.Organizations;
+using Warden.Common.Events.Wardens;
 using Warden.Services.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
@@ -37,11 +41,16 @@ namespace Warden.Services.WardenChecks.Framework
                 builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
                 builder.RegisterType<WardenCheckResultRootMinifiedRepository>()
                     .As<IWardenCheckResultRootMinifiedRepository>();
+                builder.RegisterType<WardenService>().As<IWardenService>();
                 builder.RegisterType<WardenCheckStorage>().As<IWardenCheckStorage>();
                 builder.RegisterType<WardenCheckService>().As<IWardenCheckService>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
-                builder.RegisterType<RequestProcessWardenCheckResultHandler>()
-                    .As<ICommandHandler<RequestProcessWardenCheckResult>>();
+                builder.RegisterType<ProcessWardenCheckResultHandler>()
+                    .As<ICommandHandler<ProcessWardenCheckResult>>();
+                builder.RegisterType<OrganizationCreatedHandler>()
+                    .As<IEventHandler<OrganizationCreated>>();
+                builder.RegisterType<WardenCreatedHandler>()
+                    .As<IEventHandler<WardenCreated>>();
             });
             LifetimeScope = container;
         }

@@ -7,7 +7,7 @@ namespace Warden.Services.WardenChecks.Services
 {
     public interface IWardenCheckService
     {
-        Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(Guid organizationId,
-            Guid wardenId, object checkResut, DateTime createdAt);
+        Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(string userId, 
+            Guid organizationId, Guid wardenId, object checkResult, DateTime createdAt);
     }
 }

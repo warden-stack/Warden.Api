@@ -13,8 +13,8 @@
 
         public WatcherCheckResultMinified(WatcherCheckResult check)
         {
-            n = check.Watcher.Name;
-            t = check.Watcher.Type;
+            n = check.WatcherName;
+            t = check.WatcherType;
             d = check.Description;
             v = check.IsValid;
         }

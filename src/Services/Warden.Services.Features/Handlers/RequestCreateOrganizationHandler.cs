@@ -27,6 +27,7 @@ namespace Warden.Services.Features.Handlers
 
             await _bus.PublishAsync(new CreateOrganization
             {
+                OrganizationId = command.OrganizationId,
                 UserId = command.UserId,
                 Name = command.Name,
                 Description = command.Description

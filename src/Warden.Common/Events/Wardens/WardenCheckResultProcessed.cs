@@ -17,7 +17,8 @@ namespace Warden.Common.Events.Wardens
         public WardenCheckResultProcessed(string userId,
             Guid organizationId,
             Guid wardenId,
-            object result, DateTime createdAt)
+            object result, 
+            DateTime createdAt)
         {
             UserId = userId;
             OrganizationId = organizationId;

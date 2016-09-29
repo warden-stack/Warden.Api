@@ -17,18 +17,19 @@ namespace Warden.Services.WardenChecks.Services
             _organizationRepository = organizationRepository;
         }
 
-        public async Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(Guid organizationId,
-            Guid wardenId, object checkResut, DateTime createdAt)
+        public async Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(string userId, 
+            Guid organizationId, Guid wardenId, object checkResult, DateTime createdAt)
         {
-            if (checkResut == null)
+            if (checkResult == null)
                 return new Maybe<WardenCheckResultRoot>();
 
-            var serializedResult = JsonConvert.SerializeObject(checkResut);
+            var serializedResult = JsonConvert.SerializeObject(checkResult);
             var result = JsonConvert.DeserializeObject<WardenCheckResult>(serializedResult);
             await ValidateCheckResultAsync(organizationId, wardenId, result);
 
             return new WardenCheckResultRoot
             {
+                UserId = userId,
                 Result = result,
                 WardenId = wardenId,
                 OrganizationId = organizationId,
@@ -44,14 +45,14 @@ namespace Warden.Services.WardenChecks.Services
                 throw new ArgumentNullException(nameof(check.WatcherCheckResult),
                     "Watcher check result can not be null.");
             }
-            if (check.WatcherCheckResult.Watcher == null)
-            {
-                throw new ArgumentNullException(nameof(check.WatcherCheckResult),
-                    "Watcher an not be null.");
-            }
-            if (check.WatcherCheckResult.Watcher.Name.Empty())
+            //if (check.WatcherCheckResult.Watcher == null)
+            //{
+            //    throw new ArgumentNullException(nameof(check.WatcherCheckResult),
+            //        "Watcher an not be null.");
+            //}
+            if (check.WatcherCheckResult.WatcherName.Empty())
                 throw new ArgumentException("Watcher name can not be empty.");
-            if (check.WatcherCheckResult.Watcher.Type.Empty())
+            if (check.WatcherCheckResult.WatcherType.Empty())
                 throw new ArgumentException("Watcher type can not be empty.");
 
             var organization = await _organizationRepository.GetAsync(organizationId);

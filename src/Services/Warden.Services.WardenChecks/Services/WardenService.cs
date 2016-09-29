@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Warden.Services.Organizations.Repositories;
+using Warden.Services.WardenChecks.Repositories;
 
-namespace Warden.Services.Organizations.Services
+namespace Warden.Services.WardenChecks.Services
 {
     public class WardenService : IWardenService
     {
-        private readonly IUserRepository _userRepository;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public WardenService(IUserRepository userRepository,
-            IOrganizationRepository organizationRepository)
+        public WardenService(IOrganizationRepository organizationRepository)
         {
-            _userRepository = userRepository;
             _organizationRepository = organizationRepository;
         }
 
@@ -23,17 +20,13 @@ namespace Warden.Services.Organizations.Services
             if (organization.HasNoValue)
                 throw new ArgumentException($"Organization {organizationId} has not been found.");
 
-            var user = await _userRepository.GetAsync(userId);
-            if (user.HasNoValue)
-                throw new ArgumentException($"User {userId} has not been found.");
-
             if (organization.Value.OwnerId != userId)
             {
                 throw new ArgumentException($"User {userId} has no rights to access " +
                                             $"organization {organization.Value.Id}.");
             }
 
-            organization.Value.AddWarden(id, user.Value, name, enabled);
+            organization.Value.AddWarden(id, userId, name, enabled);
             await _organizationRepository.UpdateAsync(organization.Value);
         }
 

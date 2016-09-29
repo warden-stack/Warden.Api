@@ -14,7 +14,7 @@ namespace Warden.Services.Storage.Queries
         public static IMongoCollection<OrganizationDto> Organizations(this IMongoDatabase database)
             => database.GetCollection<OrganizationDto>();
 
-        public static async Task<OrganizationDto> GetByIdAsync(this IMongoCollection<OrganizationDto> organizations,
+        public static async Task<OrganizationDto> GetAsync(this IMongoCollection<OrganizationDto> organizations,
             Guid id)
         {
             if (id == Guid.Empty)
@@ -51,7 +51,7 @@ namespace Warden.Services.Storage.Queries
             BrowseOrganizations query)
         {
             var values = organizations.AsQueryable();
-            if (query.UserId.Empty())
+            if (query.UserId.Empty() == false)
                 values = values.Where(x => x.Users.Any(u => u.UserId == query.UserId));
             if (query.OwnerId.Empty() == false)
                 values = values.Where(x => x.OwnerId == query.OwnerId);

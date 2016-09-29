@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.DTO.Organizations;
@@ -17,7 +18,10 @@ namespace Warden.Services.Storage.Repositories
             _database = database;
         }
 
-        public async Task<PagedResult<OrganizationDto>> BrowseAsync(string userId, string ownerId, int page = 1, int results = 10)
+        public async Task<Maybe<OrganizationDto>> GetAsync(Guid id)
+            => await _database.Organizations().GetAsync(id);
+
+        public async Task<Maybe<PagedResult<OrganizationDto>>> BrowseAsync(string userId, string ownerId, int page = 1, int results = 10)
         {
             var query = new BrowseOrganizations
             {

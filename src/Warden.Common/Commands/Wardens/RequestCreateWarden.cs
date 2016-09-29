@@ -8,5 +8,7 @@ namespace Warden.Common.Commands.Wardens
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public bool Enabled { get; set; }
     }
 }

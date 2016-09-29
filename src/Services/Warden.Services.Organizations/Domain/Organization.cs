@@ -33,8 +33,9 @@ namespace Warden.Services.Organizations.Domain
         {
         }
 
-        public Organization(string name, User owner, string description = "")
+        public Organization(Guid id, string name, User owner, string description = "")
         {
+            Id = id;
             SetName(name);
             SetOwner(owner);
             SetDescription(description);

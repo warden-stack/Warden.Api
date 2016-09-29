@@ -8,5 +8,6 @@ namespace Warden.Common.Commands.Wardens
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; }
         public string Name { get; set; }
+        public bool Enabled { get; set; }
     }
 }
