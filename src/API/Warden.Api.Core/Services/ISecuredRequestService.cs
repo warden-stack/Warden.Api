@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Api.Core.Domain.Security;
-using Warden.Common.DTO.Security;
 using Warden.Common.Types;
+using Warden.DTO.Security;
 
 namespace Warden.Api.Core.Services
 {

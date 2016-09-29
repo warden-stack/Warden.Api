@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Warden.Common.DTO.Organizations;
 using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using System.Linq;
+using Warden.DTO.Organizations;
 
 namespace Warden.Services.Storage.Queries
 {

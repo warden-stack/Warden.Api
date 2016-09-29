@@ -10,6 +10,7 @@
     },
     "Warden.Common": "1.0.0-*",
     "Warden.Services": "1.0.0-*",
+    "Warden.DTO": "1.0.0-*",
     "Autofac": "4.1.0",
     "Nancy": "2.0.0-barneyrubble",
     "NLog.Extensions.Logging": "1.0.0-*",

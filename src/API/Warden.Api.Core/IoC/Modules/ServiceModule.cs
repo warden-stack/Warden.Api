@@ -7,24 +7,12 @@ namespace Warden.Api.Core.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<OrganizationService>()
-                .As<IOrganizationService>()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<WardenService>()
-                .As<IWardenService>()
-                .InstancePerLifetimeScope();
             builder.RegisterType<SecuredRequestService>()
                 .As<ISecuredRequestService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<Encrypter>()
                 .As<IEncrypter>()
                 .InstancePerLifetimeScope();
-
-            //TODO: Register RabbitMQ
-            builder.RegisterType<WardenConfigurationService>()
-                .As<IWardenConfigurationService>()
-                .InstancePerLifetimeScope();
-
             builder.RegisterType<UniqueIdGenerator>()
                 .As<IUniqueIdGenerator>()
                 .SingleInstance();

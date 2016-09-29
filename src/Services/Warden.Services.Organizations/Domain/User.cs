@@ -1,6 +1,4 @@
 ﻿using System;
-using Warden.Common.DTO.Common;
-using Warden.Common.DTO.Users;
 using Warden.Common.Extensions;
 using Warden.Services.Domain;
 
@@ -10,8 +8,8 @@ namespace Warden.Services.Organizations.Domain
     {
         public string UserId { get; set; }
         public string Email { get; protected set; }
-        public Role Role { get; protected set; }
-        public State State { get; protected set; }
+        public string Role { get; protected set; }
+        public string State { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
@@ -19,13 +17,22 @@ namespace Warden.Services.Organizations.Domain
         {
         }
 
-        public User(string email, string userId, Role role = Role.User)
+        public User(string userId, string email, string role, string state)
         {
-            SetEmail(email);
             SetUserId(userId);
-            Role = role;
-            State = State.Inactive;
+            SetEmail(email);
+            SetRole(role);
+            SetState(state);
             CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetUserId(string userId)
+        {
+            if (userId.Empty())
+                throw new DomainException("User id cannot be empty");
+
+            UserId = userId;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -44,12 +51,21 @@ namespace Warden.Services.Organizations.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetUserId(string userId)
+        public void SetRole(string role)
         {
-            if (userId.Empty())
-                throw new DomainException("User id cannot be empty");
+            if (Role == role)
+                return;
 
-            UserId = userId;
+            Role = role;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetState(string state)
+        {
+            if (State == state)
+                return;
+
+            State = state;
             UpdatedAt = DateTime.UtcNow;
         }
     }

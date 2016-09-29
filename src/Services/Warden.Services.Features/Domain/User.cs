@@ -1,6 +1,4 @@
 ﻿using System;
-using Warden.Common.DTO.Common;
-using Warden.Common.DTO.Users;
 using Warden.Common.Extensions;
 using Warden.Services.Domain;
 
@@ -10,22 +8,22 @@ namespace Warden.Services.Features.Domain
     {
         public string UserId { get; set; }
         public string Email { get; protected set; }
-        public Role Role { get; protected set; }
-        public State State { get; protected set; }
+        public string Role { get; protected set; }
+        public string State { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         public Guid? PaymentPlanId { get; protected set; }
-
+        
         protected User()
         {
         }
 
-        public User(string email, string userId, Role role = Role.User)
+        public User(string email, string userId, string role, string state)
         {
             SetEmail(email);
             SetUserId(userId);
-            Role = role;
-            State = State.Inactive;
+            SetRole(role);
+            SetState(state);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -54,7 +52,7 @@ namespace Warden.Services.Features.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetRole(Role role)
+        public void SetRole(string role)
         {
             if (Role == role)
                 return;
@@ -63,30 +61,12 @@ namespace Warden.Services.Features.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void Lock()
+        public void SetState(string state)
         {
-            if(State == State.Locked)
+            if (State == state)
                 return;
 
-            State = State.Locked;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void Activate()
-        {
-            if (State == State.Active)
-                return;
-
-            State = State.Active;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void Delete()
-        {
-            if (State == State.Deleted)
-                return;
-
-            State = State.Deleted;
+            State = state;
             UpdatedAt = DateTime.UtcNow;
         }
 

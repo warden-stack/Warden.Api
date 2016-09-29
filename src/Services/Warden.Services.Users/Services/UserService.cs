@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.DTO.Users;
 using Warden.Common.Types;
 using Warden.Services.Domain;
 using Warden.Services.Users.Domain;
@@ -16,32 +15,26 @@ namespace Warden.Services.Users.Services
             _userRepository = userRepository;
         }
 
-        public async Task<Maybe<UserDto>> GetAsync(string id)
-        {
-            var user = await _userRepository.GetAsync(FixId(id));
-            if (user.HasNoValue)
-                return new Maybe<UserDto>();
+        public async Task<Maybe<User>> GetAsync(string id)
+            => await _userRepository.GetAsync(GetFixedId(id));
 
-            return new UserDto
-            {
-                UserId = user.Value.UserId,
-                Email = user.Value.Email
-            };
-        }
-
-        public async Task CreateAsync(string email, string id, bool activate = true)
+        public async Task CreateAsync(string userId, string email, string role, bool activate = true)
         {
-            var user = await _userRepository.GetByEmailAsync(email);
+            var user = await _userRepository.GetAsync(userId);
+            if (user.HasValue)
+                throw new ServiceException($"User with id: {userId} already exists");
+
+            user = await _userRepository.GetByEmailAsync(email);
             if (user.HasValue)
                 throw new ServiceException($"User with e-mail: {email} already exists");
 
-            user = new User(email, FixId(id));
+            user = new User(GetFixedId(userId), email, role);
             if (activate)
                 user.Value.Activate();
 
             await _userRepository.AddAsync(user.Value);
         }
 
-        private static string FixId(string id) => id.Replace("auth0|", string.Empty);
+        private static string GetFixedId(string userId) => userId.Replace("auth0|", string.Empty);
     }
 }

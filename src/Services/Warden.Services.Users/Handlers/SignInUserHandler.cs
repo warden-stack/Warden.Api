@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NLog;
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Users;
 using Warden.Common.Events.Users;
 using Warden.Services.Users.Auth0;
+using Warden.Services.Users.Domain;
 using Warden.Services.Users.Services;
 
 namespace Warden.Services.Users.Handlers
@@ -34,7 +34,7 @@ namespace Warden.Services.Users.Handlers
             var userId = string.Empty;
             if (user.HasNoValue)
             {
-                await _userService.CreateAsync(auth0User.Email, auth0User.UserId);
+                await _userService.CreateAsync(auth0User.UserId, auth0User.Email, Roles.User);
                 user = await _userService.GetAsync(auth0User.UserId);
                 userId = user.Value.UserId;
                 await _bus.PublishAsync(new NewUserSignedIn(userId, user.Value.Email,
@@ -43,7 +43,7 @@ namespace Warden.Services.Users.Handlers
                 return;
             }
             userId = user.Value.UserId;
-            await _bus.PublishAsync(new UserSignedIn(userId, user.Value.Email, user.Value.Role));
+            await _bus.PublishAsync(new UserSignedIn(userId, user.Value.Email, user.Value.Role, user.Value.State));
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.DTO.Users;
 using Warden.Common.Types;
+using Warden.Services.Users.Domain;
 
 namespace Warden.Services.Users.Services
 {
     public interface IUserService
     {
-        Task<Maybe<UserDto>> GetAsync(string id);
-        Task CreateAsync(string email, string id, bool activate = true);
+        Task<Maybe<User>> GetAsync(string id);
+        Task CreateAsync(string userId, string email, string role, bool activate = true);
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
+using Warden.Common.Types;
 using Warden.Services.Users.Domain;
 using Warden.Services.Mongo;
 
@@ -15,11 +15,11 @@ namespace Warden.Services.Users.Queries
         public static IMongoCollection<ApiKey> ApiKeys(this IMongoDatabase database)
             => database.GetCollection<ApiKey>();
 
-        public static async Task<IEnumerable<ApiKey>> BrowseByUserIdAsync(this IMongoCollection<ApiKey> apiKeys,
+        public static async Task<Maybe<IEnumerable<ApiKey>>> BrowseByUserIdAsync(this IMongoCollection<ApiKey> apiKeys,
             string userId)
         {
             if (userId.Empty())
-                return Enumerable.Empty<ApiKey>();
+                return new Maybe<IEnumerable<ApiKey>>();
 
             return await apiKeys.AsQueryable().Where(x => x.UserId == userId).ToListAsync();
         }

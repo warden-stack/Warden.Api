@@ -14,9 +14,7 @@ namespace Warden.Api.Core.IoC
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule<DispatcherModule>();
-            builder.RegisterModule<MapperModule>();
             builder.RegisterModule<ServiceModule>();
-            builder.RegisterModule<Auth0Module>();
             builder.RegisterModule<StorageModule>();
             //builder.RegisterModule<RedisModule>();
 

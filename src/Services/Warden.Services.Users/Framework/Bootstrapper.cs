@@ -17,7 +17,6 @@ using Warden.Services.Users.Auth0;
 using Warden.Services.Users.Handlers;
 using Warden.Services.Users.Repositories;
 using Warden.Services.Users.Services;
-using Warden.Services.Users.Settings;
 
 namespace Warden.Services.Users.Framework
 {
@@ -39,7 +38,6 @@ namespace Warden.Services.Users.Framework
             {
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
                 builder.RegisterInstance(_configuration.GetSettings<Auth0Settings>());
-                builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>());
                 builder.RegisterModule<MongoDbModule>();
                 builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
                 builder.RegisterType<DatabaseSeeder>().As<IDatabaseSeeder>();

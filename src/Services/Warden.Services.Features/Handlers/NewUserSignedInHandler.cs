@@ -26,10 +26,14 @@ namespace Warden.Services.Features.Handlers
 
         public async Task HandleAsync(NewUserSignedIn @event)
         {
-            await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role));
+            var user = await _userRepository.GetAsync(@event.UserId);
+            if (user.HasValue)
+                return;
+
+            await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role, @event.State));
             await _userPaymentPlanService.CreateDefaultAsync(@event.UserId);
             var plan = await _userPaymentPlanService.GetCurrentPlanAsync(@event.UserId);
-            await _bus.PublishAsync(new UserPaymentPlanCreated(@event.UserId, plan.Value.PlanId,
+            await _bus.PublishAsync(new UserPaymentPlanCreated(@event.UserId, plan.Value.Id,
                 plan.Value.Name, plan.Value.MonthlyPrice));
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Warden.Common.DTO.ApiKeys;
 using Warden.Common.Types;
+using Warden.DTO.ApiKeys;
 
 namespace Warden.Services.Storage.Repositories
 {

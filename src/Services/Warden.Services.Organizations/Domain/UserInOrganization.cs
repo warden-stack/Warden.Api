@@ -1,5 +1,4 @@
 ﻿using System;
-using Warden.Common.DTO.Organizations;
 using Warden.Services.Domain;
 
 namespace Warden.Services.Organizations.Domain

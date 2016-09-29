@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Wardens;
-using Warden.Common.DTO.Wardens;
 using Warden.Services.WardenChecks.Rethink;
 
 namespace Warden.Services.WardenChecks.Handlers
@@ -17,7 +16,7 @@ namespace Warden.Services.WardenChecks.Handlers
 
         public async Task HandleAsync(ProcessWardenCheckResult command)
         {
-            var storage = new WardenCheckResultStorageDto
+            var storage = new
             {
                 Result = command.Result,
                 WardenId = command.WardenId,

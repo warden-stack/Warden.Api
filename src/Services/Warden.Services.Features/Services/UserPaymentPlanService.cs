@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.DTO.Features;
 using Warden.Common.Types;
 using Warden.Services.Domain;
 using Warden.Services.Features.Domain;
@@ -40,22 +39,13 @@ namespace Warden.Services.Features.Services
             await _userRepository.UpdateAsync(user.Value);
         }
 
-        public async Task<Maybe<UserPaymentPlanDto>> GetCurrentPlanAsync(string userId)
+        public async Task<Maybe<UserPaymentPlan>> GetCurrentPlanAsync(string userId)
         {
             var user = await _userRepository.GetAsync(userId);
             if (user.HasNoValue || !user.Value.PaymentPlanId.HasValue)
-                return new Maybe<UserPaymentPlanDto>();
+                return new Maybe<UserPaymentPlan>();
 
-            var plan = await _userPaymentPlanRepository.GetAsync(user.Value.PaymentPlanId.Value);
-            if (plan.HasNoValue)
-                return new Maybe<UserPaymentPlanDto>();
-
-            return new UserPaymentPlanDto
-            {
-                PlanId = plan.Value.Id,
-                Name = plan.Value.Name,
-                MonthlyPrice = plan.Value.MonthlyPrice
-            };
+            return await _userPaymentPlanRepository.GetAsync(user.Value.PaymentPlanId.Value);
         }
     }
 }

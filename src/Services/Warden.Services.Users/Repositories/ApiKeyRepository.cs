@@ -17,7 +17,7 @@ namespace Warden.Services.Users.Repositories
             _database = database;
         }
 
-        public async Task<IEnumerable<ApiKey>> BrowseByUserId(string userId)
+        public async Task<Maybe<IEnumerable<ApiKey>>> BrowseByUserId(string userId)
             => await _database.ApiKeys().BrowseByUserIdAsync(userId);
 
         public async Task<Maybe<ApiKey>> GetAsync(Guid id)

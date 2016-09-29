@@ -8,14 +8,6 @@ namespace Warden.Api.Core.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<OrganizationRepository>()
-                .As<IOrganizationRepository>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<WardenConfigurationRepository>()
-                .As<IWardenConfigurationRepository>()
-                .InstancePerLifetimeScope();
-
             builder.RegisterType<SecuredRequestRepository>()
                 .As<ISecuredRequestRepository>()
                 .InstancePerLifetimeScope();

@@ -7,8 +7,7 @@ namespace Warden.Services.Users.Repositories
 {
     public interface IUserRepository
     {
-        Task<Maybe<User>> GetAsync(Guid id);
-        Task<Maybe<User>> GetAsync(string externalId);
+        Task<Maybe<User>> GetAsync(string userId);
         Task<Maybe<User>> GetByEmailAsync(string email);
         Task AddAsync(User user);
         Task UpdateAsync(User user);

@@ -16,9 +16,7 @@ namespace Warden.Services.Users.Repositories
             _database = database;
         }
 
-        public async Task<Maybe<User>> GetAsync(Guid id) => await _database.Users().GetByIdAsync(id);
-
-        public async Task<Maybe<User>> GetAsync(string externalId) => await _database.Users().GetByExternalIdAsync(externalId);
+        public async Task<Maybe<User>> GetAsync(string userId) => await _database.Users().GetByUserId(userId);
 
         public async Task<Maybe<User>> GetByEmailAsync(string email) => await _database.Users().GetByEmailAsync(email);
 

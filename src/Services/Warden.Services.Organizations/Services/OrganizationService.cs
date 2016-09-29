@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Warden.Common.DTO.Organizations;
-using Warden.Common.DTO.Users;
-using Warden.Common.DTO.Wardens;
-using Warden.Common.DTO.Watchers;
 using Warden.Common.Extensions;
 using Warden.Common.Types;
 using Warden.Services.Domain;
@@ -26,23 +21,11 @@ namespace Warden.Services.Organizations.Services
             _userRepository = userRepository;
         }
 
-        public async Task<PagedResult<OrganizationDto>> BrowseAsync(string userId)
-        {
-            var organizationValues = await _organizationRepository.BrowseAsync(userId, string.Empty);
-            var organizationDtos = organizationValues.Items.Select(MapToDto);
-            var organizations = PagedResult<OrganizationDto>.From(organizationValues, organizationDtos);
+        public async Task<Maybe<Organization>> GetAsync(Guid id)
+            => await _organizationRepository.GetAsync(id);
 
-            return organizations;
-        }
-
-        public async Task<Maybe<OrganizationDto>> GetAsync(Guid id)
-        {
-            var organizationValue = await _organizationRepository.GetAsync(id);
-            if (organizationValue.HasNoValue)
-                return new Maybe<OrganizationDto>();
-
-            return MapToDto(organizationValue.Value);
-        }
+        public async Task<Maybe<PagedResult<Organization>>> BrowseAsync(string userId) 
+            => await _organizationRepository.BrowseAsync(userId, string.Empty);
 
         public async Task UpdateAsync(Guid id, string name, string userId)
         {
@@ -143,34 +126,5 @@ namespace Warden.Services.Organizations.Services
 
             return userValue.Value;
         }
-
-        private static OrganizationDto MapToDto(Organization organization)
-            => new OrganizationDto
-            {
-                Id = organization.Id,
-                Name = organization.Name,
-                Description = organization.Description,
-                OwnerId = organization.OwnerId,
-                AutoRegisterNewWarden = organization.AutoRegisterNewWarden,
-                Users = organization.Users.Select(x => new UserInOrganizationDto
-                {
-                    UserId = x.UserId,
-                    Email = x.Email,
-                    Role = x.Role,
-                    CreatedAt = x.CreatedAt
-                }),
-                Wardens = organization.Wardens.Select(x => new WardenDto
-                {
-                    Id = x.Id,
-                    CreatedAt = x.CreatedAt,
-                    Name = x.Name,
-                    Enabled = x.Enabled,
-                    Watchers = x.Watchers.Select(w => new WatcherDto
-                    {
-                        Name = w.Name,
-                        Type = w.Type
-                    })
-                })
-            };
     }
 }

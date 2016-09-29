@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.DTO.Users;
+using Warden.Services.Users.Domain;
 
 namespace Warden.Services.Users.Auth0
 {
     public interface IAuth0RestClient
     {
-        Task<Auth0UserDto> GetUserAsync(string externalId);
-        Task<Auth0UserDto> GetUserByAccessTokenAsync(string accessToken);
+        Task<Auth0User> GetUserAsync(string userId);
+        Task<Auth0User> GetUserByAccessTokenAsync(string accessToken);
     }
 }

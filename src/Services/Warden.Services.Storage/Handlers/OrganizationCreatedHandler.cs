@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.DTO.Organizations;
-using Warden.Common.DTO.Users;
 using Warden.Common.Events;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
+using Warden.DTO.Organizations;
 using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Handlers

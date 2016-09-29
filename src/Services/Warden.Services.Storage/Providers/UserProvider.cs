@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.DTO.Users;
 using Warden.Common.Types;
+using Warden.DTO.Users;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 

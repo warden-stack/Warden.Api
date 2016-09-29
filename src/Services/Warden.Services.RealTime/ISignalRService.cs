@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR;
-using Warden.Common.DTO.Wardens;
 
 namespace Warden.Services.RealTime
 {
     public interface ISignalRService
     {
-        void SendCheckResultSaved(Guid organizationId, Guid wardenId, WardenCheckResultDto checkResult);
+        void SendCheckResultSaved(Guid organizationId, Guid wardenId, object checkResult);
     }
 
     public class SignalRService : ISignalRService
@@ -18,7 +17,7 @@ namespace Warden.Services.RealTime
             _hub = hub;
         }
 
-        public void SendCheckResultSaved(Guid organizationId, Guid wardenId, WardenCheckResultDto checkResult)
+        public void SendCheckResultSaved(Guid organizationId, Guid wardenId, object checkResult)
         {
             var groupName = GetWardenGroupName(organizationId, wardenId);
             _hub.Clients.Group(groupName).checkSaved(checkResult);

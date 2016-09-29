@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.DTO.ApiKeys;
 using Warden.Common.Events;
 using Warden.Common.Events.ApiKeys;
+using Warden.DTO.ApiKeys;
 using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Handlers

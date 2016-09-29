@@ -1,23 +1,22 @@
-﻿using Warden.Common.DTO.Common;
-using Warden.Common.DTO.Users;
-
-namespace Warden.Common.Events.Users
+﻿namespace Warden.Common.Events.Users
 {
     public class UserSignedIn : IAuthenticatedEvent
     {
         public string UserId { get; set; }
         public string Email { get; }
-        public Role Role { get; }
+        public string Role { get; }
+        public string State { get; }
 
         protected UserSignedIn()
         {
         }
 
-        public UserSignedIn(string userId, string email, Role role)
+        public UserSignedIn(string userId, string email, string role, string state)
         {
             UserId = userId;
             Email = email;
             Role = role;
+            State = state;
         }
     }
 }

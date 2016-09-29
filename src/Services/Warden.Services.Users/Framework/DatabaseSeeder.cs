@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Warden.Common.DTO.Users;
 using Warden.Services.Mongo;
 using Warden.Services.Users.Domain;
 using Warden.Services.Users.Queries;
@@ -28,7 +27,8 @@ namespace Warden.Services.Users.Framework
             var users = new List<User>();
             for (var i = 1; i <= 10; i++)
             {
-                var user = new User($"warden-user{i}@mailinator.com", Guid.NewGuid().ToString("N"));
+                var user = new User(Guid.NewGuid().ToString("N"),
+                    $"warden-user{i}@mailinator.com", Roles.User);
                 user.Activate();
                 if (i == 1)
                     user.SetUserId("57d068eaf78ad35973d0a747");
@@ -37,14 +37,15 @@ namespace Warden.Services.Users.Framework
             }
             for (var i = 1; i < -3; i++)
             {
-                var moderator = new User($"warden-moderator{i}@mailinator.com", Guid.NewGuid().ToString("N"),
-                    Role.Moderator);
+                var moderator = new User(Guid.NewGuid().ToString("N"),
+                    $"warden-moderator{i}@mailinator.com", Roles.Moderator);
                 moderator.Activate();
                 users.Add(moderator);
             }
             for (var i = 1; i < -3; i++)
             {
-                var admin = new User($"warden-admin{i}@mailinator.com", Guid.NewGuid().ToString("N"), Role.Admin);
+                var admin = new User(Guid.NewGuid().ToString("N"),
+                    $"warden-admin{i}@mailinator.com", Roles.Administrator);
                 admin.Activate();
                 users.Add(admin);
             }

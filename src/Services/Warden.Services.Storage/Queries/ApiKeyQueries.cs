@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Warden.Common.DTO.ApiKeys;
 using Warden.Common.Extensions;
 using Warden.Common.Types;
+using Warden.DTO.ApiKeys;
 using Warden.Services.Mongo;
 
 namespace Warden.Services.Storage.Queries

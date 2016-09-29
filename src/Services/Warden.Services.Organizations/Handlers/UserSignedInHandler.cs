@@ -35,14 +35,14 @@ namespace Warden.Services.Organizations.Handlers
                 return;
             }
 
-            await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role));
+            await _userRepository.AddAsync(new User(@event.UserId, @event.Email, @event.Role, @event.State));
             await CreateDefaultOrganizationIfRequiredAsync(@event.UserId);
         }
 
         private async Task CreateDefaultOrganizationIfRequiredAsync(string userId)
         {
             var organizations = await _organizationService.BrowseAsync(userId);
-            if (organizations.Items.Any())
+            if (organizations.HasValue && organizations.Value.Items.Any())
                 return;
 
             await _organizationService.CreateDefaultAsync(userId);

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Warden.Common.DTO.Common;
-using Warden.Common.DTO.Users;
 using Warden.Common.Events;
 using Warden.Common.Events.Users;
+using Warden.DTO.Users;
 using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Handlers
@@ -29,7 +28,7 @@ namespace Warden.Services.Storage.Handlers
                 UserId = @event.UserId,
                 Email = @event.Email,
                 Role = @event.Role,
-                State = State.Active,
+                State = @event.State,
                 CreatedAt = DateTime.UtcNow
             });
         }

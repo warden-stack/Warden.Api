@@ -1,5 +1,4 @@
 ﻿using System;
-using Warden.Common.DTO.Wardens;
 
 namespace Warden.Common.Commands.Wardens
 {
@@ -8,7 +7,7 @@ namespace Warden.Common.Commands.Wardens
         public string UserId { get; set; }
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
-        public WardenCheckResultDto Result { get; }
+        public object Result { get; }
         public DateTime CreatedAt { get; }
 
         protected ProcessWardenCheckResult()
@@ -18,7 +17,7 @@ namespace Warden.Common.Commands.Wardens
         public ProcessWardenCheckResult(string userId,
             Guid organizationId,
             Guid wardenId,
-            WardenCheckResultDto result, DateTime createdAt)
+            object result, DateTime createdAt)
         {
             UserId = userId;
             OrganizationId = organizationId;

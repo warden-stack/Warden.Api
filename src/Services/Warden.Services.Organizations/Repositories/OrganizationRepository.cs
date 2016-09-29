@@ -18,7 +18,7 @@ namespace Warden.Services.Organizations.Repositories
             _database = database;
         }
 
-        public async Task<PagedResult<Organization>> BrowseAsync(string userId, string ownerId,
+        public async Task<Maybe<PagedResult<Organization>>> BrowseAsync(string userId, string ownerId,
             int page = 1, int results = 10)
         {
             var query = new BrowseOrganizations

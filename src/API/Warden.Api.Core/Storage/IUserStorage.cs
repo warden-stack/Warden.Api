@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.DTO.Users;
 using Warden.Common.Types;
+using Warden.DTO.Users;
 
 namespace Warden.Api.Core.Storage
 {

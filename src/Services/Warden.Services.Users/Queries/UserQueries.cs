@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
@@ -13,15 +12,7 @@ namespace Warden.Services.Users.Queries
         public static IMongoCollection<User> Users(this IMongoDatabase database)
             => database.GetCollection<User>();
 
-        public static async Task<User> GetByIdAsync(this IMongoCollection<User> users, Guid id)
-        {
-            if (id.IsEmpty())
-                return null;
-
-            return await users.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public static async Task<User> GetByExternalIdAsync(this IMongoCollection<User> users, string externalId)
+        public static async Task<User> GetByUserId(this IMongoCollection<User> users, string externalId)
         {
             if (externalId.Empty())
                 return null;

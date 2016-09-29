@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Warden.Common.DTO.Organizations;
 using Warden.Common.Extensions;
 using Warden.Services.Domain;
 

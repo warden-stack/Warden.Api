@@ -31,7 +31,7 @@ namespace Warden.Services.WardenChecks.Framework
             container.Update(builder =>
             {
                 builder.RegisterInstance(_configuration.GetSettings<RethinkDbSettings>());
-                builder.RegisterType<RethinkDbWardenCheckStorage>().As<IWardenCheckStorage>();
+                //builder.RegisterType<RethinkDbWardenCheckStorage>().As<IWardenCheckStorage>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
                 builder.RegisterType<ProcessWardenCheckResultHandler>().As<ICommandHandler<ProcessWardenCheckResult>>();
             });

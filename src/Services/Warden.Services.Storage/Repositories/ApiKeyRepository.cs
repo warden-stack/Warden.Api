@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Warden.Common.DTO.ApiKeys;
 using Warden.Common.Types;
+using Warden.DTO.ApiKeys;
 using Warden.Services.Storage.Queries;
 
 namespace Warden.Services.Storage.Repositories
