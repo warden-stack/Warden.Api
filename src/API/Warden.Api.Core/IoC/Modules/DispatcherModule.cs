@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Warden.Api.Core.Commands;
 using Warden.Api.Core.Events;
 using Module = Autofac.Module;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Warden.Services.Domain
+namespace Warden.Common.Types
 {
     public class PagedResult<T> : PagedResultBase
     {

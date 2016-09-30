@@ -1,4 +1,6 @@
-﻿namespace Warden.Services.Domain
+﻿using Warden.Common.Types;
+
+namespace Warden.Services.Domain
 {
     public interface IAuthenticatedQuery : IQuery
     {

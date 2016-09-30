@@ -16,6 +16,7 @@ namespace Warden.Api.Core.IoC
             builder.RegisterModule<DispatcherModule>();
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<StorageModule>();
+            builder.RegisterModule<FilterModule>();
             //builder.RegisterModule<RedisModule>();
 
             return builder.Build();

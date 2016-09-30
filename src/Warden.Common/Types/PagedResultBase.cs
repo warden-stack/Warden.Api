@@ -1,4 +1,4 @@
-﻿namespace Warden.Services.Domain
+﻿namespace Warden.Common.Types
 {
     public abstract class PagedResultBase
     {

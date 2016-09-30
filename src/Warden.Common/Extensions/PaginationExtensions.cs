@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Threading.Tasks;
-using MongoDB.Driver.Linq;
-using Warden.Services.Domain;
-using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 using Warden.Common.Types;
 
-namespace Warden.Services.Mongo
+namespace Warden.Common.Extensions
 {
-    public static class Pagination
+    public static class PaginationExtensions
     {
-        public static async Task<PagedResult<T>> PaginateAsync<T>(this IMongoQueryable<T> collection, PagedQueryBase query)
-            => await collection.PaginateAsync(query.Page, query.Results);
+        public static PagedResult<T> PaginateWithoutLimit<T>(this IEnumerable<T> values)
+            => values.Paginate(1, int.MaxValue);
 
-        public static async Task<PagedResult<T>> PaginateAsync<T>(this IMongoQueryable<T> collection,
+        public static PagedResult<T> Paginate<T>(this IEnumerable<T> values, IPagedQuery query)
+            => values.Paginate(query.Page, query.Results);
+
+        public static PagedResult<T> Paginate<T>(this IEnumerable<T> values,
             int page = 1, int resultsPerPage = 10)
         {
             if (page <= 0)
@@ -21,21 +22,21 @@ namespace Warden.Services.Mongo
             if (resultsPerPage <= 0)
                 resultsPerPage = 10;
 
-            var isEmpty = await collection.AnyAsync() == false;
+            var isEmpty = values.Any() == false;
             if (isEmpty)
                 return PagedResult<T>.Empty;
 
-            var totalResults = await collection.CountAsync();
+            var totalResults = values.Count();
             var totalPages = (int)Math.Ceiling((decimal)totalResults / resultsPerPage);
-            var data = await collection.Limit(page, resultsPerPage).ToListAsync();
+            var data = values.Limit(page, resultsPerPage).ToList();
 
             return PagedResult<T>.Create(data, page, resultsPerPage, totalPages, totalResults);
         }
 
-        public static IMongoQueryable<T> Limit<T>(this IMongoQueryable<T> collection, PagedQueryBase query)
+        public static IEnumerable<T> Limit<T>(this IEnumerable<T> collection, IPagedQuery query)
             => collection.Limit(query.Page, query.Results);
 
-        public static IMongoQueryable<T> Limit<T>(this IMongoQueryable<T> collection,
+        public static IEnumerable<T> Limit<T>(this IEnumerable<T> collection,
             int page = 1, int resultsPerPage = 10)
         {
             if (page <= 0)

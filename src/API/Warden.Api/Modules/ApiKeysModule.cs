@@ -19,7 +19,7 @@ namespace Warden.Api.Modules
             {
                 var apiKeys = await _apiKeyStorage.BrowseAsync(CurrentUserId);
 
-                return apiKeys.HasValue ? apiKeys.Value : new List<string>();
+                return FromPagedResult(apiKeys);
             });
 
             Post("/", async args =>

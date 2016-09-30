@@ -37,6 +37,7 @@ namespace Warden.Api.Framework
                     .As<IBusClient>();
                 builder.RegisterModule<DispatcherModule>();
                 builder.RegisterModule<StorageModule>();
+                builder.RegisterModule<FilterModule>();
                 builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {

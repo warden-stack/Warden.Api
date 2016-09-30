@@ -1,4 +1,4 @@
-﻿namespace Warden.Api.Core.Queries
+﻿namespace Warden.Common.Types
 {
     public abstract class PagedQueryBase : IQuery
     {
