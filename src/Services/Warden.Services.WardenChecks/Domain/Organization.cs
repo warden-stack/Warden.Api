@@ -11,7 +11,7 @@ namespace Warden.Services.WardenChecks.Domain
         private HashSet<Warden> _wardens = new HashSet<Warden>();
 
         public string Name { get; protected set; }
-        public string Description { get; set; }
+        public string Description { get; protected set; }
         public string OwnerId { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }

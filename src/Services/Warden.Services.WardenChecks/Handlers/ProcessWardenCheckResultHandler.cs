@@ -2,7 +2,6 @@
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Commands.WardenChecks;
-using Warden.Common.Commands.Wardens;
 using Warden.Common.Events.Wardens;
 using Warden.Services.WardenChecks.Services;
 

@@ -35,7 +35,6 @@ namespace Warden.Services.WardenChecks.Domain
             UpdatedAt = DateTime.UtcNow;
             if (enabled)
                 Enable();
-
         }
 
         public void SetName(string name)

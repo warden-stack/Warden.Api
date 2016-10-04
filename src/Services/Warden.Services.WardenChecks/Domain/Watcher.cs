@@ -5,8 +5,8 @@ namespace Warden.Services.WardenChecks.Domain
 {
     public class Watcher
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public string Name { get; protected set; }
+        public string Type { get; protected set; }
 
         protected Watcher()
         {
