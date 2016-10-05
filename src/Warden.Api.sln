@@ -9,11 +9,6 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Api.Tests", "API\War
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Api.Tests.EndToEnd", "API\Warden.Api.Tests.EndToEnd\Warden.Api.Tests.EndToEnd.xproj", "{2C5E8AEA-645F-4182-AD38-B2B01DCD0803}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7DA85ECD-4C38-48F5-95AA-4F1386EB5FE7}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{27BF0A76-7B2C-46C9-8966-FD2AA73FE4FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81205A22-A8D8-48BE-986C-3CE0AFE01CAA}"
