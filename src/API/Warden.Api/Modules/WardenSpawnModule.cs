@@ -1,19 +1,17 @@
 ﻿using Warden.Api.Core.Commands;
-using Warden.Api.Modules.Base;
 using Warden.Common.Commands.Wardens;
 
 namespace Warden.Api.Modules
 {
-    public class WardenSpawnModule : AuthenticatedModule
+    public class WardenSpawnModule : ModuleBase
     {
-        public WardenSpawnModule(ICommandDispatcher commandDispatcher) 
-            : base(commandDispatcher, modulePath: "warden/spawn")
+        public WardenSpawnModule(ICommandDispatcher commandDispatcher)
+            : base(commandDispatcher, modulePath: "warden-spawn")
         {
-            Post("/", async args =>
-            {
-                var command = BindAuthenticatedCommand<SpawnWarden>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Post("/", async args => await For<SpawnWarden>()
+                .SetResourceId(x => x.WardenSpawnId)
+                .OnSuccessCreated("warden-spawn/{0}")
+                .DispatchAsync());
         }
     }
 }

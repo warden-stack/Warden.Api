@@ -16,7 +16,7 @@ namespace Warden.Services.Users.Services
         }
 
         public async Task<Maybe<User>> GetAsync(string id)
-            => await _userRepository.GetAsync(GetFixedId(id));
+            => await _userRepository.GetAsync(id);
 
         public async Task CreateAsync(string userId, string email, string role, bool activate = true)
         {
@@ -28,13 +28,11 @@ namespace Warden.Services.Users.Services
             if (user.HasValue)
                 throw new ServiceException($"User with e-mail: {email} already exists");
 
-            user = new User(GetFixedId(userId), email, role);
+            user = new User(userId, email, role);
             if (activate)
                 user.Value.Activate();
 
             await _userRepository.AddAsync(user.Value);
         }
-
-        private static string GetFixedId(string userId) => userId.Replace("auth0|", string.Empty);
     }
 }

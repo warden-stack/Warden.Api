@@ -9,5 +9,6 @@ namespace Warden.Common.Commands.Wardens
         public object Configuration { get; set; }
         public string Token { get; set; }
         public string Region { get; set; }
+        public Guid WardenSpawnId { get; set; }
     }
 }

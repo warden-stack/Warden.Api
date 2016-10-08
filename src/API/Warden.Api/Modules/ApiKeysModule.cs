@@ -1,38 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using Nancy;
 using Warden.Api.Core.Commands;
 using Warden.Api.Core.Storage;
-using Warden.Api.Modules.Base;
 using Warden.Common.Commands.ApiKeys;
 
 namespace Warden.Api.Modules
 {
-    public class ApiKeysModule : AuthenticatedModule
+    public class ApiKeysModule : ModuleBase
     {
-        private readonly IApiKeyStorage _apiKeyStorage;
 
         public ApiKeysModule(ICommandDispatcher commandDispatcher,
-            IApiKeyStorage apiKeyStorage) 
+            IApiKeyStorage apiKeyStorage)
             : base(commandDispatcher, modulePath: "api-keys")
         {
-            _apiKeyStorage = apiKeyStorage;
             Get("/", async args =>
             {
-                var apiKeys = await _apiKeyStorage.BrowseAsync(CurrentUserId);
+                var apiKeys = await apiKeyStorage.BrowseAsync(CurrentUserId);
 
                 return FromPagedResult(apiKeys);
             });
 
-            Post("/", async args =>
-            {
-                var command = BindAuthenticatedCommand<RequestNewApiKey>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Post("/", async args => await For<RequestNewApiKey>()
+                .OnSuccess(HttpStatusCode.NoContent)
+                .DispatchAsync());
 
-            Delete("/", async args =>
-            {
-                var command = BindAuthenticatedCommand<DeleteApiKey>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Delete("/", async args => await For<DeleteApiKey>()
+                .OnSuccess(HttpStatusCode.NoContent)
+                .DispatchAsync());
         }
     }
 }

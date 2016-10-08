@@ -1,31 +1,26 @@
-﻿using Warden.Api.Core.Commands;
-using Warden.Api.Modules.Base;
+﻿using Nancy;
+using Warden.Api.Core.Commands;
 using Warden.Common.Commands.Organizations;
 
 namespace Warden.Api.Modules
 {
-    public class OrganizationsModule : AuthenticatedModule
+    public class OrganizationsModule : ModuleBase
     {
-        public OrganizationsModule(ICommandDispatcher commandDispatcher) 
+        public OrganizationsModule(ICommandDispatcher commandDispatcher)
             : base(commandDispatcher, modulePath: "organizations")
         {
-            Post("/", async args =>
-            {
-                var command = BindAuthenticatedCommand<RequestCreateOrganization>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Post("/", async args => await For<RequestCreateOrganization>()
+                .SetResourceId(x => x.OrganizationId)
+                .OnSuccessCreated("organizations/{0}")
+                .DispatchAsync());
 
-            Put("/{id}", async args =>
-            {
-                var command = BindAuthenticatedCommand<EditOrganization>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Put("/{id}", async args => await For<EditOrganization>()
+                .OnSuccess(HttpStatusCode.NoContent)
+                .DispatchAsync());
 
-            Delete("/{id}", async args =>
-            {
-                var command = BindAuthenticatedCommand<DeleteOrganization>();
-                await CommandDispatcher.DispatchAsync(command);
-            });
+            Delete("/{id}", async args => await For<DeleteOrganization>()
+                .OnSuccess(HttpStatusCode.NoContent)
+                .DispatchAsync());
         }
     }
 }
