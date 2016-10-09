@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
@@ -25,13 +22,14 @@ namespace Warden.Services.Storage.Queries
             return await apiKeys.FirstOrDefaultAsync(x => x.Key == key);
         }
 
-        public static async Task<Maybe<IEnumerable<ApiKeyDto>>> BrowseAsync(this IMongoCollection<ApiKeyDto> apiKeys,
-            string userId)
+        public static IMongoQueryable<ApiKeyDto> Query(this IMongoCollection<ApiKeyDto> apiKeys,
+            BrowseApiKeys query)
         {
-            if (userId.Empty())
-                return new Maybe<IEnumerable<ApiKeyDto>>();
+            var values = apiKeys.AsQueryable();
+            if (!query.UserId.Empty())
+                values = values.Where(x => x.UserId == query.UserId);
 
-            return await apiKeys.AsQueryable().Where(x => x.UserId == userId).ToListAsync();
+            return values;
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Warden.Api.Core.Filters;
 using Warden.Common.Types;
+using Warden.DTO.ApiKeys;
 
 namespace Warden.Api.Core.Storage
 {
@@ -16,7 +17,7 @@ namespace Warden.Api.Core.Storage
         public async Task<Maybe<string>> GetUserIdForApiKeyAsync(string apiKey)
             => await _storageClient.GetUsingCacheAsync<string>($"api-keys/{apiKey}");
 
-        public async Task<Maybe<PagedResult<string>>> BrowseAsync(string userId)
-            => await _storageClient.GetCollectionUsingCacheAsync<string>($"users/{userId}/api-keys");
+        public async Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query)
+            => await _storageClient.GetFilteredCollection<ApiKeyDto, BrowseApiKeys>(query, "api-keys");
     }
 }

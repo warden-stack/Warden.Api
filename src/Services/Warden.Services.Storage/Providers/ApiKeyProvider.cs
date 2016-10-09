@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Warden.Common.Types;
 using Warden.DTO.ApiKeys;
-using Warden.Services.Storage.Mappers;
+using Warden.Services.Storage.Queries;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Settings;
 
@@ -15,38 +12,29 @@ namespace Warden.Services.Storage.Providers
         private readonly IApiKeyRepository _apiKeyRepository;
         private readonly IProviderClient _providerClient;
         private readonly ProviderSettings _providerSettings;
-        private readonly CollectionMapper<string> _mapper;
 
         public ApiKeyProvider(IApiKeyRepository apiKeyRepository,
             IProviderClient providerClient,
-            ProviderSettings providerSettings,
-            CollectionMapper<string> mapper)
+            ProviderSettings providerSettings)
         {
             _apiKeyRepository = apiKeyRepository;
             _providerClient = providerClient;
             _providerSettings = providerSettings;
-            _mapper = mapper;
         }
 
-        public async Task<Maybe<IEnumerable<string>>> BrowseAsync(string userId) =>
-            await _providerClient.GetUsingStorageAsync(_providerSettings.UsersApiUrl,
-                $"/users/{userId}/api-keys", async () =>
+        public async Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query)
+            => await _providerClient.GetCollectionUsingStorageAsync(_providerSettings.UsersApiUrl,
+                "api-keys", async () =>
                 {
-                    var apiKeys = await _apiKeyRepository.BrowseAsync(userId);
+                    var apiKeys = await _apiKeyRepository.BrowseAsync(query);
+                    if (apiKeys.HasValue && apiKeys.Value.IsNotEmpty)
+                        return apiKeys;
 
-                    return apiKeys.HasValue && apiKeys.Value.Any()
-                        ? apiKeys.Value.Select(x => x.Key).ToList()
-                        : new Maybe<IEnumerable<string>>();
+                    return new Maybe<PagedResult<ApiKeyDto>>();
 
                 }, async keys =>
                 {
-                    await _apiKeyRepository.AddManyAsync(keys.Select(x => new ApiKeyDto
-                    {
-                        Id = Guid.NewGuid(),
-                        Key = x,
-                        UserId = userId
-                    }));
-                },
-                _mapper);
+                    await _apiKeyRepository.AddManyAsync(keys.Items);
+                });
     }
 }

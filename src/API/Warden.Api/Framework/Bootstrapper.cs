@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Autofac;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Nancy;
@@ -6,9 +8,13 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
+using System.Reflection;
+using System.Threading.Tasks;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
 using Warden.Api.Core.Storage;
+using Warden.Api.Framework.Tasks;
+using Warden.Common.Events;
 
 namespace Warden.Api.Framework
 {
@@ -38,7 +44,10 @@ namespace Warden.Api.Framework
                 builder.RegisterModule<DispatcherModule>();
                 builder.RegisterModule<StorageModule>();
                 builder.RegisterModule<FilterModule>();
+                builder.RegisterModule<ServiceModule>();
                 builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+                var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
+                builder.RegisterAssemblyTypes(coreAssembly).As(typeof(ITask));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {
                     builder.RegisterComponent(component);
@@ -58,6 +67,11 @@ namespace Warden.Api.Framework
             {
                 AddCorsHeaders(ctx.Response);
             };
+            var tasks = container.Resolve<IEnumerable<ITask>>();
+            foreach (var task in tasks)
+            {
+                Task.Factory.StartNew(() => task.ExecuteAsync(), TaskCreationOptions.LongRunning);
+            }
             Logger.Info("API Started");
         }
 

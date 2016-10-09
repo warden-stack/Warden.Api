@@ -2,7 +2,7 @@
 
 namespace Warden.Services.WardenChecks.Modules
 {
-    public class HomeModule : NancyModule
+    public class HomeModule : ModuleBase
     {
         public HomeModule()
         {

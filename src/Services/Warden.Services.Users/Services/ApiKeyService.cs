@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warden.Common.Types;
 using Warden.Services.Domain;
 using Warden.Services.Encryption;
 using Warden.Services.Users.Domain;
+using Warden.Services.Users.Queries;
 using Warden.Services.Users.Repositories;
 
 namespace Warden.Services.Users.Services
@@ -22,8 +22,8 @@ namespace Warden.Services.Users.Services
             _encrypter = encrypter;
         }
 
-        public async Task<Maybe<IEnumerable<ApiKey>>> BrowseAsync(string userId) 
-            => await _repository.BrowseByUserId(userId);
+        public async Task<Maybe<PagedResult<ApiKey>>> BrowseAsync(BrowseApiKeys query)
+            => await _repository.BrowseAsync(query);
 
         public async Task<Maybe<ApiKey>> GetAsync(string key)
             => await _repository.GetByKeyAsync(key);

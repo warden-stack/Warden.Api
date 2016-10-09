@@ -3,14 +3,14 @@ using Warden.Services.Features.Services;
 
 namespace Warden.Services.Features.Modules
 {
-    public class UserPaymentPlanModule : NancyModule
+    public class UserPaymentPlanModule : ModuleBase
     {
         private readonly IUserPaymentPlanService _userPaymentPlanService;
 
-        public UserPaymentPlanModule(IUserPaymentPlanService userPaymentPlanService) : base("/users/{userId}/plans")
+        public UserPaymentPlanModule(IUserPaymentPlanService userPaymentPlanService) : base("users/{userId}/plans")
         {
             _userPaymentPlanService = userPaymentPlanService;
-            Get("/current", async args =>
+            Get("current", async args =>
             {
                 var plan = await _userPaymentPlanService.GetCurrentPlanAsync((string) args.userId);
                 if (plan.HasValue)

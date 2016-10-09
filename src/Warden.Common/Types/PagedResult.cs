@@ -6,6 +6,8 @@ namespace Warden.Common.Types
     public class PagedResult<T> : PagedResultBase
     {
         public IEnumerable<T> Items { get; }
+        public bool IsNotEmpty => !IsEmpty;
+        public bool IsEmpty => Items == null || !Items.Any();
 
         protected PagedResult()
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
-using Warden.Services.Domain;
 using MongoDB.Driver;
 using Warden.Common.Types;
 

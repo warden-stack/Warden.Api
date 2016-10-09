@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Warden.Common.Types;
+using Warden.DTO.ApiKeys;
+using Warden.Services.Storage.Queries;
 
 namespace Warden.Services.Storage.Providers
 {
     public interface IApiKeyProvider
     {
-        Task<Maybe<IEnumerable<string>>> BrowseAsync(string userId);
+        Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query);
     }
 }

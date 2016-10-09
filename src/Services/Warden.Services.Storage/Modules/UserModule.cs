@@ -1,10 +1,9 @@
 ﻿using Nancy;
 using Warden.Services.Storage.Providers;
-using Warden.Services.Storage.Repositories;
 
 namespace Warden.Services.Storage.Modules
 {
-    public class UserModule : NancyModule
+    public class UserModule : ModuleBase
     {
         private readonly IUserProvider _userProvider;
 

@@ -39,8 +39,13 @@ namespace Warden.Services.Organizations.Domain
         public void SetEmail(string email)
         {
             if (email.Empty())
-                throw new DomainException("Email can not be empty.");
+            {
+                Email = string.Empty;
+                UpdatedAt = DateTime.UtcNow;
 
+                return;
+
+            }
             if (!email.IsEmail())
                 throw new DomainException($"Invalid email: '{email}.");
 

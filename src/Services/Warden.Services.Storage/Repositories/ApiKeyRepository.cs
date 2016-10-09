@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.DTO.ApiKeys;
 using Warden.Services.Storage.Queries;
+using Warden.Services.Mongo;
 
 namespace Warden.Services.Storage.Repositories
 {
@@ -19,8 +20,10 @@ namespace Warden.Services.Storage.Repositories
         public async Task<Maybe<ApiKeyDto>> GetAsync(string key)
             => await _database.ApiKeys().GetAsync(key);
 
-        public async Task<Maybe<IEnumerable<ApiKeyDto>>> BrowseAsync(string userId)
-            => await _database.ApiKeys().BrowseAsync(userId);
+        public async Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query)
+            => await _database.ApiKeys()
+                .Query(query)
+                .PaginateAsync(query);
 
         public async Task AddManyAsync(IEnumerable<ApiKeyDto> apiKeys)
             => await _database.ApiKeys().InsertManyAsync(apiKeys);

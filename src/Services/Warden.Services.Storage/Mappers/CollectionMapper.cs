@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Linq;
 
 namespace Warden.Services.Storage.Mappers
 {
-    public class CollectionMapper<T> : IMapper<IEnumerable<T>>
+    public abstract class CollectionMapper<T> : ICollectionMapper<T>
     {
-        public IEnumerable<T> Map(dynamic source)
-        {
-            var json = JsonConvert.SerializeObject(source);
-            var collection = JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+        protected readonly IMapper<T> Mapper;
 
-            return collection;
+        protected CollectionMapper(IMapper<T> mapper)
+        {
+            Mapper = mapper;
+        }
+
+        public IEnumerable<T> Map(IEnumerable<object> source)
+        {
+            return source.Select(item => Mapper.Map(item));
         }
     }
 }

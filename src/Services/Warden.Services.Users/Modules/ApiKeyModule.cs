@@ -1,24 +1,18 @@
-﻿using Nancy;
-using System.Linq;
+﻿using Warden.Services.Users.Queries;
 using Warden.Services.Users.Services;
 
 namespace Warden.Services.Users.Modules
 {
-    public class ApiKeyModule : NancyModule
+    public class ApiKeyModule : ModuleBase
     {
-        private readonly IApiKeyService _apiKeyService;
-
-        public ApiKeyModule(IApiKeyService apiKeyService)
+        public ApiKeyModule(IApiKeyService apiKeyService) : base("api-keys")
         {
-            _apiKeyService = apiKeyService;
-
-            Get("/users/{userId}/api-keys", async args =>
+            Get("", async args =>
             {
-                var apiKeys = await _apiKeyService.BrowseAsync((string)args.userId);
-                if (apiKeys.HasValue)
-                    return apiKeys.Value.Select(x => x.Key);
+                var query = BindRequest<BrowseApiKeys>();
+                var apiKeys = await apiKeyService.BrowseAsync(query);
 
-                return HttpStatusCode.NotFound;
+                return FromPagedResult(apiKeys);
             });
         }
     }

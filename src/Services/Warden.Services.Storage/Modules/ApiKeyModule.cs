@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using Nancy;
-using Warden.Services.Storage.Providers;
+﻿using Warden.Services.Storage.Providers;
+using Warden.Services.Storage.Queries;
 
 namespace Warden.Services.Storage.Modules
 {
-    public class ApiKeyModule : NancyModule
+    public class ApiKeyModule : ModuleBase
     {
-        private readonly IApiKeyProvider _apiKeyProvider;
-
-        public ApiKeyModule(IApiKeyProvider apiKeyProvider)
+        public ApiKeyModule(IApiKeyProvider apiKeyProvider) : base("api-keys")
         {
-            _apiKeyProvider = apiKeyProvider;
-
-            Get("/users/{userId}/api-keys", async args =>
+            Get("", async args =>
             {
-                var apiKeys = await _apiKeyProvider.BrowseAsync((string) args.userId);
+                var query = BindRequest<BrowseApiKeys>();
+                var apiKeys = await apiKeyProvider.BrowseAsync(query);
 
-                return apiKeys.HasValue ? apiKeys.Value : new List<string>();
+                return FromPagedResult(apiKeys);
             });
         }
     }

@@ -16,6 +16,9 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<UniqueIdGenerator>()
                 .As<IUniqueIdGenerator>()
                 .SingleInstance();
+            builder.RegisterType<IdentityProvider>()
+                .As<IIdentityProvider>()
+                .SingleInstance();
         }
     }
 }

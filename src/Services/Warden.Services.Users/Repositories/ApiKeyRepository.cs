@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.Services.Users.Domain;
 using Warden.Services.Users.Queries;
+using Warden.Services.Mongo;
 
 namespace Warden.Services.Users.Repositories
 {
@@ -17,8 +17,10 @@ namespace Warden.Services.Users.Repositories
             _database = database;
         }
 
-        public async Task<Maybe<IEnumerable<ApiKey>>> BrowseByUserId(string userId)
-            => await _database.ApiKeys().BrowseByUserIdAsync(userId);
+        public async Task<Maybe<PagedResult<ApiKey>>> BrowseAsync(BrowseApiKeys query)
+            => await _database.ApiKeys()
+                .Query(query)
+                .PaginateAsync(query);
 
         public async Task<Maybe<ApiKey>> GetAsync(Guid id)
             => await _database.ApiKeys().GetAsync(id);

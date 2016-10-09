@@ -2,7 +2,7 @@
 
 namespace Warden.Services.Storage.Modules
 {
-    public class HomeModule : NancyModule
+    public class HomeModule : ModuleBase
     {
         public HomeModule()
         {

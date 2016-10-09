@@ -5,6 +5,7 @@ using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Nancy.Security;
 using Warden.Api.Core.Commands;
+using Warden.Api.Core.Services;
 using Warden.Api.Framework;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
@@ -12,17 +13,21 @@ using Warden.Common.Types;
 
 namespace Warden.Api.Modules
 {
-    public class ModuleBase : NancyModule
+    public abstract class ModuleBase : NancyModule
     {
         private string _currentUserId;
         private const string PageParameter = "page";
         private const string ApiKeyHeader = "x-api-key";
         protected readonly ICommandDispatcher CommandDispatcher;
+        protected readonly IIdentityProvider IdentityProvider;
 
-        public ModuleBase(ICommandDispatcher commandDispatcher, string modulePath = "")
+        protected ModuleBase(ICommandDispatcher commandDispatcher, 
+            IIdentityProvider identityProvider, 
+            string modulePath = "")
             : base(modulePath)
         {
             CommandDispatcher = commandDispatcher;
+            IdentityProvider = identityProvider;
         }
 
         protected RequestHandler<T> For<T>() where T : ICommand, new()
@@ -46,11 +51,10 @@ namespace Warden.Api.Modules
         private string GetUserIdFromApiKey()
         {
             var apiKeyHeader = Request.Headers.FirstOrDefault(x => x.Key.EqualsCaseInvariant(ApiKeyHeader));
+            if (apiKeyHeader.Key.Empty() || apiKeyHeader.Value == null || !apiKeyHeader.Value.Any())
+                return string.Empty;
 
-            //TODO: Resolver user id from api key.
-            var userId = "auth0|57d068eaf78ad35973d0a747";
-
-            return apiKeyHeader.Key.Empty() ? string.Empty : userId;
+            return IdentityProvider.GetUserIdForApiKey(apiKeyHeader.Value.First());
         }
 
         protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand, new()
@@ -63,7 +67,7 @@ namespace Warden.Api.Modules
         }
 
         protected T BindRequest<T>() where T : new()
-        => Request.Body.Length == 0 ? new T() : this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
+        => Request.Body.Length == 0  && Request.Query == null ? new T() : this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
 
         protected string CurrentUserId
         {

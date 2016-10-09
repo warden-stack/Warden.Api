@@ -4,16 +4,9 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
-using Warden.Common.Events;
-using Warden.Common.Events.ApiKeys;
-using Warden.Common.Events.Features;
-using Warden.Common.Events.Organizations;
-using Warden.Common.Events.Users;
-using Warden.Common.Events.Wardens;
 using Warden.Services.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
-using Warden.Services.Storage.Handlers;
 using Warden.Services.Storage.Providers;
 using Warden.Services.Storage.Repositories;
 using Warden.Services.Storage.Services;
@@ -48,19 +41,13 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<WardenCheckResultRootRepository>().As<IWardenCheckResultRootRepository>();
                 builder.RegisterType<WardenService>().As<IWardenService>();
                 builder.RegisterType<WardenCheckResultRootService>().As<IWardenCheckResultRootService>();
+                builder.RegisterType<CustomHttpClient>().As<IHttpClient>();
                 builder.RegisterType<ServiceClient>().As<IServiceClient>();
                 builder.RegisterType<ProviderClient>().As<IProviderClient>();
                 builder.RegisterType<ApiKeyProvider>().As<IApiKeyProvider>();
-                builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
-                builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
-                builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
-                builder.RegisterType<UserPaymentPlanCreatedHandler>().As<IEventHandler<UserPaymentPlanCreated>>();
-                builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
-                builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
-                builder.RegisterType<WardenCheckResultProcessedHandler>()
-                    .As<IEventHandler<WardenCheckResultProcessed>>();
                 builder.RegisterType<UserProvider>().As<IUserProvider>();
                 builder.RegisterModule<MapperModule>();
+                builder.RegisterModule<EventHandlersModule>();
             });
             LifetimeScope = container;
         }
