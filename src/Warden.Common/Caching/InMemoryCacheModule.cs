@@ -7,7 +7,13 @@ namespace Warden.Common.Caching
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+            builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions()))
+                .As<IMemoryCache>()
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryCache>()
+                .As<ICache>()
+                .SingleInstance();
         }
     }
 }

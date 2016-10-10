@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Warden.Api.Core.Storage;
-using Warden.Common.Caching;
 
 namespace Warden.Api.Core.IoC.Modules
 {
@@ -19,10 +18,6 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<ApiKeyStorage>()
                 .As<IApiKeyStorage>()
                 .InstancePerLifetimeScope();
-
-            builder.RegisterType<InMemoryCache>()
-                .As<ICache>()
-                .SingleInstance();
         }
     }
 }

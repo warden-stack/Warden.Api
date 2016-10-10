@@ -21,7 +21,9 @@ namespace Warden.Common.Caching.Redis
                 }).As<IDatabase>()
                 .SingleInstance();
 
-            builder.RegisterType<RedisCache>().As<ICache>().SingleInstance();
+            builder.RegisterType<RedisCache>()
+                .As<ICache>()
+                .SingleInstance();
         }
     }
 }

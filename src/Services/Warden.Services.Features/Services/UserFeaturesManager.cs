@@ -8,14 +8,17 @@ namespace Warden.Services.Features.Services
 {
     public class UserFeaturesManager : IUserFeaturesManager
     {
+        private readonly IUserFeaturesCounter _userFeaturesCounter;
         private readonly IUserRepository _userRepository;
         private readonly IUserPaymentPlanRepository _userPaymentPlanRepository;
         private readonly PaymentPlanSettings _paymentPlanSettings;
 
-        public UserFeaturesManager(IUserRepository userRepository,
+        public UserFeaturesManager(IUserFeaturesCounter userFeaturesCounter,
+            IUserRepository userRepository,
             IUserPaymentPlanRepository userPaymentPlanRepository,
             PaymentPlanSettings paymentPlanSettings)
         {
+            _userFeaturesCounter = userFeaturesCounter;
             _userRepository = userRepository;
             _userPaymentPlanRepository = userPaymentPlanRepository;
             _paymentPlanSettings = paymentPlanSettings;
@@ -26,6 +29,7 @@ namespace Warden.Services.Features.Services
             if (!_paymentPlanSettings.Enabled)
                 return;
 
+            await _userFeaturesCounter.IncreaseUsageAsync(userId, feature);
             var user = await _userRepository.GetAsync(userId);
             if (user.HasNoValue)
                 throw new ArgumentException($"User {userId} has not been found.");
@@ -49,21 +53,23 @@ namespace Warden.Services.Features.Services
             if (!_paymentPlanSettings.Enabled)
                 return true;
 
-            var user = await _userRepository.GetAsync(userId);
-            if (user.HasNoValue)
-                return false;
-            if (!user.Value.PaymentPlanId.HasValue)
-                return false;
-            var paymentPlan = await _userPaymentPlanRepository.GetAsync(user.Value.PaymentPlanId.Value);
-            if (paymentPlan.HasNoValue)
-                return false;
-            var monthlySubscription = paymentPlan.Value.GetMonthlySubscription(DateTime.UtcNow);
-            if (monthlySubscription == null)
-                return false;
-            if (!monthlySubscription.CanUseFeature(feature))
-                return false;
+            return await _userFeaturesCounter.CanUseAsync(userId, feature);
 
-            return true;
+            //var user = await _userRepository.GetAsync(userId);
+            //if (user.HasNoValue)
+            //    return false;
+            //if (!user.Value.PaymentPlanId.HasValue)
+            //    return false;
+            //var paymentPlan = await _userPaymentPlanRepository.GetAsync(user.Value.PaymentPlanId.Value);
+            //if (paymentPlan.HasNoValue)
+            //    return false;
+            //var monthlySubscription = paymentPlan.Value.GetMonthlySubscription(DateTime.UtcNow);
+            //if (monthlySubscription == null)
+            //    return false;
+            //if (!monthlySubscription.CanUseFeature(feature))
+            //    return false;
+
+            //return true;
         }
     }
 }
