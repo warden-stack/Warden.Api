@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Warden.Common.Types;
 
-namespace Warden.Api.Core.Storage
+namespace Warden.Common.Caching
 {
     public interface ICache
     {

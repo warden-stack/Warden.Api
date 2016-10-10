@@ -5,6 +5,7 @@ using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Wardens;
 using Warden.Services.Nancy;
+using Warden.Services.Spawn.Handlers;
 
 namespace Warden.Services.Spawn.Framework
 {
@@ -24,7 +25,7 @@ namespace Warden.Services.Spawn.Framework
             container.Update(builder =>
             {
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
-                //builder.RegisterType<SpawnWardenHandler>().As<ICommandHandler<SpawnWarden>>();
+                builder.RegisterType<SpawnWardenHandler>().As<ICommandHandler<SpawnWarden>>();
             });
             LifetimeScope = container;
         }

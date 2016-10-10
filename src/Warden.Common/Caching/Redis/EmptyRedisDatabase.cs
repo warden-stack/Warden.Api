@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
-namespace Warden.Api.Core.Redis
+namespace Warden.Common.Caching.Redis
 {
     public class EmptyRedisDatabase : IDatabase
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Warden.Common.Types;
 
-namespace Warden.Api.Core.Storage
+namespace Warden.Common.Caching
 {
     public class InMemoryCache : ICache
     {

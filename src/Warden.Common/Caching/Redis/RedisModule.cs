@@ -1,10 +1,7 @@
 ﻿using Autofac;
 using StackExchange.Redis;
-using Warden.Api.Core.Redis;
-using Warden.Api.Core.Settings;
-using Warden.Api.Core.Storage;
 
-namespace Warden.Api.Core.IoC.Modules
+namespace Warden.Common.Caching.Redis
 {
     public class RedisModule : Module
     {

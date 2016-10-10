@@ -1,4 +1,4 @@
-﻿namespace Warden.Api.Core.Settings
+﻿namespace Warden.Common.Caching.Redis
 {
     public class RedisSettings
     {

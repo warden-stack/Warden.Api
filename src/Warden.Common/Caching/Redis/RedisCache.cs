@@ -2,12 +2,10 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Warden.Api.Core.Settings;
-using Warden.Api.Core.Storage;
-using Warden.Common.Types;
 using Warden.Common.Extensions;
+using Warden.Common.Types;
 
-namespace Warden.Api.Core.Redis
+namespace Warden.Common.Caching.Redis
 {
     public class RedisCache : ICache
     {

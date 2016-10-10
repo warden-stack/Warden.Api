@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Warden.Api.Core.Storage;
+using Warden.Common.Caching;
 
 namespace Warden.Api.Core.IoC.Modules
 {

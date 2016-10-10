@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace Warden.Api.Core.Redis
+namespace Warden.Common.Caching.Redis
 {
     public interface IRedisDatabaseFactory
     {

@@ -1,9 +1,8 @@
 ﻿using System;
 using NLog;
 using StackExchange.Redis;
-using Warden.Api.Core.Settings;
 
-namespace Warden.Api.Core.Redis
+namespace Warden.Common.Caching.Redis
 {
     public class RedisDatabaseFactory : IRedisDatabaseFactory
     {

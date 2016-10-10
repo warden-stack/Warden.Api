@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
 using Warden.Api.Framework.Tasks;
+using Warden.Common.Caching;
+using Warden.Common.Caching.Redis;
 
 namespace Warden.Api.Framework
 {
@@ -44,7 +46,7 @@ namespace Warden.Api.Framework
                 builder.RegisterModule<FilterModule>();
                 builder.RegisterModule<ServiceModule>();
                 builder.RegisterModule<EventHandlersModule>();
-                builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+                builder.RegisterModule<InMemoryCacheModule>();
                 var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
                 builder.RegisterAssemblyTypes(coreAssembly).As(typeof(ITask));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
