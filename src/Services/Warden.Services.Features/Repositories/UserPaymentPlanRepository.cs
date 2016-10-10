@@ -19,6 +19,9 @@ namespace Warden.Services.Features.Repositories
         public async Task<Maybe<UserPaymentPlan>> GetAsync(Guid id)
             => await _database.UserPaymentPlans().GetByIdAsync(id);
 
+        public async Task<Maybe<WardenCheckUsageInfo>> GetWardenCheckUsageInfoAsync(string userId)
+            => await _database.UserPaymentPlans().GetWardenCheckUsageInfoAsync(userId);
+
         public async Task UpdateAsync(UserPaymentPlan paymentPlan)
             => await _database.UserPaymentPlans().ReplaceOneAsync(x => x.Id == paymentPlan.Id, paymentPlan);
 

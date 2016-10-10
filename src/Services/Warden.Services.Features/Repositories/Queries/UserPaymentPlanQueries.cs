@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -20,6 +21,26 @@ namespace Warden.Services.Features.Repositories.Queries
                 return null;
 
             return await paymentPlans.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public static async Task<WardenCheckUsageInfo> GetWardenCheckUsageInfoAsync(
+            this IMongoCollection<UserPaymentPlan> paymentPlans,
+            string userId)
+        {
+            if (userId.Empty())
+                return null;
+
+            //TODO: Check by date.
+            var paymentPlan = await paymentPlans.AsQueryable().FirstOrDefaultAsync(x => x.UserId == userId);
+            var wardenChecksFeature = paymentPlan.MonthlySubscriptions.First()
+                .FeatureUsages.First(x => x.Feature == FeatureType.AddWardenCheck);
+
+            return new WardenCheckUsageInfo
+            {
+                UserId = userId,
+                Limit = wardenChecksFeature.Limit,
+                Usage = wardenChecksFeature.Usage
+            };
         }
     }
 }

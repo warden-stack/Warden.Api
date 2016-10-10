@@ -11,9 +11,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
-using Warden.Api.Framework.Tasks;
 using Warden.Common.Caching;
 using Warden.Common.Caching.Redis;
+using Warden.Common.Tasks;
 
 namespace Warden.Api.Framework
 {
@@ -47,8 +47,7 @@ namespace Warden.Api.Framework
                 builder.RegisterModule<ServiceModule>();
                 builder.RegisterModule<EventHandlersModule>();
                 builder.RegisterModule<InMemoryCacheModule>();
-                var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
-                builder.RegisterAssemblyTypes(coreAssembly).As(typeof(ITask));
+                builder.RegisterModule(new TasksModule(typeof(Startup).GetTypeInfo().Assembly));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {
                     builder.RegisterComponent(component);
@@ -70,10 +69,9 @@ namespace Warden.Api.Framework
                 AddCorsHeaders(ctx.Response);
             };
             var tasks = container.Resolve<IEnumerable<ITask>>();
-            foreach (var task in tasks)
-            {
-                Task.Factory.StartNew(() => task.ExecuteAsync(), TaskCreationOptions.LongRunning);
-            }
+            var tasksHandler = container.Resolve<ITaskHandler>();
+            Task.Factory.StartNew(() => tasksHandler.ExecuteTasksAsync(tasks), TaskCreationOptions.LongRunning);
+
             Logger.Info("API Started");
         }
 

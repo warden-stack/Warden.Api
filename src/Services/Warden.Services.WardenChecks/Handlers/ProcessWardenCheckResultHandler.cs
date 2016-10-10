@@ -24,13 +24,13 @@ namespace Warden.Services.WardenChecks.Handlers
 
         public async Task HandleAsync(ProcessWardenCheckResult command)
         {
-            var rootResult = await _wardenCheckService.ValidateAndParseResultAsync(command.UserId,
+            var rootResult = _wardenCheckService.ValidateAndParseResult(command.UserId,
                 command.OrganizationId, command.WardenId, command.Check, command.CreatedAt);
-            if(rootResult.HasNoValue)
+            if (rootResult.HasNoValue)
                 return;
 
             await _wardenCheckStorage.SaveAsync(rootResult.Value);
-            await _bus.PublishAsync(new WardenCheckResultProcessed(command.UserId, 
+            await _bus.PublishAsync(new WardenCheckResultProcessed(command.UserId,
                 command.OrganizationId, command.WardenId, rootResult.Value.Result, command.CreatedAt));
         }
     }

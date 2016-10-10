@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Common.Events;
 using Warden.Common.Events.Features;
@@ -14,17 +15,17 @@ namespace Warden.Services.Features.Handlers
         private readonly IBusClient _bus;
         private readonly IUserRepository _userRepository;
         private readonly IUserPaymentPlanService _userPaymentPlanService;
-        private readonly IUserFeaturesCounter _userFeaturesCounter;
+        private readonly IWardenChecksCounter _wardenChecksCounter;
 
         public UserSignedInHandler(IBusClient bus,
             IUserRepository userRepository,
             IUserPaymentPlanService userPaymentPlanService,
-            IUserFeaturesCounter userFeaturesCounter)
+            IWardenChecksCounter wardenChecksCounter)
         {
             _bus = bus;
             _userRepository = userRepository;
             _userPaymentPlanService = userPaymentPlanService;
-            _userFeaturesCounter = userFeaturesCounter;
+            _wardenChecksCounter = wardenChecksCounter;
         }
 
         public async Task HandleAsync(UserSignedIn @event)
@@ -36,7 +37,8 @@ namespace Warden.Services.Features.Handlers
             await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role, @event.State));
             await _userPaymentPlanService.CreateDefaultAsync(@event.UserId);
             var plan = await _userPaymentPlanService.GetCurrentPlanAsync(@event.UserId);
-            await _userFeaturesCounter.SetEmptyUsageAsync(@event.UserId, plan.Value.Features);
+            var addWardenChecksFeature = plan.Value.Features.First(x => x.Type == FeatureType.AddWardenCheck);
+            await _wardenChecksCounter.InitializeAsync(@event.UserId, addWardenChecksFeature.Limit);
             await _bus.PublishAsync(new UserPaymentPlanCreated(@event.UserId, plan.Value.Id,
                 plan.Value.Name, plan.Value.MonthlyPrice));
         }

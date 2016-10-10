@@ -17,7 +17,7 @@ namespace Warden.Services.Features.Handlers
 
         public async Task HandleAsync(WardenCheckResultProcessed @event)
         {
-            await _userFeaturesManager.UseFeatureAsync(@event.UserId, FeatureType.AddWardenCheck);
+            await _userFeaturesManager.IncreaseFeatureUsageAsync(@event.UserId, FeatureType.AddWardenCheck);
         }
     }
 }

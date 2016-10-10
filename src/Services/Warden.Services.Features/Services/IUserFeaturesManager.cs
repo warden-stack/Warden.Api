@@ -6,7 +6,7 @@ namespace Warden.Services.Features.Services
 {
     public interface IUserFeaturesManager
     {
-        Task UseFeatureAsync(string userId, FeatureType feature);
         Task<bool> IsFeatureIfAvailableAsync(string userId, FeatureType feature);
+        Task IncreaseFeatureUsageAsync(string userId, FeatureType feature);
     }
 }

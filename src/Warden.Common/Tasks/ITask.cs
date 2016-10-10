@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Warden.Api.Framework.Tasks
+namespace Warden.Common.Tasks
 {
     public interface ITask
     {

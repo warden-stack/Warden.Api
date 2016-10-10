@@ -17,7 +17,7 @@ namespace Warden.Services.Features.Handlers
 
         public async Task HandleAsync(ApiKeyCreated @event)
         {
-            await _userFeaturesManager.UseFeatureAsync(@event.UserId, FeatureType.AddApiKey);
+            await _userFeaturesManager.IncreaseFeatureUsageAsync(@event.UserId, FeatureType.AddApiKey);
         }
     }
 }

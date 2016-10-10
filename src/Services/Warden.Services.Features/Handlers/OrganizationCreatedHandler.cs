@@ -17,7 +17,7 @@ namespace Warden.Services.Features.Handlers
 
         public async Task HandleAsync(OrganizationCreated @event)
         {
-            await _userFeaturesManager.UseFeatureAsync(@event.UserId, FeatureType.AddOrganization);
+            await _userFeaturesManager.IncreaseFeatureUsageAsync(@event.UserId, FeatureType.AddOrganization);
         }
     }
 }

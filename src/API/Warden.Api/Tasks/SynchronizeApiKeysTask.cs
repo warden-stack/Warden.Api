@@ -2,8 +2,9 @@
 using Warden.Api.Core.Filters;
 using Warden.Api.Core.Services;
 using Warden.Api.Core.Storage;
+using Warden.Common.Tasks;
 
-namespace Warden.Api.Framework.Tasks
+namespace Warden.Api.Tasks
 {
     public class SynchronizeApiKeysTask : ITask
     {

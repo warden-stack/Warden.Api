@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Warden.Services.WardenChecks.Domain;
 using Warden.Common.Extensions;
 using Warden.Common.Types;
-using Warden.Services.WardenChecks.Repositories;
 
 namespace Warden.Services.WardenChecks.Services
 {
     public class WardenCheckService : IWardenCheckService
     {
-        private readonly IOrganizationRepository _organizationRepository;
-
-        public WardenCheckService(IOrganizationRepository organizationRepository)
-        {
-            _organizationRepository = organizationRepository;
-        }
-
-        public async Task<Maybe<WardenCheckResultRoot>> ValidateAndParseResultAsync(string userId, 
+        public Maybe<WardenCheckResultRoot> ValidateAndParseResult(string userId, 
             Guid organizationId, Guid wardenId, object checkResult, DateTime createdAt)
         {
             if (checkResult == null)
@@ -25,7 +16,7 @@ namespace Warden.Services.WardenChecks.Services
 
             var serializedResult = JsonConvert.SerializeObject(checkResult);
             var result = JsonConvert.DeserializeObject<WardenCheckResult>(serializedResult);
-            await ValidateCheckResultAsync(organizationId, wardenId, result);
+            ValidateCheckResult(result);
 
             return new WardenCheckResultRoot
             {
@@ -37,36 +28,22 @@ namespace Warden.Services.WardenChecks.Services
             };
         }
 
-        private async Task ValidateCheckResultAsync(Guid organizationId,
-            Guid wardenId, WardenCheckResult check)
+        private void ValidateCheckResult(WardenCheckResult check)
         {
             if (check.WatcherCheckResult == null)
             {
                 throw new ArgumentNullException(nameof(check.WatcherCheckResult),
                     "Watcher check result can not be null.");
             }
-            //if (check.WatcherCheckResult.Watcher == null)
-            //{
-            //    throw new ArgumentNullException(nameof(check.WatcherCheckResult),
-            //        "Watcher an not be null.");
-            //}
             if (check.WatcherCheckResult.WatcherName.Empty())
-                throw new ArgumentException("Watcher name can not be empty.");
-            if (check.WatcherCheckResult.WatcherType.Empty())
-                throw new ArgumentException("Watcher type can not be empty.");
-
-            var organization = await _organizationRepository.GetAsync(organizationId);
-            if (organization.HasNoValue)
             {
-                throw new InvalidOperationException("Organization has not been found " +
-                                                    $"for id: {organizationId}.");
+                throw new ArgumentException("Watcher name can not be empty.",
+                    nameof(check.WatcherCheckResult.WatcherName));
             }
-
-            var warden = organization.Value.GetWardenById(wardenId);
-            if (warden == null)
+            if (check.WatcherCheckResult.WatcherType.Empty())
             {
-                throw new InvalidOperationException("Warden has not been found " +
-                                                    $"for id: {wardenId}.");
+                throw new ArgumentException("Watcher type can not be empty.",
+                    nameof(check.WatcherCheckResult.WatcherType));
             }
         }
     }
