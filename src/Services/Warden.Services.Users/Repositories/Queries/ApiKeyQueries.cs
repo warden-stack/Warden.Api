@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
-using Warden.Services.Users.Domain;
 using Warden.Services.Mongo;
+using Warden.Services.Users.Domain;
+using Warden.Services.Users.Queries;
 
-namespace Warden.Services.Users.Queries
+namespace Warden.Services.Users.Repositories.Queries
 {
     public static class ApiKeyQueries
     {

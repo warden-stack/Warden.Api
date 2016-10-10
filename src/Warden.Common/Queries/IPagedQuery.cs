@@ -1,4 +1,4 @@
-﻿namespace Warden.Common.Types
+﻿namespace Warden.Common.Queries
 {
     public interface IPagedQuery : IQuery
     {

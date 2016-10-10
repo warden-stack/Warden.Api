@@ -6,6 +6,7 @@ using Warden.DTO.Wardens;
 using Warden.Services.Domain;
 using Warden.Services.Mongo;
 using Warden.Services.Storage.Queries;
+using Warden.Services.Storage.Repositories.Queries;
 
 namespace Warden.Services.Storage.Repositories
 {

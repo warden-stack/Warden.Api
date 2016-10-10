@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using Warden.Services.Mongo;
 using Warden.Services.Users.Domain;
 using Warden.Services.Users.Queries;
+using Warden.Services.Users.Repositories.Queries;
 using Warden.Services.Users.Services;
 
 namespace Warden.Services.Users.Framework

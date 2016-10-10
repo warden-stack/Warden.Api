@@ -1,4 +1,5 @@
-﻿using Warden.Common.Types;
+﻿using Warden.Common.Queries;
+using Warden.Common.Types;
 
 namespace Warden.Services.Storage.Queries
 {

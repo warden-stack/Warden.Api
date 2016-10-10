@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.DTO.Users;
 using Warden.Services.Storage.Queries;
+using Warden.Services.Storage.Repositories.Queries;
 
 namespace Warden.Services.Storage.Repositories
 {

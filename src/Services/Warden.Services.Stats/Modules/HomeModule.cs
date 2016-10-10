@@ -6,7 +6,7 @@ namespace Warden.Services.Stats.Modules
     {
         public HomeModule()
         {
-            Get("/", args => Response.AsJson(new { name = "Warden.Services.Stats" }));
+            Get("", args => Response.AsJson(new { name = "Warden.Services.Stats" }));
         }
     }
 }

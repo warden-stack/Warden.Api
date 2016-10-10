@@ -1,4 +1,5 @@
-﻿using Warden.Services.Users.Queries;
+﻿using Warden.Services.Users.Domain;
+using Warden.Services.Users.Queries;
 using Warden.Services.Users.Services;
 
 namespace Warden.Services.Users.Modules
@@ -7,13 +8,8 @@ namespace Warden.Services.Users.Modules
     {
         public ApiKeyModule(IApiKeyService apiKeyService) : base("api-keys")
         {
-            Get("", async args =>
-            {
-                var query = BindRequest<BrowseApiKeys>();
-                var apiKeys = await apiKeyService.BrowseAsync(query);
-
-                return FromPagedResult(apiKeys);
-            });
+            Get("", async args => await FetchCollection<BrowseApiKeys, ApiKey>
+                (async x => await apiKeyService.BrowseAsync(x)).HandleAsync());
         }
     }
 }

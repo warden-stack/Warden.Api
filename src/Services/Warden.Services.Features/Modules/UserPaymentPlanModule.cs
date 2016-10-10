@@ -1,23 +1,15 @@
-﻿using Nancy;
+﻿using Warden.Services.Features.Domain;
+using Warden.Services.Features.Queries;
 using Warden.Services.Features.Services;
 
 namespace Warden.Services.Features.Modules
 {
     public class UserPaymentPlanModule : ModuleBase
     {
-        private readonly IUserPaymentPlanService _userPaymentPlanService;
-
         public UserPaymentPlanModule(IUserPaymentPlanService userPaymentPlanService) : base("users/{userId}/plans")
         {
-            _userPaymentPlanService = userPaymentPlanService;
-            Get("current", async args =>
-            {
-                var plan = await _userPaymentPlanService.GetCurrentPlanAsync((string) args.userId);
-                if (plan.HasValue)
-                    return plan.Value;
-
-                return HttpStatusCode.NotFound;
-            });
+            Get("current", async args => await Fetch<GetCurrentUserPaymentPlan, UserPaymentPlan>
+                (async x => await userPaymentPlanService.GetCurrentPlanAsync(x.UserId)).HandleAsync());
         }
     }
 }

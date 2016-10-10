@@ -6,7 +6,7 @@ namespace Warden.Services.Storage.Modules
     {
         public HomeModule()
         {
-            Get("/", args => Response.AsJson(new { name = "Warden.Services.Storage" }));
+            Get("", args => Response.AsJson(new { name = "Warden.Services.Storage" }));
         }
     }
 }

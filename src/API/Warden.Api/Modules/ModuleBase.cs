@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
@@ -9,6 +11,7 @@ using Warden.Api.Core.Services;
 using Warden.Api.Framework;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
+using Warden.Common.Queries;
 using Warden.Common.Types;
 
 namespace Warden.Api.Modules
@@ -30,12 +33,12 @@ namespace Warden.Api.Modules
             IdentityProvider = identityProvider;
         }
 
-        protected RequestHandler<T> For<T>() where T : ICommand, new()
+        protected CommandRequestHandler<T> For<T>() where T : ICommand, new()
         {
             var command = BindRequest<T>();
             var authenticatedCommand = command as IAuthenticatedCommand;
             if (authenticatedCommand == null)
-                return new RequestHandler<T>(CommandDispatcher, command, Response);
+                return new CommandRequestHandler<T>(CommandDispatcher, command, Response);
 
             var userId = GetUserIdFromApiKey();
             if (userId.Empty())
@@ -45,7 +48,7 @@ namespace Warden.Api.Modules
             }
             authenticatedCommand.UserId = userId;
 
-            return new RequestHandler<T>(CommandDispatcher, command, Response);
+            return new CommandRequestHandler<T>(CommandDispatcher, command, Response);
         }
 
         private string GetUserIdFromApiKey()
@@ -55,6 +58,45 @@ namespace Warden.Api.Modules
                 return string.Empty;
 
             return IdentityProvider.GetUserIdForApiKey(apiKeyHeader.Value.First());
+        }
+
+        protected FetchRequestHandler<TQuery, TResult> Fetch<TQuery, TResult>(Func<TQuery, Task<Maybe<TResult>>> fetch)
+            where TQuery : IQuery, new() where TResult : class
+        {
+            var query = BindRequest<TQuery>();
+            var authenticatedQuery = query as IAuthenticatedQuery;
+            if (authenticatedQuery == null)
+                return new FetchRequestHandler<TQuery, TResult>(query, fetch, Negotiate, Request.Url);
+
+            var userId = GetUserIdFromApiKey();
+            if (userId.Empty())
+            {
+                this.RequiresAuthentication();
+                userId = CurrentUserId;
+            }
+            authenticatedQuery.UserId = userId;
+
+            return new FetchRequestHandler<TQuery, TResult>(query, fetch, Negotiate, Request.Url);
+        }
+
+        protected FetchRequestHandler<TQuery, TResult> FetchCollection<TQuery, TResult>(
+            Func<TQuery, Task<Maybe<PagedResult<TResult>>>> fetch)
+            where TQuery : IPagedQuery, new() where TResult : class
+        {
+            var query = BindRequest<TQuery>();
+            var authenticatedQuery = query as IAuthenticatedPagedQuery;
+            if (authenticatedQuery == null)
+                return new FetchRequestHandler<TQuery, TResult>(query, fetch, Negotiate, Request.Url);
+
+            var userId = GetUserIdFromApiKey();
+            if (userId.Empty())
+            {
+                this.RequiresAuthentication();
+                userId = CurrentUserId;
+            }
+            authenticatedQuery.UserId = userId;
+
+            return new FetchRequestHandler<TQuery, TResult>(query, fetch, Negotiate, Request.Url);
         }
 
         protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand, new()
@@ -67,7 +109,9 @@ namespace Warden.Api.Modules
         }
 
         protected T BindRequest<T>() where T : new()
-        => Request.Body.Length == 0  && Request.Query == null ? new T() : this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
+        => Request.Body.Length == 0 && Request.Query == null
+            ? new T()
+            : this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
 
         protected string CurrentUserId
         {

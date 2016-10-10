@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Warden.Common.Queries;
 using Warden.Common.Types;
 
 namespace Warden.Api.Core.Storage

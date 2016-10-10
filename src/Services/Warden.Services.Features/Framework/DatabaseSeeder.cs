@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Services.Features.Domain;
-using Warden.Services.Features.Queries;
+using Warden.Services.Features.Repositories.Queries;
 using Warden.Services.Mongo;
 
 namespace Warden.Services.Features.Framework

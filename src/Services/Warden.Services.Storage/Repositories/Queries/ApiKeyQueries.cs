@@ -5,8 +5,9 @@ using Warden.Common.Extensions;
 using Warden.Common.Types;
 using Warden.DTO.ApiKeys;
 using Warden.Services.Mongo;
+using Warden.Services.Storage.Queries;
 
-namespace Warden.Services.Storage.Queries
+namespace Warden.Services.Storage.Repositories.Queries
 {
     public static class ApiKeyQueries
     {

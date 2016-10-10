@@ -1,10 +1,11 @@
 ﻿using System;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Warden.Services.Mongo;
 using Warden.DTO.Wardens;
+using Warden.Services.Mongo;
+using Warden.Services.Storage.Queries;
 
-namespace Warden.Services.Storage.Queries
+namespace Warden.Services.Storage.Repositories.Queries
 {
     public static class WardenCheckResultRootQueries
     {

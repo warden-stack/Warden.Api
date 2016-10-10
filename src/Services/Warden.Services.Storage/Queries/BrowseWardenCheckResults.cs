@@ -1,4 +1,5 @@
 using System;
+using Warden.Common.Queries;
 using Warden.Common.Types;
 using Warden.Services.Domain;
 

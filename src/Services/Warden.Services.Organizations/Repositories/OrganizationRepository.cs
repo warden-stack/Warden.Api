@@ -6,6 +6,7 @@ using Warden.Services.Domain;
 using Warden.Services.Organizations.Domain;
 using Warden.Services.Organizations.Queries;
 using Warden.Services.Mongo;
+using Warden.Services.Organizations.Repositories.Queries;
 
 namespace Warden.Services.Organizations.Repositories
 {

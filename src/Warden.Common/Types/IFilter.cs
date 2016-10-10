@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Warden.Common.Queries;
 
 namespace Warden.Common.Types
 {

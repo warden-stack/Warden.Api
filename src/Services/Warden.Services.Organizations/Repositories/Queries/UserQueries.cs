@@ -6,7 +6,7 @@ using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Organizations.Domain;
 
-namespace Warden.Services.Organizations.Queries
+namespace Warden.Services.Organizations.Repositories.Queries
 {
     public static class UserQueries
     {

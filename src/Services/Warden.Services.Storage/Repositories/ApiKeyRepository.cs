@@ -5,6 +5,7 @@ using Warden.Common.Types;
 using Warden.DTO.ApiKeys;
 using Warden.Services.Storage.Queries;
 using Warden.Services.Mongo;
+using Warden.Services.Storage.Repositories.Queries;
 
 namespace Warden.Services.Storage.Repositories
 {

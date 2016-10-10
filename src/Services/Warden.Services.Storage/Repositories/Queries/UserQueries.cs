@@ -5,7 +5,7 @@ using Warden.Common.Extensions;
 using Warden.DTO.Users;
 using Warden.Services.Mongo;
 
-namespace Warden.Services.Storage.Queries
+namespace Warden.Services.Storage.Repositories.Queries
 {
     public static class UserQueries
     {

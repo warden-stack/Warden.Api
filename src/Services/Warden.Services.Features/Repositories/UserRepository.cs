@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.Services.Features.Domain;
-using Warden.Services.Features.Queries;
+using Warden.Services.Features.Repositories.Queries;
 
 namespace Warden.Services.Features.Repositories
 {
@@ -23,6 +23,8 @@ namespace Warden.Services.Features.Repositories
         public async Task<Maybe<User>> GetByEmailAsync(string email) => await _database.Users().GetByEmailAsync(email);
 
         public async Task AddAsync(User user) => await _database.Users().InsertOneAsync(user);
-        public async Task UpdateAsync(User user) => await _database.Users().ReplaceOneAsync(x => x.UserId == user.UserId, user);
+
+        public async Task UpdateAsync(User user)
+            => await _database.Users().ReplaceOneAsync(x => x.UserId == user.UserId, user);
     }
 }

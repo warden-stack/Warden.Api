@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
-using Warden.Services.Organizations.Domain;
 using Warden.Services.Mongo;
+using Warden.Services.Organizations.Domain;
 
-namespace Warden.Services.Organizations.Queries
+namespace Warden.Services.Organizations.Repositories.Queries
 {
     public static class WardenConfigurationQueries
     {

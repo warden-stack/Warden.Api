@@ -2,10 +2,10 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
-using Warden.Services.Users.Domain;
 using Warden.Services.Mongo;
+using Warden.Services.Users.Domain;
 
-namespace Warden.Services.Users.Queries
+namespace Warden.Services.Users.Repositories.Queries
 {
     public static class UserQueries
     {

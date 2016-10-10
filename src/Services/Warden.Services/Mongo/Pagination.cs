@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver;
+using Warden.Common.Queries;
 using Warden.Common.Types;
 
 namespace Warden.Services.Mongo

@@ -6,7 +6,7 @@ namespace Warden.Services.RealTime.Modules
     {
         public HomeModule()
         {
-            Get("/", args => Response.AsJson(new { name = "Warden.Services.RealTime" }));
+            Get("", args => Response.AsJson(new { name = "Warden.Services.RealTime" }));
         }
     }
 }
