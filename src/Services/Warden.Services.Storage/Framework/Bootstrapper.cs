@@ -4,7 +4,7 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
-using Warden.Services.Extensions;
+using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.Storage.Providers;

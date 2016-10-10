@@ -14,7 +14,7 @@ using Warden.Common.Events.ApiKeys;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
-using Warden.Services.Extensions;
+using Warden.Common.Extensions;
 using Warden.Services.Features.Handlers;
 using Warden.Services.Features.Repositories;
 using Warden.Services.Features.Services;

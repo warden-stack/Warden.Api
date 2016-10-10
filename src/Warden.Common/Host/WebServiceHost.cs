@@ -2,13 +2,13 @@
 using System.IO;
 using System.Linq;
 using Autofac;
-using Microsoft.AspNetCore.Hosting;
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Events;
-using Warden.Services.Extensions;
+using Microsoft.AspNetCore.Hosting;
+using Warden.Common.Extensions;
 
-namespace Warden.Services.Host
+namespace Warden.Common.Host
 {
     public class WebServiceHost : IWebServiceHost
     {
@@ -24,20 +24,36 @@ namespace Warden.Services.Host
             _webHost.Run();
         }
 
-        public static Builder Create<TStartup>(string name = "", int port = 80) where TStartup : class
+        public static Builder Create<TStartup>(string name = "", int port = 80, bool integrateWithIIS = false)
+            where TStartup : class
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 name = $"Warden Service: {typeof(TStartup).Namespace.Split('.').Last()}";
-            }            
+            }
 
             Console.Title = name;
-            var webHost = new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseKestrel()
-                .UseStartup<TStartup>()
-                .UseUrls($"http://*:{port}")
-                .Build();
+            IWebHost webHost = null;
+            if (integrateWithIIS)
+            {
+                webHost = new WebHostBuilder()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseIISIntegration()
+                    .UseKestrel()
+                    .UseStartup<TStartup>()
+                    .UseUrls($"http://*:{port}")
+                    .Build();
+            }
+            else
+            {
+                webHost = new WebHostBuilder()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseKestrel()
+                    .UseStartup<TStartup>()
+                    .UseUrls($"http://*:{port}")
+                    .Build();
+            }
+
             var builder = new Builder(webHost);
 
             return builder;

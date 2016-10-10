@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Autofac;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -12,9 +11,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Warden.Api.Core.IoC.Modules;
 using Warden.Api.Core.Settings;
-using Warden.Api.Core.Storage;
 using Warden.Api.Framework.Tasks;
-using Warden.Common.Events;
 
 namespace Warden.Api.Framework
 {
@@ -23,6 +20,7 @@ namespace Warden.Api.Framework
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IConfiguration _configuration;
         private readonly IContainer _existingContainer;
+        public static ILifetimeScope LifetimeScope { get; private set; }
 
         public Bootstrapper(IConfiguration configuration, IContainer existingContainer)
         {
@@ -45,6 +43,7 @@ namespace Warden.Api.Framework
                 builder.RegisterModule<StorageModule>();
                 builder.RegisterModule<FilterModule>();
                 builder.RegisterModule<ServiceModule>();
+                builder.RegisterModule<EventHandlersModule>();
                 builder.RegisterInstance(new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
                 var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
                 builder.RegisterAssemblyTypes(coreAssembly).As(typeof(ITask));
@@ -53,6 +52,7 @@ namespace Warden.Api.Framework
                     builder.RegisterComponent(component);
                 }
             });
+            LifetimeScope = container;
         }
 
         protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)

@@ -3,7 +3,7 @@ using RawRabbit.Common;
 using Warden.Common.Commands;
 using Warden.Common.Events;
 
-namespace Warden.Services.Extensions
+namespace Warden.Common.Extensions
 {
     public static class RawRabbitExtensions
     {

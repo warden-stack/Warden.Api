@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Warden.Services.Host
+namespace Warden.Common.Host
 {
     public class AutofacResolver : IResolver
     {

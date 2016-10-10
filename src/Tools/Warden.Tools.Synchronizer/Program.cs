@@ -1,4 +1,4 @@
-﻿using Warden.Services.Host;
+﻿using Warden.Common.Host;
 using Warden.Tools.Synchronizer.Framework;
 
 namespace Warden.Tools.Synchronizer

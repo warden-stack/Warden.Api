@@ -1,7 +1,7 @@
 ﻿using Warden.Common.Commands.ApiKeys;
 using Warden.Common.Commands.Users;
 using Warden.Common.Events.Features;
-using Warden.Services.Host;
+using Warden.Common.Host;
 using Warden.Services.Users.Framework;
 
 namespace Warden.Services.Users

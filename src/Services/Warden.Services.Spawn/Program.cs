@@ -1,5 +1,5 @@
 ﻿using Warden.Common.Commands.Wardens;
-using Warden.Services.Host;
+using Warden.Common.Host;
 using Warden.Services.Spawn.Framework;
 
 namespace Warden.Services.Spawn

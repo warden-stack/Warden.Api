@@ -1,5 +1,6 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using Warden.Api.Framework;
+using Warden.Common.Events.ApiKeys;
+using Warden.Common.Host;
 
 namespace Warden.Api
 {
@@ -7,14 +8,13 @@ namespace Warden.Api
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+            WebServiceHost
+                .Create<Startup>(name: "Warden API", port: 5000, integrateWithIIS: true)
+                .UseAutofac(Bootstrapper.LifetimeScope)
+                .UseRabbitMq()
+                .SubscribeToEvent<ApiKeyCreated>()
+                .Build()
+                .Run();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Warden.Services.Host
+﻿namespace Warden.Common.Host
 {
     public interface IResolver
     {

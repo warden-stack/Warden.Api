@@ -1,7 +1,7 @@
 ﻿using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.Events.Users;
-using Warden.Services.Host;
+using Warden.Common.Host;
 using Warden.Services.Organizations.Framework;
 
 namespace Warden.Services.Organizations

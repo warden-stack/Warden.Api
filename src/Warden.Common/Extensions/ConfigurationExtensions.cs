@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Warden.Services.Extensions
+namespace Warden.Common.Extensions
 {
     public static class ConfigurationExtensions
     {

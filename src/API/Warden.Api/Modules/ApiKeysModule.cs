@@ -5,27 +5,19 @@ using Warden.Api.Core.Filters;
 using Warden.Api.Core.Services;
 using Warden.Api.Core.Storage;
 using Warden.Common.Commands.ApiKeys;
+using Warden.DTO.ApiKeys;
 
 namespace Warden.Api.Modules
 {
     public class ApiKeysModule : ModuleBase
     {
-
         public ApiKeysModule(ICommandDispatcher commandDispatcher,
             IIdentityProvider identityProvider,
             IApiKeyStorage apiKeyStorage)
             : base(commandDispatcher, identityProvider, modulePath: "api-keys")
         {
-            Get("", async args =>
-            {
-                this.RequiresAuthentication();
-                var apiKeys = await apiKeyStorage.BrowseAsync(new BrowseApiKeys
-                {
-                    UserId = CurrentUserId
-                });
-
-                return FromPagedResult(apiKeys);
-            });
+            Get("", async args => await FetchCollection<BrowseApiKeys, ApiKeyDto>
+                (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
 
             Post("", async args => await For<RequestNewApiKey>()
                 .OnSuccess(HttpStatusCode.NoContent)

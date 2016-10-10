@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using Warden.Api.Core.IoC.Modules;
@@ -17,6 +16,7 @@ namespace Warden.Api.Core.IoC
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<StorageModule>();
             builder.RegisterModule<FilterModule>();
+            builder.RegisterModule<EventHandlersModule>();
             //builder.RegisterModule<RedisModule>();
 
             return builder.Build();

@@ -10,7 +10,7 @@ using Warden.Common.Commands.Wardens;
 using Warden.Common.Events;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Wardens;
-using Warden.Services.Extensions;
+using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.WardenChecks.Handlers;

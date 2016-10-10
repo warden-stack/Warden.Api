@@ -9,7 +9,7 @@ using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.Events;
 using Warden.Common.Events.Users;
-using Warden.Services.Extensions;
+using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
 using Warden.Services.Organizations.Handlers;

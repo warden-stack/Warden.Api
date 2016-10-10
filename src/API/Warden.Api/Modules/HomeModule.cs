@@ -9,7 +9,7 @@ namespace Warden.Api.Modules
             IIdentityProvider identityProvider)
             : base(commandDispatcher, identityProvider)
         {
-            Get("/", args => $"Warden API is running on: {Context.Request.Url}");
+            Get("", args => $"Warden API is running on: {Context.Request.Url}");
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Warden.Common.Events.Wardens;
-using Warden.Services.Host;
+using Warden.Common.Host;
 using Warden.Services.Stats.Framework;
 
 namespace Warden.Services.Stats
