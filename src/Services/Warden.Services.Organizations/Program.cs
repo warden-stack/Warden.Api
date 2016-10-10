@@ -16,6 +16,7 @@ namespace Warden.Services.Organizations
                 .UseRabbitMq()
                 .SubscribeToCommand<CreateOrganization>()
                 .SubscribeToCommand<CreateWarden>()
+                .SubscribeToCommand<DeleteWarden>()
                 .SubscribeToEvent<NewUserSignedIn>()
                 .SubscribeToEvent<UserSignedIn>()
                 .Build()

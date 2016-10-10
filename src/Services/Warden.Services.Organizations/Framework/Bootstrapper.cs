@@ -4,6 +4,7 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
+using System.Reflection;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.Wardens;
@@ -42,10 +43,10 @@ namespace Warden.Services.Organizations.Framework
                 builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
                 builder.RegisterType<WardenService>().As<IWardenService>();
                 builder.RegisterType<OrganizationService>().As<IOrganizationService>();
-                builder.RegisterType<CreateOrganizationHandler>().As<ICommandHandler<CreateOrganization>>();
-                builder.RegisterType<CreateWardenHandler>().As<ICommandHandler<CreateWarden>>();
-                builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
-                builder.RegisterType<UserSignedInHandler>().As<IEventHandler<UserSignedIn>>();
+
+                var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
+                builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(typeof(IEventHandler<>));
+                builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(typeof(ICommandHandler<>));
             });
             LifetimeScope = container;
         }

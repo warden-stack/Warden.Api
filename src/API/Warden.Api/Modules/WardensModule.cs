@@ -1,4 +1,5 @@
-﻿using Warden.Api.Core.Commands;
+﻿using Nancy;
+using Warden.Api.Core.Commands;
 using Warden.Api.Core.Services;
 using Warden.Common.Commands.Wardens;
 
@@ -13,6 +14,10 @@ namespace Warden.Api.Modules
             Post("", async args => await For<RequestCreateWarden>()
                 .SetResourceId(x => x.WardenId)
                 .OnSuccessCreated("organizations/{organizationId}/wardens/{0}")
+                .DispatchAsync());
+
+            Delete("", async args => await For<DeleteWarden>()
+                .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
         }
     }
