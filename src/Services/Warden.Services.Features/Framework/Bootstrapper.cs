@@ -22,7 +22,6 @@ using Warden.Services.Features.Services;
 using Warden.Services.Features.Settings;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
-using RequestProcessWardenCheckResult = Warden.Common.Commands.WardenChecks.RequestProcessWardenCheckResult;
 
 namespace Warden.Services.Features.Framework
 {
@@ -59,14 +58,14 @@ namespace Warden.Services.Features.Framework
                 builder.RegisterType<UserPaymentPlanService>().As<IUserPaymentPlanService>();
                 builder.RegisterType<RequestNewApiKeyHandler>().As<ICommandHandler<RequestNewApiKey>>();
                 builder.RegisterType<ApiKeyCreatedHandler>().As<IEventHandler<ApiKeyCreated>>();
-                builder.RegisterType<RequestProcessWardenCheckResultHandler>()
-                    .As<ICommandHandler<RequestProcessWardenCheckResult>>();
+                builder.RegisterType<RequestWardenCheckResultProcessingResultHandler>()
+                    .As<ICommandHandler<RequestWardenCheckResultProcessing>>();
                 builder.RegisterType<WardenCheckResultProcessedHandler>()
                     .As<IEventHandler<WardenCheckResultProcessed>>();
                 builder.RegisterType<NewUserSignedInHandler>().As<IEventHandler<NewUserSignedIn>>();
-                builder.RegisterType<RequestCreateWardenHandler>().As<ICommandHandler<RequestCreateWarden>>();
+                builder.RegisterType<RequestNewWardenHandler>().As<ICommandHandler<RequestNewWarden>>();
                 builder.RegisterType<WardenCreatedHandler>().As<IEventHandler<WardenCreated>>();
-                builder.RegisterType<RequestCreateOrganizationHandler>().As<ICommandHandler<RequestCreateOrganization>>();
+                builder.RegisterType<RequestNewOrganizationHandler>().As<ICommandHandler<RequestNewOrganization>>();
                 builder.RegisterType<OrganizationCreatedHandler>().As<IEventHandler<OrganizationCreated>>();
             });
             LifetimeScope = container;

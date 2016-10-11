@@ -11,7 +11,7 @@ namespace Warden.Api.Modules
             IIdentityProvider identityProvider)
             : base(commandDispatcher, identityProvider, modulePath: "organizations/{organizationId}/wardens")
         {
-            Post("", async args => await For<RequestCreateWarden>()
+            Post("", async args => await For<RequestNewWarden>()
                 .SetResourceId(x => x.WardenId)
                 .OnSuccessAccepted("organizations/{organizationId}/wardens/{0}")
                 .DispatchAsync());

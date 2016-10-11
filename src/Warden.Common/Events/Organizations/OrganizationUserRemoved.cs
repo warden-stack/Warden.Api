@@ -2,13 +2,19 @@
 
 namespace Warden.Common.Events.Organizations
 {
-    public class OrganizationUserRemoved : IEvent
+    public class OrganizationUserRemoved : IAuthenticatedEvent
     {
+        public Guid CommandId { get; }
         public Guid OrganizationId { get; }
         public string UserId { get; }
 
-        public OrganizationUserRemoved(Guid organizationId, string userId)
+        protected OrganizationUserRemoved()
+        {           
+        }
+
+        public OrganizationUserRemoved(Guid commandId, Guid organizationId, string userId)
         {
+            CommandId = commandId;
             OrganizationId = organizationId;
             UserId = userId;
         }

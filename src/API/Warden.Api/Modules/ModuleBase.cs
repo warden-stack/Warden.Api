@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Responses.Negotiation;
 using Nancy.Security;
 using Warden.Api.Core.Commands;
 using Warden.Api.Core.Services;
@@ -36,10 +33,9 @@ namespace Warden.Api.Modules
         protected CommandRequestHandler<T> For<T>() where T : ICommand, new()
         {
             var command = BindRequest<T>();
-            SetCommandDetails(command);
             var authenticatedCommand = command as IAuthenticatedCommand;
             if (authenticatedCommand == null)
-                return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate);
+                return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate, Request.Url);
 
             var userId = GetUserIdFromApiKey();
             if (userId.Empty())
@@ -49,13 +45,7 @@ namespace Warden.Api.Modules
             }
             authenticatedCommand.UserId = userId;
 
-            return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate);
-        }
-
-        //TODO: Include resource details.
-        private void SetCommandDetails<T>(T command) where T : ICommand
-        {
-            command.Details = new CommandDetails(Guid.Empty, Request.Url.ToString(), string.Empty);
+            return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate, Request.Url);
         }
 
         private string GetUserIdFromApiKey()

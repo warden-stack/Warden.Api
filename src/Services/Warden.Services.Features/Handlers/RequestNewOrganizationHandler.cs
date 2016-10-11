@@ -1,38 +1,37 @@
 ﻿using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Common.Commands;
-using Warden.Common.Commands.Wardens;
+using Warden.Common.Commands.Organizations;
 using Warden.Services.Features.Domain;
 using Warden.Services.Features.Services;
 
 namespace Warden.Services.Features.Handlers
 {
-    public class RequestCreateWardenHandler : ICommandHandler<RequestCreateWarden>
+    public class RequestNewOrganizationHandler : ICommandHandler<RequestNewOrganization>
     {
         private readonly IBusClient _bus;
         private readonly IUserFeaturesManager _userFeaturesManager;
 
-        public RequestCreateWardenHandler(IBusClient bus, 
-            IUserFeaturesManager userFeaturesManager)
+        public RequestNewOrganizationHandler(IBusClient bus, IUserFeaturesManager userFeaturesManager)
         {
             _bus = bus;
             _userFeaturesManager = userFeaturesManager;
         }
 
-        public async Task HandleAsync(RequestCreateWarden command)
+        public async Task HandleAsync(RequestNewOrganization command)
         {
             var featureAvailable = await _userFeaturesManager
-                .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddWarden);
+                .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddOrganization);
             if (!featureAvailable)
                 return;
 
-            await _bus.PublishAsync(new CreateWarden
+            await _bus.PublishAsync(new CreateOrganization
             {
+                OrganizationId = command.OrganizationId,
                 UserId = command.UserId,
                 Name = command.Name,
-                WardenId = command.WardenId,
-                OrganizationId = command.OrganizationId,
-                Enabled = command.Enabled
+                Description = command.Description,
+                Details = command.Details.Copy()
             });
         }
     }

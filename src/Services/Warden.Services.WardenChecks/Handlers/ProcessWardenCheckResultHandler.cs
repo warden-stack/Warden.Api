@@ -30,7 +30,7 @@ namespace Warden.Services.WardenChecks.Handlers
                 return;
 
             await _wardenCheckStorage.SaveAsync(rootResult.Value);
-            await _bus.PublishAsync(new WardenCheckResultProcessed(command.UserId,
+            await _bus.PublishAsync(new WardenCheckResultProcessed(command.Details.Id, command.UserId,
                 command.OrganizationId, command.WardenId, rootResult.Value.Result, command.CreatedAt));
         }
     }

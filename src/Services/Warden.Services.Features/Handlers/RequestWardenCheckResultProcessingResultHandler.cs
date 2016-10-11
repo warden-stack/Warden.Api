@@ -7,18 +7,18 @@ using Warden.Services.Features.Services;
 
 namespace Warden.Services.Features.Handlers
 {
-    public class RequestProcessWardenCheckResultHandler : ICommandHandler<RequestProcessWardenCheckResult>
+    public class RequestWardenCheckResultProcessingResultHandler : ICommandHandler<RequestWardenCheckResultProcessing>
     {
         private readonly IBusClient _bus;
         private readonly IUserFeaturesManager _userFeaturesManager;
 
-        public RequestProcessWardenCheckResultHandler(IBusClient bus, IUserFeaturesManager userFeaturesManager)
+        public RequestWardenCheckResultProcessingResultHandler(IBusClient bus, IUserFeaturesManager userFeaturesManager)
         {
             _bus = bus;
             _userFeaturesManager = userFeaturesManager;
         }
 
-        public async Task HandleAsync(RequestProcessWardenCheckResult command)
+        public async Task HandleAsync(RequestWardenCheckResultProcessing command)
         {
             var featureAvailable = await _userFeaturesManager
                 .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddWardenCheck);
@@ -31,7 +31,8 @@ namespace Warden.Services.Features.Handlers
                 CreatedAt = command.CreatedAt,
                 OrganizationId = command.OrganizationId,
                 WardenId = command.WardenId,
-                Check = command.Check
+                Check = command.Check,
+                Details = command.Details.Copy()
             });
         }
     }

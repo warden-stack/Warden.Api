@@ -1,7 +1,6 @@
 ﻿using Nancy;
-using Nancy.Security;
 using Warden.Api.Core.Commands;
-using Warden.Api.Core.Filters;
+using Warden.Api.Core.Queries;
 using Warden.Api.Core.Services;
 using Warden.Api.Core.Storage;
 using Warden.Common.Commands.ApiKeys;
@@ -20,7 +19,8 @@ namespace Warden.Api.Modules
                 (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
 
             Post("", async args => await For<RequestNewApiKey>()
-                .OnSuccess(HttpStatusCode.NoContent)
+                .SetResourceId(x => x.ApiKeyId)
+                .OnSuccessAccepted("api-keys/{0}")
                 .DispatchAsync());
 
             Delete("", async args => await For<DeleteApiKey>()

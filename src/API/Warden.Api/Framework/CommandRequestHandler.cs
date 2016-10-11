@@ -19,10 +19,16 @@ namespace Warden.Api.Framework
         private Func<T, Task<object>> _asyncResponseFunc;
         private Guid _resourceId;
 
-        public CommandRequestHandler(ICommandDispatcher dispatcher, T command, IResponseFormatter responseFormatter, Negotiator negotiator)
+        public CommandRequestHandler(ICommandDispatcher dispatcher, T command, IResponseFormatter responseFormatter, 
+            Negotiator negotiator, Url url)
         {
             _dispatcher = dispatcher;
             _command = command;
+            _command.Details = new CommandDetails
+            {
+                Origin = url.Path.Remove(0,1),
+                CreatedAt = DateTime.UtcNow
+            };
             _responseFormatter = responseFormatter;
             _negotiator = negotiator;
         }
@@ -63,7 +69,13 @@ namespace Warden.Api.Framework
             return this;
         }
 
-        public CommandRequestHandler<T> OnSuccessCreated(string path) => OnSuccessCreated(c => string.Format(path, _resourceId.ToString("N")));
+        public CommandRequestHandler<T> OnSuccessCreated(string path)
+        {
+            var url = string.Format(path, _resourceId.ToString("N"));
+            _command.Details.Resource = url;
+            return OnSuccessCreated(c => url);
+        }
+
 
         public CommandRequestHandler<T> OnSuccessCreated(Func<T, string> func)
         {
@@ -74,7 +86,12 @@ namespace Warden.Api.Framework
 
         public CommandRequestHandler<T> OnSuccessAccepted(string path)
         {
-            _responseFunc = x => _negotiator.WithStatusCode(202).WithHeader("X-Resource-Location", string.Format(path, _resourceId.ToString("N")));
+            var resourceEndpoint = string.Format(path, _resourceId.ToString("N"));
+            var operationEndpoint = $"operations/{_command.Details.Id:N}";
+            _command.Details.Resource = resourceEndpoint;
+            _responseFunc = x => _negotiator.WithStatusCode(202)
+                .WithHeader("X-Resource", resourceEndpoint)
+                .WithHeader("X-Operation", operationEndpoint);
 
             return this;
         }

@@ -12,7 +12,7 @@ namespace Warden.Api.Modules
         {
             Post("", async args => await For<SpawnWarden>()
                 .SetResourceId(x => x.WardenSpawnId)
-                .OnSuccessCreated("warden-spawn/{0}")
+                .OnSuccessAccepted("warden-spawn/{0}")
                 .DispatchAsync());
         }
     }

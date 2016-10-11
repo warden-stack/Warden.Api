@@ -37,6 +37,7 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
                 builder.RegisterType<ApiKeyRepository>().As<IApiKeyRepository>();
                 builder.RegisterType<UserRepository>().As<IUserRepository>();
+                builder.RegisterType<OperationRepository>().As<IOperationRepository>();
                 builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
                 builder.RegisterType<WardenCheckResultRootRepository>().As<IWardenCheckResultRootRepository>();
                 builder.RegisterType<WardenService>().As<IWardenService>();
@@ -45,6 +46,7 @@ namespace Warden.Services.Storage.Framework
                 builder.RegisterType<ServiceClient>().As<IServiceClient>();
                 builder.RegisterType<ProviderClient>().As<IProviderClient>();
                 builder.RegisterType<ApiKeyProvider>().As<IApiKeyProvider>();
+                builder.RegisterType<OperationProvider>().As<IOperationProvider>();
                 builder.RegisterType<UserProvider>().As<IUserProvider>();
                 builder.RegisterModule<MapperModule>();
                 builder.RegisterModule<EventHandlersModule>();

@@ -18,6 +18,10 @@ namespace Warden.Api.Core.IoC.Modules
             builder.RegisterType<ApiKeyStorage>()
                 .As<IApiKeyStorage>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<OperationStorage>()
+                .As<IOperationStorage>()
+                .InstancePerLifetimeScope();
         }
     }
 }

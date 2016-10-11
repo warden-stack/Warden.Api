@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Common.Events;
 using Warden.Common.Events.Features;
@@ -33,7 +34,7 @@ namespace Warden.Services.Features.Handlers
             await _userRepository.AddAsync(new User(@event.Email, @event.UserId, @event.Role, @event.State));
             await _userPaymentPlanService.CreateDefaultAsync(@event.UserId);
             var plan = await _userPaymentPlanService.GetCurrentPlanAsync(@event.UserId);
-            await _bus.PublishAsync(new UserPaymentPlanCreated(@event.UserId, plan.Value.Id,
+            await _bus.PublishAsync(new UserPaymentPlanCreated(Guid.NewGuid(), @event.UserId, plan.Value.Id,
                 plan.Value.Name, plan.Value.MonthlyPrice));
         }
     }

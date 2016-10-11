@@ -10,6 +10,8 @@ using Warden.Common.Events;
 using Warden.Common.Extensions;
 using Warden.Services.Mongo;
 using Warden.Services.Nancy;
+using Warden.Services.Operations.Repositories;
+using Warden.Services.Operations.Services;
 
 namespace Warden.Services.Operations.Framework
 {
@@ -32,6 +34,8 @@ namespace Warden.Services.Operations.Framework
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
                 builder.RegisterModule<MongoDbModule>();
                 builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
+                builder.RegisterType<OperationRepository>().As<IOperationRepository>();
+                builder.RegisterType<OperationService>().As<IOperationService>();
                 builder.RegisterInstance(BusClientFactory.CreateDefault()).As<IBusClient>();
                 var coreAssembly = typeof(Startup).GetTypeInfo().Assembly;
                 builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(typeof(IEventHandler<>));

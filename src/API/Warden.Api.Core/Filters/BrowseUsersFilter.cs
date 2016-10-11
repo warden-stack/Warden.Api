@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Warden.Api.Core.Queries;
 using Warden.Common.Types;
 using Warden.DTO.Users;
 

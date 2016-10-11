@@ -24,7 +24,7 @@ namespace Warden.Services.Organizations.Handlers
         {
             await _wardenService.CreateWardenAsync(command.WardenId,
                 command.Name, command.OrganizationId, command.UserId, command.Enabled);
-            await _bus.PublishAsync(new WardenCreated(command.WardenId,
+            await _bus.PublishAsync(new WardenCreated(command.Details.Id, command.WardenId,
                 command.Name, command.OrganizationId, command.UserId,
                 DateTime.UtcNow, command.Enabled));
         }

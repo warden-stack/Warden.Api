@@ -4,10 +4,11 @@ namespace Warden.Common.Events.Wardens
 {
     public class WardenCreated : IAuthenticatedEvent
     {
+        public Guid CommandId { get; }
         public Guid WardenId { get; }
         public string Name { get; }
         public Guid OrganizationId { get; }
-        public string UserId { get; set; }
+        public string UserId { get; }
         public DateTime CreatedAt { get; }
         public bool Enabled { get;}
 
@@ -15,13 +16,15 @@ namespace Warden.Common.Events.Wardens
         {
         }
         
-        public WardenCreated(Guid wardenId,
+        public WardenCreated(Guid commandId, 
+            Guid wardenId,
             string name,
             Guid organizationId, 
             string userId, 
             DateTime createdAt, 
             bool enabled)
         {
+            CommandId = commandId;
             WardenId = wardenId;
             Name = name;
             OrganizationId = organizationId;

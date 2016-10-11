@@ -18,6 +18,7 @@ namespace Warden.Services.Features.Handlers
             _userFeaturesManager = userFeaturesManager;
         }
 
+        //TODO: Implement rejected operation.
         public async Task HandleAsync(RequestNewApiKey command)
         {
             var featureAvailable = await _userFeaturesManager
@@ -27,7 +28,9 @@ namespace Warden.Services.Features.Handlers
 
             await _bus.PublishAsync(new CreateApiKey
             {
-                UserId = command.UserId
+                ApiKeyId = command.ApiKeyId,
+                UserId = command.UserId,
+                Details = command.Details.Copy()
             });
         }
     }

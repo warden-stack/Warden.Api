@@ -4,21 +4,17 @@ namespace Warden.Common.Commands
 {
     public class CommandDetails
     {
-        public Guid Id { get; }
-        public Guid ResourceId { get; }
-        public string OriginUrl { get; }
-        public string ResourceUrl { get; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Origin { get; set; }
+        public string Resource { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        protected CommandDetails()
+        public CommandDetails Copy() => new CommandDetails
         {
-        }
-
-        public CommandDetails(Guid resourceId, string originUrl, string resourceUrl)
-        {
-            Id = Guid.NewGuid();
-            ResourceId = resourceId;
-            OriginUrl = originUrl;
-            ResourceUrl = resourceUrl;
-        }
+            Id = Id,
+            Origin = Origin,
+            Resource = Resource,
+            CreatedAt = DateTime.UtcNow
+        };
     }
 }

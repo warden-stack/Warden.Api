@@ -1,5 +1,6 @@
 ﻿using Warden.Common.Events.ApiKeys;
 using Warden.Common.Events.Features;
+using Warden.Common.Events.Operations;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
@@ -23,6 +24,8 @@ namespace Warden.Services.Storage
                 .SubscribeToEvent<OrganizationCreated>()
                 .SubscribeToEvent<WardenCheckResultProcessed>()
                 .SubscribeToEvent<WardenCreated>()
+                .SubscribeToEvent<OperationCreated>()
+                .SubscribeToEvent<OperationUpdated>()
                 .Build()
                 .Run();
         }

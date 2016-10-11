@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Warden.Common.Commands.Users
+﻿namespace Warden.Common.Commands.Users
 {
     public class SignInUser : IAuthenticatedCommand
     {

@@ -24,10 +24,9 @@ namespace Warden.Services.Users.Handlers
 
         public async Task HandleAsync(CreateApiKey command)
         {
-            var apiKeyId = Guid.NewGuid();
-            await _apiKeyService.CreateAsync(apiKeyId, command.UserId);
-            var apiKey = await _apiKeyService.GetAsync(apiKeyId);
-            await _bus.PublishAsync(new ApiKeyCreated(command.UserId, apiKey.Value.Key));
+            await _apiKeyService.CreateAsync(command.ApiKeyId, command.UserId);
+            var apiKey = await _apiKeyService.GetAsync(command.ApiKeyId);
+            await _bus.PublishAsync(new ApiKeyCreated(command.Details.Id, command.UserId, apiKey.Value.Key));
         }
     }
 }

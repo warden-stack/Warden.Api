@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Warden.Api.Core.Filters;
+using Warden.Api.Core.Queries;
 using Warden.Api.Core.Services;
 using Warden.Api.Core.Storage;
 using Warden.Common.Tasks;

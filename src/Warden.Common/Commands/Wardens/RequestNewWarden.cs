@@ -1,14 +1,15 @@
 ﻿using System;
 
-namespace Warden.Common.Commands.WardenChecks
+namespace Warden.Common.Commands.Wardens
 {
-    public class RequestProcessWardenCheckResult : IFeatureRequestCommand
+    public class RequestNewWarden : IFeatureRequestCommand
     {
         public CommandDetails Details { get; set; }
         public string UserId { get; set; }
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; }
-        public object Check { get; set; }
+        public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool Enabled { get; set; }
     }
 }
