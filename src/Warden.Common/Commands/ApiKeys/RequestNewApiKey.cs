@@ -1,7 +1,10 @@
-﻿namespace Warden.Common.Commands.ApiKeys
+﻿using System;
+
+namespace Warden.Common.Commands.ApiKeys
 {
     public class RequestNewApiKey : IFeatureRequestCommand
     {
+        public CommandDetails Details { get; set; }
         public string UserId { get; set; }
     }
 }

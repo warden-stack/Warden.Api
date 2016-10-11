@@ -13,7 +13,7 @@ namespace Warden.Api.Modules
         {
             Post("", async args => await For<RequestCreateOrganization>()
                 .SetResourceId(x => x.OrganizationId)
-                .OnSuccessCreated("organizations/{0}")
+                .OnSuccessAccepted("organizations/{0}")
                 .DispatchAsync());
 
             Put("{id}", async args => await For<EditOrganization>()

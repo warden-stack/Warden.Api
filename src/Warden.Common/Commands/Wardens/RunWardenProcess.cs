@@ -1,7 +1,10 @@
-﻿namespace Warden.Common.Commands.Wardens
+﻿using System;
+
+namespace Warden.Common.Commands.Wardens
 {
     public class RunWardenProcess : ICommand
     {
+        public CommandDetails Details { get; set; }
         public string ConfigurationId { get; }
         public string Token { get; }
 

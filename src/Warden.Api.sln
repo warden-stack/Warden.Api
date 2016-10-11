@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD2AE990
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Tests.EndToEnd", "Tests\Warden.Tests.EndToEnd\Warden.Tests.EndToEnd.xproj", "{86F0E6E0-8C9A-4FC6-A200-7DF736DEEC54}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warden.Services.Operations", "Services\Warden.Services.Operations\Warden.Services.Operations.xproj", "{F51685D8-4E16-495C-A003-822FCEDAD81D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{86F0E6E0-8C9A-4FC6-A200-7DF736DEEC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86F0E6E0-8C9A-4FC6-A200-7DF736DEEC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86F0E6E0-8C9A-4FC6-A200-7DF736DEEC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F51685D8-4E16-495C-A003-822FCEDAD81D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F51685D8-4E16-495C-A003-822FCEDAD81D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F51685D8-4E16-495C-A003-822FCEDAD81D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F51685D8-4E16-495C-A003-822FCEDAD81D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,5 +131,6 @@ Global
 		{FBAEFAB9-1FB4-4EFA-8EC2-9789556582A0} = {27BF0A76-7B2C-46C9-8966-FD2AA73FE4FB}
 		{1CEDAA75-4449-4172-A5C3-1B7D28CDA7DD} = {7BB59B6A-B6DC-49F0-87F9-DC5F044799C9}
 		{86F0E6E0-8C9A-4FC6-A200-7DF736DEEC54} = {DD2AE990-CEEA-4615-82D4-7477E7D9AC82}
+		{F51685D8-4E16-495C-A003-822FCEDAD81D} = {81205A22-A8D8-48BE-986C-3CE0AFE01CAA}
 	EndGlobalSection
 EndGlobal

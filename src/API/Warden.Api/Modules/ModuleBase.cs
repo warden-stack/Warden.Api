@@ -20,7 +20,6 @@ namespace Warden.Api.Modules
     public abstract class ModuleBase : NancyModule
     {
         private string _currentUserId;
-        private const string PageParameter = "page";
         private const string ApiKeyHeader = "x-api-key";
         protected readonly ICommandDispatcher CommandDispatcher;
         protected readonly IIdentityProvider IdentityProvider;
@@ -37,9 +36,10 @@ namespace Warden.Api.Modules
         protected CommandRequestHandler<T> For<T>() where T : ICommand, new()
         {
             var command = BindRequest<T>();
+            SetCommandDetails(command);
             var authenticatedCommand = command as IAuthenticatedCommand;
             if (authenticatedCommand == null)
-                return new CommandRequestHandler<T>(CommandDispatcher, command, Response);
+                return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate);
 
             var userId = GetUserIdFromApiKey();
             if (userId.Empty())
@@ -49,7 +49,13 @@ namespace Warden.Api.Modules
             }
             authenticatedCommand.UserId = userId;
 
-            return new CommandRequestHandler<T>(CommandDispatcher, command, Response);
+            return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate);
+        }
+
+        //TODO: Include resource details.
+        private void SetCommandDetails<T>(T command) where T : ICommand
+        {
+            command.Details = new CommandDetails(Guid.Empty, Request.Url.ToString(), string.Empty);
         }
 
         private string GetUserIdFromApiKey()
@@ -100,19 +106,10 @@ namespace Warden.Api.Modules
             return new FetchRequestHandler<TQuery, TResult>(query, fetch, Negotiate, Request.Url);
         }
 
-        protected T BindAuthenticatedCommand<T>() where T : IAuthenticatedCommand, new()
-        {
-            this.RequiresAuthentication();
-            var command = BindRequest<T>();
-            command.UserId = CurrentUserId;
-
-            return command;
-        }
-
         protected T BindRequest<T>() where T : new()
         => Request.Body.Length == 0 && Request.Query == null
             ? new T()
-            : this.Bind<T>(new BindingConfig(), blacklistedProperties: "UserId");
+            : this.Bind<T>(new BindingConfig(), "UserId", "OperationId");
 
         protected string CurrentUserId
         {
@@ -129,45 +126,5 @@ namespace Warden.Api.Modules
         {
             _currentUserId = id;
         }
-
-        protected Negotiator FromPagedResult<T>(Maybe<PagedResult<T>> result)
-        {
-            if (result.HasNoValue)
-                return Negotiate.WithModel(new List<T>());
-
-            return Negotiate.WithModel(result.Value.Items)
-                .WithHeader("Link", GetLinkHeader(result.Value))
-                .WithHeader("X-Total-Count", result.Value.TotalResults.ToString());
-        }
-
-        private string GetLinkHeader(PagedResultBase result)
-        {
-            var first = GetPageLink(result.CurrentPage, 1);
-            var last = GetPageLink(result.CurrentPage, result.TotalPages);
-            var prev = string.Empty;
-            var next = string.Empty;
-            if (result.CurrentPage > 1 && result.CurrentPage <= result.TotalPages)
-                prev = GetPageLink(result.CurrentPage, result.CurrentPage - 1);
-            if (result.CurrentPage < result.TotalPages)
-                next = GetPageLink(result.CurrentPage, result.CurrentPage + 1);
-
-            return $"{FormatLink(next, "next")}{FormatLink(last, "last")}" +
-                   $"{FormatLink(first, "first")}{FormatLink(prev, "prev")}";
-        }
-
-        private string GetPageLink(int currentPage, int page)
-        {
-            var url = Request.Url.ToString();
-            var sign = Request.Url.Query.Empty() ? "&" : "?";
-            var pageArg = $"{PageParameter}={page}";
-            var link = url.Contains($"{PageParameter}=")
-                ? url.Replace($"{PageParameter}={currentPage}", pageArg)
-                : url += $"{sign}{pageArg}";
-
-            return link;
-        }
-
-        private string FormatLink(string url, string rel)
-            => url.Empty() ? string.Empty : $"<{url}>; rel=\"{rel}\",";
     }
 }

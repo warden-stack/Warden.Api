@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nancy;
+using Nancy.Responses.Negotiation;
 using Warden.Api.Core.Commands;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
@@ -13,15 +14,17 @@ namespace Warden.Api.Framework
         private readonly ICommandDispatcher _dispatcher;
         private readonly T _command;
         private readonly IResponseFormatter _responseFormatter;
+        private readonly Negotiator _negotiator;
         private Func<T, object> _responseFunc;
         private Func<T, Task<object>> _asyncResponseFunc;
         private Guid _resourceId;
 
-        public CommandRequestHandler(ICommandDispatcher dispatcher, T command, IResponseFormatter responseFormatter)
+        public CommandRequestHandler(ICommandDispatcher dispatcher, T command, IResponseFormatter responseFormatter, Negotiator negotiator)
         {
             _dispatcher = dispatcher;
             _command = command;
             _responseFormatter = responseFormatter;
+            _negotiator = negotiator;
         }
 
         public CommandRequestHandler<T> Set(Action<T> action)
@@ -65,6 +68,13 @@ namespace Warden.Api.Framework
         public CommandRequestHandler<T> OnSuccessCreated(Func<T, string> func)
         {
             _responseFunc = x => _responseFormatter.AsRedirect(func(_command)).WithStatusCode(201).WithResourceIdHeader(_resourceId);
+
+            return this;
+        }
+
+        public CommandRequestHandler<T> OnSuccessAccepted(string path)
+        {
+            _responseFunc = x => _negotiator.WithStatusCode(202).WithHeader("X-Resource-Location", string.Format(path, _resourceId.ToString("N")));
 
             return this;
         }
