@@ -10,9 +10,6 @@ namespace Warden.Api.Modules
             IIdentityProvider identityProvider) 
             : base(commandDispatcher, identityProvider, modulePath: "users")
         {
-            Post("", async args => await For<SignInUser>()
-                .DispatchAsync());
-
             Put("assign", async args => await For<AssignIntoOrganization>()
                 .DispatchAsync());
 

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Warden.Api.Tests.EndToEnd")]
+[assembly: AssemblyProduct("Warden.Tests.EndToEnd")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2c5e8aea-645f-4182-ad38-b2b01dcd0803")]
+[assembly: Guid("86f0e6e0-8c9a-4fc6-a200-7df736deec54")]

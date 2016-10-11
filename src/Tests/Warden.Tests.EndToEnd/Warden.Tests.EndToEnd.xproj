@@ -7,8 +7,8 @@
 
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>2c5e8aea-645f-4182-ad38-b2b01dcd0803</ProjectGuid>
-    <RootNamespace>Warden.Api.Tests.EndToEnd</RootNamespace>
+    <ProjectGuid>86f0e6e0-8c9a-4fc6-a200-7df736deec54</ProjectGuid>
+    <RootNamespace>Warden.Tests.EndToEnd</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
