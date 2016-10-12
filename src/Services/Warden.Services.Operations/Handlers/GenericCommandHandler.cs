@@ -52,18 +52,18 @@ namespace Warden.Services.Operations.Handlers
 
         private async Task CreateAsync(IAuthenticatedCommand command)
         {
-            await _operationService.CreateAsync(command.Details.Id, command.UserId,
-                command.Details.Origin, command.Details.Resource, command.Details.CreatedAt);
-            await _bus.PublishAsync(new OperationCreated(Guid.NewGuid(), command.Details.Id,
-                command.UserId, command.Details.Origin, command.Details.Resource, States.Accepted,
-                command.Details.CreatedAt, DateTime.UtcNow));
+            await _operationService.CreateAsync(command.Request.Id, command.UserId,
+                command.Request.Origin, command.Request.Resource, command.Request.CreatedAt);
+            await _bus.PublishAsync(new OperationCreated(command.Request.Id,
+                command.UserId, command.Request.Origin, command.Request.Resource, States.Accepted,
+                command.Request.CreatedAt, DateTime.UtcNow, string.Empty));
         }
 
         private async Task ProcessAsync(IAuthenticatedCommand command)
         {
-            await _operationService.ProcessAsync(command.Details.Id);
-            await _bus.PublishAsync(new OperationUpdated(Guid.NewGuid(), command.Details.Id,
-                command.UserId, States.Processing, DateTime.UtcNow, null));
+            await _operationService.ProcessAsync(command.Request.Id);
+            await _bus.PublishAsync(new OperationUpdated(command.Request.Id,
+                command.UserId, States.Processing, DateTime.UtcNow, string.Empty));
         } 
     }
 }

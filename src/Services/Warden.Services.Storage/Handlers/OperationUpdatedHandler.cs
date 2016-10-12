@@ -20,9 +20,9 @@ namespace Warden.Services.Storage.Handlers
             if (operation.HasNoValue)
                 return;
 
+            operation.Value.Message = @event.Message;
             operation.Value.State = @event.State;
             operation.Value.UpdatedAt = @event.UpdatedAt;
-            operation.Value.CompletedAt = @event.CompletedAt;
             await _operationRepository.UpdateAsync(operation.Value);
         }
     }

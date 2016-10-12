@@ -2,6 +2,7 @@
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Organizations;
+using Warden.Common.Events.Features;
 using Warden.Services.Features.Domain;
 using Warden.Services.Features.Services;
 
@@ -23,7 +24,13 @@ namespace Warden.Services.Features.Handlers
             var featureAvailable = await _userFeaturesManager
                 .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddOrganization);
             if (!featureAvailable)
+            {
+                await _bus.PublishAsync(new FeatureRejected(command.Request.Id,
+                    command.UserId, FeatureType.AddOrganization.ToString(),
+                    "Organization limit reached."));
+
                 return;
+            }
 
             await _bus.PublishAsync(new CreateOrganization
             {
@@ -31,7 +38,7 @@ namespace Warden.Services.Features.Handlers
                 UserId = command.UserId,
                 Name = command.Name,
                 Description = command.Description,
-                Details = command.Details.Copy()
+                Request = command.Request
             });
         }
     }

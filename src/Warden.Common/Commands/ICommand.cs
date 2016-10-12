@@ -5,6 +5,6 @@ namespace Warden.Common.Commands
     //Marker interface
     public interface ICommand
     {
-        CommandDetails Details { get; set; }
+        Request Request { get; set; }
     }
 }

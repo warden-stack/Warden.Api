@@ -4,7 +4,7 @@ namespace Warden.Common.Events.Features
 {
     public class UserPaymentPlanCreated : IAuthenticatedEvent
     {
-        public Guid CommandId { get; }
+        public Guid RequestId { get; }
         public string UserId { get; }
         public Guid PlanId { get; }
         public string Name { get; }
@@ -14,10 +14,10 @@ namespace Warden.Common.Events.Features
         {
         }
 
-        public UserPaymentPlanCreated(Guid commandId, string userId, 
+        public UserPaymentPlanCreated(Guid requestId, string userId, 
             Guid planId, string name, decimal monthlyPrice)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             UserId = userId;
             PlanId = planId;
             Name = name;

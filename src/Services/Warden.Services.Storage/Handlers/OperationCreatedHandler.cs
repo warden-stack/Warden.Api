@@ -26,6 +26,7 @@ namespace Warden.Services.Storage.Handlers
                 Origin = @event.Origin,
                 Resource = @event.Resource,
                 State = @event.State,
+                Message = @event.Message,
                 CreatedAt = @event.CreatedAt,
                 UpdatedAt = @event.UpdatedAt
             };

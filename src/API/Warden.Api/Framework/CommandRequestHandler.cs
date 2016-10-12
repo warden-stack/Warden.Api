@@ -24,7 +24,7 @@ namespace Warden.Api.Framework
         {
             _dispatcher = dispatcher;
             _command = command;
-            _command.Details = new CommandDetails
+            _command.Request = new Common.Commands.Request
             {
                 Origin = url.Path.Remove(0,1),
                 CreatedAt = DateTime.UtcNow
@@ -72,7 +72,7 @@ namespace Warden.Api.Framework
         public CommandRequestHandler<T> OnSuccessCreated(string path)
         {
             var url = string.Format(path, _resourceId.ToString("N"));
-            _command.Details.Resource = url;
+            _command.Request.Resource = url;
             return OnSuccessCreated(c => url);
         }
 
@@ -87,8 +87,8 @@ namespace Warden.Api.Framework
         public CommandRequestHandler<T> OnSuccessAccepted(string path)
         {
             var resourceEndpoint = string.Format(path, _resourceId.ToString("N"));
-            var operationEndpoint = $"operations/{_command.Details.Id:N}";
-            _command.Details.Resource = resourceEndpoint;
+            var operationEndpoint = $"operations/{_command.Request.Id:N}";
+            _command.Request.Resource = resourceEndpoint;
             _responseFunc = x => _negotiator.WithStatusCode(202)
                 .WithHeader("X-Resource", resourceEndpoint)
                 .WithHeader("X-Operation", operationEndpoint);

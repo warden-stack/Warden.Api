@@ -4,7 +4,7 @@ namespace Warden.Common.Events.ApiKeys
 {
     public class ApiKeyCreated : IAuthenticatedEvent
     {
-        public Guid CommandId { get;}
+        public Guid RequestId { get;}
         public string UserId { get; }
         public string ApiKey { get; }
 
@@ -12,9 +12,9 @@ namespace Warden.Common.Events.ApiKeys
         {
         }
 
-        public ApiKeyCreated(Guid commandId, string userId, string apiKey)
+        public ApiKeyCreated(Guid requestId, string userId, string apiKey)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             UserId = userId;
             ApiKey = apiKey;
         }

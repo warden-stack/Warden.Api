@@ -21,7 +21,7 @@ namespace Warden.Services.Organizations.Handlers
         public async Task HandleAsync(DeleteWarden command)
         {
             await _wardenService.DeleteWardenAsync(command.WardenId, command.OrganizationId, command.UserId);
-            await _bus.PublishAsync(new WardenDeleted(command.Details.Id, command.WardenId, command.OrganizationId));
+            await _bus.PublishAsync(new WardenDeleted(command.Request.Id, command.WardenId, command.OrganizationId));
         }
     }
 }

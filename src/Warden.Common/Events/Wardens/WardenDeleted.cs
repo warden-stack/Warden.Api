@@ -4,7 +4,7 @@ namespace Warden.Common.Events.Wardens
 {
     public class WardenDeleted : IEvent
     {
-        public Guid CommandId { get; }
+        public Guid RequestId { get; }
         public Guid WardenId { get; }
         public Guid OrganizationId { get; }
 
@@ -12,9 +12,9 @@ namespace Warden.Common.Events.Wardens
         {
         }
 
-        public WardenDeleted(Guid commandId, Guid wardenId, Guid organizationId)
+        public WardenDeleted(Guid requestId, Guid wardenId, Guid organizationId)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             WardenId = wardenId;
             OrganizationId = organizationId;
         }

@@ -2,6 +2,7 @@
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Commands.ApiKeys;
+using Warden.Common.Events.Features;
 using Warden.Services.Features.Domain;
 using Warden.Services.Features.Services;
 
@@ -18,19 +19,24 @@ namespace Warden.Services.Features.Handlers
             _userFeaturesManager = userFeaturesManager;
         }
 
-        //TODO: Implement rejected operation.
         public async Task HandleAsync(RequestNewApiKey command)
         {
             var featureAvailable = await _userFeaturesManager
                 .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddApiKey);
             if (!featureAvailable)
+            {
+                await _bus.PublishAsync(new FeatureRejected(command.Request.Id,
+                    command.UserId, FeatureType.AddApiKey.ToString(),
+                    "API key limit reached."));
+
                 return;
+            }
 
             await _bus.PublishAsync(new CreateApiKey
             {
                 ApiKeyId = command.ApiKeyId,
                 UserId = command.UserId,
-                Details = command.Details.Copy()
+                Request = command.Request
             });
         }
     }

@@ -4,7 +4,7 @@ namespace Warden.Common.Commands.Wardens
 {
     public class RunWardenProcess : ICommand
     {
-        public CommandDetails Details { get; set; }
+        public Request Request { get; set; }
         public string ConfigurationId { get; }
         public string Token { get; }
 

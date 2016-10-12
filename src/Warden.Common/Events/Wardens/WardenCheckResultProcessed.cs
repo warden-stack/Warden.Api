@@ -4,7 +4,7 @@ namespace Warden.Common.Events.Wardens
 {
     public class WardenCheckResultProcessed : IAuthenticatedEvent
     {
-        public Guid CommandId { get; }
+        public Guid RequestId { get; }
         public string UserId { get; }
         public Guid OrganizationId { get; }
         public Guid WardenId { get; }
@@ -15,14 +15,14 @@ namespace Warden.Common.Events.Wardens
         {
         }
 
-        public WardenCheckResultProcessed(Guid commandId, 
+        public WardenCheckResultProcessed(Guid requestId, 
             string userId,
             Guid organizationId,
             Guid wardenId,
             object result, 
             DateTime createdAt)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             UserId = userId;
             OrganizationId = organizationId;
             WardenId = wardenId;

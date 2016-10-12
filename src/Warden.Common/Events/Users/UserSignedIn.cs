@@ -4,7 +4,7 @@ namespace Warden.Common.Events.Users
 {
     public class UserSignedIn : IAuthenticatedEvent
     {
-        public Guid CommandId { get; }
+        public Guid RequestId { get; }
         public string UserId { get; }
         public string Email { get; }
         public string Role { get; }
@@ -14,9 +14,9 @@ namespace Warden.Common.Events.Users
         {
         }
 
-        public UserSignedIn(Guid commandId, string userId, string email, string role, string state)
+        public UserSignedIn(Guid requestId, string userId, string email, string role, string state)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             UserId = userId;
             Email = email;
             Role = role;

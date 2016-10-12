@@ -26,7 +26,7 @@ namespace Warden.Services.Organizations.Handlers
                 command.Name, command.Description);
             var organization = await _organizationService.GetAsync(command.OrganizationId);
             var owner = organization.Value.Users.First(x => x.UserId == command.UserId);
-            await _bus.PublishAsync(new OrganizationCreated(command.Details.Id, command.OrganizationId, command.Name,
+            await _bus.PublishAsync(new OrganizationCreated(command.Request.Id, command.OrganizationId, command.Name,
                 command.Description, command.UserId, owner.Email, owner.Role, owner.CreatedAt));
         }
     }

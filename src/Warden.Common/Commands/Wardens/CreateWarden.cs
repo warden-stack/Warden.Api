@@ -4,7 +4,7 @@ namespace Warden.Common.Commands.Wardens
 {
     public class CreateWarden : IAuthenticatedCommand
     {
-        public CommandDetails Details { get; set; }
+        public Request Request { get; set; }
         public string UserId { get; set; }
         public Guid OrganizationId { get; set; }
         public Guid WardenId { get; set; }

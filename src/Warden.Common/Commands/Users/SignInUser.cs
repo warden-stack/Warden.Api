@@ -2,7 +2,7 @@
 {
     public class SignInUser : IAuthenticatedCommand
     {
-        public CommandDetails Details { get; set; }
+        public Request Request { get; set; }
         public string AccessToken { get; set; }
         public string UserId { get; set; }
     }

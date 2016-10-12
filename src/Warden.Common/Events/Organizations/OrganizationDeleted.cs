@@ -4,7 +4,7 @@ namespace Warden.Common.Events.Organizations
 {
     public class OrganizationDeleted : IAuthenticatedEvent
     {
-        public Guid CommandId { get; }
+        public Guid RequestId { get; }
         public Guid Id { get; }
         public string UserId { get; }
 
@@ -12,9 +12,9 @@ namespace Warden.Common.Events.Organizations
         {
         }
 
-        public OrganizationDeleted(Guid commandId, Guid id, string userId)
+        public OrganizationDeleted(Guid requestId, Guid id, string userId)
         {
-            CommandId = commandId;
+            RequestId = requestId;
             Id = id;
             UserId = userId;
         }

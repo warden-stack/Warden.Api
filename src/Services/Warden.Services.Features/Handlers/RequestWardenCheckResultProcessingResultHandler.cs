@@ -2,6 +2,7 @@
 using RawRabbit;
 using Warden.Common.Commands;
 using Warden.Common.Commands.WardenChecks;
+using Warden.Common.Events.Features;
 using Warden.Services.Features.Domain;
 using Warden.Services.Features.Services;
 
@@ -23,7 +24,13 @@ namespace Warden.Services.Features.Handlers
             var featureAvailable = await _userFeaturesManager
                 .IsFeatureIfAvailableAsync(command.UserId, FeatureType.AddWardenCheck);
             if (!featureAvailable)
+            {
+                await _bus.PublishAsync(new FeatureRejected(command.Request.Id,
+                    command.UserId, FeatureType.AddWardenCheck.ToString(),
+                    "Warden check limit reached."));
+
                 return;
+            }
 
             await _bus.PublishAsync(new ProcessWardenCheckResult
             {
@@ -32,7 +39,7 @@ namespace Warden.Services.Features.Handlers
                 OrganizationId = command.OrganizationId,
                 WardenId = command.WardenId,
                 Check = command.Check,
-                Details = command.Details.Copy()
+                Request = command.Request
             });
         }
     }

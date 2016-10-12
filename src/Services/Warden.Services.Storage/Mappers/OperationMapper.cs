@@ -12,9 +12,9 @@ namespace Warden.Services.Storage.Mappers
                 Origin = source.origin,
                 Resource = source.resource,
                 State = source.state,
+                Message = source.message,
                 CreatedAt = source.createdAt,
-                UpdatedAt = source.updatedAt,
-                CompletedAt = source.completedAt
+                UpdatedAt = source.updatedAt
             };
     }
 }

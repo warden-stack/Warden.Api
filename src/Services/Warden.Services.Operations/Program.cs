@@ -3,6 +3,7 @@ using Warden.Common.Commands.Organizations;
 using Warden.Common.Commands.WardenChecks;
 using Warden.Common.Commands.Wardens;
 using Warden.Common.Events.ApiKeys;
+using Warden.Common.Events.Features;
 using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Wardens;
 using Warden.Common.Host;
@@ -30,6 +31,7 @@ namespace Warden.Services.Operations
                 .SubscribeToEvent<OrganizationCreated>()
                 .SubscribeToEvent<WardenCreated>()
                 .SubscribeToEvent<WardenCheckResultProcessed>()
+                .SubscribeToEvent<FeatureRejected>()
                 .Build()
                 .Run();
         }

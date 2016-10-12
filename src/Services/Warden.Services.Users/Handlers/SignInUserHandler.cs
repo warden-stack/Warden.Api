@@ -37,13 +37,13 @@ namespace Warden.Services.Users.Handlers
                 await _userService.CreateAsync(auth0User.UserId, auth0User.Email, Roles.User);
                 user = await _userService.GetAsync(auth0User.UserId);
                 userId = user.Value.UserId;
-                await _bus.PublishAsync(new NewUserSignedIn(command.Details.Id, userId, user.Value.Email,
+                await _bus.PublishAsync(new NewUserSignedIn(command.Request.Id, userId, user.Value.Email,
                     user.Value.Role, user.Value.State, user.Value.CreatedAt));
 
                 return;
             }
             userId = user.Value.UserId;
-            await _bus.PublishAsync(new UserSignedIn(command.Details.Id,
+            await _bus.PublishAsync(new UserSignedIn(command.Request.Id,
                 userId, user.Value.Email, user.Value.Role, user.Value.State));
         }
     }

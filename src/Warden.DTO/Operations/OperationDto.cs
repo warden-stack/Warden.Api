@@ -10,8 +10,8 @@ namespace Warden.DTO.Operations
         public string Origin { get; set; }
         public string Resource { get; set; }
         public string State { get; set; }
+        public string Message { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public DateTime? CompletedAt { get; set; }
     }
 }
