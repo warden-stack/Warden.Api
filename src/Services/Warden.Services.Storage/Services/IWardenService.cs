@@ -7,5 +7,7 @@ namespace Warden.Services.Storage.Services
     {
         Task CreateWardenAsync(Guid id, string name, Guid organizationId, 
             string userId, DateTime createdAt, bool enabled);
+
+        Task DeleteWardenAsync(Guid id, Guid organizationId);
     }
 }

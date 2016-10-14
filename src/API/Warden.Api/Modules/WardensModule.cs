@@ -16,7 +16,7 @@ namespace Warden.Api.Modules
                 .OnSuccessAccepted("organizations/{organizationId}/wardens/{0}")
                 .DispatchAsync());
 
-            Delete("", async args => await For<DeleteWarden>()
+            Delete("{wardenId}", async args => await For<DeleteWarden>()
                 .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
         }

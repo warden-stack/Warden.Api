@@ -46,5 +46,19 @@ namespace Warden.Services.Storage.Services
             });
             await _organizationRepository.UpdateAsync(organization.Value);
         }
+
+        public async Task DeleteWardenAsync(Guid id, Guid organizationId)
+        {
+            var organization = await _organizationRepository.GetAsync(organizationId);
+            if (organization.HasNoValue)
+                throw new ArgumentException($"Organization {organizationId} has not been found.");
+
+            var warden = organization.Value.Wardens.FirstOrDefault(x => x.Id == id);
+            if (warden == null)
+                return;
+
+            organization.Value.Wardens.Remove(warden);
+            await _organizationRepository.UpdateAsync(organization.Value);
+        }
     }
 }
