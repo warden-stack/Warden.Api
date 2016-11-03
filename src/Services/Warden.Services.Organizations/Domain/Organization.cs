@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Warden.Common.Domain;
 using Warden.Common.Extensions;
-using Warden.Services.Domain;
 
 namespace Warden.Services.Organizations.Domain
 {

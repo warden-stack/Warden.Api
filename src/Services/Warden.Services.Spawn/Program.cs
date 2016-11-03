@@ -11,7 +11,7 @@ namespace Warden.Services.Spawn
             WebServiceHost
                 .Create<Startup>(port: 10006)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToCommand<SpawnWarden>()
                 .Build()
                 .Run();

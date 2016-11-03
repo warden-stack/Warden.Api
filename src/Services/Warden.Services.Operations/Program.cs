@@ -18,7 +18,7 @@ namespace Warden.Services.Operations
             WebServiceHost
                 .Create<Startup>(port: 10010)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToCommand<RequestNewApiKey>()
                 .SubscribeToCommand<CreateApiKey>()
                 .SubscribeToCommand<RequestNewOrganization>()

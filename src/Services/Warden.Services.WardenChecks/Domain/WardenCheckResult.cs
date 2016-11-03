@@ -1,5 +1,5 @@
 ﻿using System;
-using Warden.Services.Domain;
+using Warden.Common.Domain;
 
 namespace Warden.Services.WardenChecks.Domain
 {

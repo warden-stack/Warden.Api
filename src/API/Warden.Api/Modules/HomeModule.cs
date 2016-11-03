@@ -1,5 +1,5 @@
-﻿using Warden.Api.Core.Commands;
-using Warden.Api.Core.Services;
+﻿using Warden.Api.Commands;
+using Warden.Api.Services;
 
 namespace Warden.Api.Modules
 {

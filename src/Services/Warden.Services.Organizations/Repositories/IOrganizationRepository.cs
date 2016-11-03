@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Common.Types;
-using Warden.Services.Domain;
 using Warden.Services.Organizations.Domain;
 
 namespace Warden.Services.Organizations.Repositories

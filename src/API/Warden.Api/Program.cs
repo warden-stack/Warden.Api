@@ -11,7 +11,7 @@ namespace Warden.Api
             WebServiceHost
                 .Create<Startup>(name: "Warden API", port: 5000, integrateWithIIS: true)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToEvent<ApiKeyCreated>()
                 .Build()
                 .Run();

@@ -16,7 +16,7 @@ namespace Warden.Services.Storage
             WebServiceHost
                 .Create<Startup>(port: 10000)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToEvent<ApiKeyCreated>()
                 .SubscribeToEvent<NewUserSignedIn>()
                 .SubscribeToEvent<UserSignedIn>()

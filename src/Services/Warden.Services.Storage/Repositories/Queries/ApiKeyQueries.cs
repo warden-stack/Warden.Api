@@ -4,8 +4,8 @@ using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
 using Warden.Common.Types;
 using Warden.DTO.ApiKeys;
-using Warden.Services.Mongo;
 using Warden.Services.Storage.Queries;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.Storage.Repositories.Queries
 {

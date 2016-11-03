@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
-using Warden.Services.Mongo;
 using Warden.Services.Organizations.Domain;
 using Warden.Services.Organizations.Queries;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.Organizations.Repositories.Queries
 {

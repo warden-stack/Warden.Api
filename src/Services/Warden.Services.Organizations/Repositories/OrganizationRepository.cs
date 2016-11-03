@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Warden.Common.Types;
-using Warden.Services.Domain;
 using Warden.Services.Organizations.Domain;
 using Warden.Services.Organizations.Queries;
-using Warden.Services.Mongo;
 using Warden.Services.Organizations.Repositories.Queries;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.Organizations.Repositories
 {

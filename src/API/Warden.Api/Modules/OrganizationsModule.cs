@@ -1,6 +1,6 @@
 ﻿using Nancy;
-using Warden.Api.Core.Commands;
-using Warden.Api.Core.Services;
+using Warden.Api.Commands;
+using Warden.Api.Services;
 using Warden.Common.Commands.Organizations;
 
 namespace Warden.Api.Modules

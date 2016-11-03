@@ -10,7 +10,6 @@
       "version": "1.0.0"
     },
     "Warden.Common": "1.0.0-*",
-    "Warden.Services": "1.0.0-*",
     "Autofac": "4.1.0",
     "Nancy": "2.0.0-barneyrubble",
     "NLog.Extensions.Logging": "1.0.0-*",
@@ -21,8 +20,7 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.Owin": "1.0.0",
     "Newtonsoft.Json": "9.0.1",
-    "OctoPack": "3.4.1",
-    "MongoDB.Driver": "2.3.0-rc1",
+    "MongoDB.Driver": "2.3.0",
     "RawRabbit": "1.10.0",
     "RawRabbit.vNext": "1.10.0"
   },

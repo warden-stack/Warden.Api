@@ -13,7 +13,7 @@ namespace Warden.Services.Organizations
             WebServiceHost
                 .Create<Startup>(port: 10002)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToCommand<CreateOrganization>()
                 .SubscribeToCommand<CreateWarden>()
                 .SubscribeToCommand<DeleteWarden>()

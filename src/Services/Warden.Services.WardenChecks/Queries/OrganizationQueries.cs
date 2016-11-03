@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
-using Warden.Services.Mongo;
+using Warden.Common.Mongo;
 using Warden.Services.WardenChecks.Domain;
 
 namespace Warden.Services.WardenChecks.Queries

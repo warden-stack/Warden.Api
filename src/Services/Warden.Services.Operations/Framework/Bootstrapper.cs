@@ -8,8 +8,8 @@ using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Events;
 using Warden.Common.Extensions;
-using Warden.Services.Mongo;
-using Warden.Services.Nancy;
+using Warden.Common.Mongo;
+using Warden.Common.Nancy;
 using Warden.Services.Operations.Repositories;
 using Warden.Services.Operations.Services;
 

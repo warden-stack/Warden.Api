@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Responses.Negotiation;
-using Warden.Api.Core.Commands;
+using Warden.Api.Commands;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
 

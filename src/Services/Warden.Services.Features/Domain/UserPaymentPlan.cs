@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Warden.Services.Domain;
+using Warden.Common.Domain;
 
 namespace Warden.Services.Features.Domain
 {

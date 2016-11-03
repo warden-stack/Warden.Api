@@ -1,7 +1,7 @@
-﻿using Warden.Api.Core.Commands;
-using Warden.Api.Core.Queries;
-using Warden.Api.Core.Services;
-using Warden.Api.Core.Storage;
+﻿using Warden.Api.Commands;
+using Warden.Api.Queries;
+using Warden.Api.Services;
+using Warden.Api.Storage;
 using Warden.Common.Types;
 using Warden.DTO.Operations;
 

@@ -1,4 +1,4 @@
-﻿using Warden.Services.Nancy;
+﻿using Warden.Common.Nancy;
 
 namespace Warden.Services.Features.Modules
 {

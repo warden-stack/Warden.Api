@@ -4,7 +4,7 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Commands;
 using Warden.Common.Commands.Wardens;
-using Warden.Services.Nancy;
+using Warden.Common.Nancy;
 using Warden.Services.Spawn.Handlers;
 
 namespace Warden.Services.Spawn.Framework

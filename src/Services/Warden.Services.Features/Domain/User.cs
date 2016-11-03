@@ -1,6 +1,6 @@
 ﻿using System;
+using Warden.Common.Domain;
 using Warden.Common.Extensions;
-using Warden.Services.Domain;
 
 namespace Warden.Services.Features.Domain
 {

@@ -82,11 +82,11 @@ namespace Warden.Common.Host
                 return this;
             }
 
-            public BusBuilder UseRabbitMq()
+            public BusBuilder UseRabbitMq(string queueName = null)
             {
                 _bus = _resolver.Resolve<IBusClient>();
 
-                return new BusBuilder(_webHost, _bus, _resolver);
+                return new BusBuilder(_webHost, _bus, _resolver, queueName);
             }
 
             public override WebServiceHost Build()
@@ -100,18 +100,20 @@ namespace Warden.Common.Host
             private readonly IWebHost _webHost;
             private readonly IBusClient _bus;
             private readonly IResolver _resolver;
+            private readonly string _queueName;
 
-            public BusBuilder(IWebHost webHost, IBusClient bus, IResolver resolver)
+            public BusBuilder(IWebHost webHost, IBusClient bus, IResolver resolver, string queueName = null)
             {
                 _webHost = webHost;
                 _bus = bus;
                 _resolver = resolver;
+                _queueName = queueName;
             }
 
             public BusBuilder SubscribeToCommand<TCommand>() where TCommand : ICommand
             {
                 var commandHandler = _resolver.Resolve<ICommandHandler<TCommand>>();
-                _bus.WithCommandHandlerAsync(commandHandler);
+                _bus.WithCommandHandlerAsync(commandHandler, _queueName);
 
                 return this;
             }
@@ -119,7 +121,7 @@ namespace Warden.Common.Host
             public BusBuilder SubscribeToEvent<TEvent>() where TEvent : IEvent
             {
                 var eventHandler = _resolver.Resolve<IEventHandler<TEvent>>();
-                _bus.WithEventHandlerAsync(eventHandler);
+                _bus.WithEventHandlerAsync(eventHandler, _queueName);
 
                 return this;
             }

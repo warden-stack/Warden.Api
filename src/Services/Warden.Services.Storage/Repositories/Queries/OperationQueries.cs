@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Warden.Common.Extensions;
 using Warden.DTO.Operations;
-using Warden.Services.Mongo;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.Storage.Repositories.Queries
 {

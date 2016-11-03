@@ -16,12 +16,12 @@ using Warden.Common.Events.Organizations;
 using Warden.Common.Events.Users;
 using Warden.Common.Events.Wardens;
 using Warden.Common.Extensions;
+using Warden.Common.Mongo;
+using Warden.Common.Nancy;
 using Warden.Services.Features.Handlers;
 using Warden.Services.Features.Repositories;
 using Warden.Services.Features.Services;
 using Warden.Services.Features.Settings;
-using Warden.Services.Mongo;
-using Warden.Services.Nancy;
 
 namespace Warden.Services.Features.Framework
 {

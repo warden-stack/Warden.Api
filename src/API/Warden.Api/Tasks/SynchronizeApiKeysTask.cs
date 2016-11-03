@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Warden.Api.Core.Filters;
-using Warden.Api.Core.Queries;
-using Warden.Api.Core.Services;
-using Warden.Api.Core.Storage;
+using Warden.Api.Queries;
+using Warden.Api.Services;
+using Warden.Api.Storage;
 using Warden.Common.Tasks;
 
 namespace Warden.Api.Tasks

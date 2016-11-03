@@ -4,8 +4,8 @@ using MongoDB.Driver;
 using Warden.Common.Types;
 using Warden.Services.Users.Domain;
 using Warden.Services.Users.Queries;
-using Warden.Services.Mongo;
 using Warden.Services.Users.Repositories.Queries;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.Users.Repositories
 {

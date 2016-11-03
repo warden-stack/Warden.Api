@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
-using Warden.Services.Mongo;
 using Warden.Services.WardenChecks.Domain.Minified;
+using Warden.Common.Mongo;
 
 namespace Warden.Services.WardenChecks.Queries
 {

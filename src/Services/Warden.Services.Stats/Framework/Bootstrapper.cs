@@ -4,7 +4,7 @@ using RawRabbit;
 using RawRabbit.vNext;
 using Warden.Common.Events;
 using Warden.Common.Events.Wardens;
-using Warden.Services.Nancy;
+using Warden.Common.Nancy;
 using Warden.Services.Stats.Handlers.Events;
 
 namespace Warden.Services.Stats.Framework

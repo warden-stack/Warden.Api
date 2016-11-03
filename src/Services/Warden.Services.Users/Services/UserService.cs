@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Warden.Common.Domain;
 using Warden.Common.Types;
-using Warden.Services.Domain;
 using Warden.Services.Users.Domain;
 using Warden.Services.Users.Repositories;
 

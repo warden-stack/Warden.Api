@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Warden.Common.Domain;
 using Warden.DTO.Wardens;
-using Warden.Services.Domain;
 using Warden.Services.Storage.Repositories;
 using Warden.Common.Extensions;
 

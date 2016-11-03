@@ -13,7 +13,7 @@ namespace Warden.Services.WardenChecks
             WebServiceHost
                 .Create<Startup>(port: 10003)
                 .UseAutofac(Bootstrapper.LifetimeScope)
-                .UseRabbitMq()
+                .UseRabbitMq(queueName: typeof(Program).Namespace)
                 .SubscribeToCommand<ProcessWardenCheckResult>()
                 .SubscribeToEvent<OrganizationCreated>()
                 .SubscribeToEvent<WardenCreated>()
