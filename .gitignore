@@ -113,3 +113,6 @@ packages/
 *.lock.json
 /src/.vs
 src/.idea.Warden.Api/
+
+appsettings.local.json
+appsettings.docker.json
