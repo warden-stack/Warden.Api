@@ -11,8 +11,7 @@ namespace Warden.Api.IoC.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<FilterResolver>().As<IFilterResolver>();
-            var coreAssembly = Assembly.Load(new AssemblyName("Warden.Api.Core"));
-            builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(openGenericServiceType: typeof(IFilter<,>));
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsClosedTypesOf(typeof(IFilter<,>));
         }
     }
 }
