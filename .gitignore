@@ -115,4 +115,3 @@ packages/
 src/.idea.Warden.Api/
 
 appsettings.local.json
-appsettings.docker.json
