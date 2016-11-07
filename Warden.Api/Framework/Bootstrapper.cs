@@ -6,12 +6,14 @@ using Nancy.Bootstrapper;
 using NLog;
 using RawRabbit;
 using RawRabbit.vNext;
+using RawRabbit.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
 using Warden.Api.IoC.Modules;
 using Warden.Api.Settings;
 using Warden.Common.Caching;
 using Warden.Common.Caching.Redis;
+using Warden.Common.Extensions;
 using Warden.Common.Tasks;
 
 namespace Warden.Api.Framework
@@ -35,10 +37,12 @@ namespace Warden.Api.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
-                builder.RegisterInstance(GetConfigurationValue<Auth0Settings>());
-                builder.RegisterInstance(GetConfigurationValue<RedisSettings>());
-                builder.RegisterInstance(GetConfigurationValue<StorageSettings>());
-                builder.RegisterInstance(BusClientFactory.CreateDefault())
+                builder.RegisterInstance(_configuration.GetSettings<Auth0Settings>());
+                builder.RegisterInstance(_configuration.GetSettings<RedisSettings>());
+                builder.RegisterInstance(_configuration.GetSettings<StorageSettings>());
+                var rawRabbitConfiguration = _configuration.GetSettings<RawRabbitConfiguration>();
+                builder.RegisterInstance(rawRabbitConfiguration).SingleInstance();
+                builder.RegisterInstance(BusClientFactory.CreateDefault(rawRabbitConfiguration))
                     .As<IBusClient>();
                 builder.RegisterModule<DispatcherModule>();
                 builder.RegisterModule<StorageModule>();
@@ -81,19 +85,6 @@ namespace Warden.Api.Framework
                 .WithHeader("Access-Control-Allow-Headers",
                     "Authorization,Accept,Origin,Content-Type,User-Agent,X-Requested-With")
                 .WithHeader("Access-Control-Expose-Headers", "X-ResourceId");
-        }
-
-        private T GetConfigurationValue<T>(string section = "") where T : new()
-        {
-            if (string.IsNullOrWhiteSpace(section))
-            {
-                section = typeof(T).Name.Replace("Settings", string.Empty);
-            }
-
-            var configurationValue = new T();
-            _configuration.GetSection(section).Bind(configurationValue);
-
-            return configurationValue;
         }
     }
 }
