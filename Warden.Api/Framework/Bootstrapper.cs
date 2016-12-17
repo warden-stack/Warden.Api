@@ -9,9 +9,10 @@ using RawRabbit.vNext;
 using RawRabbit.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
-using Warden.Api.IoC.Modules;
+using Nancy.Authentication.Stateless;
+using Warden.Api.Authentication;
+using Warden.Api.IoC;
 using Warden.Api.Settings;
-using Warden.Common.Caching;
 using Warden.Common.Extensions;
 using Warden.Common.Caching.Redis;
 using Warden.Common.Tasks;
@@ -37,19 +38,16 @@ namespace Warden.Api.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
-                builder.RegisterInstance(_configuration.GetSettings<Auth0Settings>());
                 builder.RegisterInstance(_configuration.GetSettings<RedisSettings>());
                 builder.RegisterInstance(_configuration.GetSettings<StorageSettings>());
+                builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
+                builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>()).SingleInstance();
+                builder.RegisterInstance(_configuration.GetSettings<JwtTokenSettings>()).SingleInstance();
                 var rawRabbitConfiguration = _configuration.GetSettings<RawRabbitConfiguration>();
                 builder.RegisterInstance(rawRabbitConfiguration).SingleInstance();
                 builder.RegisterInstance(BusClientFactory.CreateDefault(rawRabbitConfiguration))
                     .As<IBusClient>();
-                builder.RegisterModule<DispatcherModule>();
-                builder.RegisterModule<StorageModule>();
-                builder.RegisterModule<FilterModule>();
-                builder.RegisterModule<ServiceModule>();
-                builder.RegisterModule<EventHandlersModule>();
-                builder.RegisterModule<InMemoryCacheModule>();
+                builder.RegisterModule<ModuleContainer>();
                 builder.RegisterModule(new TasksModule(typeof(Startup).GetTypeInfo().Assembly));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {
@@ -82,6 +80,7 @@ namespace Warden.Api.Framework
             {
                 AddCorsHeaders(ctx.Response);
             };
+            SetupTokenAuthentication(container, pipelines);
             var tasks = container.Resolve<IEnumerable<ITask>>();
             var tasksHandler = container.Resolve<ITaskHandler>();
             Task.Factory.StartNew(() => tasksHandler.ExecuteTasksAsync(tasks), TaskCreationOptions.LongRunning);
@@ -96,6 +95,20 @@ namespace Warden.Api.Framework
                 .WithHeader("Access-Control-Allow-Headers",
                     "Authorization,Accept,Origin,Content-Type,User-Agent,X-Requested-With")
                 .WithHeader("Access-Control-Expose-Headers", "X-ResourceId");
+        }
+
+        private void SetupTokenAuthentication(ILifetimeScope container, IPipelines pipelines)
+        {
+            var jwtTokenHandler = container.Resolve<IJwtTokenHandler>();
+            var statelessAuthConfiguration =
+                new StatelessAuthenticationConfiguration(ctx =>
+                {
+                    var token = jwtTokenHandler.GetFromAuthorizationHeader(ctx.Request.Headers.Authorization);
+                    var isValid = jwtTokenHandler.IsValid(token);
+
+                    return isValid ? new WardenIdentity(token.Sub) : null;
+                });
+            StatelessAuthentication.Enable(pipelines, statelessAuthConfiguration);
         }
     }
 }

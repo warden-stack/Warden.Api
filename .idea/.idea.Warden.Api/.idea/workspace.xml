@@ -24,58 +24,80 @@
       <file leaf-file-name="AccountModule.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/AccountModule.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+            <state relative-caret-position="867">
+              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
               <folding>
-                <marker date="1481995739223" expanded="true" signature="6:127" ph="..." />
-                <marker date="1481995739223" expanded="true" signature="157:788" ph="{...}" />
-                <marker date="1481995739223" expanded="true" signature="203:786" ph="{...}" />
-                <marker date="1481995739223" expanded="true" signature="465:780" ph="{...}" />
+                <marker date="1481997453586" expanded="true" signature="6:245" ph="..." />
+                <marker date="1481997453586" expanded="true" signature="275:1899" ph="{...}" />
+                <marker date="1481997453586" expanded="true" signature="321:1897" ph="{...}" />
+                <marker date="1481997453586" expanded="true" signature="714:1891" ph="{...}" />
+                <marker date="1481997453586" expanded="true" signature="1317:1628" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiKeysModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/ApiKeysModule.cs">
+      <file leaf-file-name="Bootstrapper.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+            <state relative-caret-position="263">
+              <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
               <folding>
-                <marker date="1481995758322" expanded="true" signature="6:232" ph="..." />
-                <marker date="1481995758322" expanded="true" signature="262:1110" ph="{...}" />
-                <marker date="1481995758322" expanded="true" signature="308:1108" ph="{...}" />
-                <marker date="1481995758322" expanded="true" signature="620:1102" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="6:481" ph="..." />
+                <marker date="1481997790247" expanded="true" signature="513:4866" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="572:4864" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="936:1052" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="1141:2544" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="2662:2947" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="3047:3714" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="3777:4187" ph="{...}" />
+                <marker date="1481997790247" expanded="true" signature="4282:4858" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/HomeModule.cs">
+      <file leaf-file-name="Startup.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Startup.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+              <folding>
+                <marker date="1481997314873" expanded="true" signature="6:395" ph="..." />
+                <marker date="1481997314873" expanded="true" signature="417:2226" ph="{...}" />
+                <marker date="1481997314873" expanded="true" signature="444:2224" ph="{...}" />
+                <marker date="1481997314873" expanded="true" signature="694:1082" ph="{...}" />
+                <marker date="1481997314873" expanded="true" signature="1162:1445" ph="{...}" />
+                <marker date="1481997314873" expanded="true" signature="1224:1289" ph="/* services.AddMemoryCache(); ... */" />
+                <marker date="1481997314873" expanded="true" signature="1556:1973" ph="{...}" />
+                <marker date="1481997314873" expanded="true" signature="2071:2218" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthenticationModule.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Modules/AuthenticationModule.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1481997203094" expanded="true" signature="6:47" ph="..." />
+                <marker date="1481997203094" expanded="true" signature="130:352" ph="{...}" />
+                <marker date="1481997203094" expanded="true" signature="199:346" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IUserStorage.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/IUserStorage.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+              <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
               <folding>
-                <marker date="1481995767781" expanded="true" signature="6:82" ph="..." />
-                <marker date="1481995767781" expanded="true" signature="112:507" ph="{...}" />
-                <marker date="1481995767781" expanded="true" signature="155:505" ph="{...}" />
-                <marker date="1481995767781" expanded="true" signature="398:499" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WardensModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/WardensModule.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-              <folding>
-                <marker date="1481995438701" expanded="true" signature="6:148" ph="..." />
-                <marker date="1481995438701" expanded="true" signature="178:959" ph="{...}" />
-                <marker date="1481995438701" expanded="true" signature="224:957" ph="{...}" />
-                <marker date="1481995438701" expanded="true" signature="540:951" ph="{...}" />
+                <marker date="1481997410576" expanded="true" signature="6:110" ph="..." />
+                <marker date="1481997410576" expanded="true" signature="176:304" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -84,97 +106,78 @@
       <file leaf-file-name="project.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../Warden.Api/project.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+            <state relative-caret-position="88">
+              <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
               <folding>
-                <marker date="1481989267020" expanded="true" signature="0:2364" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="69:101" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="121:1746" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1764:1915" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1787:1911" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1809:1907" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1842:1900" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1937:2005" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="1963:2001" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="2018:2102" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="2124:2218" ph="{...}" />
-                <marker date="1481989267020" expanded="true" signature="2141:2214" ph="[...]" />
-                <marker date="1481989267020" expanded="true" signature="2233:2362" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="0:2449" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="69:101" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="121:1831" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="1849:2000" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="1872:1996" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="1894:1992" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="1927:1985" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="2022:2090" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="2048:2086" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="2103:2187" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="2209:2303" ph="{...}" />
+                <marker date="1481997080908" expanded="true" signature="2226:2299" ph="[...]" />
+                <marker date="1481997080908" expanded="true" signature="2318:2447" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WardenChecksModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/WardenChecksModule.cs">
+      <file leaf-file-name="appsettings.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/appsettings.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+            <state relative-caret-position="255">
+              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
               <folding>
-                <marker date="1481995695445" expanded="true" signature="6:134" ph="..." />
-                <marker date="1481995695445" expanded="true" signature="164:844" ph="{...}" />
-                <marker date="1481995695445" expanded="true" signature="215:842" ph="{...}" />
-                <marker date="1481995695445" expanded="true" signature="554:836" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="0:1140" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="9:76" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="91:194" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="208:284" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="297:383" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="399:546" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="445:542" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="563:1138" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="946:1031" ph="{...}" />
+                <marker date="1481997521631" expanded="true" signature="1046:1134" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WardenSpawnModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/WardenSpawnModule.cs">
+      <file leaf-file-name="appsettings.docker.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/appsettings.docker.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+            <state relative-caret-position="85">
+              <caret line="5" column="78" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
               <folding>
-                <marker date="1481995684039" expanded="true" signature="6:127" ph="..." />
-                <marker date="1481995684039" expanded="true" signature="157:716" ph="{...}" />
-                <marker date="1481995684039" expanded="true" signature="207:714" ph="{...}" />
-                <marker date="1481995684039" expanded="true" signature="485:708" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="0:1144" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="9:76" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="91:194" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="208:289" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="302:388" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="404:551" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="450:547" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="568:1142" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="950:1035" ph="{...}" />
+                <marker date="1481997519374" expanded="true" signature="1050:1138" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/UserModule.cs">
+      <file leaf-file-name="UserStorage.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+            <state relative-caret-position="119">
+              <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
               <folding>
-                <marker date="1481995722659" expanded="true" signature="6:135" ph="..." />
-                <marker date="1481995722659" expanded="true" signature="165:734" ph="{...}" />
-                <marker date="1481995722659" expanded="true" signature="208:732" ph="{...}" />
-                <marker date="1481995722659" expanded="true" signature="473:726" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrganizationsModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/OrganizationsModule.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-              <folding>
-                <marker date="1481995709265" expanded="true" signature="6:148" ph="..." />
-                <marker date="1481995709265" expanded="true" signature="178:1074" ph="{...}" />
-                <marker date="1481995709265" expanded="true" signature="230:1072" ph="{...}" />
-                <marker date="1481995709265" expanded="true" signature="511:1066" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OperationModule.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/OperationModule.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
-              <folding>
-                <marker date="1481995731012" expanded="true" signature="6:206" ph="..." />
-                <marker date="1481995731012" expanded="true" signature="236:1028" ph="{...}" />
-                <marker date="1481995731012" expanded="true" signature="284:1026" ph="{...}" />
-                <marker date="1481995731012" expanded="true" signature="606:1020" ph="{...}" />
+                <marker date="1481997421257" expanded="true" signature="6:110" ph="..." />
+                <marker date="1481997421257" expanded="true" signature="186:687" ph="{...}" />
+                <marker date="1481997421257" expanded="true" signature="306:370" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -191,38 +194,48 @@
         <option value="$PROJECT_DIR$/../../Warden.Api/Storage/IApiKeyStorage.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Storage/ApiKeyStorage.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Storage/IOperationStorage.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/Storage/IUserStorage.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Storage/OperationStorage.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Services/ISecuredRequestService.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Services/SecuredRequestService.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/project.json" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Validation/a.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Validation/IValidator.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Validation/IValidatorResolver.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Validation/ValidatorResolver.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Framework/a.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Framework/CommandRequestHandler.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/ModuleBase.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/IoC/Modules/a.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/IoC/Container.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/WardensModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/WardenSpawnModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/WardenChecksModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/OrganizationsModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/UserModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/OperationModule.cs" />
-        <option value="$PROJECT_DIR$/../../Warden.Api/Modules/AccountModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/ApiKeysModule.cs" />
         <option value="$PROJECT_DIR$/../../Warden.Api/Modules/HomeModule.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/IoC/Container.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Authentication/Class1.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Authentication/WardenIdentity.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Authentication/IJwtTokenHandler.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Authentication/JwtToken.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/project.json" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Authentication/JwtTokenHandler.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/IoC/Modules/a.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/IoC/ModuleContainer.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Settings/a.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Startup.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Storage/IUserStorage.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Modules/AccountModule.cs" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/appsettings.docker.json" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/appsettings.json" />
+        <option value="$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1720" />
     <option name="y" value="30" />
-    <option name="width" value="1720" />
+    <option name="width" value="1700" />
     <option name="height" value="1410" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -290,7 +303,7 @@
               <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Validation" />
+              <option name="myItemId" value="Settings" />
               <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
             </PATH_ELEMENT>
           </PATH>
@@ -352,29 +365,14 @@
               <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Warden.Api (3 projects)" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Warden.Api" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commands" />
-              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
         <option name="show-file-system" value="false" />
         <option name="show-all-items" value="false" />
       </pane>
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="Auth0&#9;null&#9;null" />
   </component>
   <component name="RunManager" selected=".NET Project.Default">
     <configuration default="true" type="DotNetProject" factoryName=".NET Project">
@@ -426,11 +424,14 @@
       <workItem from="1481989442059" duration="30000" />
       <workItem from="1481993388239" duration="228000" />
       <workItem from="1481995015171" duration="930000" />
+      <workItem from="1481996445615" duration="638000" />
+      <workItem from="1481997127030" duration="292000" />
+      <workItem from="1481997436566" duration="363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1933000" />
+    <option name="totallyTimeSpent" value="3226000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -442,11 +443,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1720" y="30" width="1720" height="1410" extended-state="4" />
+    <frame x="1720" y="30" width="1700" height="1410" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Change Signature" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24910395" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25876662" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors in solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32858273" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -476,67 +477,20 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Filters/BrowseUsersFilter.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding>
-            <marker date="1481989027272" expanded="true" signature="6:126" ph="..." />
-            <marker date="1481989027272" expanded="true" signature="225:375" ph="{...}" />
-            <marker date="1481989027272" expanded="true" signature="322:369" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Handlers/ApiKeyCreatedHandler.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-          <folding>
-            <marker date="1481989058523" expanded="true" signature="6:127" ph="..." />
-            <marker date="1481989058523" expanded="true" signature="229:647" ph="{...}" />
-            <marker date="1481989058523" expanded="true" signature="370:440" ph="{...}" />
-            <marker date="1481989058523" expanded="true" signature="501:641" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/IApiKeyStorage.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding>
-            <marker date="1481989077747" expanded="true" signature="6:122" ph="..." />
-            <marker date="1481989077747" expanded="true" signature="190:348" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <marker date="1481989102844" expanded="true" signature="6:96" ph="..." />
-            <marker date="1481989102844" expanded="true" signature="172:505" ph="{...}" />
-            <marker date="1481989102844" expanded="true" signature="292:356" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1481995247358" expanded="true" signature="6:447" ph="..." />
-            <marker date="1481995247358" expanded="true" signature="479:4170" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="538:4168" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="902:1018" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="1107:2579" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="2697:2982" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3082:3689" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3752:4162" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="6:481" ph="..." />
+            <marker date="1481997790247" expanded="true" signature="513:4866" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="572:4864" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="936:1052" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="1141:2544" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="2662:2947" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="3047:3714" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="3777:4187" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="4282:4858" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -545,85 +499,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="138" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481995247358" expanded="true" signature="6:447" ph="..." />
-            <marker date="1481995247358" expanded="true" signature="479:4170" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="538:4168" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="902:1018" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="1107:2579" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="2697:2982" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3082:3689" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3752:4162" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Dockerfile.local">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="138" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481995247358" expanded="true" signature="6:447" ph="..." />
-            <marker date="1481995247358" expanded="true" signature="479:4170" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="538:4168" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="902:1018" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="1107:2579" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="2697:2982" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3082:3689" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3752:4162" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Dockerfile.local">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="138" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481995247358" expanded="true" signature="6:447" ph="..." />
-            <marker date="1481995247358" expanded="true" signature="479:4170" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="538:4168" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="902:1018" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="1107:2579" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="2697:2982" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3082:3689" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3752:4162" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Dockerfile.local">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="90" selection-start-line="4" selection-start-column="90" selection-end-line="4" selection-end-column="138" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/appsettings.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -638,10 +513,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-          <folding>
-            <marker date="1481989120342" expanded="true" signature="6:115" ph="..." />
-            <marker date="1481989120342" expanded="true" signature="186:258" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -659,23 +531,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Startup.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="60" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Warden.Api/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481989027265" expanded="true" signature="6:96" ph="..." />
-            <marker date="1481989027265" expanded="true" signature="118:565" ph="{...}" />
-            <marker date="1481989027265" expanded="true" signature="145:563" ph="{...}" />
-            <marker date="1481989027265" expanded="true" signature="198:557" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -683,11 +543,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481989116822" expanded="true" signature="6:122" ph="..." />
-            <marker date="1481989116822" expanded="true" signature="202:756" ph="{...}" />
-            <marker date="1481989116822" expanded="true" signature="324:388" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -695,22 +551,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding>
-            <marker date="1481989132394" expanded="true" signature="6:115" ph="..." />
-            <marker date="1481989132394" expanded="true" signature="201:556" ph="{...}" />
-            <marker date="1481989132394" expanded="true" signature="326:390" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/IUserStorage.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <marker date="1481989124154" expanded="true" signature="6:96" ph="..." />
-            <marker date="1481989124154" expanded="true" signature="162:224" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -718,11 +559,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding>
-            <marker date="1481989027272" expanded="true" signature="6:126" ph="..." />
-            <marker date="1481989027272" expanded="true" signature="225:375" ph="{...}" />
-            <marker date="1481989027272" expanded="true" signature="322:369" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -730,12 +567,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-          <folding>
-            <marker date="1481989058523" expanded="true" signature="6:127" ph="..." />
-            <marker date="1481989058523" expanded="true" signature="229:647" ph="{...}" />
-            <marker date="1481989058523" expanded="true" signature="370:440" ph="{...}" />
-            <marker date="1481989058523" expanded="true" signature="501:641" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -743,22 +575,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding>
-            <marker date="1481989077747" expanded="true" signature="6:122" ph="..." />
-            <marker date="1481989077747" expanded="true" signature="190:348" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <marker date="1481989102844" expanded="true" signature="6:96" ph="..." />
-            <marker date="1481989102844" expanded="true" signature="172:505" ph="{...}" />
-            <marker date="1481989102844" expanded="true" signature="292:356" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -766,11 +583,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding>
-            <marker date="1481989238360" expanded="true" signature="6:104" ph="..." />
-            <marker date="1481989238360" expanded="true" signature="181:526" ph="{...}" />
-            <marker date="1481989238360" expanded="true" signature="188:356" ph="/* Task&lt;Maybe&lt;SecuredRequestDto&gt;&gt; GetAsync(Guid id); ... */" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -778,14 +591,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="48" column="11" selection-start-line="17" selection-start-column="0" selection-end-line="48" selection-end-column="11" />
-          <folding>
-            <marker date="1481989248838" expanded="true" signature="6:135" ph="..." />
-            <marker date="1481989248838" expanded="true" signature="232:2812" ph="{...}" />
-            <marker date="1481989248838" expanded="true" signature="406:492" ph="{...}" />
-            <marker date="1481989248838" expanded="true" signature="494:2010" ph="/* public async Task&lt;Maybe&lt;SecuredRequestDto&gt;&gt; GetAsync(Guid id) ... */" />
-            <marker date="1481989248838" expanded="true" signature="2102:2275" ph="{...}" />
-            <marker date="1481989248838" expanded="true" signature="2373:2806" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -801,10 +607,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-          <folding>
-            <marker date="1481995129159" expanded="true" signature="66:183" ph="{...}" />
-            <marker date="1481995129159" expanded="true" signature="106:181" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -812,10 +615,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding>
-            <marker date="1481995135871" expanded="true" signature="31:123" ph="{...}" />
-            <marker date="1481995135871" expanded="true" signature="73:121" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -823,12 +623,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding>
-            <marker date="1481995144226" expanded="true" signature="47:479" ph="{...}" />
-            <marker date="1481995144226" expanded="true" signature="105:477" ph="{...}" />
-            <marker date="1481995144226" expanded="true" signature="225:277" ph="{...}" />
-            <marker date="1481995144226" expanded="true" signature="320:471" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -836,15 +631,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-          <folding>
-            <marker date="1481995151761" expanded="true" signature="6:47" ph="..." />
-            <marker date="1481995151761" expanded="true" signature="80:663" ph="{...}" />
-            <marker date="1481995151761" expanded="true" signature="130:661" ph="{...}" />
-            <marker date="1481995151761" expanded="true" signature="234:254" ph="{...}" />
-            <marker date="1481995151761" expanded="true" signature="321:341" ph="{...}" />
-            <marker date="1481995151761" expanded="true" signature="465:485" ph="{...}" />
-            <marker date="1481995151761" expanded="true" signature="586:655" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -852,11 +639,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-          <folding>
-            <marker date="1481995123463" expanded="true" signature="66:247" ph="{...}" />
-            <marker date="1481995123463" expanded="true" signature="119:245" ph="{...}" />
-            <marker date="1481995123463" expanded="true" signature="194:239" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +649,6 @@
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
             <marker date="1480964164738" expanded="true" signature="6:182" ph="..." />
-            <marker date="1480964164738" expanded="true" signature="214:12103" ph="{...}" />
             <marker date="1480964164738" expanded="true" signature="327:10883" ph="{...}" />
             <marker date="1480964164738" expanded="true" signature="390:480" ph="{...}" />
             <marker date="1480964164738" expanded="true" signature="490:740" ph="/// Gets all registered application startup tasks ... " />
@@ -912,20 +694,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1481995220814" expanded="true" signature="6:280" ph="..." />
-            <marker date="1481995220814" expanded="true" signature="312:3069" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="360:3067" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="599:619" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="722:1996" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2032:2961" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2164:2225" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2592:2729" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2659:2714" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2802:2951" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2869:2936" ph="{...}" />
-            <marker date="1481995220814" expanded="true" signature="2993:3061" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -933,22 +702,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1612">
           <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-          <folding>
-            <marker date="1481995285782" expanded="true" signature="6:271" ph="..." />
-            <marker date="1481995285782" expanded="true" signature="303:4606" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="366:4604" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="1118:1451" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="1514:1590" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="1684:1837" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="1915:2006" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="2079:2159" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="2238:2323" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="2394:2577" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="2657:2837" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="2918:3044" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="3121:3601" ph="{...}" />
-            <marker date="1481995285782" expanded="true" signature="3652:4598" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -956,60 +710,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-307">
           <caret line="57" column="68" selection-start-line="57" selection-start-column="68" selection-end-line="57" selection-end-column="68" />
-          <folding>
-            <marker date="1481995361003" expanded="true" signature="6:352" ph="..." />
-            <marker date="1481995361003" expanded="true" signature="382:4796" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="435:4794" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="963:1135" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="1214:2147" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="2193:2545" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="2729:3354" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="3579:4209" ph="{...}" />
-            <marker date="1481995361003" expanded="true" signature="4735:4788" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="13" />
-          <folding>
-            <marker date="1481995247358" expanded="true" signature="6:447" ph="..." />
-            <marker date="1481995247358" expanded="true" signature="479:4170" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="538:4168" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="902:1018" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="1107:2579" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="2697:2982" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3082:3689" ph="{...}" />
-            <marker date="1481995247358" expanded="true" signature="3752:4162" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Modules/ValidatorModule.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding>
-            <marker date="1481995404790" expanded="true" signature="6:99" ph="..." />
-            <marker date="1481995404790" expanded="true" signature="133:464" ph="{...}" />
-            <marker date="1481995404790" expanded="true" signature="177:462" ph="{...}" />
-            <marker date="1481995404790" expanded="true" signature="246:456" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Container.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
-          <folding>
-            <marker date="1481995411357" expanded="true" signature="6:172" ph="..." />
-            <marker date="1481995411357" expanded="true" signature="198:858" ph="{...}" />
-            <marker date="1481995411357" expanded="true" signature="234:856" ph="{...}" />
-            <marker date="1481995411357" expanded="true" signature="322:850" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1018,10 +719,9 @@
         <state relative-caret-position="204">
           <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
           <folding>
-            <marker date="1481995684039" expanded="true" signature="6:127" ph="..." />
-            <marker date="1481995684039" expanded="true" signature="157:716" ph="{...}" />
-            <marker date="1481995684039" expanded="true" signature="207:714" ph="{...}" />
-            <marker date="1481995684039" expanded="true" signature="485:708" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="6:127" ph="..." />
+            <marker date="1481995983374" expanded="true" signature="207:714" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="485:708" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1031,10 +731,9 @@
         <state relative-caret-position="221">
           <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
           <folding>
-            <marker date="1481995438701" expanded="true" signature="6:148" ph="..." />
-            <marker date="1481995438701" expanded="true" signature="178:959" ph="{...}" />
-            <marker date="1481995438701" expanded="true" signature="224:957" ph="{...}" />
-            <marker date="1481995438701" expanded="true" signature="540:951" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="6:148" ph="..." />
+            <marker date="1481995983374" expanded="true" signature="224:957" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="540:951" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1044,10 +743,9 @@
         <state relative-caret-position="204">
           <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
           <folding>
-            <marker date="1481995695445" expanded="true" signature="6:134" ph="..." />
-            <marker date="1481995695445" expanded="true" signature="164:844" ph="{...}" />
-            <marker date="1481995695445" expanded="true" signature="215:842" ph="{...}" />
-            <marker date="1481995695445" expanded="true" signature="554:836" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="6:134" ph="..." />
+            <marker date="1481995983374" expanded="true" signature="215:842" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="554:836" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1057,10 +755,9 @@
         <state relative-caret-position="204">
           <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
           <folding>
-            <marker date="1481995722659" expanded="true" signature="6:135" ph="..." />
-            <marker date="1481995722659" expanded="true" signature="165:734" ph="{...}" />
-            <marker date="1481995722659" expanded="true" signature="208:732" ph="{...}" />
-            <marker date="1481995722659" expanded="true" signature="473:726" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="6:135" ph="..." />
+            <marker date="1481995983374" expanded="true" signature="208:732" ph="{...}" />
+            <marker date="1481995983374" expanded="true" signature="473:726" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1070,10 +767,9 @@
         <state relative-caret-position="221">
           <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
           <folding>
-            <marker date="1481995709265" expanded="true" signature="6:148" ph="..." />
-            <marker date="1481995709265" expanded="true" signature="178:1074" ph="{...}" />
-            <marker date="1481995709265" expanded="true" signature="230:1072" ph="{...}" />
-            <marker date="1481995709265" expanded="true" signature="511:1066" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="6:148" ph="..." />
+            <marker date="1481995983373" expanded="true" signature="230:1072" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="511:1066" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1083,23 +779,9 @@
         <state relative-caret-position="272">
           <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
           <folding>
-            <marker date="1481995731012" expanded="true" signature="6:206" ph="..." />
-            <marker date="1481995731012" expanded="true" signature="236:1028" ph="{...}" />
-            <marker date="1481995731012" expanded="true" signature="284:1026" ph="{...}" />
-            <marker date="1481995731012" expanded="true" signature="606:1020" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/AccountModule.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
-          <folding>
-            <marker date="1481995739223" expanded="true" signature="6:127" ph="..." />
-            <marker date="1481995739223" expanded="true" signature="157:788" ph="{...}" />
-            <marker date="1481995739223" expanded="true" signature="203:786" ph="{...}" />
-            <marker date="1481995739223" expanded="true" signature="465:780" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="6:206" ph="..." />
+            <marker date="1481995983373" expanded="true" signature="284:1026" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="606:1020" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1109,10 +791,9 @@
         <state relative-caret-position="238">
           <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
-            <marker date="1481995758322" expanded="true" signature="6:232" ph="..." />
-            <marker date="1481995758322" expanded="true" signature="262:1110" ph="{...}" />
-            <marker date="1481995758322" expanded="true" signature="308:1108" ph="{...}" />
-            <marker date="1481995758322" expanded="true" signature="620:1102" ph="{...}" />
+            <marker date="1481995983372" expanded="true" signature="6:232" ph="..." />
+            <marker date="1481995983372" expanded="true" signature="308:1108" ph="{...}" />
+            <marker date="1481995983372" expanded="true" signature="620:1102" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1122,32 +803,265 @@
         <state relative-caret-position="153">
           <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
           <folding>
-            <marker date="1481995767781" expanded="true" signature="6:82" ph="..." />
-            <marker date="1481995767781" expanded="true" signature="112:507" ph="{...}" />
-            <marker date="1481995767781" expanded="true" signature="155:505" ph="{...}" />
-            <marker date="1481995767781" expanded="true" signature="398:499" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="6:82" ph="..." />
+            <marker date="1481995983373" expanded="true" signature="155:505" ph="{...}" />
+            <marker date="1481995983373" expanded="true" signature="398:499" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Modules/ValidatorModule.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481995983372" expanded="true" signature="6:99" ph="..." />
+            <marker date="1481995983372" expanded="true" signature="177:462" ph="{...}" />
+            <marker date="1481995983372" expanded="true" signature="246:456" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Modules/MongoRepositoryModule.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1480964164740" expanded="true" signature="6:82" ph="..." />
+            <marker date="1480964164740" expanded="true" signature="166:416" ph="{...}" />
+            <marker date="1480964164740" expanded="true" signature="235:410" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Authentication/IJwtTokenHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481997007559" expanded="true" signature="75:236" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Authentication/JwtToken.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481997013555" expanded="true" signature="63:153" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Authentication/JwtTokenHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+          <folding>
+            <marker date="1481997174808" expanded="true" signature="6:88" ph="..." />
+            <marker date="1481997174808" expanded="true" signature="179:1908" ph="{...}" />
+            <marker date="1481997174808" expanded="true" signature="428:557" ph="{...}" />
+            <marker date="1481997174808" expanded="true" signature="602:882" ph="{...}" />
+            <marker date="1481997174808" expanded="true" signature="670:789" ph="{...}" />
+            <marker date="1481997174808" expanded="true" signature="962:1672" ph="{...}" />
+            <marker date="1481997174808" expanded="true" signature="1717:1902" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Authentication/JwtTokenSettings.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481997034160" expanded="true" signature="71:173" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Authentication/WardenIdentity.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481996994067" expanded="true" signature="6:62" ph="..." />
+            <marker date="1481996994067" expanded="true" signature="151:260" ph="{...}" />
+            <marker date="1481996994067" expanded="true" signature="234:254" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/ModuleContainer.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
+          <folding>
+            <marker date="1481997209752" expanded="true" signature="0:44" ph="..." />
+            <marker date="1481997209752" expanded="true" signature="143:746" ph="{...}" />
+            <marker date="1481997209752" expanded="true" signature="212:740" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Settings/AppSettings.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding>
+            <marker date="1481997240222" expanded="true" signature="60:125" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Startup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding>
+            <marker date="1481997314873" expanded="true" signature="6:395" ph="..." />
+            <marker date="1481997314873" expanded="true" signature="417:2226" ph="{...}" />
+            <marker date="1481997314873" expanded="true" signature="444:2224" ph="{...}" />
+            <marker date="1481997314873" expanded="true" signature="694:1082" ph="{...}" />
+            <marker date="1481997314873" expanded="true" signature="1162:1445" ph="{...}" />
+            <marker date="1481997314873" expanded="true" signature="1224:1289" ph="/* services.AddMemoryCache(); ... */" />
+            <marker date="1481997314873" expanded="true" signature="1556:1973" ph="{...}" />
+            <marker date="1481997314873" expanded="true" signature="2071:2218" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/IoC/Modules/AuthenticationModule.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481997203094" expanded="true" signature="6:47" ph="..." />
+            <marker date="1481997203094" expanded="true" signature="130:352" ph="{...}" />
+            <marker date="1481997203094" expanded="true" signature="199:346" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/UserStorage.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding>
+            <marker date="1481997421257" expanded="true" signature="6:110" ph="..." />
+            <marker date="1481997421257" expanded="true" signature="186:687" ph="{...}" />
+            <marker date="1481997421257" expanded="true" signature="306:370" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Storage/IUserStorage.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+          <folding>
+            <marker date="1481997410576" expanded="true" signature="6:110" ph="..." />
+            <marker date="1481997410576" expanded="true" signature="176:304" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Modules/AccountModule.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <marker date="1481997453586" expanded="true" signature="6:245" ph="..." />
+            <marker date="1481997453586" expanded="true" signature="275:1899" ph="{...}" />
+            <marker date="1481997453586" expanded="true" signature="321:1897" ph="{...}" />
+            <marker date="1481997453586" expanded="true" signature="714:1891" ph="{...}" />
+            <marker date="1481997453586" expanded="true" signature="1317:1628" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/appsettings.docker.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="78" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
+          <folding>
+            <marker date="1481997519374" expanded="true" signature="0:1144" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="9:76" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="91:194" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="208:289" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="302:388" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="404:551" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="450:547" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="568:1142" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="950:1035" ph="{...}" />
+            <marker date="1481997519374" expanded="true" signature="1050:1138" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/appsettings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding>
+            <marker date="1481997521631" expanded="true" signature="0:1140" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="9:76" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="91:194" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="208:284" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="297:383" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="399:546" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="445:542" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="563:1138" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="946:1031" ph="{...}" />
+            <marker date="1481997521631" expanded="true" signature="1046:1134" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Framework/Bootstrapper.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
+          <folding>
+            <marker date="1481997790247" expanded="true" signature="6:481" ph="..." />
+            <marker date="1481997790247" expanded="true" signature="513:4866" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="572:4864" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="936:1052" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="1141:2544" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="2662:2947" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="3047:3714" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="3777:4187" ph="{...}" />
+            <marker date="1481997790247" expanded="true" signature="4282:4858" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Warden.Api/Settings/Auth0Settings.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Warden.Api/project.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+        <state relative-caret-position="88">
+          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
           <folding>
-            <marker date="1481989267020" expanded="true" signature="0:2364" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="69:101" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="121:1746" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1764:1915" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1787:1911" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1809:1907" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1842:1900" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1937:2005" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="1963:2001" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="2018:2102" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="2124:2218" ph="{...}" />
-            <marker date="1481989267020" expanded="true" signature="2141:2214" ph="[...]" />
-            <marker date="1481989267020" expanded="true" signature="2233:2362" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="0:2449" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="69:101" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="121:1831" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="1849:2000" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="1872:1996" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="1894:1992" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="1927:1985" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="2022:2090" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="2048:2086" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="2103:2187" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="2209:2303" ph="{...}" />
+            <marker date="1481997080908" expanded="true" signature="2226:2299" ph="[...]" />
+            <marker date="1481997080908" expanded="true" signature="2318:2447" ph="{...}" />
           </folding>
         </state>
       </provider>

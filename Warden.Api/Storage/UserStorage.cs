@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Warden.Common.Types;
 using Warden.Services.Users.Shared.Dto;
 
@@ -13,7 +14,10 @@ namespace Warden.Api.Storage
             _storageClient = storageClient;
         }
 
-        public async Task<Maybe<UserDto>> GetAsync(string id)
-            => await _storageClient.GetUsingCacheAsync<UserDto>($"users/{id}");
+        public async Task<Maybe<UserDto>> GetAsync(string userId)
+            => await _storageClient.GetUsingCacheAsync<UserDto>($"users/{userId}");
+
+        public async Task<Maybe<UserSessionDto>> GetSessionAsync(Guid id)
+            => await _storageClient.GetAsync<UserSessionDto>($"user-sessions/{id}");
     }
 }
