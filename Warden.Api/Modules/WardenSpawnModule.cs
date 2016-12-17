@@ -1,14 +1,16 @@
 ﻿using Warden.Api.Commands;
 using Warden.Api.Services;
-using Warden.Common.Commands.Wardens;
+using Warden.Api.Validation;
+using Warden.Services.Spawn.Shared.Commands;
 
 namespace Warden.Api.Modules
 {
     public class WardenSpawnModule : ModuleBase
     {
         public WardenSpawnModule(ICommandDispatcher commandDispatcher,
+            IValidatorResolver validatorResolver,
             IIdentityProvider identityProvider)
-            : base(commandDispatcher, identityProvider, modulePath: "warden-spawn")
+            : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "warden-spawn")
         {
             Post("", async args => await For<SpawnWarden>()
                 .SetResourceId(x => x.WardenSpawnId)

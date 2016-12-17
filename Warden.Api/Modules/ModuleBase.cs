@@ -7,6 +7,7 @@ using Nancy.Security;
 using Warden.Api.Commands;
 using Warden.Api.Framework;
 using Warden.Api.Services;
+using Warden.Api.Validation;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
 using Warden.Common.Queries;
@@ -17,16 +18,19 @@ namespace Warden.Api.Modules
     public abstract class ModuleBase : NancyModule
     {
         private string _currentUserId;
+        private readonly IValidatorResolver _validatorResolver;
         private const string ApiKeyHeader = "x-api-key";
         protected readonly ICommandDispatcher CommandDispatcher;
         protected readonly IIdentityProvider IdentityProvider;
 
-        protected ModuleBase(ICommandDispatcher commandDispatcher, 
+        protected ModuleBase(ICommandDispatcher commandDispatcher,
+            IValidatorResolver validatorResolver,
             IIdentityProvider identityProvider, 
             string modulePath = "")
             : base(modulePath)
         {
             CommandDispatcher = commandDispatcher;
+            _validatorResolver = validatorResolver;
             IdentityProvider = identityProvider;
         }
 
@@ -34,8 +38,13 @@ namespace Warden.Api.Modules
         {
             var command = BindRequest<T>();
             var authenticatedCommand = command as IAuthenticatedCommand;
+            var culture = Request.Headers.AcceptLanguage?.FirstOrDefault()?.Item1;
+            culture = culture.Empty() ? "en-gb" : culture.TrimToLower();
             if (authenticatedCommand == null)
-                return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate, Request.Url);
+            {
+                return new CommandRequestHandler<T>(CommandDispatcher, command, Response,
+                    _validatorResolver, Negotiate, Request.Url, culture);
+            }
 
             var userId = GetUserIdFromApiKey();
             if (userId.Empty())
@@ -45,7 +54,8 @@ namespace Warden.Api.Modules
             }
             authenticatedCommand.UserId = userId;
 
-            return new CommandRequestHandler<T>(CommandDispatcher, command, Response, Negotiate, Request.Url);
+            return new CommandRequestHandler<T>(CommandDispatcher, command, Response,
+                _validatorResolver,Negotiate, Request.Url, culture);
         }
 
         private string GetUserIdFromApiKey()

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Warden.Api.Queries;
 using Warden.Common.Types;
-using Warden.DTO.Users;
+using Warden.Services.Users.Shared.Dto;
 
 namespace Warden.Api.Filters
 {

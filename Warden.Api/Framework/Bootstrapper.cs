@@ -9,13 +9,11 @@ using RawRabbit.vNext;
 using RawRabbit.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
-using RawRabbit.Configuration;
 using Warden.Api.IoC.Modules;
 using Warden.Api.Settings;
 using Warden.Common.Caching;
 using Warden.Common.Extensions;
 using Warden.Common.Caching.Redis;
-using Warden.Common.Extensions;
 using Warden.Common.Tasks;
 
 namespace Warden.Api.Framework
@@ -59,6 +57,17 @@ namespace Warden.Api.Framework
                 }
             });
             LifetimeScope = container;
+        }
+
+        protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)
+        {
+            pipelines.OnError.AddItemToEndOfPipeline((ctx, ex) =>
+            {
+                ctx.Response = ErrorResponse.FromException(ex, context.Environment);
+                AddCorsHeaders(ctx.Response);
+
+                return ctx.Response;
+            });
         }
 
         protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)

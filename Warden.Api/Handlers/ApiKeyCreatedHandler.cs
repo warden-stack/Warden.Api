@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Warden.Api.Services;
 using Warden.Common.Events;
-using Warden.Common.Events.ApiKeys;
+using Warden.Services.Users.Shared.Events;
 
 namespace Warden.Api.Handlers
 {
@@ -16,7 +16,7 @@ namespace Warden.Api.Handlers
 
         public async Task HandleAsync(ApiKeyCreated @event)
         {
-            _identityProvider.SetUserIdForApiKey(@event.ApiKey, @event.UserId);
+//            _identityProvider.SetUserIdForApiKey(@event.ApiKey, @event.UserId);
             await Task.CompletedTask;
         }
     }

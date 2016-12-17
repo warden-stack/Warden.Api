@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Warden.Api.Queries;
 using Warden.Common.Types;
-using Warden.DTO.ApiKeys;
+using Warden.Services.Users.Shared.Dto;
 
 namespace Warden.Api.Storage
 {

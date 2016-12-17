@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Responses.Negotiation;
+using NLog;
 using Warden.Api.Commands;
+using Warden.Api.Validation;
 using Warden.Common.Commands;
 using Warden.Common.Extensions;
 
@@ -11,25 +14,27 @@ namespace Warden.Api.Framework
 {
     public class CommandRequestHandler<T> where T : ICommand
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ICommandDispatcher _dispatcher;
         private readonly T _command;
         private readonly IResponseFormatter _responseFormatter;
+        private readonly IValidatorResolver _validatorResolver;
         private readonly Negotiator _negotiator;
         private Func<T, object> _responseFunc;
         private Func<T, Task<object>> _asyncResponseFunc;
         private Guid _resourceId;
 
-        public CommandRequestHandler(ICommandDispatcher dispatcher, T command, IResponseFormatter responseFormatter, 
-            Negotiator negotiator, Url url)
+        public CommandRequestHandler(ICommandDispatcher dispatcher, T command,
+            IResponseFormatter responseFormatter,
+            IValidatorResolver validatorResolver,
+            Negotiator negotiator,
+            Url url, string culture)
         {
             _dispatcher = dispatcher;
             _command = command;
-            _command.Request = new Common.Commands.Request
-            {
-                Origin = url.Path.Remove(0,1),
-                CreatedAt = DateTime.UtcNow
-            };
+            _command.Request = Common.Commands.Request.Create<T>(Guid.NewGuid(), url.Path, culture);
             _responseFormatter = responseFormatter;
+            _validatorResolver = validatorResolver;
             _negotiator = negotiator;
         }
 
@@ -73,25 +78,13 @@ namespace Warden.Api.Framework
         {
             var url = string.Format(path, _resourceId.ToString("N"));
             _command.Request.Resource = url;
+
             return OnSuccessCreated(c => url);
         }
-
 
         public CommandRequestHandler<T> OnSuccessCreated(Func<T, string> func)
         {
             _responseFunc = x => _responseFormatter.AsRedirect(func(_command)).WithStatusCode(201).WithResourceIdHeader(_resourceId);
-
-            return this;
-        }
-
-        public CommandRequestHandler<T> OnSuccessAccepted(string path)
-        {
-            var resourceEndpoint = string.Format(path, _resourceId.ToString("N"));
-            var operationEndpoint = $"operations/{_command.Request.Id:N}";
-            _command.Request.Resource = resourceEndpoint;
-            _responseFunc = x => _negotiator.WithStatusCode(202)
-                .WithHeader("X-Resource", resourceEndpoint)
-                .WithHeader("X-Operation", operationEndpoint);
 
             return this;
         }
@@ -103,8 +96,31 @@ namespace Warden.Api.Framework
             return this;
         }
 
+        public CommandRequestHandler<T> OnSuccessAccepted(string path = "")
+        {
+            var resourceEndpoint = path.Empty() ? string.Empty : string.Format(path, _resourceId.ToString("N"));
+            var operationEndpoint = $"operations/{_command.Request.Id:N}";
+            _command.Request.Resource = resourceEndpoint;
+            _responseFunc = x => _negotiator.WithStatusCode(202)
+                .WithHeader("X-Resource", resourceEndpoint)
+                .WithHeader("X-Operation", operationEndpoint);
+
+            return this;
+        }
+
         public async Task<object> DispatchAsync()
         {
+            var commandName = _command.GetType().Name;
+            var validator = _validatorResolver.Resolve<T>();
+            Logger.Debug($"Validating command: {commandName}.");
+            var errors = validator.SetPropertiesAndValidate(_command).ToArray();
+            if (errors.Any())
+            {
+                Logger.Debug($"Command: {commandName} is invalid. Errors: {errors.AggregateLines()}.");
+                throw new ValidatorException(errors);
+            }
+
+            Logger.Debug($"Dispatching command: {commandName}.");
             object response = null;
             await _dispatcher.DispatchAsync(_command);
 

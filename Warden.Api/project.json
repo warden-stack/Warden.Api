@@ -6,7 +6,13 @@
   },
   "dependencies": {
     "Warden.Common": "1.0.*",
-    "Warden.DTO": "1.0.*",
+    "Warden.Services.Operations.Shared": "1.0.*",
+    "Warden.Services.Features.Shared": "1.0.*",
+    "Warden.Services.Organizations.Shared": "1.0.*",
+    "Warden.Services.Spawn.Shared": "1.0.*",
+    "Warden.Services.Stats.Shared": "1.0.*",
+    "Warden.Services.Users.Shared": "1.0.*",
+    "Warden.Services.WardenChecks.Shared": "1.0.*",
     "Autofac": "4.1.0",
     "Humanizer.Core": "2.1.0",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
@@ -44,10 +50,6 @@
 	    	}
     	}
 		}
-  },
-  "buildOptions": {
-    "emitEntryPoint": true,
-    "preserveCompilationContext": true
   },
   "runtimeOptions": {
     "configProperties": {

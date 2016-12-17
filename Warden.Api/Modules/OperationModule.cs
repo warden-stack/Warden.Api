@@ -2,17 +2,19 @@
 using Warden.Api.Queries;
 using Warden.Api.Services;
 using Warden.Api.Storage;
+using Warden.Api.Validation;
 using Warden.Common.Types;
-using Warden.DTO.Operations;
+using Warden.Services.Operations.Shared.Dto;
 
 namespace Warden.Api.Modules
 {
     public class OperationModule : ModuleBase
     {
         public OperationModule(ICommandDispatcher commandDispatcher,
+            IValidatorResolver validatorResolver,
             IIdentityProvider identityProvider,
             IOperationStorage operationStorage)
-            : base(commandDispatcher, identityProvider, modulePath: "operations")
+            : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "operations")
         {
             Get("{requestId}", args => Fetch<GetOperation, OperationDto>
             (async x =>
