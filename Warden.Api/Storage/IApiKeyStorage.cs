@@ -7,7 +7,7 @@ namespace Warden.Api.Storage
 {
     public interface IApiKeyStorage
     {
-        Task<Maybe<string>> GetAsync(string userId, string name);
+        Task<Maybe<ApiKeyDto>> GetAsync(string userId, string name);
         Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query);
         Task<Maybe<string>> GetUserIdForApiKeyAsync(string apiKey);
     }

@@ -21,7 +21,7 @@ namespace Warden.Api.Modules
                 (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
 
             Get("", async args => await Fetch<GetApiKey, ApiKeyDto>
-                (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
+                (async x => await apiKeyStorage.GetAsync(x.UserId, x.Name)).HandleAsync());
 
             Post("", async args => await For<RequestNewApiKey>()
                 .OnSuccessAccepted("api-keys")
