@@ -20,11 +20,14 @@ namespace Warden.Api.Modules
             Get("", async args => await FetchCollection<BrowseApiKeys, ApiKeyDto>
                 (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
 
+            Get("", async args => await Fetch<GetApiKey, ApiKeyDto>
+                (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
+
             Post("", async args => await For<RequestNewApiKey>()
                 .OnSuccessAccepted("api-keys")
                 .DispatchAsync());
 
-            Delete("", async args => await For<DeleteApiKey>()
+            Delete("{name}", async args => await For<DeleteApiKey>()
                 .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
         }

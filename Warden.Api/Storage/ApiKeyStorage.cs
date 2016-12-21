@@ -14,6 +14,9 @@ namespace Warden.Api.Storage
             _storageClient = storageClient;
         }
 
+        public async Task<Maybe<ApiKeyDto>> GetAsync(string userId, string name)
+            => await _storageClient.GetUsingCacheAsync<ApiKeyDto>($"users/{userId}/api-keys/{name}");
+
         public async Task<Maybe<string>> GetUserIdForApiKeyAsync(string apiKey)
             => await _storageClient.GetUsingCacheAsync<string>($"api-keys/{apiKey}");
 

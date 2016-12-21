@@ -48,6 +48,14 @@ namespace Warden.Api.Modules
 
             Post("sign-out", async args => await For<SignOut>()
                 .DispatchAsync());
+
+            Put("account/password", async args => await For<ChangePassword>()
+                .OnSuccessAccepted("account")
+                .DispatchAsync());
+
+            Put("account/name", async args => await For<ChangeUserName>()
+                .OnSuccessAccepted("account")
+                .DispatchAsync());
         }
     }
 }
