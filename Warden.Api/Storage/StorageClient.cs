@@ -168,7 +168,6 @@ namespace Warden.Api.Storage
                 catch (Exception ex)
                 {
                     Logger.Error(ex, $"Exception occured while fetching data from endpoint: {endpoint}");
-                    Logger.Error(ex, $"Error message: {ex.ToString()}");
                 }
             }
 
