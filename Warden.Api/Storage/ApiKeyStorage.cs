@@ -21,6 +21,6 @@ namespace Warden.Api.Storage
             => await _storageClient.GetUsingCacheAsync<string>($"api-keys/{apiKey}");
 
         public async Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query)
-            => await _storageClient.GetFilteredCollectionAsync<ApiKeyDto, BrowseApiKeys>(query, $"users/{query.UserId}/api-keys");
+            => await _storageClient.GetFilteredCollectionAsync<ApiKeyDto, BrowseApiKeys>(query, $"api-keys");
     }
 }

@@ -85,7 +85,7 @@ namespace Warden.Api.Framework
             var tasksHandler = container.Resolve<ITaskHandler>();
             Task.Factory.StartNew(() => tasksHandler.ExecuteTasksAsync(tasks), TaskCreationOptions.LongRunning);
 
-            Logger.Info("API Started");
+            Logger.Info("Warden API has started.");
         }
 
         private static void AddCorsHeaders(Response response)
@@ -94,7 +94,7 @@ namespace Warden.Api.Framework
                 .WithHeader("Access-Control-Allow-Methods", "POST,PUT,GET,OPTIONS,DELETE")
                 .WithHeader("Access-Control-Allow-Headers",
                     "Authorization,Accept,Origin,Content-Type,User-Agent,X-Requested-With")
-                .WithHeader("Access-Control-Expose-Headers", "X-ResourceId");
+                .WithHeader("Access-Control-Expose-Headers", "X-ResourceId,X-Resource,X-Operation");
         }
 
         private void SetupTokenAuthentication(ILifetimeScope container, IPipelines pipelines)

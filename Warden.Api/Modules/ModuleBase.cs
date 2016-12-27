@@ -12,6 +12,7 @@ using Warden.Common.Commands;
 using Warden.Common.Extensions;
 using Warden.Common.Queries;
 using Warden.Common.Types;
+using Warden.Common.Nancy;
 
 namespace Warden.Api.Modules
 {
