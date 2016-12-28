@@ -18,10 +18,22 @@ namespace Warden.Api.Modules
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "api-keys")
         {
             Get("", async args => await FetchCollection<BrowseApiKeys, ApiKeyDto>
-                (async x => await apiKeyStorage.BrowseAsync(x)).HandleAsync());
+                (async x => await apiKeyStorage.BrowseAsync(x))
+                .MapTo(x => new 
+                {
+                    Name = x.Name,
+                    Key = x.Key
+                })
+                .HandleAsync());
 
-            Get("", async args => await Fetch<GetApiKey, ApiKeyDto>
-                (async x => await apiKeyStorage.GetAsync(x.UserId, x.Name)).HandleAsync());
+            Get("{name}", async args => await Fetch<GetApiKey, ApiKeyDto>
+                (async x => await apiKeyStorage.GetAsync(x.UserId, x.Name))
+                .MapTo(x => new 
+                {
+                    Name = x.Name,
+                    Key = x.Key
+                })
+                .HandleAsync());
 
             Post("", async args => await For<RequestNewApiKey>()
                 .OnSuccessAccepted("api-keys")

@@ -83,7 +83,12 @@ namespace Warden.Api.Framework
             SetupTokenAuthentication(container, pipelines);
             var tasks = container.Resolve<IEnumerable<ITask>>();
             var tasksHandler = container.Resolve<ITaskHandler>();
-            Task.Factory.StartNew(() => tasksHandler.ExecuteTasksAsync(tasks), TaskCreationOptions.LongRunning);
+            Task.Factory.StartNew(async () => 
+                { 
+                    //Wait till Storage Service is ready.
+                    await Task.Delay(5000);
+                    await tasksHandler.ExecuteTasksAsync(tasks); 
+                }, TaskCreationOptions.LongRunning);
 
             Logger.Info("Warden API has started.");
         }
