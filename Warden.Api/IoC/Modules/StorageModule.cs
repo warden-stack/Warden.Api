@@ -22,6 +22,10 @@ namespace Warden.Api.IoC.Modules
             builder.RegisterType<OperationStorage>()
                 .As<IOperationStorage>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<OrganizationStorage>()
+                .As<IOrganizationStorage>()
+                .InstancePerLifetimeScope();               
         }
     }
 }

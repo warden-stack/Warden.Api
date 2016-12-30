@@ -1,8 +1,11 @@
 ﻿using Nancy;
 using Warden.Api.Commands;
+using Warden.Api.Queries;
 using Warden.Api.Services;
+using Warden.Api.Storage;
 using Warden.Api.Validation;
 using Warden.Services.Organizations.Shared.Commands;
+using Warden.Services.Organizations.Shared.Dto;
 
 namespace Warden.Api.Modules
 {
@@ -10,9 +13,14 @@ namespace Warden.Api.Modules
     {
         public OrganizationsModule(ICommandDispatcher commandDispatcher,
             IValidatorResolver validatorResolver,
-            IIdentityProvider identityProvider)
+            IIdentityProvider identityProvider,
+            IOrganizationStorage organizationStorage)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "organizations")
         {
+            Get("{id}", async args => await Fetch<GetOrganization, OrganizationDto>
+                (async x => await organizationStorage.GetAsync(x.UserId, x.Id))
+                .HandleAsync());
+
             Post("", async args => await For<RequestNewOrganization>()
                 .SetResourceId(x => x.OrganizationId)
                 .OnSuccessAccepted("organizations/{0}")
