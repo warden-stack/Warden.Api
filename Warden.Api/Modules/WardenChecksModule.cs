@@ -15,7 +15,7 @@ namespace Warden.Api.Modules
         {
             Post("", async args => await For<RequestProcessWardenCheckResult>()
                 .SetResourceId(x => x.ResultId)
-                .OnSuccessAccepted("organizations/{organizationId}/wardens/{wardenId}/checks/{0}")
+                .OnSuccessAccepted($"organizations/{args.organizationId}/wardens/{args.wardenId}/checks/" + "{0}")
                 .DispatchAsync());
         }
     }

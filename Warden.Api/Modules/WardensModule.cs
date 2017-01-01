@@ -16,7 +16,7 @@ namespace Warden.Api.Modules
         {
             Post("", async args => await For<RequestNewWarden>()
                 .SetResourceId(x => x.WardenId)
-                .OnSuccessAccepted("organizations/{organizationId}/wardens/{0}")
+                .OnSuccessAccepted($"organizations/{args.organizationId}/wardens/" + "{0}")
                 .DispatchAsync());
 
             Delete("{wardenId}", async args => await For<DeleteWarden>()
