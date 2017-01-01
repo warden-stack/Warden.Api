@@ -16,6 +16,9 @@ using Warden.Api.Settings;
 using Warden.Common.Extensions;
 using Warden.Common.Caching.Redis;
 using Warden.Common.Tasks;
+using Warden.Common.Nancy;
+using Warden.Common.Nancy.Serialization;
+using Newtonsoft.Json;
 
 namespace Warden.Api.Framework
 {
@@ -43,6 +46,7 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<JwtTokenSettings>()).SingleInstance();
+                builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
                 var rawRabbitConfiguration = _configuration.GetSettings<RawRabbitConfiguration>();
                 builder.RegisterInstance(rawRabbitConfiguration).SingleInstance();
                 builder.RegisterInstance(BusClientFactory.CreateDefault(rawRabbitConfiguration))

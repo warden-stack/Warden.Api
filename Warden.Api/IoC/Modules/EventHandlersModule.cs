@@ -9,8 +9,8 @@ namespace Warden.Api.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var coreAssembly = typeof(EventHandlersModule).GetTypeInfo().Assembly;
-            builder.RegisterAssemblyTypes(coreAssembly).AsClosedTypesOf(typeof(IEventHandler<>));
+            var assembly = typeof(EventHandlersModule).GetTypeInfo().Assembly;
+            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IEventHandler<>));
         }
     }
 }
