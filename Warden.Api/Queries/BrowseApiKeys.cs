@@ -2,8 +2,7 @@
 
 namespace Warden.Api.Queries
 {
-    public class BrowseApiKeys : PagedQueryBase
+    public class BrowseApiKeys : AuthenticatedPagedQueryBase
     {
-        public string UserId { get; set; }
     }
 }
