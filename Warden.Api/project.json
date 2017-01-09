@@ -16,7 +16,7 @@
     "Autofac": "4.1.0",
     "Humanizer.Core": "2.1.0",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
-    "jose-jwt": "2.0.2",
+    "jose-jwt": "2.1.0",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Hosting": "1.1.0",

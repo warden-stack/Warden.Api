@@ -8,7 +8,6 @@ namespace Warden.Api.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule<AuthenticationModule>();
             builder.RegisterModule<DispatcherModule>();
             builder.RegisterModule<MongoRepositoryModule>();
             builder.RegisterModule<ServiceModule>();

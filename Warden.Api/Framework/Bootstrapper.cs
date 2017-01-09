@@ -10,7 +10,7 @@ using RawRabbit.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
 using Nancy.Authentication.Stateless;
-using Warden.Api.Authentication;
+using Warden.Common.Security;
 using Warden.Api.IoC;
 using Warden.Api.Settings;
 using Warden.Common.Extensions;
@@ -19,6 +19,7 @@ using Warden.Common.Tasks;
 using Warden.Common.Nancy;
 using Warden.Common.Nancy.Serialization;
 using Newtonsoft.Json;
+using Warden.Common.RabbitMq;
 
 namespace Warden.Api.Framework
 {
@@ -47,16 +48,14 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<JwtTokenSettings>()).SingleInstance();
                 builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
-                var rawRabbitConfiguration = _configuration.GetSettings<RawRabbitConfiguration>();
-                builder.RegisterInstance(rawRabbitConfiguration).SingleInstance();
-                builder.RegisterInstance(BusClientFactory.CreateDefault(rawRabbitConfiguration))
-                    .As<IBusClient>();
                 builder.RegisterModule<ModuleContainer>();
                 builder.RegisterModule(new TasksModule(typeof(Startup).GetTypeInfo().Assembly));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {
                     builder.RegisterComponent(component);
                 }
+                SecurityContainer.Register(builder, _configuration);
+                RabbitMqContainer.Register(builder, _configuration.GetSettings<RawRabbitConfiguration>());
             });
             LifetimeScope = container;
         }

@@ -1,11 +1,11 @@
 ﻿using System;
 using Nancy;
-using Warden.Api.Authentication;
 using Warden.Api.Commands;
 using Warden.Api.Services;
 using Warden.Api.Storage;
 using Warden.Api.Validation;
 using Warden.Common.Extensions;
+using Warden.Common.Security;
 using Warden.Services.Users.Shared.Commands;
 
 namespace Warden.Api.Modules
@@ -44,9 +44,11 @@ namespace Warden.Api.Modules
                 .DispatchAsync());
 
             Post("sign-up", async args => await For<SignUp>()
+                .OnSuccessAccepted("account")
                 .DispatchAsync());
 
             Post("sign-out", async args => await For<SignOut>()
+                .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
 
             Put("account/password", async args => await For<ChangePassword>()
