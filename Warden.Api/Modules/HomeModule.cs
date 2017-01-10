@@ -11,7 +11,7 @@ namespace Warden.Api.Modules
             IIdentityProvider identityProvider)
             : base(commandDispatcher, validatorResolver, identityProvider)
         {
-            Get("", args => $"Warden API is running on: {Context.Request.Url}");
+          Get("", args => "Welcome to the Warden API!");
         }
     }
 }

@@ -11,6 +11,7 @@ using NLog;
 using NLog.Extensions.Logging;
 using Nancy.Owin;
 using Warden.Api.Framework;
+using Lockbox.Client.Extensions;
 
 namespace Warden.Api
 {
@@ -27,6 +28,11 @@ namespace Warden.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .SetBasePath(env.ContentRootPath);
+
+            if (env.IsProduction())
+            {
+                builder.AddLockbox();
+            }
 
             Configuration = builder.Build();
         }

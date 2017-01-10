@@ -4,12 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Nancy;
 using Nancy.Bootstrapper;
 using NLog;
-using RawRabbit;
-using RawRabbit.vNext;
 using RawRabbit.Configuration;
 using System.Reflection;
 using System.Threading.Tasks;
-using Nancy.Authentication.Stateless;
 using Warden.Common.Security;
 using Warden.Api.IoC;
 using Warden.Api.Settings;
@@ -20,12 +17,15 @@ using Warden.Common.Nancy;
 using Warden.Common.Nancy.Serialization;
 using Newtonsoft.Json;
 using Warden.Common.RabbitMq;
+using Warden.Common.Handlers;
+using Warden.Common.Exceptionless;
 
 namespace Warden.Api.Framework
 {
     public class Bootstrapper : AutofacNancyBootstrapper
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static IExceptionHandler _exceptionHandler;
         private readonly IConfiguration _configuration;
         private readonly IContainer _existingContainer;
         public static ILifetimeScope LifetimeScope { get; private set; }
@@ -47,6 +47,8 @@ namespace Warden.Api.Framework
                 builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<JwtTokenSettings>()).SingleInstance();
+                builder.RegisterInstance(_configuration.GetSettings<ExceptionlessSettings>()).SingleInstance();
+                builder.RegisterType<ExceptionlessExceptionHandler>().As<IExceptionHandler>().SingleInstance();
                 builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
                 builder.RegisterModule<ModuleContainer>();
                 builder.RegisterModule(new TasksModule(typeof(Startup).GetTypeInfo().Assembly));
@@ -64,8 +66,11 @@ namespace Warden.Api.Framework
         {
             pipelines.OnError.AddItemToEndOfPipeline((ctx, ex) =>
             {
+                _exceptionHandler.Handle(ex, ctx.ToExceptionData(),
+                    "Request details", "Warden", "API");
                 ctx.Response = ErrorResponse.FromException(ex, context.Environment);
                 AddCorsHeaders(ctx.Response);
+
 
                 return ctx.Response;
             });
@@ -83,7 +88,8 @@ namespace Warden.Api.Framework
             {
                 AddCorsHeaders(ctx.Response);
             };
-            SetupTokenAuthentication(container, pipelines);
+            pipelines.SetupTokenAuthentication(container);
+            _exceptionHandler = container.Resolve<IExceptionHandler>();
             var tasks = container.Resolve<IEnumerable<ITask>>();
             var tasksHandler = container.Resolve<ITaskHandler>();
             Task.Factory.StartNew(async () => 
@@ -103,20 +109,6 @@ namespace Warden.Api.Framework
                 .WithHeader("Access-Control-Allow-Headers",
                     "Authorization,Accept,Origin,Content-Type,User-Agent,X-Requested-With")
                 .WithHeader("Access-Control-Expose-Headers", "X-ResourceId,X-Resource,X-Operation");
-        }
-
-        private void SetupTokenAuthentication(ILifetimeScope container, IPipelines pipelines)
-        {
-            var jwtTokenHandler = container.Resolve<IJwtTokenHandler>();
-            var statelessAuthConfiguration =
-                new StatelessAuthenticationConfiguration(ctx =>
-                {
-                    var token = jwtTokenHandler.GetFromAuthorizationHeader(ctx.Request.Headers.Authorization);
-                    var isValid = jwtTokenHandler.IsValid(token);
-
-                    return isValid ? new WardenIdentity(token.Sub) : null;
-                });
-            StatelessAuthentication.Enable(pipelines, statelessAuthConfiguration);
         }
     }
 }
