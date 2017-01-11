@@ -43,7 +43,6 @@ namespace Warden.Api.Framework
             container.Update(builder =>
             {
                 builder.RegisterInstance(_configuration.GetSettings<RedisSettings>());
-                builder.RegisterInstance(_configuration.GetSettings<StorageSettings>());
                 builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<FeatureSettings>()).SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<JwtTokenSettings>()).SingleInstance();

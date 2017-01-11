@@ -1,31 +1,45 @@
-﻿using Autofac;
+﻿using System.Linq;
+using Autofac;
+using Warden.Api.Filters;
 using Warden.Api.Storage;
+using Warden.Common.Caching;
+using Warden.Common.Security;
 
 namespace Warden.Api.IoC.Modules
 {
     public class StorageModule : Module
     {
+        private readonly static string StorageSettingsKey = "storage-settings";
+        
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<StorageClient>()
+            builder.Register(x => x.Resolve<ServicesSettings>()
+                    .Single(s => s.Name == "storage"))
+                .Named<ServiceSettings>(StorageSettingsKey)
+                .SingleInstance();
+
+            builder.Register(x => new StorageClient(x.Resolve<ICache>(), 
+                    x.Resolve<IFilterResolver>(), 
+                    x.Resolve<IServiceAuthenticatorClient>(),
+                    x.ResolveNamed<ServiceSettings>(StorageSettingsKey)))
                 .As<IStorageClient>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<UserStorage>()
                 .As<IUserStorage>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<ApiKeyStorage>()
                 .As<IApiKeyStorage>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<OperationStorage>()
                 .As<IOperationStorage>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<OrganizationStorage>()
                 .As<IOrganizationStorage>()
-                .InstancePerLifetimeScope();               
+                .SingleInstance();               
         }
     }
 }

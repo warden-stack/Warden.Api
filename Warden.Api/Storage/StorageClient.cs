@@ -4,15 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 using Warden.Api.Filters;
-using Warden.Api.Settings;
 using Warden.Common.Caching;
 using Warden.Common.Extensions;
 using Warden.Common.Queries;
+using Warden.Common.Security;
 using Warden.Common.Types;
 
 namespace Warden.Api.Storage
@@ -20,18 +19,22 @@ namespace Warden.Api.Storage
     public class StorageClient : IStorageClient
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private bool _isAuthenticated = false;
         private readonly ICache _cache;
         private readonly IFilterResolver _filterResolver;
-        private readonly StorageSettings _settings;
+        private readonly IServiceAuthenticatorClient _serviceAuthenticatorClient;
+        private readonly ServiceSettings _settings;
         private readonly HttpClient _httpClient;
 
         private string BaseAddress
             => _settings.Url.EndsWith("/", StringComparison.CurrentCulture) ? _settings.Url : $"{_settings.Url}/";
 
-        public StorageClient(ICache cache, IFilterResolver filterResolver, StorageSettings settings)
+        public StorageClient(ICache cache, IFilterResolver filterResolver, 
+            IServiceAuthenticatorClient serviceAuthenticatorClient, ServiceSettings settings)
         {
             _cache = cache;
             _filterResolver = filterResolver;
+            _serviceAuthenticatorClient = serviceAuthenticatorClient;
             _settings = settings;
             _httpClient = new HttpClient {BaseAddress = new Uri(BaseAddress)};
             _httpClient.DefaultRequestHeaders.Remove("Accept");
@@ -150,7 +153,27 @@ namespace Warden.Api.Storage
         private async Task<Maybe<HttpResponseMessage>> GetResponseAsync(string endpoint)
         {
             if (endpoint.Empty())
+            {
                 throw new ArgumentException("Endpoint can not be empty.");
+            }
+            if (!_isAuthenticated)
+            {
+                var token = await _serviceAuthenticatorClient.AuthenticateAsync(_settings.Url, new Credentials
+                {
+                    Username = _settings.Username,
+                    Password = _settings.Password
+                });
+                if (token.HasNoValue)
+                {
+                    Logger.Error("Could not get authentication token for Storage Service.");
+
+                    return null;
+                }
+
+                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                _isAuthenticated = true;
+            }
 
             var retryNumber = 0;
             while (retryNumber < _settings.RetryCount)
