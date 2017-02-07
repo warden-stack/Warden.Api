@@ -16,6 +16,7 @@ namespace Warden.Api.Modules
             IValidatorResolver validatorResolver,
             IIdentityProvider identityProvider,
             IUserStorage userStorage,
+            IOperationStorage operationStorage,
             IJwtTokenHandler jwtTokenHandler,
             JwtTokenSettings jwtTokenSettings)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "")
@@ -29,9 +30,17 @@ namespace Warden.Api.Modules
                 .SetResourceId(c => c.SessionId)
                 .OnSuccess(async c =>
                 {
+                    var operation = await operationStorage.GetUpdatedAsync(c.Request.Id);
+                    if(operation.HasNoValue || !operation.Value.Success)
+                    {
+                        return HttpStatusCode.Unauthorized;
+                    }
+
                     var session = await userStorage.GetSessionAsync(c.SessionId);
                     if (session.HasNoValue)
+                    {
                         return HttpStatusCode.Unauthorized;
+                    }
 
                     return new
                     {
