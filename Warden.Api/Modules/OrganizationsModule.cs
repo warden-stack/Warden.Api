@@ -26,7 +26,7 @@ namespace Warden.Api.Modules
                 .OnSuccessAccepted("organizations/{0}")
                 .DispatchAsync());
 
-            Put("{id}", async args => await For<EditOrganization>()
+            Put("{id}", async args => await For<UpdateOrganization>()
                 .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
 
