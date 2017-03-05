@@ -6,7 +6,7 @@ using Warden.Api.Storage;
 using Warden.Api.Validation;
 using Warden.Common.Extensions;
 using Warden.Common.Types;
-using Warden.Services.Operations.Shared.Dto;
+using Warden.Services.Storage.Models.Operations;
 
 namespace Warden.Api.Modules
 {
@@ -18,7 +18,7 @@ namespace Warden.Api.Modules
             IOperationStorage operationStorage)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "operations")
         {
-            Get("{requestId}", args => Fetch<GetOperation, OperationDto>
+            Get("{requestId}", args => Fetch<GetOperation, Operation>
             (async x =>
             {
                 var operation = await operationStorage.GetAsync(x.RequestId);
@@ -29,7 +29,7 @@ namespace Warden.Api.Modules
 
                 return operation.Value.UserId == CurrentUserId
                     ? operation
-                    : new Maybe<OperationDto>();
+                    : new Maybe<Operation>();
             }).HandleAsync());
         }
     }

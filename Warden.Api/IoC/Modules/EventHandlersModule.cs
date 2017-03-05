@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
-using Warden.Common.Events;
+using Warden.Messages.Events;
 using Module = Autofac.Module;
 
 namespace Warden.Api.IoC.Modules

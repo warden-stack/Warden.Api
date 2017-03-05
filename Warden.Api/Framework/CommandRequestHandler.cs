@@ -7,7 +7,7 @@ using Nancy.Responses.Negotiation;
 using NLog;
 using Warden.Api.Commands;
 using Warden.Api.Validation;
-using Warden.Common.Commands;
+using Warden.Messages.Commands;
 using Warden.Common.Extensions;
 
 namespace Warden.Api.Framework
@@ -32,7 +32,7 @@ namespace Warden.Api.Framework
         {
             _dispatcher = dispatcher;
             _command = command;
-            _command.Request = Common.Commands.Request.Create<T>(Guid.NewGuid(), url.Path, culture);
+            _command.Request = Messages.Commands.Request.Create<T>(Guid.NewGuid(), url.Path, culture);
             _responseFormatter = responseFormatter;
             _validatorResolver = validatorResolver;
             _negotiator = negotiator;

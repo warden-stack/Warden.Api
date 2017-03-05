@@ -25,8 +25,8 @@ namespace Warden.Api.Mongo
         private static string Pluralize(Type type)
         {
             var typeName = type.Name;
-            if (typeName.EndsWith("Dto"))
-                typeName = typeName.Replace("Dto", string.Empty);
+            if (typeName.EndsWith(""))
+                typeName = typeName.Replace("", string.Empty);
 
             var pluralizedName = typeName.Pluralize();
 

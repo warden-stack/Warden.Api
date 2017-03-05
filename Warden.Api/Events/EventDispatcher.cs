@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
-using Warden.Common.Events;
+using Warden.Messages.Events;
 
 namespace Warden.Api.Events
 {

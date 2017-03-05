@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Warden.Common.Commands;
+using Warden.Messages.Commands;
 
 namespace Warden.Api.Commands
 {

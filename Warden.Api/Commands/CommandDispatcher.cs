@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RawRabbit;
 using Warden.Api.Domain.Exceptions;
-using Warden.Common.Commands;
+using Warden.Messages.Commands;
 
 namespace Warden.Api.Commands
 {

@@ -3,8 +3,8 @@ using Warden.Api.Queries;
 using Warden.Api.Services;
 using Warden.Api.Storage;
 using Warden.Api.Validation;
-using Warden.Services.Users.Shared.Commands;
-using Warden.Services.Users.Shared.Dto;
+using Warden.Messages.Commands.Users;
+using Warden.Services.Storage.Models.Users;
 
 namespace Warden.Api.Modules
 {
@@ -16,10 +16,10 @@ namespace Warden.Api.Modules
             IUserStorage userStorage)
             : base(commandDispatcher, validatorResolver, identityProvider)
         {
-            Get("account", async args => await Fetch<GetAccount, UserDto>
+            Get("account", async args => await Fetch<GetAccount, User>
                 (async x => await userStorage.GetAsync(x.UserId)).HandleAsync());
 
-            Get("usernames/{name}/available", async args => await Fetch<GetNameAvailability, AvailableResourceDto>
+            Get("usernames/{name}/available", async args => await Fetch<GetNameAvailability, AvailableResource>
                 (async x => await userStorage.IsNameAvailableAsync(x.Name)).HandleAsync());
 
             Put("account/name", async args => await For<ChangeUsername>()

@@ -1,6 +1,6 @@
 ﻿using Warden.Api.Framework;
 using Warden.Common.Host;
-using Warden.Services.Users.Shared.Events;
+using Warden.Messages.Events.Users;
 
 namespace Warden.Api
 {

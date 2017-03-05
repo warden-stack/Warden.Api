@@ -8,7 +8,7 @@ using Warden.Api.Commands;
 using Warden.Api.Framework;
 using Warden.Api.Services;
 using Warden.Api.Validation;
-using Warden.Common.Commands;
+using Warden.Messages.Commands;
 using Warden.Common.Extensions;
 using Warden.Common.Queries;
 using Warden.Common.Types;

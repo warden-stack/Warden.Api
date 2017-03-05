@@ -4,8 +4,8 @@ using Warden.Api.Queries;
 using Warden.Api.Services;
 using Warden.Api.Storage;
 using Warden.Api.Validation;
-using Warden.Services.Users.Shared.Commands;
-using Warden.Services.Users.Shared.Dto;
+using Warden.Messages.Commands.Users;
+using Warden.Services.Storage.Models.Users;
 
 namespace Warden.Api.Modules
 {
@@ -17,7 +17,7 @@ namespace Warden.Api.Modules
             IApiKeyStorage apiKeyStorage)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "api-keys")
         {
-            Get("", async args => await FetchCollection<BrowseApiKeys, ApiKeyDto>
+            Get("", async args => await FetchCollection<BrowseApiKeys, ApiKey>
                 (async x => await apiKeyStorage.BrowseAsync(x))
                 .MapTo(x => new 
                 {
@@ -26,7 +26,7 @@ namespace Warden.Api.Modules
                 })
                 .HandleAsync());
 
-            Get("{name}", async args => await Fetch<GetApiKey, ApiKeyDto>
+            Get("{name}", async args => await Fetch<GetApiKey, ApiKey>
                 (async x => await apiKeyStorage.GetAsync(x.UserId, x.Name))
                 .MapTo(x => new 
                 {

@@ -15,13 +15,13 @@ namespace Warden.Api.Services
             _securedRequestRepository = securedRequestRepository;
         }
 
-//        public async Task<Maybe<SecuredRequestDto>> GetAsync(Guid id)
+//        public async Task<Maybe<SecuredRequest>> GetAsync(Guid id)
 //        {
 //            var securedRequest = await _securedRequestRepository.GetAsync(id);
 //
 //            return securedRequest.HasNoValue
-//                ? new Maybe<SecuredRequestDto>()
-//                : new SecuredRequestDto
+//                ? new Maybe<SecuredRequest>()
+//                : new SecuredRequest
 //                {
 //                    CreatedAt = securedRequest.Value.CreatedAt,
 //                    Token = securedRequest.Value.Token,
@@ -31,14 +31,14 @@ namespace Warden.Api.Services
 //                };
 //        }
 //
-//        public async Task<Maybe<SecuredRequestDto>> GetAsync(ResourceType resourceType, Guid resourceId, string token)
+//        public async Task<Maybe<SecuredRequest>> GetAsync(ResourceType resourceType, Guid resourceId, string token)
 //        {
 //            var securedRequest = await _securedRequestRepository
 //                .GetByResourceTypeAndIdAndTokenAsync(resourceType, resourceId, token);
 //
 //            return securedRequest.HasNoValue
-//                ? new Maybe<SecuredRequestDto>()
-//                : new SecuredRequestDto
+//                ? new Maybe<SecuredRequest>()
+//                : new SecuredRequest
 //                {
 //                    CreatedAt = securedRequest.Value.CreatedAt,
 //                    Token = securedRequest.Value.Token,

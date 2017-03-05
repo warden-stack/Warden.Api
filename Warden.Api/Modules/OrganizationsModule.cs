@@ -4,8 +4,8 @@ using Warden.Api.Queries;
 using Warden.Api.Services;
 using Warden.Api.Storage;
 using Warden.Api.Validation;
-using Warden.Services.Organizations.Shared.Commands;
-using Warden.Services.Organizations.Shared.Dto;
+using Warden.Messages.Commands.Organizations;
+using Warden.Services.Storage.Models.Organizations;
 
 namespace Warden.Api.Modules
 {
@@ -17,7 +17,7 @@ namespace Warden.Api.Modules
             IOrganizationStorage organizationStorage)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "organizations")
         {
-            Get("{id}", async args => await Fetch<GetOrganization, OrganizationDto>
+            Get("{id}", async args => await Fetch<GetOrganization, Organization>
                 (async x => await organizationStorage.GetAsync(x.UserId, x.Id))
                 .HandleAsync());
 

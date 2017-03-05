@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Warden.Api.Services;
 using Warden.Api.Storage;
-using Warden.Common.Events;
-using Warden.Services.Users.Shared.Events;
+using Warden.Messages.Events;
+using Warden.Messages.Events.Users;
 
 namespace Warden.Api.Handlers
 {

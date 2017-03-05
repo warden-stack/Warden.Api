@@ -6,7 +6,7 @@ using Warden.Api.Storage;
 using Warden.Api.Validation;
 using Warden.Common.Extensions;
 using Warden.Common.Security;
-using Warden.Services.Users.Shared.Commands;
+using Warden.Messages.Commands.Users;
 
 namespace Warden.Api.Modules
 {

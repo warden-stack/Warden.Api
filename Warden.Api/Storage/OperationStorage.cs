@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Common.Types;
-using Warden.Services.Operations.Shared.Dto;
+using Warden.Services.Storage.Models.Operations;
 
 namespace Warden.Api.Storage
 {
@@ -14,10 +14,10 @@ namespace Warden.Api.Storage
             _storageClient = storageClient;
         }
 
-        public async Task<Maybe<OperationDto>> GetAsync(Guid requestId)
-            => await _storageClient.GetAsync<OperationDto>($"operations/{requestId}");
+        public async Task<Maybe<Operation>> GetAsync(Guid requestId)
+            => await _storageClient.GetAsync<Operation>($"operations/{requestId}");
 
-        public async Task<Maybe<OperationDto>> GetUpdatedAsync(Guid requestId)
+        public async Task<Maybe<Operation>> GetUpdatedAsync(Guid requestId)
         {
             var requestsCount = 0;
             var operation = await GetAsync(requestId);

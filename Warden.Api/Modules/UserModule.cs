@@ -1,7 +1,7 @@
 ﻿using Warden.Api.Commands;
 using Warden.Api.Services;
 using Warden.Api.Validation;
-using Warden.Services.Organizations.Shared.Commands;
+using Warden.Messages.Commands.Organizations;
 
 namespace Warden.Api.Modules
 {

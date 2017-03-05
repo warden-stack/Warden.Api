@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Warden.Common.Types;
-using Warden.Services.Operations.Shared.Dto;
+using Warden.Services.Storage.Models.Operations;
 
 namespace Warden.Api.Storage
 {
     public interface IOperationStorage
     {
-        Task<Maybe<OperationDto>> GetAsync(Guid requestId);
-        Task<Maybe<OperationDto>> GetUpdatedAsync(Guid requestId);
+        Task<Maybe<Operation>> GetAsync(Guid requestId);
+        Task<Maybe<Operation>> GetUpdatedAsync(Guid requestId);
     }
 }

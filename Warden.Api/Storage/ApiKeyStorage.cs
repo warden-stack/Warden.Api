@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Warden.Api.Queries;
 using Warden.Common.Types;
-using Warden.Services.Users.Shared.Dto;
+using Warden.Services.Storage.Models.Users;
 
 namespace Warden.Api.Storage
 {
@@ -14,13 +14,13 @@ namespace Warden.Api.Storage
             _storageClient = storageClient;
         }
 
-        public async Task<Maybe<ApiKeyDto>> GetAsync(string userId, string name)
-            => await _storageClient.GetUsingCacheAsync<ApiKeyDto>($"users/{userId}/api-keys/{name}");
+        public async Task<Maybe<ApiKey>> GetAsync(string userId, string name)
+            => await _storageClient.GetUsingCacheAsync<ApiKey>($"users/{userId}/api-keys/{name}");
 
         public async Task<Maybe<string>> GetUserIdForApiKeyAsync(string apiKey)
             => await _storageClient.GetUsingCacheAsync<string>($"api-keys/{apiKey}");
 
-        public async Task<Maybe<PagedResult<ApiKeyDto>>> BrowseAsync(BrowseApiKeys query)
-            => await _storageClient.GetFilteredCollectionAsync<ApiKeyDto, BrowseApiKeys>(query, $"api-keys");
+        public async Task<Maybe<PagedResult<ApiKey>>> BrowseAsync(BrowseApiKeys query)
+            => await _storageClient.GetFilteredCollectionAsync<ApiKey, BrowseApiKeys>(query, $"api-keys");
     }
 }
