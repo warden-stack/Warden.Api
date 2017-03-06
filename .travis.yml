@@ -12,3 +12,7 @@ script:
   - ./run-tests.sh
 after_success:
   - ./after-success.sh
+notifications:
+  email:
+    on_success: never
+    on_failure: always
