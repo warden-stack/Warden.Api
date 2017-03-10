@@ -4,6 +4,7 @@ using Warden.Api.Filters;
 using Warden.Api.Storage;
 using Warden.Common.Caching;
 using Warden.Common.Security;
+using Warden.Common.ServiceClients;
 
 namespace Warden.Api.IoC.Modules
 {
@@ -14,11 +15,13 @@ namespace Warden.Api.IoC.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(x => x.Resolve<ServicesSettings>()
-                    .Single(s => s.Name == "storage"))
+                    .Single(s => s.Title == "storage-service"))
                 .Named<ServiceSettings>(StorageSettingsKey)
                 .SingleInstance();
 
-            builder.Register(x => new StorageClient(x.Resolve<ICache>(), 
+            builder.Register(x => new StorageClient(
+                    x.Resolve<IServiceClient>(),
+                    x.Resolve<ICache>(), 
                     x.Resolve<IFilterResolver>(), 
                     x.Resolve<IServiceAuthenticatorClient>(),
                     x.ResolveNamed<ServiceSettings>(StorageSettingsKey)))

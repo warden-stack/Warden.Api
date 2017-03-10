@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using Warden.Common.RabbitMq;
 using Warden.Common.Handlers;
 using Warden.Common.Exceptionless;
+using Warden.Common.ServiceClients;
 
 namespace Warden.Api.Framework
 {
@@ -51,6 +52,7 @@ namespace Warden.Api.Framework
                 builder.RegisterType<ExceptionlessExceptionHandler>().As<IExceptionHandler>().SingleInstance();
                 builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
                 builder.RegisterModule<ModuleContainer>();
+                builder.RegisterModule<ServiceClientModule>();
                 builder.RegisterModule(new TasksModule(typeof(Startup).GetTypeInfo().Assembly));
                 foreach (var component in _existingContainer.ComponentRegistry.Registrations)
                 {
