@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Warden.Api.Queries;
 using Warden.Common.Types;
 using Warden.Services.Storage.Models.Organizations;
 
@@ -13,6 +14,9 @@ namespace Warden.Api.Storage
         {
             _storageClient = storageClient;
         }
+
+        public async Task<Maybe<PagedResult<Organization>>> BrowseAsync(BrowseOrganizations query)
+            => await _storageClient.GetFilteredCollectionAsync<Organization, BrowseOrganizations>(query, $"organizations");
 
         public async Task<Maybe<Organization>> GetAsync(string userId, Guid organizationId)
             => await _storageClient.GetAsync<Organization>($"organizations/{organizationId}?userId={userId}");
