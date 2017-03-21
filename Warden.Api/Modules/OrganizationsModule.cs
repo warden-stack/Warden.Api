@@ -17,7 +17,7 @@ namespace Warden.Api.Modules
             IOrganizationStorage organizationStorage)
             : base(commandDispatcher, validatorResolver, identityProvider, modulePath: "organizations")
         {
-            Get("{id}", async args => await FetchCollection<BrowseOrganizations, Organization>
+            Get("", async args => await FetchCollection<BrowseOrganizations, Organization>
                 (async x => await organizationStorage.BrowseAsync(x))
                 .HandleAsync());
 
