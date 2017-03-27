@@ -41,8 +41,6 @@ namespace Warden.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddWebEncoders();
-            //services.AddMemoryCache();
-            //services.AddOptions();
             services.AddCors();
             Container = GetServiceContainer(services);
 
@@ -52,8 +50,8 @@ namespace Warden.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
+            app.AddNLogWeb();
             env.ConfigureNLog("nlog.config");
-            app.UseJwtBearerAuthentication();
             app.UseCors(builder => builder.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
