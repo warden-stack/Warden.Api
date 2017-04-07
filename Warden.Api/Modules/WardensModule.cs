@@ -19,6 +19,11 @@ namespace Warden.Api.Modules
                 .OnSuccessAccepted($"organizations/{args.organizationId}/wardens/" + "{0}")
                 .DispatchAsync());
 
+            Post("external", async args => await For<CreateExternalWarden>()
+                .SetResourceId(x => x.WardenId)
+                .OnSuccessAccepted($"organizations/{args.organizationId}/wardens/" + "{0}")
+                .DispatchAsync());
+
             Delete("{wardenId}", async args => await For<DeleteWarden>()
                 .OnSuccess(HttpStatusCode.NoContent)
                 .DispatchAsync());
