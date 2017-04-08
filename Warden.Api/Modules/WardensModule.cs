@@ -1,5 +1,4 @@
-﻿using Nancy;
-using Warden.Api.Commands;
+﻿using Warden.Api.Commands;
 using Warden.Api.Services;
 using Warden.Api.Validation;
 using Warden.Messages.Commands.Organizations;
@@ -25,7 +24,7 @@ namespace Warden.Api.Modules
                 .DispatchAsync());
 
             Delete("{wardenId}", async args => await For<DeleteWarden>()
-                .OnSuccess(HttpStatusCode.NoContent)
+                .OnSuccessAccepted()
                 .DispatchAsync());
         }
     }
