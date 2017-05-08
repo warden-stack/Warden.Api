@@ -10,5 +10,7 @@ namespace Warden.Api.Storage
     {
         Task<Maybe<PagedResult<Organization>>> BrowseAsync(BrowseOrganizations query);
         Task<Maybe<Organization>> GetAsync(string userId, Guid organizationId);
+        Task<Maybe<Warden.Services.Storage.Models.Organizations.Warden>> GetWardenAsync(
+            string userId, Guid organizationId, Guid wardenId);
     }
 }
